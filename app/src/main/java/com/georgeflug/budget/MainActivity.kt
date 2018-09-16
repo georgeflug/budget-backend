@@ -3,7 +3,15 @@ package com.georgeflug.budget
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SimpleAdapter
+import android.widget.Toast
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import java.math.BigDecimal
+import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +22,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         prepareBudgetSpinner()
+        submitTransactionButton.setOnClickListener {
+            val amount = BigDecimal(amountText.text.toString())
+            val description = descriptionText.text.toString()
+            val budget = (budgetText.selectedItem as HashMap<String, String>)["budget"]
+            val date = SimpleDateFormat("MM-dd-yyyy").format(Date())
+            val request = URL("https://script.google.com/macros/s/AKfycbzJXrwFepauVmiodXfe81zETyqgAMcwdjR8fRjJ1NvrcpAgPPg/exec?Date=$date&Amount=$amount&Budget=$budget&Description=$description")
+            Observable.fromCallable { request.openStream().bufferedReader().use { it.readText() } }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                    }, {
+                        Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+                    })
+        }
     }
 
     private fun prepareBudgetSpinner() {
