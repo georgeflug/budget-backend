@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                        amountText.setText("")
+                        descriptionText.setText("")
                     }, {
                         Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
                     })
