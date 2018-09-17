@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import android.widget.Toast
-import com.georgeflug.budget.R.array.budgets
 import kotlinx.android.synthetic.main.fragment_add_transaction.*
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
