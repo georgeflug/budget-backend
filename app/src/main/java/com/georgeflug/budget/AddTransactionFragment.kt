@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import android.widget.Toast
+import com.georgeflug.budget.R.array.budgets
 import kotlinx.android.synthetic.main.fragment_add_transaction.*
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTransactionFragment : Fragment() {
-
-    private val budgets = listOf("Richie", "Stef", "Ben", "Big Necessities", "Charity", "Clothes - Stef", "Clothes - Richie", "Entertainment", "Groceries", "Mortgage", "Optional Important", "Gifts", "Christmas", "Richie - Projects", "Student Loan", "Subscriptions", "Home Supplies", "Travel", "Utilities")
-    private val descriptions = listOf("", "", "", "Health bills, car repairs, house repairs", "", "Clothes, hair, makeup", "", "Restaurants, bars, food, movies, outings, etc", "", "", "Gifts, optional house improvements, Christmas cards & gifts, photo books", "", "", "", "", "Insurance, Netflix, Amazon, Gym", "", "", "Internet, Phones, Electric, Water, Trash")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,10 +41,11 @@ class AddTransactionFragment : Fragment() {
     }
 
     private fun prepareBudgetSpinner() {
-        val items = budgets.mapIndexed { index, budget -> mutableMapOf("budget" to budget, "description" to descriptions[index]) }
-                .sortedBy { it["budget"] }
+        val items = Budget.values()
+                .sortedBy { it.title }
+                .map { mutableMapOf("title" to it.title, "description" to it.description) }
                 .toMutableList()
-        val from = arrayOf("budget", "description")
+        val from = arrayOf("title", "description")
         val to = intArrayOf(R.id.line1, R.id.line2)
         budgetText.adapter = SimpleAdapter(context, items, R.layout.spinner_two_lines, from, to)
     }
