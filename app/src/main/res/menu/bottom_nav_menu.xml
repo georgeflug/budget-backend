@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Add"
+        android:icon="@drawable/ic_add_box_black_24dp"
+        />
+
+    <item
+        android:title="Transactions"
+        android:icon="@drawable/ic_view_list_black_24dp"
+        />
+
+    <item
+        android:title="Budgets"
+        android:icon="@drawable/ic_insert_chart_black_24dp"
+        />
+
+</menu>
