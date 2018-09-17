@@ -20,7 +20,7 @@ class TransactionsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        TransactionRepo.getTransactions()
+        TransactionApi.getTransactions()
                 .subscribe({
                     val result = Gson().fromJson(it, TransactionApiResult::class.java)
                     val from = arrayOf("Budget", "Description", "Amount")

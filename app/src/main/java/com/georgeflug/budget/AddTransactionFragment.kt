@@ -30,7 +30,7 @@ class AddTransactionFragment : Fragment() {
             val description = descriptionText.text.toString()
             val budget = (budgetText.selectedItem as HashMap<String, String>)["budget"]
             val date = SimpleDateFormat("MM-dd-yyyy").format(Date())
-            TransactionRepo.addTransaction(date, amount.toString(), budget!!, description)
+            TransactionApi.addTransaction(date, amount.toString(), budget!!, description)
                     .subscribe({
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         amountText.setText("")
