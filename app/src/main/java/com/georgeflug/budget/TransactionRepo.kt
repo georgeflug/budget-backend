@@ -6,10 +6,15 @@ import io.reactivex.schedulers.Schedulers
 import java.net.URL
 
 object TransactionRepo {
-    private val request = URL("https://script.google.com/macros/s/AKfycbzJXrwFepauVmiodXfe81zETyqgAMcwdjR8fRjJ1NvrcpAgPPg/exec")
+    private const val url = "https://script.google.com/macros/s/AKfycbzJXrwFepauVmiodXfe81zETyqgAMcwdjR8fRjJ1NvrcpAgPPg/exec"
 
-    fun getTransactions() = Observable.fromCallable { request.openStream().bufferedReader().use { it.readText() } }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .cache()
+    fun getTransactions(): Observable<String> = getRequest(url).cache()
+
+    fun addTransaction(date: String, amount: String, budget: String, description: String): Observable<String> =
+            getRequest("$url?Date=$date&Amount=$amount&Budget=$budget&Description=$description")
+
+    private fun getRequest(requestUrl: String): Observable<String> =
+            Observable.fromCallable { URL(requestUrl).openStream().bufferedReader().use { it.readText() } }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
 }

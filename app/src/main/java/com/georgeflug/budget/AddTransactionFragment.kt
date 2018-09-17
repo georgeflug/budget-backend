@@ -7,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import android.widget.Toast
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_add_transaction.*
 import java.math.BigDecimal
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,10 +30,7 @@ class AddTransactionFragment : Fragment() {
             val description = descriptionText.text.toString()
             val budget = (budgetText.selectedItem as HashMap<String, String>)["budget"]
             val date = SimpleDateFormat("MM-dd-yyyy").format(Date())
-            val request = URL("https://script.google.com/macros/s/AKfycbzJXrwFepauVmiodXfe81zETyqgAMcwdjR8fRjJ1NvrcpAgPPg/exec?Date=$date&Amount=$amount&Budget=$budget&Description=$description")
-            Observable.fromCallable { request.openStream().bufferedReader().use { it.readText() } }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+            TransactionRepo.addTransaction(date, amount.toString(), budget!!, description)
                     .subscribe({
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         amountText.setText("")
