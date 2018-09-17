@@ -6,14 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/addTransactionFragment"
-        android:name="com.georgeflug.budget.AddTransactionFragment"
+    <FrameLayout
+        android:id="@+id/addTransactionFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/separator"
-        />
+        >
+
+        <fragment
+            android:id="@+id/addTransactionFragment"
+            android:name="com.georgeflug.budget.AddTransactionFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/transactionsFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
+        android:visibility="gone"
+        >
+
+        <fragment
+            android:id="@+id/transactionsFragment"
+            android:name="com.georgeflug.budget.TransactionsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/budgetsFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
+        android:visibility="gone"
+        >
+
+        <fragment
+            android:id="@+id/budgetsFragment"
+            android:name="com.georgeflug.budget.BudgetsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
 
     <View
         android:id="@+id/separator"
