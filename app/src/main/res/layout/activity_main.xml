@@ -34,7 +34,7 @@
 
         <fragment
             android:id="@+id/transactionsFragment"
-            android:name="com.georgeflug.budget.TransactionsFragment"
+            android:name="com.georgeflug.budget.transactions.TransactionsFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
@@ -52,7 +52,7 @@
 
         <fragment
             android:id="@+id/budgetsFragment"
-            android:name="com.georgeflug.budget.BudgetsFragment"
+            android:name="com.georgeflug.budget.budgets.BudgetsFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

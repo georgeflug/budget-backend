@@ -1,4 +1,4 @@
-package com.georgeflug.budget
+package com.georgeflug.budget.budgets
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import android.widget.Toast
+import com.georgeflug.budget.R
+import com.georgeflug.budget.api.Transaction
+import com.georgeflug.budget.api.TransactionApi
 import kotlinx.android.synthetic.main.fragment_budgets.*
-import kotlinx.android.synthetic.main.fragment_transactions.*
 import java.math.BigDecimal
 
 class BudgetsFragment : Fragment() {
@@ -29,13 +31,13 @@ class BudgetsFragment : Fragment() {
                 })
     }
 
-    private fun populateBudgets(budgets: List<HashMap<String, String>>) {
+    private fun populateBudgets(budgets: List<Transaction>) {
         val results = ArrayList<Map<String, String?>>()
 
-        budgets.groupBy { it["Budget"]!! }
-                .forEach { budget: String, rows: List<HashMap<String, String>> ->
+        budgets.groupBy { it.budget }
+                .forEach { budget: String, rows: List<Transaction> ->
                     val enumBudget = Budget.lookup(budget)
-                    val total = rows.fold(BigDecimal.ZERO) { total, row -> total + BigDecimal(row["Amount"]) }
+                    val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }
                     results.add(mapOf("title" to budget, "total" to total.toString(), "allocated" to enumBudget?.amount?.toString()))
                 }
 

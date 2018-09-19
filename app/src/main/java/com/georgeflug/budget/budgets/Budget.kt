@@ -1,4 +1,4 @@
-package com.georgeflug.budget
+package com.georgeflug.budget.budgets
 
 import java.math.BigDecimal
 

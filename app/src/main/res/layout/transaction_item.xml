@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/transactionItem"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,27 +21,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            tools:text="Line 1"
+            tools:text="Aldi (ALDI 41029 CREVE)"
             />
 
-        <TextView
-            android:id="@+id/itemBudgetText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="#aaaaaa"
-            tools:text="Line 2"
-            />
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/itemBudgetText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#aaaaaa"
+                tools:text="Groceries"
+                />
+
+            <TextView
+                android:id="@+id/itemAccountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#aaaaaa"
+                tools:text="Checking"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/itemAmountText"
-        android:layout_width="40dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_gravity="center_vertical"
-        tools:text="$20"
+        android:gravity="right"
+        tools:text="$1,520.99"
         />
 
 </LinearLayout>
