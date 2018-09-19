@@ -13,7 +13,7 @@ object TransactionApi {
             .map { Gson().fromJson(it, TransactionApiResult::class.java) }
 
     fun addTransaction(date: String, amount: String, budget: String, description: String): Observable<String> =
-            getRequest("${url}?Date=$date&Amount=$amount&Budget=$budget&Description=$description")
+            getRequest("${url}?date=$date&amount=$amount&budget=$budget&description=$description")
 
     private fun getRequest(requestUrl: String): Observable<String> =
             Observable.fromCallable { URL(requestUrl).openStream().bufferedReader().use { it.readText() } }
