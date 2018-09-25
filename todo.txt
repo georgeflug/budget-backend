@@ -1,0 +1,12 @@
+Don't get entire list of transactions when you update a transaction.
+Don't get entire list of transactions in order to calculate budget.
+Update the budgets tab when an item is added or updated.
+Use a date-picker on the edit transaction dialog.
+
+
+
+Ideas:
+Turn Budget spinner into a visual gallery of icons/text
+Move Budget selection to the top of the add/edit budget screens
+Some sort of progress indicator on the Budgets screen
+Have a way to enter positive transactions
