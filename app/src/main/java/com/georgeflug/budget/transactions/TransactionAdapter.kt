@@ -56,7 +56,7 @@ class TransactionAdapter(context: Context, private val list: List<Transaction>) 
         return when {
             transaction.description.isBlank() -> transaction.postedDescription
             transaction.postedDescription.isBlank() -> transaction.description
-            else -> "${transaction.description} {${transaction.postedDescription})"
+            else -> "${transaction.description}\n${transaction.postedDescription}"
         }
     }
 
