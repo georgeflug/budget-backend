@@ -21,74 +21,107 @@
             tools:context=".MainActivity">
 
             <TextView
-                android:id="@+id/addTransaction"
+                android:id="@+id/editTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Transaction"
+                android:text="Edit Transaction"
                 app:layout_constraintTop_toTopOf="parent"
                 android:gravity="center_horizontal"
                 android:textSize="24sp"
                 />
 
             <TextView
-                android:id="@+id/amountLabel"
+                android:id="@+id/editAmountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amount"
-                app:layout_constraintTop_toBottomOf="@id/addTransaction"
+                app:layout_constraintTop_toBottomOf="@id/editTransaction"
                 android:layout_marginTop="16dp"
                 />
 
             <EditText
-                android:id="@+id/amountText"
+                android:id="@+id/editAmountText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/amountLabel"
+                app:layout_constraintTop_toBottomOf="@id/editAmountLabel"
                 android:inputType="numberDecimal"
                 />
 
             <TextView
-                android:id="@+id/descriptionLabel"
+                android:id="@+id/editDescriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                app:layout_constraintTop_toBottomOf="@id/amountText"
+                app:layout_constraintTop_toBottomOf="@id/editAmountText"
                 android:layout_marginTop="16dp"
                 />
 
             <EditText
-                android:id="@+id/descriptionText"
+                android:id="@+id/editDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/descriptionLabel"
+                app:layout_constraintTop_toBottomOf="@id/editDescriptionLabel"
                 />
 
             <TextView
-                android:id="@+id/budgetLabel"
+                android:id="@+id/editPostedDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Posted Description"
+                app:layout_constraintTop_toBottomOf="@id/editDescriptionText"
+                android:layout_marginTop="16dp"
+                />
+
+            <TextView
+                android:id="@+id/editPostedDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/editPostedDescriptionLabel"
+                tools:text="ALDI 41029 CREVE"
+                />
+
+            <TextView
+                android:id="@+id/editBudgetLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Budget"
-                app:layout_constraintTop_toBottomOf="@id/descriptionText"
+                app:layout_constraintTop_toBottomOf="@id/editPostedDescriptionText"
                 android:layout_marginTop="16dp"
                 />
 
             <Spinner
-                android:id="@+id/budgetText"
+                android:id="@+id/editBudgetText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/budgetLabel"
+                app:layout_constraintTop_toBottomOf="@id/editBudgetLabel"
                 android:entries="@array/budgets"
+                />
+
+            <TextView
+                android:id="@+id/editDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                app:layout_constraintTop_toBottomOf="@id/editBudgetText"
+                android:layout_marginTop="16dp"
+                />
+
+            <EditText
+                android:id="@+id/editDateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/editDateLabel"
                 />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/submitTransactionButton"
+        android:id="@+id/updateTransactionButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Submit"
+        android:text="Update"
         android:background="@color/colorPrimary"
         />
 

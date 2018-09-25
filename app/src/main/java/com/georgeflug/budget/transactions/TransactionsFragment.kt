@@ -2,7 +2,6 @@ package com.georgeflug.budget.transactions
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +24,21 @@ class TransactionsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        updateTransactions()
+
+        transactionList.setOnItemClickListener { parent, view, position, id ->
+            val transaction = parent.adapter.getItem(position) as Transaction
+            if (transaction.row != -1) {
+                val dialog = EditTransactionDialog(context, transaction)
+                dialog.setOnDismissListener {
+                    updateTransactions()
+                }
+                dialog.show()
+            }
+        }
+    }
+
+    private fun updateTransactions() {
         TransactionApi.getTransactions()
                 .subscribe({
                     val transactions = it.rows.sortedByDescending(Transaction::getBestDate).toMutableList().addSections()
@@ -41,7 +55,7 @@ class TransactionsFragment : Fragment() {
             val newDate = this[i].getBestDate()
             if (newDate != lastDate) {
                 lastDate = newDate
-                result.add(Transaction("", BigDecimal(99.88), "", getFriendlyDate(newDate), "SECTION", "", "", "", ""))
+                result.add(Transaction("", BigDecimal(99.88), "", getFriendlyDate(newDate), "SECTION", "", "", "", "", -1))
             }
             result.add(this[i])
         }

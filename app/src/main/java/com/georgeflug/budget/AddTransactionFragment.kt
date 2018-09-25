@@ -25,9 +25,9 @@ class AddTransactionFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         prepareBudgetSpinner()
         submitTransactionButton.setOnClickListener {
-            val amount = BigDecimal(amountText.text.toString())
+            val amount = BigDecimal(amountText.text.toString()).negate()
             val description = descriptionText.text.toString()
-            val budget = (budgetText.selectedItem as HashMap<String, String>)["budget"]
+            val budget = (budgetText.selectedItem as HashMap<String, String>)["title"]
             val date = SimpleDateFormat("MM-dd-yyyy").format(Date())
             TransactionApi.addTransaction(date, amount.toString(), budget!!, description)
                     .subscribe({

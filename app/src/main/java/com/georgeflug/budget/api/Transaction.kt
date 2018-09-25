@@ -11,7 +11,8 @@ data class Transaction(
         val postedDate: String,
         val postedDescription: String,
         val transactionType: String,
-        val status: String
+        val status: String,
+        val row: Int
 ) {
     fun getBestDate(): String = if (date.isBlank()) postedDate else date
 }
