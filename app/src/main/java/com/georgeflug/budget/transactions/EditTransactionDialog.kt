@@ -8,7 +8,6 @@ import android.view.WindowManager
 import android.widget.SimpleAdapter
 import android.widget.Toast
 import com.georgeflug.budget.R
-import com.georgeflug.budget.R.id.editBudgetText
 import com.georgeflug.budget.api.Transaction
 import com.georgeflug.budget.api.TransactionApi
 import com.georgeflug.budget.budgets.Budget
