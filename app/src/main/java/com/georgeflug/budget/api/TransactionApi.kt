@@ -9,14 +9,15 @@ import java.net.URL
 object TransactionApi {
     private const val url = "https://script.google.com/macros/s/AKfycbzn7I-KiMGF5N2V8xJXLJTSn1Zzh4da4G-Jjp-7RfM/dev"
 
-    fun getTransactions(): Observable<TransactionApiListResult> = getRequest(url).cache()
+    fun getTransactions(): Observable<TransactionApiListResult> =
+            getRequest("$url?route=getTransactions").cache()
             .map { Gson().fromJson(it, TransactionApiListResult::class.java) }
 
     fun addTransaction(date: String, amount: String, budget: String, description: String): Observable<String> =
-            getRequest("$url?date=$date&amount=$amount&budget=$budget&description=$description")
+            getRequest("$url?route=insertTransaction&date=$date&amount=$amount&budget=$budget&description=$description")
 
     fun updateTransaction(date: String?, amount: String, budget: String, description: String, row: Int): Observable<String> =
-            getRequest("$url?date=$date&amount=$amount&budget=$budget&description=$description&updateRow=$row")
+            getRequest("$url?route=updateTransaction&date=$date&amount=$amount&budget=$budget&description=$description&updateRow=$row")
 
     private fun getRequest(requestUrl: String): Observable<String> =
             Observable.fromCallable { URL(requestUrl).openStream().bufferedReader().use { it.readText() } }
