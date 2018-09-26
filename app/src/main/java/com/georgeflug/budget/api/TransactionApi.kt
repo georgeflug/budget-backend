@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import java.net.URL
 
 object TransactionApi {
-    private const val url = "https://script.google.com/macros/s/AKfycbzJXrwFepauVmiodXfe81zETyqgAMcwdjR8fRjJ1NvrcpAgPPg/exec"
+    private const val url = "https://script.google.com/macros/s/AKfycbzn7I-KiMGF5N2V8xJXLJTSn1Zzh4da4G-Jjp-7RfM/dev"
 
     fun getTransactions(): Observable<TransactionApiListResult> = getRequest(url).cache()
             .map { Gson().fromJson(it, TransactionApiListResult::class.java) }

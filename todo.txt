@@ -10,3 +10,4 @@ Turn Budget spinner into a visual gallery of icons/text
 Move Budget selection to the top of the add/edit budget screens
 Some sort of progress indicator on the Budgets screen
 Have a way to enter positive transactions
+Use clasp to develop the google app scripts: https://github.com/google/clasp
