@@ -44,10 +44,10 @@ class AddTransactionFragment : Fragment() {
     private fun prepareBudgetSpinner() {
         val items = Budget.values()
                 .sortedBy { it.title }
-                .map { mutableMapOf("title" to it.title, "description" to it.description) }
+                .map { mutableMapOf("title" to it.title, "description" to it.description, "iconId" to it.iconId.toString()) }
                 .toMutableList()
-        val from = arrayOf("title", "description")
-        val to = intArrayOf(R.id.line1, R.id.line2)
+        val from = arrayOf("title", "description", "iconId")
+        val to = intArrayOf(R.id.line1, R.id.line2, R.id.image)
         budgetText.adapter = SimpleAdapter(context, items, R.layout.spinner_two_lines, from, to)
     }
 }

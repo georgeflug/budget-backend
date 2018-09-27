@@ -38,7 +38,12 @@ class BudgetsFragment : Fragment() {
                 .forEach { budget: String, rows: List<Transaction> ->
                     val enumBudget = Budget.lookup(budget)
                     val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }
-                    results.add(mapOf("title" to budget, "total" to total.toString(), "allocated" to enumBudget?.amount?.toString()))
+                    results.add(mapOf(
+                            "title" to budget,
+                            "total" to total.toString(),
+                            "allocated" to enumBudget?.amount?.toString(),
+                            "iconId" to enumBudget?.iconId.toString()
+                    ))
                 }
 
         val sorted = results.sortedBy {
@@ -46,8 +51,8 @@ class BudgetsFragment : Fragment() {
             prefix + it["title"]
         }
 
-        val from = arrayOf("title", "allocated", "total")
-        val to = intArrayOf(R.id.budgetNameText, R.id.budgetAllocationText, R.id.budgetTotalText)
+        val from = arrayOf("title", "allocated", "total", "iconId")
+        val to = intArrayOf(R.id.budgetNameText, R.id.budgetAllocationText, R.id.budgetTotalText, R.id.budgetImage)
         budgetList.adapter = SimpleAdapter(context, sorted, R.layout.budget_item, from, to)
     }
 }
