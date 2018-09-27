@@ -21,21 +21,11 @@
             tools:context=".MainActivity">
 
             <TextView
-                android:id="@+id/addTransaction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Transaction"
-                app:layout_constraintTop_toTopOf="parent"
-                android:gravity="center_horizontal"
-                android:textSize="24sp"
-                />
-
-            <TextView
                 android:id="@+id/amountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amount"
-                app:layout_constraintTop_toBottomOf="@id/addTransaction"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="16dp"
                 />
 
