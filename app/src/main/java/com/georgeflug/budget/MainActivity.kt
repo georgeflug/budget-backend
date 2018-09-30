@@ -1,10 +1,12 @@
 package com.georgeflug.budget
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_budgets -> "Budgets"
                 else -> "Budget"
             }
+            val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0)
             true
         }
     }
