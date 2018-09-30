@@ -6,6 +6,7 @@ import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.CheckBox
 import com.georgeflug.budget.R
 import com.georgeflug.budget.budgets.Budget
@@ -24,6 +25,18 @@ class BudgetSelector : FlexboxLayout {
             field?.isChecked = true
         }
     var selectedBudget : Budget? = null
+    var unselectedVisible = View.VISIBLE
+        set(newValue) {
+            for (i in 0 until childCount) {
+                val child = getChildAt(i)
+                if (child is CheckBox) {
+                    val checkboxChild = child as CheckBox
+                    checkboxChild.visibility = if (checkboxChild.isChecked) View.VISIBLE else newValue
+                } else {
+                    child.visibility = newValue
+                }
+            }
+        }
 
     init {
         flexWrap = FlexWrap.WRAP
@@ -57,6 +70,7 @@ class BudgetSelector : FlexboxLayout {
                 setOnClickListener {
                     selectedRadio = this
                     selectedBudget = budget
+                    this@BudgetSelector.callOnClick()
                 }
             })
         }
