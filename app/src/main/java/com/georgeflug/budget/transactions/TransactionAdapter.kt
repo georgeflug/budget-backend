@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.georgeflug.budget.R
 import com.georgeflug.budget.R.id.*
 import com.georgeflug.budget.api.Transaction
+import com.georgeflug.budget.budgets.Budget
 import java.text.NumberFormat
 
 class TransactionAdapter(context: Context, private val list: List<Transaction>) : ArrayAdapter<Transaction>(context, 0, list) {
@@ -41,9 +42,11 @@ class TransactionAdapter(context: Context, private val list: List<Transaction>) 
             itemAmountTextView.text = NumberFormat.getCurrencyInstance().format(transaction.amount)
 
             if (transaction.budget.isBlank()) {
-                transactionItemView.setBackgroundColor(Color.parseColor("#ff9e80"))
+                transactionItemView.setBackgroundColor(Color.parseColor("#ff9e80")) // red
+            } else if (transaction.budget == Budget.UNKNOWN.title) {
+                transactionItemView.setBackgroundColor(Color.parseColor("#42a5f5")) // blue
             } else if (transaction.account.isBlank()) {
-                transactionItemView.setBackgroundColor(Color.parseColor("#ffe57f"))
+                transactionItemView.setBackgroundColor(Color.parseColor("#ffe57f")) // yellow
             } else {
                 transactionItemView.setBackgroundColor(Color.parseColor("#ffffff"))
             }
