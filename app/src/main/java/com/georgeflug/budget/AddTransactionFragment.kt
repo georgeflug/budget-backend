@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SimpleAdapter
 import android.widget.Toast
 import com.georgeflug.budget.api.TransactionApi
 import com.georgeflug.budget.budgets.Budget
@@ -23,31 +22,22 @@ class AddTransactionFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        prepareBudgetSpinner()
         submitTransactionButton.setOnClickListener {
             val amount = BigDecimal(amountText.text.toString()).negate()
             val description = descriptionText.text.toString()
-            val budget = (budgetText.selectedItem as HashMap<String, String>)["title"]
+            val budget = addTransactionBudgetSelector.selectedBudget?.title ?: Budget.UNKNOWN.title
             val date = SimpleDateFormat("MM-dd-yyyy").format(Date())
-            TransactionApi.addTransaction(date, amount.toString(), budget!!, description)
+            TransactionApi.addTransaction(date, amount.toString(), budget, description)
                     .subscribe({
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         amountText.setText("")
                         descriptionText.setText("")
+                        addTransactionBudgetSelector.selectedBudget = null
+                        addTransactionBudgetSelector.selectedRadio = null
                         amountText.requestFocus()
                     }, {
                         Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
                     })
         }
-    }
-
-    private fun prepareBudgetSpinner() {
-        val items = Budget.values()
-                .sortedBy { it.title }
-                .map { mutableMapOf("title" to it.title, "description" to it.description, "iconId" to it.iconId.toString()) }
-                .toMutableList()
-        val from = arrayOf("title", "description", "iconId")
-        val to = intArrayOf(R.id.line1, R.id.line2, R.id.image)
-        budgetText.adapter = SimpleAdapter(context, items, R.layout.spinner_two_lines, from, to)
     }
 }

@@ -62,19 +62,11 @@
                 android:layout_marginTop="16dp"
                 />
 
-            <Spinner
-                android:id="@+id/budgetText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/budgetLabel"
-                android:entries="@array/budgets"
-                />
-
             <com.georgeflug.budget.budgetselector.BudgetSelector
                 android:id="@+id/addTransactionBudgetSelector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/budgetText"
+                app:layout_constraintTop_toBottomOf="@id/budgetLabel"
                 />
 
         </android.support.constraint.ConstraintLayout>
