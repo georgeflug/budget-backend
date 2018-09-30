@@ -20,18 +20,28 @@ class BudgetSelector : FlexboxLayout {
         justifyContent = JustifyContent.SPACE_AROUND
 
         val textPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 6f, context.resources.displayMetrics)
-        val widthPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 96f, context.resources.displayMetrics).toInt()
-        val paddingPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, context.resources.displayMetrics).toInt()
+        val widthPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 112f, context.resources.displayMetrics).toInt()
+        val heightPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 96f, context.resources.displayMetrics).toInt()
+        val paddingPixelsX = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, context.resources.displayMetrics).toInt()
+        val paddingPixelsY = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24f, context.resources.displayMetrics).toInt()
+        val paddingPixelsYTwoLines = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, context.resources.displayMetrics).toInt()
 
-        Budget.values().forEach { budget ->
+        Budget.values()
+                .filter { budget -> !budget.isAutomatic }
+                .forEach { budget ->
             val icon = ContextCompat.getDrawable(context, budget.iconId)
             addView(RadioButton(context, null, 0).apply {
                 text = budget.title
                 setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null)
                 textSize = textPixels
                 width = widthPixels
+                height = heightPixels
                 gravity = Gravity.CENTER
-                setPadding(paddingPixels, paddingPixels, paddingPixels, paddingPixels)
+                if (budget.title.contains(" ")) {
+                    setPadding(paddingPixelsX, paddingPixelsYTwoLines, paddingPixelsX, paddingPixelsYTwoLines)
+                } else {
+                    setPadding(paddingPixelsX, paddingPixelsY, paddingPixelsX, paddingPixelsY)
+                }
             })
         }
     }
