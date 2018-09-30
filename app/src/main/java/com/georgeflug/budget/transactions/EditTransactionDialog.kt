@@ -20,7 +20,7 @@ import java.util.*
 class EditTransactionDialog(context: Context, private val transaction: Transaction) : Dialog(context) {
     val budgetItems = Budget.values()
             .sortedBy { it.title }
-            .map { mutableMapOf("title" to it.title, "description" to it.description) }
+            .map { mutableMapOf("title" to it.title, "description" to it.description, "iconId" to it.iconId.toString()) }
             .toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +64,8 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
     }
 
     private fun prepareBudgetSpinner() {
-        val from = arrayOf("title", "description")
-        val to = intArrayOf(R.id.line1, R.id.line2)
-        editBudgetText.adapter = SimpleAdapter(context, budgetItems, R.layout.spinner_two_lines, from, to)
+        val from = arrayOf("title", "description", "iconId")
+        val to = intArrayOf(R.id.line1, R.id.line2, R.id.image)
+        editBudgetText.adapter = SimpleAdapter(context, budgetItems, R.layout.budget_spinner_item, from, to)
     }
 }
