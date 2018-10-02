@@ -44,10 +44,11 @@
 
     <TextView
         android:id="@+id/budgetTotalText"
-        android:layout_width="40dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="end|center"
+        android:textAlignment="textEnd"
         tools:text="$20"
         />
 

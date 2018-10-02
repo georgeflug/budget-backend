@@ -12,6 +12,7 @@ import com.georgeflug.budget.api.Transaction
 import com.georgeflug.budget.api.TransactionApi
 import kotlinx.android.synthetic.main.fragment_budgets.*
 import java.math.BigDecimal
+import java.text.NumberFormat
 
 class BudgetsFragment : Fragment() {
 
@@ -34,13 +35,15 @@ class BudgetsFragment : Fragment() {
     private fun populateBudgets(budgets: List<Transaction>) {
         val results = ArrayList<Map<String, String?>>()
 
+        val formatter = NumberFormat.getCurrencyInstance()
+
         budgets.groupBy { it.budget }
                 .forEach { budget: String, rows: List<Transaction> ->
                     val enumBudget = Budget.lookup(budget)
                     val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }
                     results.add(mapOf(
                             "title" to budget,
-                            "total" to total.toString(),
+                            "total" to formatter.format(total),
                             "allocated" to enumBudget?.amount?.toString(),
                             "iconId" to enumBudget?.iconId.toString()
                     ))
