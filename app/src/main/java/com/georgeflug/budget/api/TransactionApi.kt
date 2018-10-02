@@ -10,9 +10,11 @@ import java.net.URL
 object TransactionApi {
     private const val url = "https://script.google.com/macros/s/AKfycbzJXrwFepauVmiodXfe81zETyqgAMcwdjR8fRjJ1NvrcpAgPPg/exec"
 
-    fun getTransactions(): Observable<TransactionApiListResult> =
+    private val transactions: Observable<TransactionApiListResult> =
             getRequest("$url?route=getTransactions").cache()
-            .map { Gson().fromJson(it, TransactionApiListResult::class.java) }
+                    .map { Gson().fromJson(it, TransactionApiListResult::class.java) }
+
+    fun getTransactions(): Observable<TransactionApiListResult> = transactions
 
     fun addTransaction(date: String, amount: String, budget: String, description: String): Observable<String> =
             getRequest("$url?route=insertTransaction&date=$date&amount=$amount&budget=$budget&description=$description")
