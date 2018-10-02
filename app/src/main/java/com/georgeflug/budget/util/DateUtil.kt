@@ -29,5 +29,7 @@ class DateUtil {
             }
         }
 
+        fun getToday(): String = LocalDate.now().format(cleanedDateFormat)
+
     }
 }

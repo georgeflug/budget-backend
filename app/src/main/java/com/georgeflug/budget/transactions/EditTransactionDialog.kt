@@ -12,6 +12,7 @@ import com.georgeflug.budget.R
 import com.georgeflug.budget.api.Transaction
 import com.georgeflug.budget.api.TransactionApi
 import com.georgeflug.budget.budgets.Budget
+import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import kotlinx.android.synthetic.main.fragment_edit_transaction.*
 import java.math.BigDecimal
@@ -40,12 +41,15 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
         editDateText.setText(DateUtil.cleanupDate(dateToUse))
 
         updateTransactionButton.setOnClickListener {
+            val progressDialog = AlertUtil.showProgress(context, "Edit Transaction", "Saving...")
+
             val amount = BigDecimal(editAmountText.text.toString())
             val description = editDescriptionText.text.toString()
             val budget = (editBudgetText.selectedItem as HashMap<String, String>)["title"]
             val date = editDateText.text.toString()
             val row = transaction.row
             TransactionApi.updateTransaction(date, amount.toString(), budget!!, description, row)
+                    .doOnNext { progressDialog.dismiss() }
                     .subscribe({
                         // write updates back into transaction object
                         transaction.amount = amount

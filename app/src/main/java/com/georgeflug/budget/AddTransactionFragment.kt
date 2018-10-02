@@ -13,8 +13,8 @@ import com.georgeflug.budget.api.TransactionApi
 import com.georgeflug.budget.budgets.Budget
 import kotlinx.android.synthetic.main.fragment_add_transaction.*
 import java.math.BigDecimal
-import java.text.SimpleDateFormat
-import java.util.*
+import com.georgeflug.budget.util.AlertUtil
+import com.georgeflug.budget.util.DateUtil
 
 
 private const val GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD = 1760
@@ -29,25 +29,34 @@ class AddTransactionFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        submitTransactionButton.setOnClickListener {
-            val amount = BigDecimal(amountText.text.toString().trim()).negate()
-            val description = descriptionText.text.toString()
-            val budget = addTransactionBudgetSelector.selectedBudget?.title ?: Budget.UNKNOWN.title
-            val date = SimpleDateFormat("MM-dd-yyyy").format(Date())
-            TransactionApi.addTransaction(date, amount.toString(), budget, description)
-                    .subscribe({
-                        Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
-                        amountEntered = ""
-                        updateAmountText()
-                        descriptionText.setText("")
-                        addTransactionBudgetSelector.selectedBudget = null
-                        addTransactionBudgetSelector.selectedRadio = null
-                        amountText.requestFocus()
-                        val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(view?.windowToken, 0)
-                    }, {
-                        Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
-                    })
+        submitTransactionButton.setOnClickListener { view ->
+
+            if (amountEntered.isEmpty()) {
+                AlertUtil.showAlert(context, "Invalid", "Enter an amount")
+            } else {
+                val progressDialog = AlertUtil.showProgress(context, "Add Transaction", "Saving...")
+
+                val amount = BigDecimal(amountText.text.toString().trim()).negate()
+                val description = descriptionText.text.toString()
+                val budget = addTransactionBudgetSelector.selectedBudget?.title ?: Budget.UNKNOWN.title
+                val date = DateUtil.getToday()
+
+                TransactionApi.addTransaction(date, amount.toString(), budget, description)
+                        .doOnNext { progressDialog.dismiss(); }
+                        .subscribe({
+                            Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
+                            amountEntered = ""
+                            updateAmountText()
+                            descriptionText.setText("")
+                            addTransactionBudgetSelector.selectedBudget = null
+                            addTransactionBudgetSelector.selectedRadio = null
+                            amountText.requestFocus()
+                            val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+                        }, {
+                            Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                        })
+            }
         }
 
         amountButton0.setOnClickListener { clickButton("0") }
