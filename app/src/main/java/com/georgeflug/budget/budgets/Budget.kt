@@ -26,7 +26,9 @@ enum class Budget(
     CHARITY("Charity", "", null, R.drawable.ic_icons8_charity, false),
     RICHIE_PROJECTS("Richie Projects", "", null, R.drawable.ic_icons8_science_fiction, false),
     UNKNOWN("To be determined", "", null, R.drawable.ic_icons8_play_button_on_tv, false),
-    MORTGAGE("Mortgage", "", null, R.drawable.ic_icons8_real_estate, false),
+    WORK_TRIPS("Work Expenses", "Expenses and trips that are reimbursed by our jobs", null, R.drawable.ic_work_black_24dp, false),
+    GAS("Gas", "", null, R.drawable.ic_local_gas_station_black_24dp, false),
+    MORTGAGE("Mortgage", "", null, R.drawable.ic_icons8_real_estate, true),
     STUDENT_LOAN("Student Loan", "", null, R.drawable.ic_icons8_graduation_cap, true),
     SUBSCRIPTIONS("Subscriptions", "Insurance, Netflix, Amazon, Gym", null, R.drawable.ic_icons8_play_button_on_tv, true),
     UTILITIES("Utilities", "Internet, Phones, Electric, Water, Trash", null, R.drawable.ic_icons8_water_pipe, true);

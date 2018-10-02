@@ -3,6 +3,7 @@ package com.georgeflug.budget.transactions
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.SimpleAdapter
@@ -11,9 +12,9 @@ import com.georgeflug.budget.R
 import com.georgeflug.budget.api.Transaction
 import com.georgeflug.budget.api.TransactionApi
 import com.georgeflug.budget.budgets.Budget
+import com.georgeflug.budget.util.DateUtil
 import kotlinx.android.synthetic.main.fragment_edit_transaction.*
 import java.math.BigDecimal
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -35,7 +36,8 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
         editDescriptionText.setText(transaction.description)
         editPostedDescriptionText.text = transaction.postedDescription
         editBudgetText.setSelection(budgetItems.indexOfFirst { it["title"] == transaction.budget })
-        editDateText.setText(formatDate(if (transaction.date.isNullOrBlank()) transaction.postedDate else transaction.date))
+        val dateToUse = if (transaction.date.isNullOrBlank()) transaction.postedDate else transaction.date
+        editDateText.setText(DateUtil.cleanupDate(dateToUse))
 
         updateTransactionButton.setOnClickListener {
             val amount = BigDecimal(editAmountText.text.toString())
@@ -45,22 +47,18 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
             val row = transaction.row
             TransactionApi.updateTransaction(date, amount.toString(), budget!!, description, row)
                     .subscribe({
+                        // write updates back into transaction object
+                        transaction.amount = amount
+                        transaction.description = description
+                        transaction.budget = budget
+                        Log.d("foo", "date changing from ${transaction.date} to $date")
+                        transaction.date = date
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         dismiss()
                     }, {
                         Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
                     })
         }
-    }
-
-    private fun formatDate(date: String): String {
-        val postedDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val desiredDateFormat = SimpleDateFormat("MM-dd-yyyy")
-
-        val dateOnly = date.substring(0, date.indexOf('T'))
-        val actualDate = postedDateFormat.parse(dateOnly)
-
-        return desiredDateFormat.format(actualDate)
     }
 
     private fun prepareBudgetSpinner() {

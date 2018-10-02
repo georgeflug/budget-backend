@@ -3,10 +3,10 @@ package com.georgeflug.budget.api
 import java.math.BigDecimal
 
 data class Transaction(
-        val date: String,
-        val amount: BigDecimal,
-        val budget: String,
-        val description: String,
+        var date: String,
+        var amount: BigDecimal,
+        var budget: String,
+        var description: String,
         val account: String,
         val postedDate: String,
         val postedDescription: String,

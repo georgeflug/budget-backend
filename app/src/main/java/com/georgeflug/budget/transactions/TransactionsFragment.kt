@@ -9,9 +9,9 @@ import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.Transaction
 import com.georgeflug.budget.api.TransactionApi
+import com.georgeflug.budget.util.DateUtil
 import kotlinx.android.synthetic.main.fragment_transactions.*
 import java.math.BigDecimal
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TransactionsFragment : Fragment() {
@@ -30,9 +30,6 @@ class TransactionsFragment : Fragment() {
             val transaction = parent.adapter.getItem(position) as Transaction
             if (transaction.row != -1) {
                 val dialog = EditTransactionDialog(context, transaction)
-                dialog.setOnDismissListener {
-                    updateTransactions()
-                }
                 dialog.show()
             }
         }
@@ -55,32 +52,11 @@ class TransactionsFragment : Fragment() {
             val newDate = this[i].getBestDate()
             if (newDate != lastDate) {
                 lastDate = newDate
-                result.add(Transaction("", BigDecimal(99.88), "", getFriendlyDate(newDate), "SECTION", "", "", "", "", -1))
+                result.add(Transaction("", BigDecimal(99.88), "", DateUtil.getFriendlyDate(newDate), "SECTION", "", "", "", "", -1))
             }
             result.add(this[i])
         }
         return result
     }
 
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-    private val dayOfWeekFormat = SimpleDateFormat("EEEE", Locale.US)
-    private val printedDateFormat = SimpleDateFormat("EEEE, MMMM d", Locale.US)
-
-    private fun getFriendlyDate(date: String): String {
-        // format: 2018-09-17T05:00:00.0000Z
-        val dateOnly = date.substring(0, date.indexOf('T'))
-        val actualDate = dateFormat.parse(dateOnly)
-
-        val cal = Calendar.getInstance()
-        cal.add(Calendar.DATE, -1)
-        val yesterday = dateFormat.format(cal.time)
-        cal.add(Calendar.DATE, -6)
-        val aWeekAgo = cal.time
-
-        return when (dateOnly) {
-            dateFormat.format(Date()) -> "Today"
-            yesterday -> "Yesterday"
-            else -> if (aWeekAgo.before(actualDate)) dayOfWeekFormat.format(actualDate) else printedDateFormat.format(actualDate)
-        }
-    }
 }
