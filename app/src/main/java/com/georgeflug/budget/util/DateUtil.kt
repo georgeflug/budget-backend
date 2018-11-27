@@ -8,8 +8,8 @@ class DateUtil {
     companion object {
         // api date example: 2018-09-17T05:00:00.0000Z
         private val cleanedDateFormat = DateTimeFormatter.ISO_LOCAL_DATE // yyyy-MM-dd
-        private val dayOfWeekFormat = DateTimeFormatter.ofPattern("EEEE", Locale.US)
         private val printedDateFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.US)
+        private val monthAndDayFormat = DateTimeFormatter.ofPattern("MMMM d", Locale.US)
 
         fun cleanupDate(apiDate: String): String {
             return apiDate.takeWhile { char -> char != 'T' }
@@ -20,12 +20,11 @@ class DateUtil {
             val actualDate = LocalDate.parse(dateOnly, cleanedDateFormat)
             val today = LocalDate.now()
             val yesterday = today.minusDays(1)
-            val aWeekAgo = today.minusDays(6)
 
             return when(actualDate) {
-                today -> "Today"
-                yesterday -> "Yesterday"
-                else -> actualDate.format(if (actualDate.isBefore(aWeekAgo)) printedDateFormat else dayOfWeekFormat)
+                today -> "Today, " + actualDate.format(monthAndDayFormat)
+                yesterday -> "Yesterday, " + actualDate.format(monthAndDayFormat)
+                else -> actualDate.format(printedDateFormat)
             }
         }
 

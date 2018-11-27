@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.SimpleAdapter
 import android.widget.Toast
 import com.georgeflug.budget.R
@@ -16,6 +17,8 @@ import java.text.NumberFormat
 
 class BudgetsFragment : Fragment() {
 
+    private lateinit var transactions: List<Transaction>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_budgets, container, false)
@@ -24,20 +27,27 @@ class BudgetsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        // TODO: when I edit a transaction, those changes are not reflected here.
+        // add a repo layer or something.
+
         TransactionApi.getTransactions()
                 .subscribe({
-                    populateBudgets(it.rows)
+                    transactions = it.rows
+                    rePopulateBudgets()
                 }, {
                     Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
                 })
+        budgetList.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+            rePopulateBudgets()
+        }
     }
 
-    private fun populateBudgets(budgets: List<Transaction>) {
+    fun rePopulateBudgets() {
         val results = ArrayList<Map<String, String?>>()
 
         val formatter = NumberFormat.getCurrencyInstance()
 
-        budgets.groupBy { it.budget }
+        transactions.groupBy { it.budget }
                 .forEach { budget: String, rows: List<Transaction> ->
                     val enumBudget = Budget.lookup(budget)
                     val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }

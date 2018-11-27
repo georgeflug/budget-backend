@@ -19,7 +19,7 @@ import java.math.BigDecimal
 import java.util.*
 
 
-class EditTransactionDialog(context: Context, private val transaction: Transaction) : Dialog(context) {
+class EditTransactionDialog(context: Context, private val transaction: SplittableTransaction) : Dialog(context) {
     val budgetItems = Budget.values()
             .sortedBy { it.title }
             .map { mutableMapOf("title" to it.title, "description" to it.description, "iconId" to it.iconId.toString()) }
