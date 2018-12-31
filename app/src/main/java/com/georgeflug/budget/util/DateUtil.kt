@@ -11,13 +11,17 @@ class DateUtil {
         private val printedDateFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.US)
         private val monthAndDayFormat = DateTimeFormatter.ofPattern("MMMM d", Locale.US)
 
+        fun parseDate(date: String): LocalDate {
+            val dateOnly = cleanupDate(date)
+            return LocalDate.parse(dateOnly, cleanedDateFormat)
+        }
+
         fun cleanupDate(apiDate: String): String {
             return apiDate.takeWhile { char -> char != 'T' }
         }
 
         fun getFriendlyDate(date: String): String {
-            val dateOnly = cleanupDate(date)
-            val actualDate = LocalDate.parse(dateOnly, cleanedDateFormat)
+            val actualDate = parseDate(date)
             val today = LocalDate.now()
             val yesterday = today.minusDays(1)
 

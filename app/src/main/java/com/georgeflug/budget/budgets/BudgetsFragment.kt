@@ -1,6 +1,7 @@
 package com.georgeflug.budget.budgets
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,14 @@ import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.Transaction
 import com.georgeflug.budget.api.TransactionApi
+import com.georgeflug.budget.util.DateUtil
 import kotlinx.android.synthetic.main.fragment_budgets.*
 import java.math.BigDecimal
 import java.text.NumberFormat
+import java.time.Duration
 import java.time.LocalDate
 import java.time.Month
+import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -37,42 +41,60 @@ class BudgetsFragment : Fragment() {
         TransactionApi.getTransactions()
                 .subscribe({
                     transactions = it.rows
-                    rePopulateBudgets()
+                    rePopulateBudgets(LocalDate.now())
                 }, {
                     Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
                 })
         budgetList.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-            rePopulateBudgets()
+            rePopulateBudgets(LocalDate.now())
         }
 
         // add budget tabs for every month ever since the app began
         var month = LocalDate.of(2018, Month.AUGUST, 1)
-        val lastMonth = LocalDate.now()
+        val lastMonth = LocalDate.of(2019, Month.NOVEMBER, 1)
         val monthFormat = DateTimeFormatter.ofPattern("MMM", Locale.US)
         val monthAndYearFormat = DateTimeFormatter.ofPattern("MMM YYYY", Locale.US)
         while (month <= lastMonth) {
-            val tabText = if (month.year != lastMonth.year) {
-                monthAndYearFormat.format(month)
-            } else {
+            val tabText = if (Period.between(month, lastMonth).years == 0) {
                 monthFormat.format(month)
+            } else {
+                monthAndYearFormat.format(month)
             }
-            tabLayout.addTab(tabLayout.newTab().setText(tabText))
+            val tab = tabLayout.newTab().setText(tabText).setTag(month)
+            tabLayout.addTab(tab)
+            tab.select()
             month = month.plusMonths(1)
         }
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val month: LocalDate = tab.tag as LocalDate
+                rePopulateBudgets(month)
+            }
+
+        })
     }
 
-    fun rePopulateBudgets() {
+    fun rePopulateBudgets(month: LocalDate) {
         val results = ArrayList<Map<String, String?>>()
 
-        val formatter = NumberFormat.getCurrencyInstance()
+        val currencyFormatter = NumberFormat.getCurrencyInstance()
 
-        transactions.groupBy { it.budget }
+        transactions
+                .filter { DateUtil.parseDate(it.getBestDate()).month == month.month }
+                .groupBy { it.budget }
                 .forEach { budget: String, rows: List<Transaction> ->
                     val enumBudget = Budget.lookup(budget)
                     val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }
                     results.add(mapOf(
                             "title" to budget,
-                            "total" to formatter.format(total),
+                            "total" to currencyFormatter.format(total),
                             "allocated" to enumBudget?.amount?.toString(),
                             "iconId" to enumBudget?.iconId.toString()
                     ))
