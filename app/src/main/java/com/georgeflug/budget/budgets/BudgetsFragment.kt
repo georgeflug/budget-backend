@@ -51,7 +51,7 @@ class BudgetsFragment : Fragment() {
 
         // add budget tabs for every month ever since the app began
         var month = LocalDate.of(2018, Month.AUGUST, 1)
-        val lastMonth = LocalDate.of(2019, Month.NOVEMBER, 1)
+        val lastMonth = LocalDate.now()
         val monthFormat = DateTimeFormatter.ofPattern("MMM", Locale.US)
         val monthAndYearFormat = DateTimeFormatter.ofPattern("MMM YYYY", Locale.US)
         while (month <= lastMonth) {
@@ -66,6 +66,7 @@ class BudgetsFragment : Fragment() {
             month = month.plusMonths(1)
         }
 
+        tabLayout.setScrollPosition(tabLayout.tabCount, 0f, false)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
