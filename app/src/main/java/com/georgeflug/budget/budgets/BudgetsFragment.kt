@@ -14,6 +14,10 @@ import com.georgeflug.budget.api.TransactionApi
 import kotlinx.android.synthetic.main.fragment_budgets.*
 import java.math.BigDecimal
 import java.text.NumberFormat
+import java.time.LocalDate
+import java.time.Month
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class BudgetsFragment : Fragment() {
 
@@ -39,6 +43,21 @@ class BudgetsFragment : Fragment() {
                 })
         budgetList.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
             rePopulateBudgets()
+        }
+
+        // add budget tabs for every month ever since the app began
+        var month = LocalDate.of(2018, Month.AUGUST, 1)
+        val lastMonth = LocalDate.now()
+        val monthFormat = DateTimeFormatter.ofPattern("MMM", Locale.US)
+        val monthAndYearFormat = DateTimeFormatter.ofPattern("MMM YYYY", Locale.US)
+        while (month <= lastMonth) {
+            val tabText = if (month.year != lastMonth.year) {
+                monthAndYearFormat.format(month)
+            } else {
+                monthFormat.format(month)
+            }
+            tabLayout.addTab(tabLayout.newTab().setText(tabText))
+            month = month.plusMonths(1)
         }
     }
 
