@@ -50,7 +50,7 @@ class BudgetsFragment : Fragment() {
         }
 
         // add budget tabs for every month ever since the app began
-        var month = LocalDate.of(2018, Month.AUGUST, 1)
+        var month = DateUtil.firstDay
         val lastMonth = LocalDate.now()
         val monthFormat = DateTimeFormatter.ofPattern("MMM", Locale.US)
         val monthAndYearFormat = DateTimeFormatter.ofPattern("MMM YYYY", Locale.US)
@@ -84,19 +84,37 @@ class BudgetsFragment : Fragment() {
 
     fun rePopulateBudgets(month: LocalDate) {
         val results = ArrayList<Map<String, String?>>()
+        var carryovers = HashMap<Budget, BigDecimal>()
 
         val currencyFormatter = NumberFormat.getCurrencyInstance()
 
+        val monthCount = BigDecimal.valueOf(Period.between(month, DateUtil.firstDay).months.toLong())
+
+        // carry-forward earlier budget amounts
         transactions
-                .filter { DateUtil.parseDate(it.getBestDate()).month == month.month }
+                .filter { isBeforeMonth(DateUtil.parseDate(it.getBestDate()), month) }
                 .groupBy { it.budget }
                 .forEach { budget: String, rows: List<Transaction> ->
                     val enumBudget = Budget.lookup(budget)
-                    val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }
+                    if (enumBudget?.amount != null) {
+                        val totalSpent = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }.negate()
+                        val totalAllocated = enumBudget.amount.negate() * monthCount
+                        carryovers[enumBudget] = totalAllocated - totalSpent
+                    }
+                }
+
+        // get budgets for the current month
+        transactions
+                .filter { isSameMonth(DateUtil.parseDate(it.getBestDate()), month) }
+                .groupBy { it.budget }
+                .forEach { budget: String, rows: List<Transaction> ->
+                    val enumBudget = Budget.lookup(budget)
+                    val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }.negate()
+                    val carryOver = carryovers[enumBudget]
                     results.add(mapOf(
                             "title" to budget,
                             "total" to currencyFormatter.format(total),
-                            "allocated" to enumBudget?.amount?.toString(),
+                            "allocated" to getAllocatedText(enumBudget, carryOver),
                             "iconId" to enumBudget?.iconId.toString()
                     ))
                 }
@@ -109,5 +127,23 @@ class BudgetsFragment : Fragment() {
         val from = arrayOf("title", "allocated", "total", "iconId")
         val to = intArrayOf(R.id.budgetNameText, R.id.budgetAllocationText, R.id.budgetTotalText, R.id.budgetImage)
         budgetList.adapter = SimpleAdapter(context, sorted, R.layout.budget_item, from, to)
+    }
+
+    fun isSameMonth(firstDate: LocalDate, secondDate: LocalDate): Boolean {
+        return firstDate.month == secondDate.month && firstDate.year == secondDate.year
+    }
+
+    fun isBeforeMonth(firstDate: LocalDate, secondDate: LocalDate): Boolean {
+        return firstDate.monthValue < secondDate.monthValue || firstDate.year < secondDate.year
+    }
+
+    fun getAllocatedText(budget: Budget?, carryOver: BigDecimal?): String? {
+        return when {
+            carryOver == null -> budget?.amount?.toString()
+            else -> budget!!.amount!!.toString() + when {
+                carryOver >= BigDecimal.ZERO -> " + " + carryOver.toString()
+                else -> " - " + carryOver.negate().toString()
+            } + " = " + (budget!!.amount!! + carryOver).toString()
+        }
     }
 }

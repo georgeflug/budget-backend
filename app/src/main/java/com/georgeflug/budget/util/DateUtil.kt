@@ -1,6 +1,7 @@
 package com.georgeflug.budget.util
 
 import java.time.LocalDate
+import java.time.Month
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -10,6 +11,8 @@ class DateUtil {
         private val cleanedDateFormat = DateTimeFormatter.ISO_LOCAL_DATE // yyyy-MM-dd
         private val printedDateFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.US)
         private val monthAndDayFormat = DateTimeFormatter.ofPattern("MMMM d", Locale.US)
+
+        val firstDay = LocalDate.of(2018, Month.SEPTEMBER, 1)
 
         fun parseDate(date: String): LocalDate {
             val dateOnly = cleanupDate(date)
