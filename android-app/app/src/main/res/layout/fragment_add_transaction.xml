@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    >
+
+    <ScrollView
+        android:id="@+id/addTransactionScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            tools:context=".MainActivity">
+
+            <TextView
+                android:id="@+id/amountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                />
+
+            <TextView
+                android:id="@+id/amountText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/amountLabel"
+                android:fontFamily="monospace"
+                android:typeface="monospace"
+                android:text="    .  "
+                android:textSize="40sp"
+                android:gravity="center"
+                />
+
+            <Button
+                android:id="@+id/amountButton1"
+                style="@style/KeyPadButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                app:layout_constraintEnd_toStartOf="@id/amountButton2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/amountText" />
+
+            <Button
+                android:id="@+id/amountButton2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="2"
+                app:layout_constraintTop_toTopOf="@id/amountButton1"
+                app:layout_constraintStart_toEndOf="@id/amountButton1"
+                app:layout_constraintEnd_toStartOf="@id/amountButton3"
+                />
+
+            <Button
+                android:id="@+id/amountButton3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="3"
+                app:layout_constraintTop_toTopOf="@id/amountButton1"
+                app:layout_constraintStart_toEndOf="@id/amountButton2"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <Button
+                android:id="@+id/amountButton4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="4"
+                app:layout_constraintTop_toBottomOf="@id/amountButton1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/amountButton5"
+                />
+
+            <Button
+                android:id="@+id/amountButton5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="5"
+                app:layout_constraintTop_toTopOf="@id/amountButton4"
+                app:layout_constraintStart_toEndOf="@id/amountButton4"
+                app:layout_constraintEnd_toStartOf="@id/amountButton6"
+                />
+
+            <Button
+                android:id="@+id/amountButton6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="6"
+                app:layout_constraintTop_toTopOf="@id/amountButton4"
+                app:layout_constraintStart_toEndOf="@id/amountButton5"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <Button
+                android:id="@+id/amountButton7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="7"
+                app:layout_constraintTop_toBottomOf="@id/amountButton4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/amountButton8"
+                />
+
+            <Button
+                android:id="@+id/amountButton8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="8"
+                app:layout_constraintTop_toTopOf="@id/amountButton7"
+                app:layout_constraintStart_toEndOf="@id/amountButton7"
+                app:layout_constraintEnd_toStartOf="@id/amountButton9"
+                />
+
+            <Button
+                android:id="@+id/amountButton9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="9"
+                app:layout_constraintTop_toTopOf="@id/amountButton7"
+                app:layout_constraintStart_toEndOf="@id/amountButton8"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <View
+                android:id="@+id/amountButtonPlaceholder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                app:layout_constraintTop_toBottomOf="@id/amountButton7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/amountButton0"
+                />
+
+            <Button
+                android:id="@+id/amountButton0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="0"
+                app:layout_constraintTop_toTopOf="@id/amountButtonPlaceholder"
+                app:layout_constraintStart_toEndOf="@id/amountButtonPlaceholder"
+                app:layout_constraintEnd_toStartOf="@id/amountButtonBack"
+                />
+
+            <Button
+                android:id="@+id/amountButtonBack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/KeyPadButton"
+                android:text="←"
+                app:layout_constraintTop_toTopOf="@id/amountButtonPlaceholder"
+                app:layout_constraintStart_toEndOf="@id/amountButton0"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/budgetLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Budget"
+                app:layout_constraintTop_toBottomOf="@id/amountButton0"
+                android:layout_marginTop="16dp"
+                />
+
+            <com.georgeflug.budget.budgetselector.BudgetSelector
+                android:id="@+id/addTransactionBudgetSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/budgetLabel"
+                />
+
+            <TextView
+                android:id="@+id/descriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                app:layout_constraintTop_toBottomOf="@id/addTransactionBudgetSelector"
+                android:layout_marginTop="16dp"
+                />
+
+            <EditText
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/descriptionLabel"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submitTransactionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Submit"
+        android:background="@color/colorPrimary"
+        />
+
+</LinearLayout>
