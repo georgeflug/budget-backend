@@ -25,7 +25,7 @@ function connectToDbWithRetry(cb) {
   MongoClient.connect(url, function(err, client) {
     if (err) {
       console.log('Mongodb server not ready. Retrying...');
-      setTimeout(() => connectToDbRaw(cb), connectionRetryDelay);
+      setTimeout(() => connectToDbWithRetry(cb), connectionRetryDelay);
     } else {
       cb(null, client);
     }

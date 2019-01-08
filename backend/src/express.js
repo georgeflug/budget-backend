@@ -5,14 +5,8 @@ var getDb = require('./db').getDb;
 const port = 3000;
 
 function initExpress() {
-  app.get('/', function (req, res) {
-    res.send('Hello World')
-  })
-  
-  app.get('/status', function (req, res) {
-    res.send('{"status":"OK"}')
-  });
-  
+  require('./status').init(app);
+
   app.get('/read', function (req, res) {
     const collection = getDb().collection('documents');
     collection.find().toArray(function(err, docs) {
