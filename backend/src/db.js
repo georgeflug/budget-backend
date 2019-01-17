@@ -1,43 +1,33 @@
 const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
 const protocol = 'mongodb';
 const hostName = 'mongo';
 const port = 27017;
-const url = `${protocol}://${hostName}:${port}`; //'mongodb://mongo:27017';
+const dbName = 'budget';
+const url = `${protocol}://${hostName}:${port}/${dbName}`; //'mongodb://mongo:27017/budget';
 
 const connectionRetryDelay = 1000;
 
-// Database Name
-const dbName = 'budget';
-let db = null;
+var db = mongoose.connection;
 
-function initDb() {
-  // Use connect method to connect to the server
-  connectToDbWithRetry(function(err, client) {
-    console.log("Connected successfully to mongodb server");
+db.once('open', function() {
+  console.log("Connected successfully to mongodb server");
+});
 
-    db = client.db(dbName);
-  });
-}
+db.on('error', function() {
+  console.log('Mongodb server not ready. Retrying...');
+  setTimeout(() => connectToDbWithRetry(), connectionRetryDelay);
+});
 
-function connectToDbWithRetry(cb) {
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+
+function connectToDbWithRetry() {
   console.log('Attempting to connect to mongodb');
-  MongoClient.connect(url, function(err, client) {
-    if (err) {
-      console.log('Mongodb server not ready. Retrying...');
-      setTimeout(() => connectToDbWithRetry(cb), connectionRetryDelay);
-    } else {
-      cb(null, client);
-    }
-  });
-}
-
-function getDb() {
-  if (db) return db;
-  throw('Db not initialized');
+  mongoose.connect(url);
 }
 
 module.exports = {
-  initDb: initDb,
-  getDb: getDb,
+  initDb: connectToDbWithRetry
 };
