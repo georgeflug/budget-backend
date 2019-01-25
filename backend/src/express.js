@@ -7,6 +7,7 @@ function initExpress() {
   app.use(express.json());
   require('./status').init(app);
   app.use(require('./feature-idea'));
+  app.use(require('./transactions'));
   
   // endpoints todo:
   // insert transaction
