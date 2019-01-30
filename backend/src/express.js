@@ -8,12 +8,6 @@ function initExpress() {
   require('./status').init(app);
   app.use(require('./feature-idea'));
   app.use(require('./transactions'));
-  
-  // endpoints todo:
-  // insert transaction
-  // update transaction
-  // list transactions
-
   app.listen(port);
   console.log(`Listening on localhost:${port}`);  
 }
