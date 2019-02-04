@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const process = require('process');
 var ofx = require('ofx');
+const ofxParser = require('../ofx-parser');
 
 async function downloadTransactions() {
   const browser = await puppeteer.launch({headless: false});
@@ -21,7 +22,7 @@ async function downloadTransactions() {
   var downloadedThing = await download(page, downloadUrl);
   await browser.close();
 
-  const transactions = parseOfx(downloadedThing);
+  const transactions = ofxParser.parseToJson(downloadedThing);
   console.dir(transactions);
 };
 
@@ -34,20 +35,6 @@ function download(page, url) {
       return r.text();
     });
   }, url);
-}
-
-function parseOfx(rawOfxData) {
-  var ofxData = ofx.parse(rawOfxData);
-  var transactions = ofxData.OFX.CREDITCARDMSGSRSV1.CCSTMTTRNRS.CCSTMTRS.BANKTRANLIST.STMTTRN;
-  return transactions.map((t) => {
-    return {
-      datePosted: t.DTPOSTED,
-      transactionType: t.TRNTYPE,
-      amount: t.TRNAMT,
-      fitId: t.FITID,
-      name: t.NAME
-    };
-  });
 }
 
 downloadTransactions();
