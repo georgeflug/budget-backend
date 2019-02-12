@@ -8,6 +8,7 @@ function initExpress() {
   require('./status').init(app);
   app.use(require('./feature-idea'));
   app.use(require('./transactions'));
+  app.use(require('./scrape-mfa'));
   app.listen(port);
   console.log(`Listening on localhost:${port}`);  
 }

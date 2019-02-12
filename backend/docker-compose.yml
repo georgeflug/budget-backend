@@ -8,6 +8,9 @@ services:
       - "3000:3000"
     links:
       - mongo
+    environment:
+      BUDGET_FCCU_USERNAME: ${BUDGET_FCCU_USERNAME}
+      BUDGET_FCCU_PASSWORD: ${BUDGET_FCCU_PASSWORD}
   mongo:
     container_name: mongo
     image: mongo
