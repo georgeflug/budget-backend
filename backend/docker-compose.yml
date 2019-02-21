@@ -6,11 +6,29 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "9229:9229"
     links:
       - mongo
     environment:
       BUDGET_FCCU_USERNAME: ${BUDGET_FCCU_USERNAME}
       BUDGET_FCCU_PASSWORD: ${BUDGET_FCCU_PASSWORD}
+      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
+      PLAID_SECRET: ${PLAID_SECRET}
+      PLAID_PUBLIC_KEY: ${PLAID_PUBLIC_KEY}
+      PLAID_ENV: development
+      DISCOVER_ACCESS_KEY: ${DISCOVER_ACCESS_KEY}
+      FCCU_ACCESS_KEY: ${FCCU_ACCESS_KEY}
+    # uncomment this command to run in debug mode
+    # command:
+    #   - node
+    #   - "--inspect-brk=0.0.0.0"
+    #   - "index.js"
+
+    # uncomment this command to run tests
+    # command:
+    #   - npm
+    #   - test
+    # restart: "no"
   mongo:
     container_name: mongo
     image: mongo

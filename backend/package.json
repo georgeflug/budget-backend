@@ -5,15 +5,23 @@
   "main": "index.js",
   "scripts": {
     "start": "docker-compose up --build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha src/**/*.spec.js"
   },
   "author": "Richard White",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-subset": "^1.6.0",
     "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "mocha": "^5.2.0",
+    "moment": "^2.24.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.2",
     "ofx": "^0.4.0",
+    "plaid": "^2.10.0"
+  },
+  "devDependencies": {
     "puppeteer": "^1.11.0"
   }
 }

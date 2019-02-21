@@ -1,2 +1,2 @@
-require('./src/api/db').initDb();
+require('./src/db/db').initDb();
 require('./src/api/express').initExpress();

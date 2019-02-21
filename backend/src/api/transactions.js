@@ -1,60 +1,36 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 var express = require('express');
 var router = express.Router();
-
-var SplitTransactionSchema = new Schema({
-  amount: Number,
-  budget: String,
-  description: String,
-});
-
-var TransactionSchema = new Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  totalAmount: Number,
-  account: String,
-  postedDate: Date,
-  postedDescription: String,
-  transactionType: String,
-  status: String,
-  splits: [SplitTransactionSchema], // splits will have 1 item for un-split transactions
-});
-
-mongoose.model('Transaction', TransactionSchema);
-var Transaction = mongoose.model('Transaction');
+const Transaction = require('../db/transaction');
 
 router.route('/transactions')
   .post(function (req, res, next) {
-    var transaction = new Transaction(req.body);
+    var transaction = new Transaction.model(req.body);
     verifySplits(transaction);
     transaction.save(function (err) {
       returnTheThing(res, err, transaction);
     });
   })
   .get(function (req, res, next) {
-    Transaction.find({}, function(err, transactions) {
+    Transaction.model.find({}, function (err, transactions) {
       returnTheThing(res, err, transactions);
     });
   });
 
 router.route('/transactions/:id')
   .get(function (req, res, next) {
-    Transaction.findById(req.params.id, function(err, transaction) {
+    Transaction.model.findById(req.params.id, function (err, transaction) {
       returnTheThing(res, err, transaction);
     });
   })
   .put(function (req, res, next) {
-    var transaction = new Transaction(req.body);
+    var transaction = new Transaction.model(req.body);
     verifySplits(transaction);
-    Transaction.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function(err, transaction) {
+    Transaction.model.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, transaction) {
       returnTheThing(res, err, transaction);
     });
   })
   .delete(function (req, res, next) {
-    Transaction.remove({ _id: req.params.id }, function(err, transaction) {
+    Transaction.model.remove({ _id: req.params.id }, function (err, transaction) {
       if (err) {
         res.send(err);
       } else {
@@ -71,7 +47,7 @@ function verifySplits(transaction) {
   }
 }
 
-function returnTheThing (res, err, body) {
+function returnTheThing(res, err, body) {
   if (err) {
     res.send(err);
   } else {

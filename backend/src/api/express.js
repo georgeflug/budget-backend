@@ -9,8 +9,9 @@ function initExpress() {
   app.use(require('./feature-idea'));
   app.use(require('./transactions'));
   app.use(require('./scrape-mfa'));
+  app.use(require('../plaid/rest'));
   app.listen(port);
-  console.log(`Listening on localhost:${port}`);  
+  console.log(`Listening on localhost:${port}`);
 }
 
 module.exports = {
