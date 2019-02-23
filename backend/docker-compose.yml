@@ -18,6 +18,8 @@ services:
       PLAID_ENV: development
       DISCOVER_ACCESS_KEY: ${DISCOVER_ACCESS_KEY}
       FCCU_ACCESS_KEY: ${FCCU_ACCESS_KEY}
+      SECRET_USERNAME: ${SECRET_USERNAME}
+      SECRET_PASSWORD: ${SECRET_PASSWORD}
     # uncomment this command to run in debug mode
     # command:
     #   - node

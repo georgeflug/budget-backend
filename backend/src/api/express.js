@@ -6,6 +6,7 @@ const port = 3000;
 function initExpress() {
   app.use(express.json());
   require('./status').init(app);
+  app.use(require('./auth'));
   app.use(require('./feature-idea'));
   app.use(require('./transactions'));
   app.use(require('./scrape-mfa'));
