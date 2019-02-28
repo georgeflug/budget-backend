@@ -2,7 +2,6 @@ How to run tests
 
 TODO:
   - write readme file
-  - add tls and disallow http, add self-signed cert
   - install on my server
   - add existing transactions to server
     - consider automated way to download them?

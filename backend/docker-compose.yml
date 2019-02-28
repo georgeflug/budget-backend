@@ -20,6 +20,7 @@ services:
       FCCU_ACCESS_KEY: ${FCCU_ACCESS_KEY}
       SECRET_USERNAME: ${SECRET_USERNAME}
       SECRET_PASSWORD: ${SECRET_PASSWORD}
+      BUDGET_CERT_PASSWORD: ${BUDGET_CERT_PASSWORD}
     # uncomment this command to run in debug mode
     # command:
     #   - node

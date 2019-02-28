@@ -1,7 +1,14 @@
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
+const fs = require('fs');
+const https = require('https');
 
 const port = 3000;
+const serverOptions = {
+  key: fs.readFileSync("./certs/budget-backend-private.key"),
+  passphrase: process.env.BUDGET_CERT_PASSWORD,
+  cert: fs.readFileSync("./certs/budget-backend-public.crt")
+};
 
 function initExpress() {
   app.use(express.json());
@@ -11,7 +18,9 @@ function initExpress() {
   app.use(require('./transactions'));
   app.use(require('./scrape-mfa'));
   app.use(require('../plaid/rest'));
-  app.listen(port);
+
+  https.createServer(serverOptions, app).listen(port);
+
   console.log(`Listening on localhost:${port}`);
 }
 
