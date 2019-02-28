@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const fs = require('fs');
 const https = require('https');
+const morgan = require('morgan');
 
 const port = 3000;
 const serverOptions = {
@@ -12,6 +13,8 @@ const serverOptions = {
 
 function initExpress() {
   app.use(express.json());
+  app.use(morgan(':date[iso] ACCESS ":method :url HTTP/:http-version" Remote:":remote-addr - :remote-user" Response: ":status - :res[content-length] bytes - :response-time ms" Referrer:":referrer" User-agent:":user-agent"'));
+
   require('./status').init(app);
   app.use(require('./auth'));
   app.use(require('./feature-idea'));
