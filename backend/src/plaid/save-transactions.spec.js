@@ -33,14 +33,15 @@ describe('Plaid', () => {
     const quickTest = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
     expect(quickTest).to.be.null;
 
-    await saveTransactions([newTransaction]);
+    const metrics = await saveTransactions([newTransaction]);
 
-    console.log("about to retrieve it");
     const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
-    console.log("retrieved it");
 
     expect(actual).to.not.be.null;
     compareTransactions(actual, newTransaction);
+    expect(metrics.newRecords).to.equal(1, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(0, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
   });
 
   it('edit existing transaction if new one has the same plaidId', async () => {
@@ -64,10 +65,13 @@ describe('Plaid', () => {
     };
     await (new Transaction.model(existingTransaction)).save()
 
-    await saveTransactions([newTransaction]);
+    const metrics = await saveTransactions([newTransaction]);
     const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
 
     compareTransactions(actual, expectedTransaction);
+    expect(metrics.newRecords).to.equal(0, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(1, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
   });
 
   it('edit existing transaction does not clobber user-entered data (budget and description) even if amount changed', async () => {
@@ -100,10 +104,13 @@ describe('Plaid', () => {
     };
     await (new Transaction.model(existingTransaction)).save()
 
-    await saveTransactions([newTransaction]);
+    const metrics = await saveTransactions([newTransaction]);
     const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
 
     compareTransactions(actual, expectedTransaction);
+    expect(metrics.newRecords).to.equal(0, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(1, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
   });
 
   it('edit existing transaction if new one matches the amount on a manually entered one that has not been matched yet', async () => {
@@ -129,10 +136,13 @@ describe('Plaid', () => {
     };
     await (new Transaction.model(existingTransaction)).save()
 
-    await saveTransactions([newTransaction]);
+    const metrics = await saveTransactions([newTransaction]);
     const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
 
     compareTransactions(actual, expectedTransaction);
+    expect(metrics.newRecords).to.equal(0, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(1, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
   });
 
   function compareTransactions(actualTransaction, expectedTransaction) {

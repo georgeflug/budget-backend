@@ -1,16 +1,51 @@
 const Transaction = require('../db/transaction');
+const moment = require('moment');
 
 module.exports = async function saveTransactions(transactions) {
-  return await Promise.all(transactions.map(saveTransaction));
+  const results = await Promise.all(transactions.map(saveTransaction));
+  const existingCount = results.reduce((total, current) => total + (current.type === 'updated' ? 1 : 0), 0);
+  const unchangedCount = results.reduce((total, current) => total + (current.type === 'unchanged' ? 1 : 0), 0);
+  const totalCount = transactions.length;
+  const newRecords = totalCount - existingCount - unchangedCount;
+
+  return {
+    newRecords: newRecords,
+    updatedRecords: existingCount,
+    unchangedRecords: unchangedCount,
+    totalRecords: totalCount
+  };
 };
 
 async function saveTransaction(plaidTransaction) {
   let existingTransaction = await findExistingTransaction(plaidTransaction);
   if (existingTransaction) {
-    return updateExistingTransaction(plaidTransaction, existingTransaction);
+    if (isTransactionTheSame(plaidTransaction, existingTransaction)) {
+      return {
+        type: 'unchanged',
+        transaction: existingTransaction
+      };
+    } else {
+      return {
+        type: 'updated',
+        transaction: await updateExistingTransaction(plaidTransaction, existingTransaction)
+      };
+    }
   } else {
-    return await saveNewTransaction(plaidTransaction);
+    return {
+      type: 'new',
+      transaction: await saveNewTransaction(plaidTransaction)
+    };
   }
+}
+
+function isTransactionTheSame(plaidTransaction, existingTransaction) {
+  return (
+    existingTransaction.postedDescription === plaidTransaction.postedDescription &&
+    existingTransaction.plaidId === plaidTransaction.plaidId &&
+    existingTransaction.account === plaidTransaction.account &&
+    existingTransaction.totalAmount === plaidTransaction.totalAmount &&
+    moment(existingTransaction.postedDate).isSame(plaidTransaction.postedDate)
+  );
 }
 
 async function findExistingTransaction(plaidTransaction) {

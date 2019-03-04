@@ -6,6 +6,7 @@ const hostName = 'mongo';
 const port = 27017;
 const dbName = 'budget';
 const url = `${protocol}://${hostName}:${port}/${dbName}`; //'mongodb://mongo:27017/budget';
+const log = require('../log');
 
 const connectionRetryDelay = 1000;
 let isConnected = false;
@@ -17,20 +18,20 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 
 db.once('open', function () {
-  console.log("Connected successfully to mongodb server");
+  log.debug('DB', 'Connected successfully to mongodb server');
   isConnected = true;
   promiseRes();
 });
 
 db.on('error', function () {
-  console.log('Mongodb server not ready. Retrying...');
+  log.debug('DB', 'Mongodb server not ready. Retrying...');
   setTimeout(() => mongoose.connect(url), connectionRetryDelay);
 });
 
 function connectToDbWithRetry() {
   if (isConnected) return Promise.resolve();
 
-  console.log('Attempting to connect to mongodb');
+  log.debug('DB', 'Attempting to connect to mongodb');
 
   return new Promise((res, rej) => {
     promiseRes = res;

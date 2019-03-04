@@ -3,6 +3,7 @@ const app = express()
 const fs = require('fs');
 const https = require('https');
 const morgan = require('morgan');
+const log = require('../log');
 
 const port = 3000;
 const serverOptions = {
@@ -24,7 +25,7 @@ function initExpress() {
 
   https.createServer(serverOptions, app).listen(port);
 
-  console.log(`Listening on localhost:${port}`);
+  log.debug('Startup', `Listening on localhost:${port}`);
 }
 
 module.exports = {
