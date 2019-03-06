@@ -3,7 +3,7 @@ const adaptTransactions = require('./adapt-transactions');
 const saveTransactions = require('./save-transactions');
 const log = require('../log');
 
-module.exports = async function saveLatestTransactionsToDb() {
+async function saveLatestTransactionsToDb() {
   log.debug('Transaction Download', 'start');
   const startTime = Date.now();
 
@@ -16,3 +16,8 @@ module.exports = async function saveLatestTransactionsToDb() {
   log.debug('Transaction Download', `finished. ${JSON.stringify(results)}`);
   return results;
 };
+
+module.exports = {
+  saveLatestTransactionsToDb: saveLatestTransactionsToDb
+}
+

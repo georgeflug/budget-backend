@@ -27,10 +27,10 @@ services:
     #   - "--inspect-brk=0.0.0.0"
     #   - "index.js"
 
-    # uncomment this command to run tests
+    # uncomment this command to run integration tests
     # command:
     #   - npm
-    #   - test
+    #   - testIntegration
     # restart: "no"
   mongo:
     container_name: mongo
