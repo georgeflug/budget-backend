@@ -3,23 +3,22 @@ package com.georgeflug.budget.transactions
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.SimpleAdapter
 import android.widget.Toast
 import com.georgeflug.budget.R
-import com.georgeflug.budget.api.Transaction
-import com.georgeflug.budget.api.TransactionApi
+import com.georgeflug.budget.api.BudgetApi
+import com.georgeflug.budget.api.model.Transaction
+import com.georgeflug.budget.api.model.TransactionSplit
 import com.georgeflug.budget.budgets.Budget
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_edit_transaction.*
 import java.math.BigDecimal
-import java.util.*
 
-
-class EditTransactionDialog(context: Context, private val transaction: SplittableTransaction) : Dialog(context) {
+class EditTransactionDialog(context: Context, private val transaction: Transaction) : Dialog(context) {
     val budgetItems = Budget.values()
             .sortedBy { it.title }
             .map { mutableMapOf("title" to it.title, "description" to it.description, "iconId" to it.iconId.toString()) }
@@ -33,10 +32,10 @@ class EditTransactionDialog(context: Context, private val transaction: Splittabl
 
         prepareBudgetSpinner()
 
-        editAmountText.setText(transaction.amount.toString())
-        editDescriptionText.setText(transaction.description)
+        editAmountText.setText(transaction.totalAmount.toString())
+        editDescriptionText.setText(transaction.splits[0].description)
         editPostedDescriptionText.text = transaction.postedDescription
-        editBudgetText.setSelection(budgetItems.indexOfFirst { it["title"] == transaction.budget })
+        editBudgetText.setSelection(budgetItems.indexOfFirst { it["title"] == transaction.splits[0].budget })
         val dateToUse = if (transaction.date.isNullOrBlank()) transaction.postedDate else transaction.date
         editDateText.setText(DateUtil.cleanupDate(dateToUse))
 
@@ -45,18 +44,32 @@ class EditTransactionDialog(context: Context, private val transaction: Splittabl
 
             val amount = BigDecimal(editAmountText.text.toString())
             val description = editDescriptionText.text.toString()
-            val budget = (editBudgetText.selectedItem as HashMap<String, String>)["title"]
+            val budget = (editBudgetText.selectedItem as HashMap<String, String>)["title"]!!
             val date = editDateText.text.toString()
-            val row = transaction.row
-            TransactionApi.updateTransaction(date, amount.toString(), budget!!, description, row)
+
+            val updatedTransaction = Transaction(
+                    _id = transaction._id,
+                    plaidId = transaction.plaidId,
+                    date = transaction.date,
+                    totalAmount = amount,
+                    account = transaction.account,
+                    postedDate = transaction.postedDate,
+                    postedDescription = transaction.postedDescription,
+                    splits = listOf(
+                            TransactionSplit(amount = amount, budget = budget, description = description)
+                    ))
+
+            BudgetApi.transactions.updateTransaction(transaction._id, updatedTransaction)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext { progressDialog.dismiss() }
                     .subscribe({
                         // write updates back into transaction object
-                        transaction.amount = amount
-                        transaction.description = description
-                        transaction.budget = budget
-                        Log.d("foo", "date changing from ${transaction.date} to $date")
-                        transaction.date = date
+//                        transaction.amount = amount
+//                        transaction.description = description
+//                        transaction.budget = budget
+//                        Log.d("foo", "date changing from ${transaction.date} to $date")
+//                        transaction.date = date
+                        // TODO: emit the new transaction
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         dismiss()
                     }, {

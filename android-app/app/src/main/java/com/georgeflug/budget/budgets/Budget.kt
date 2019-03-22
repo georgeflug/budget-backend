@@ -9,11 +9,10 @@ enum class Budget(
         val description: String,
         val amount: BigDecimal?,
         @DrawableRes val iconId: Int,
-        val isAutomatic: Boolean)
-{
+        val isAutomatic: Boolean) {
     RICHIE("Richie", "", BigDecimal(120), R.drawable.ic_icons8_user_male, false),
     STEF("Stef", "", BigDecimal(120), R.drawable.ic_icons8_female_user, false),
-    BEN("Ben", "",null, R.drawable.ic_icons8_babys_room, false),
+    BEN("Ben", "", null, R.drawable.ic_icons8_babys_room, false),
     CLOTHES("Clothes", "Clothes, hair, makeup", BigDecimal(70), R.drawable.ic_icons8_tshirt, false),
     GROCERIES("Groceries", "", BigDecimal(400), R.drawable.ic_icons8_bread, false),
     ENTERTAINMENT("Entertainment", "Restaurants, bars, food, movies, outings, etc", BigDecimal(150), R.drawable.ic_icons8_beer, false),

@@ -3,8 +3,14 @@ const Schema = mongoose.Schema;
 
 const SplitTransactionSchema = new Schema({
   amount: Number,
-  budget: String,
-  description: String,
+  budget: {
+    type: String,
+    default: '',
+  },
+  description: {
+    type: String,
+    default: '',
+  },
 });
 
 const TransactionSchema = new Schema({

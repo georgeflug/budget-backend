@@ -9,13 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.georgeflug.budget.api.TransactionApi
+import com.georgeflug.budget.api.BudgetApi
+import com.georgeflug.budget.api.model.NewTransaction
+import com.georgeflug.budget.api.model.TransactionSplit
 import com.georgeflug.budget.budgets.Budget
-import kotlinx.android.synthetic.main.fragment_add_transaction.*
-import java.math.BigDecimal
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
-
+import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_add_transaction.*
+import java.math.BigDecimal
 
 private const val GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD = 1760
 
@@ -38,10 +40,14 @@ class AddTransactionFragment : Fragment() {
 
                 val amount = BigDecimal(amountText.text.toString().trim()).negate()
                 val description = descriptionText.text.toString()
-                val budget = addTransactionBudgetSelector.selectedBudget?.title ?: Budget.UNKNOWN.title
+                val budget = addTransactionBudgetSelector.selectedBudget?.title
+                        ?: Budget.UNKNOWN.title
                 val date = DateUtil.getToday()
 
-                TransactionApi.addTransaction(date, amount.toString(), budget, description)
+                val newSplit = TransactionSplit(amount = amount, budget = budget, description = description)
+                val newTransaction = NewTransaction(date = date, totalAmount = amount, splits = listOf(newSplit))
+                BudgetApi.transactions.createTransaction(newTransaction)
+                        .observeOn(AndroidSchedulers.mainThread())
                         .doOnNext { progressDialog.dismiss(); }
                         .subscribe({
                             Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()

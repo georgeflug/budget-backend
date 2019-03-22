@@ -1,44 +1,23 @@
 package com.georgeflug.budget.api
 
-import android.util.Log
-import com.google.gson.Gson
+import com.georgeflug.budget.api.model.NewTransaction
+import com.georgeflug.budget.api.model.Transaction
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.net.URL
+import retrofit2.http.*
 
-object TransactionApi {
-    private const val url = "https://script.google.com/macros/s/AKfycbzJXrwFepauVmiodXfe81zETyqgAMcwdjR8fRjJ1NvrcpAgPPg/exec"
+interface TransactionApi {
+    @GET("transactions")
+    fun listTransactions(): Observable<List<Transaction>>
 
-    private val transactions: Observable<TransactionApiListResult> =
-            getRequest("$url?route=getTransactions").cache()
-                    .map { Gson().fromJson(it, TransactionApiListResult::class.java) }
+    @POST("transactions")
+    fun createTransaction(@Body transaction: NewTransaction): Observable<Transaction>
 
-    fun getTransactions(): Observable<TransactionApiListResult> = transactions
+    @GET("transactions/{id}")
+    fun getTransaction(@Path("id") id: String): Observable<Transaction>
 
-    fun addTransaction(date: String, amount: String, budget: String, description: String): Observable<String> =
-            getRequest("$url?route=insertTransaction&date=$date&amount=$amount&budget=$budget&description=$description")
+    @PUT("transactions/{id}")
+    fun updateTransaction(@Path("id") id: String, @Body transaction: Transaction): Observable<Transaction>
 
-    fun updateTransaction(date: String?, amount: String, budget: String, description: String, row: Int): Observable<String> =
-            getRequest("$url?route=updateTransaction&date=$date&amount=$amount&budget=$budget&description=$description&updateRow=$row")
-
-    fun addFeatureIdea(date: String?, description: String): Observable<String> =
-            getRequest("$url?route=insertFeatureIdea&date=$date&description=$description")
-
-    private fun getRequest(requestUrl: String): Observable<String> {
-            Log.d("getRequest", "requestUrl: $requestUrl")
-            return Observable.fromCallable { URL(requestUrl).openStream().bufferedReader().use { it.readText() } }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext {
-                        Log.d("getRequest", "requestUrl: $requestUrl, result: $it")
-                        if (!it.contains(""""result":"success"""")) {
-                            // hacky, parse strings or objects
-                            val errorLocation = it.indexOf("error\":")
-                            var error = it.drop(errorLocation + 7).dropLast(1)
-                            if (error.startsWith("\"")) error = error.drop(1).dropLast(1)
-                            throw ApiException(error)
-                        }
-                    }
-    }
+    @DELETE("transactions/{id}")
+    fun deleteTransactions(@Path("id") id: String): Observable<List<Transaction>>
 }

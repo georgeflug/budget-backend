@@ -10,18 +10,18 @@ import android.widget.AdapterView
 import android.widget.SimpleAdapter
 import android.widget.Toast
 import com.georgeflug.budget.R
-import com.georgeflug.budget.api.Transaction
-import com.georgeflug.budget.api.TransactionApi
+import com.georgeflug.budget.api.BudgetApi
+import com.georgeflug.budget.api.model.Transaction
+import com.georgeflug.budget.api.model.TransactionSplit
 import com.georgeflug.budget.util.DateUtil
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_budgets.*
 import java.math.BigDecimal
 import java.text.NumberFormat
-import java.time.Duration
 import java.time.LocalDate
-import java.time.Month
 import java.time.Period
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
 
 class BudgetsFragment : Fragment() {
 
@@ -38,9 +38,10 @@ class BudgetsFragment : Fragment() {
         // TODO: when I edit a transaction, those changes are not reflected here.
         // add a repo layer or something.
 
-        TransactionApi.getTransactions()
+        BudgetApi.transactions.listTransactions()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    transactions = it.rows
+                    transactions = it
                     rePopulateBudgets(LocalDate.now())
                 }, {
                     Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
@@ -93,8 +94,9 @@ class BudgetsFragment : Fragment() {
         // carry-forward earlier budget amounts
         transactions
                 .filter { isBeforeMonth(DateUtil.parseDate(it.getBestDate()), month) }
+                .flatMap { transaction -> transaction.splits }
                 .groupBy { it.budget }
-                .forEach { budget: String, rows: List<Transaction> ->
+                .forEach { budget: String, rows: List<TransactionSplit> ->
                     val enumBudget = Budget.lookup(budget)
                     if (enumBudget?.amount != null) {
                         val totalSpent = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }.negate()
@@ -106,8 +108,9 @@ class BudgetsFragment : Fragment() {
         // get budgets for the current month
         transactions
                 .filter { isSameMonth(DateUtil.parseDate(it.getBestDate()), month) }
+                .flatMap { transaction -> transaction.splits }
                 .groupBy { it.budget }
-                .forEach { budget: String, rows: List<Transaction> ->
+                .forEach { budget: String, rows: List<TransactionSplit> ->
                     val enumBudget = Budget.lookup(budget)
                     val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }.negate()
                     val carryOver = carryovers[enumBudget]

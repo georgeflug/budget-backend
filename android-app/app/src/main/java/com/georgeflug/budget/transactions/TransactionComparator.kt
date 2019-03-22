@@ -1,6 +1,6 @@
 package com.georgeflug.budget.transactions
 
-import com.georgeflug.budget.api.Transaction
+import com.georgeflug.budget.api.model.Transaction
 
 class TransactionComparator : Comparator<Transaction> {
     override fun compare(o1: Transaction, o2: Transaction): Int {
@@ -10,7 +10,7 @@ class TransactionComparator : Comparator<Transaction> {
         } else {
             // causes first-entered transactions to appear first.
             // also causes split-transactions to appear next to each other.
-            o1.id.compareTo(o2.id)
+            o1._id.compareTo(o2._id)
         }
     }
 }

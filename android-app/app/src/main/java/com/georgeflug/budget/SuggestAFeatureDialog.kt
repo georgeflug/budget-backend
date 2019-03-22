@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
-import com.georgeflug.budget.api.TransactionApi
+import com.georgeflug.budget.api.BudgetApi
+import com.georgeflug.budget.api.model.FeatureIdea
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.dialog_suggest_feature.*
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class SuggestAFeatureDialog(context: Context) : Dialog(context) {
 
@@ -25,7 +28,9 @@ class SuggestAFeatureDialog(context: Context) : Dialog(context) {
         suggestFeatureSubmitButton.setOnClickListener {
             val date = SimpleDateFormat("MM-dd-yyyy", Locale.US).format(Date())
             val description = featureDescription.text.toString()
-            TransactionApi.addFeatureIdea(date, description)
+            val newIdea = FeatureIdea(date = date, description = description)
+            BudgetApi.featureIdeas.createFeatureIdea(newIdea)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         Toast.makeText(context, "Thanks!", Toast.LENGTH_LONG).show()
                         dismiss()
