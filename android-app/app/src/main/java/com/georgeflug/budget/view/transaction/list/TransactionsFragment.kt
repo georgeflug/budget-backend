@@ -1,4 +1,4 @@
-package com.georgeflug.budget.transactions
+package com.georgeflug.budget.view.transaction.list
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
-import com.georgeflug.budget.api.model.Transaction
-import com.georgeflug.budget.api.model.TransactionSplit
+import com.georgeflug.budget.model.Transaction
+import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.BudgetUtil
 import com.georgeflug.budget.util.DateUtil
+import com.georgeflug.budget.view.transaction.edit.EditTransactionDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_transactions.*
 import java.math.BigDecimal

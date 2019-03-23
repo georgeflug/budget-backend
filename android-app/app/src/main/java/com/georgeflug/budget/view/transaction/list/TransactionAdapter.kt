@@ -1,4 +1,4 @@
-package com.georgeflug.budget.transactions
+package com.georgeflug.budget.view.transaction.list
 
 import android.content.Context
 import android.graphics.Color
@@ -16,8 +16,8 @@ import com.georgeflug.budget.R.id.itemBudgetText
 import com.georgeflug.budget.R.id.itemDescriptionText
 import com.georgeflug.budget.R.id.splitItemList
 import com.georgeflug.budget.R.id.transactionItem
-import com.georgeflug.budget.api.model.Transaction
-import com.georgeflug.budget.budgets.Budget
+import com.georgeflug.budget.model.Budget
+import com.georgeflug.budget.model.Transaction
 import java.text.NumberFormat
 
 class TransactionAdapter(context: Context, private val list: List<Transaction>) : ArrayAdapter<Transaction>(context, 0, list) {

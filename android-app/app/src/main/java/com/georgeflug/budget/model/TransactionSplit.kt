@@ -1,4 +1,4 @@
-package com.georgeflug.budget.api.model
+package com.georgeflug.budget.model
 
 import java.math.BigDecimal
 

@@ -1,6 +1,6 @@
-package com.georgeflug.budget.transactions
+package com.georgeflug.budget.view.transaction.list
 
-import com.georgeflug.budget.api.model.Transaction
+import com.georgeflug.budget.model.Transaction
 
 class TransactionComparator : Comparator<Transaction> {
     override fun compare(o1: Transaction, o2: Transaction): Int {

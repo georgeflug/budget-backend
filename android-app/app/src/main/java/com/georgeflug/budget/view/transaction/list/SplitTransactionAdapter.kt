@@ -1,4 +1,4 @@
-package com.georgeflug.budget.transactions
+package com.georgeflug.budget.view.transaction.list
 
 import android.content.Context
 import android.graphics.Color
@@ -11,8 +11,8 @@ import com.georgeflug.budget.R
 import com.georgeflug.budget.R.id.splitItem
 import com.georgeflug.budget.R.id.splitItemAmount
 import com.georgeflug.budget.R.id.splitItemText
-import com.georgeflug.budget.api.model.TransactionSplit
-import com.georgeflug.budget.budgets.Budget
+import com.georgeflug.budget.model.Budget
+import com.georgeflug.budget.model.TransactionSplit
 import java.text.NumberFormat
 
 class SplitTransactionAdapter(context: Context, private val list: List<TransactionSplit>) : ArrayAdapter<TransactionSplit>(context, 0, list) {

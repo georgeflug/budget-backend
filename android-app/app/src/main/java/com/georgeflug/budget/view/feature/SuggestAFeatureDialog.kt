@@ -1,4 +1,4 @@
-package com.georgeflug.budget
+package com.georgeflug.budget.view.feature
 
 import android.app.Dialog
 import android.content.Context
@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
-import com.georgeflug.budget.api.model.FeatureIdea
+import com.georgeflug.budget.model.FeatureIdea
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.dialog_suggest_feature.*
 import java.text.SimpleDateFormat

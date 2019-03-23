@@ -1,9 +1,14 @@
 package com.georgeflug.budget.api
 
-import com.georgeflug.budget.api.model.NewTransaction
-import com.georgeflug.budget.api.model.Transaction
+import com.georgeflug.budget.model.NewTransaction
+import com.georgeflug.budget.model.Transaction
 import io.reactivex.Observable
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface TransactionApi {
     @GET("transactions")

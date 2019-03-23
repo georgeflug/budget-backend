@@ -1,4 +1,4 @@
-package com.georgeflug.budget.transactions
+package com.georgeflug.budget.view.transaction.edit
 
 import android.app.Dialog
 import android.content.Context
@@ -9,9 +9,9 @@ import android.widget.SimpleAdapter
 import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
-import com.georgeflug.budget.api.model.Transaction
-import com.georgeflug.budget.api.model.TransactionSplit
-import com.georgeflug.budget.budgets.Budget
+import com.georgeflug.budget.model.Budget
+import com.georgeflug.budget.model.Transaction
+import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers

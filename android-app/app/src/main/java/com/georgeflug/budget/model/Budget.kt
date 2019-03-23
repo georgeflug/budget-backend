@@ -1,4 +1,4 @@
-package com.georgeflug.budget.budgets
+package com.georgeflug.budget.model
 
 import android.support.annotation.DrawableRes
 import com.georgeflug.budget.R

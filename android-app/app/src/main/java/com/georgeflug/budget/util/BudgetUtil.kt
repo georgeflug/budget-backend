@@ -2,7 +2,7 @@ package com.georgeflug.budget.util
 
 import android.support.v4.app.FragmentActivity
 import com.georgeflug.budget.R
-import com.georgeflug.budget.budgets.BudgetsFragment
+import com.georgeflug.budget.view.budget.BudgetsFragment
 import java.time.LocalDate
 
 class BudgetUtil {

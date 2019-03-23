@@ -1,4 +1,4 @@
-package com.georgeflug.budget
+package com.georgeflug.budget.view.transaction.add
 
 import android.app.Activity
 import android.content.Context
@@ -9,19 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
-import com.georgeflug.budget.api.model.NewTransaction
-import com.georgeflug.budget.api.model.TransactionSplit
-import com.georgeflug.budget.budgets.Budget
+import com.georgeflug.budget.model.Budget
+import com.georgeflug.budget.model.NewTransaction
+import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_transaction.*
 import java.math.BigDecimal
 
-private const val GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD = 1760
-
 class AddTransactionFragment : Fragment() {
+    private val GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD = 1760
+
     var amountEntered = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

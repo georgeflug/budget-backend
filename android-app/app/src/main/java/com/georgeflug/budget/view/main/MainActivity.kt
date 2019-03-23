@@ -1,4 +1,4 @@
-package com.georgeflug.budget
+package com.georgeflug.budget.view.main
 
 import android.app.Activity
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.georgeflug.budget.R
+import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 
