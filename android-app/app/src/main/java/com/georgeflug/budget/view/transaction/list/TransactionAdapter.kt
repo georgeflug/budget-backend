@@ -20,33 +20,46 @@ import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import java.text.NumberFormat
 
-class TransactionAdapter(context: Context, private val list: List<Transaction>) : ArrayAdapter<Transaction>(context, 0, list) {
+class TransactionAdapter(
+        context: Context,
+        private val model: TransactionsModel = TransactionsModel())
+    : ArrayAdapter<TransactionsModel.SectionOrTransaction>(context, 0, model.items) {
+
+    init {
+        model.registerOnChange(Runnable {
+            this.notifyDataSetInvalidated()
+        })
+    }
+
     override fun getViewTypeCount() = 3
 
     override fun getItemViewType(position: Int): Int {
-        val transaction = list[position]
+        val item = model.getSectionOrTransactionAt(position)
         return when {
-            transaction.account == "SECTION" -> 0
-            transaction.splits.isEmpty() -> 1
+            isSection(item) -> 0
+            isUnsplitTransaction(item) -> 1
             else -> 2
         }
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val transaction = list[position]
+        val item = model.getSectionOrTransactionAt(position)
         return when {
-            transaction.account == "SECTION" -> getSectionView(transaction, convertView, parent)
-            transaction.splits.isEmpty() -> getItemView(transaction, convertView, parent)
-            else -> getSplitItemView(transaction, convertView, parent)
+            isSection(item) -> getSectionView(item.section!!, convertView, parent)
+            isUnsplitTransaction(item) -> getItemView(item.transaction!!, convertView, parent)
+            else -> getSplitItemView(item.transaction!!, convertView, parent)
         }
     }
 
-    private fun getSectionView(transaction: Transaction, convertView: View?, parent: ViewGroup): View {
+    private fun isSection(item: TransactionsModel.SectionOrTransaction) = item.section != null
+    private fun isUnsplitTransaction(item: TransactionsModel.SectionOrTransaction) = item.transaction!!.splits.size == 1
+
+    private fun getSectionView(section: Section, convertView: View?, parent: ViewGroup): View {
         val view = convertView
                 ?: LayoutInflater.from(context).inflate(R.layout.transaction_section_item, parent, false)
 
         val itemDescriptionTextView = view.findViewById<TextView>(itemDescriptionText)
-        itemDescriptionTextView.text = Html.fromHtml("<b>" + getDescription(transaction) + "</b>", 0)
+        itemDescriptionTextView.text = Html.fromHtml("<b>${section.name}</b>", 0)
 
         return view
     }

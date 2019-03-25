@@ -2,6 +2,7 @@ package com.georgeflug.budget
 
 import android.app.Application
 import android.content.Context
+import com.georgeflug.budget.service.TransactionService
 
 class BudgetApplication : Application() {
 
@@ -16,5 +17,6 @@ class BudgetApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        TransactionService.downloadTransactions()
     }
 }
