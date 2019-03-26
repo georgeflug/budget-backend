@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.georgeflug.budget.R
@@ -22,13 +23,33 @@ class AddTransactionFragment : Fragment() {
 
     var amountEntered = ""
 
+    val keyboardLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
+        val activityRootView = activity.window.decorView.findViewById<View>(android.R.id.content)
+        val visibility = if (activityRootView.height < GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD) View.GONE else View.VISIBLE
+        amountButton1.visibility = visibility
+        amountButton2.visibility = visibility
+        amountButton3.visibility = visibility
+        amountButton4.visibility = visibility
+        amountButton5.visibility = visibility
+        amountButton6.visibility = visibility
+        amountButton7.visibility = visibility
+        amountButton8.visibility = visibility
+        amountButton9.visibility = visibility
+        amountButton0.visibility = visibility
+        amountButtonBack.visibility = visibility
+        amountButtonPlaceholder.visibility = visibility
+        addTransactionBudgetSelector.unselectedVisible = visibility
+        addTransactionScrollView.post { addTransactionScrollView?.smoothScrollTo(0, 0) }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_transaction, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+
         submitTransactionButton.setOnClickListener { view ->
 
             if (amountEntered.isEmpty()) {
@@ -84,23 +105,14 @@ class AddTransactionFragment : Fragment() {
         }
 
         val activityRootView = activity.window.decorView.findViewById<View>(android.R.id.content)
-        activityRootView.viewTreeObserver.addOnGlobalLayoutListener {
-            val visibility = if (activityRootView.height < GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD) View.GONE else View.VISIBLE
-            amountButton1.visibility = visibility
-            amountButton2.visibility = visibility
-            amountButton3.visibility = visibility
-            amountButton4.visibility = visibility
-            amountButton5.visibility = visibility
-            amountButton6.visibility = visibility
-            amountButton7.visibility = visibility
-            amountButton8.visibility = visibility
-            amountButton9.visibility = visibility
-            amountButton0.visibility = visibility
-            amountButtonBack.visibility = visibility
-            amountButtonPlaceholder.visibility = visibility
-            addTransactionBudgetSelector.unselectedVisible = visibility
-            addTransactionScrollView.post { addTransactionScrollView.smoothScrollTo(0, 0) }
-        }
+        activityRootView.viewTreeObserver.addOnGlobalLayoutListener(keyboardLayoutListener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        val activityRootView = activity.window.decorView.findViewById<View>(android.R.id.content)
+        activityRootView.viewTreeObserver.removeOnGlobalLayoutListener(keyboardLayoutListener)
     }
 
     private fun clickButton(buttonText: String) {

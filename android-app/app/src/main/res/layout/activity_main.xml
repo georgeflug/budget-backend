@@ -17,51 +17,11 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <FrameLayout
-        android:id="@+id/addTransactionFragmentContainer"
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/separator">
-
-        <fragment
-            android:id="@+id/addTransactionFragment"
-            android:name="com.georgeflug.budget.view.transaction.add.AddTransactionFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/transactionsFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/separator"
-        android:visibility="gone">
-
-        <fragment
-            android:id="@+id/transactionsFragment"
-            android:name="com.georgeflug.budget.view.transaction.list.TransactionsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/budgetsFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/separator"
-        android:visibility="gone">
-
-        <fragment
-            android:id="@+id/budgetsFragment"
-            android:name="com.georgeflug.budget.view.budget.BudgetsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
+        app:layout_constraintBottom_toTopOf="@id/separator"></FrameLayout>
 
     <View
         android:id="@+id/separator"

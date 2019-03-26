@@ -1,6 +1,7 @@
 package com.georgeflug.budget.view.budget
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -26,18 +27,16 @@ import java.util.Locale
 
 class BudgetsFragment : Fragment() {
 
-    private lateinit var transactions: List<Transaction>
+    private var transactions: List<Transaction> = ArrayList()
+    private var selectedTab = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_budgets, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        // TODO: when I edit a transaction, those changes are not reflected here.
-        // add a repo layer or something.
+    override fun onStart() {
+        super.onStart()
 
         BudgetApi.transactions.listTransactions()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -64,11 +63,15 @@ class BudgetsFragment : Fragment() {
             }
             val tab = tabLayout.newTab().setText(tabText).setTag(month)
             tabLayout.addTab(tab)
-            tab.select()
             month = month.plusMonths(1)
         }
 
-        tabLayout.setScrollPosition(tabLayout.tabCount, 0f, false)
+        if (selectedTab == -1) selectedTab = tabLayout.tabCount - 1
+
+        Handler().postDelayed({
+            tabLayout.getTabAt(selectedTab)!!.select()
+        }, 50)
+
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
@@ -79,9 +82,11 @@ class BudgetsFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val month: LocalDate = tab.tag as LocalDate
                 rePopulateBudgets(month)
+                selectedTab = tab.position
             }
 
         })
+
     }
 
     fun rePopulateBudgets(month: LocalDate) {
