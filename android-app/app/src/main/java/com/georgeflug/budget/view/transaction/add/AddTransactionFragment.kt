@@ -10,18 +10,15 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.georgeflug.budget.R
-import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.Budget
-import com.georgeflug.budget.model.NewTransaction
-import com.georgeflug.budget.model.TransactionSplit
+import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.util.AlertUtil
-import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_transaction.*
 import java.math.BigDecimal
 
 class AddTransactionFragment : Fragment() {
-    private val GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD = 1760
+    private val GOOGLE_PIXEL_HEIGHT_WITHOUT_KEYBOARD = 1704
 
     var amountEntered = ""
 
@@ -43,11 +40,8 @@ class AddTransactionFragment : Fragment() {
                 val description = descriptionText.text.toString()
                 val budget = addTransactionBudgetSelector.selectedBudget?.title
                         ?: Budget.UNKNOWN.title
-                val date = DateUtil.getToday()
 
-                val newSplit = TransactionSplit(amount = amount, budget = budget, description = description)
-                val newTransaction = NewTransaction(date = date, totalAmount = amount, splits = listOf(newSplit))
-                BudgetApi.transactions.createTransaction(newTransaction)
+                TransactionService.addTransaction(amount, budget, description)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnNext { progressDialog.dismiss(); }
                         .subscribe({
@@ -61,7 +55,7 @@ class AddTransactionFragment : Fragment() {
                             val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
                             imm.hideSoftInputFromWindow(view?.windowToken, 0)
                         }, {
-                            Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                            AlertUtil.showError(context, it, "Could not add transaction")
                         })
             }
         }

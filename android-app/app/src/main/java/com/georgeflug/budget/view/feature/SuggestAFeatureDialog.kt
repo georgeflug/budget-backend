@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.FeatureIdea
+import com.georgeflug.budget.util.AlertUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.dialog_suggest_feature.*
 import java.text.SimpleDateFormat
@@ -36,7 +37,7 @@ class SuggestAFeatureDialog(context: Context) : Dialog(context) {
                         Toast.makeText(context, "Thanks!", Toast.LENGTH_LONG).show()
                         dismiss()
                     }, {
-                        Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                        AlertUtil.showError(context, it, "Could not save feature idea")
                     })
         }
     }

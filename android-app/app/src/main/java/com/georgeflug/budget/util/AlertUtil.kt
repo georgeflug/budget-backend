@@ -3,6 +3,8 @@ package com.georgeflug.budget.util
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
+import android.util.Log
+import android.widget.Toast
 
 class AlertUtil {
 
@@ -21,5 +23,9 @@ class AlertUtil {
             AlertDialog.Builder(context).setTitle(title).setMessage(message).create().show()
         }
 
+        fun showError(context: Context, error: Throwable, message: String) {
+            Log.d("SHOWERROR", message, error)
+            Toast.makeText(context, "$message: $error", Toast.LENGTH_LONG).show()
+        }
     }
 }

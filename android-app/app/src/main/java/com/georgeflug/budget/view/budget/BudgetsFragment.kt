@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SimpleAdapter
-import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
+import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_budgets.*
@@ -45,7 +45,7 @@ class BudgetsFragment : Fragment() {
                     transactions = it
                     rePopulateBudgets(LocalDate.now())
                 }, {
-                    Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                    AlertUtil.showError(context, it, "Could not retrieve transaction list")
                 })
         budgetList.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
             rePopulateBudgets(LocalDate.now())

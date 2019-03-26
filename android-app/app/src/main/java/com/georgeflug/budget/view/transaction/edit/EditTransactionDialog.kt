@@ -73,7 +73,7 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         dismiss()
                     }, {
-                        Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                        AlertUtil.showError(context, it, "Could not update transaction")
                     })
         }
     }

@@ -1,8 +1,11 @@
 package com.georgeflug.budget.view.transaction.list
 
+import com.georgeflug.budget.BudgetApplication
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 class TransactionsModel {
     data class SectionOrTransaction(val section: Section?, val transaction: Transaction?)
@@ -11,8 +14,14 @@ class TransactionsModel {
     private val listeners = ArrayList<Runnable>()
 
     init {
-        TransactionService.getInitialTransactions().subscribe { saveInitialTransactions(it) }
-        TransactionService.listen().subscribe { saveTransaction(it) }
+        TransactionService.getInitialTransactions()
+                .doOnNext(::saveInitialTransactions)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({}, ::handleError)
+        TransactionService.listen()
+                .doOnNext(::saveTransaction)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({}, ::handleError)
     }
 
     val size: Int
@@ -24,10 +33,6 @@ class TransactionsModel {
 
     fun registerOnChange(onChange: Runnable) {
         listeners.add(onChange)
-    }
-
-    fun unregisterOnChange(onChange: Runnable) {
-        listeners.remove(onChange)
     }
 
     private fun saveInitialTransactions(transactions: List<Transaction>) {
@@ -48,9 +53,16 @@ class TransactionsModel {
     }
 
     private fun saveTransaction(transaction: Transaction) {
-        val newTransactions = items.map { it.transaction }.toMutableList()
+        val newTransactions = items
+                .map { it.transaction }
+                .filter { it != null }
+                .toMutableList()
         newTransactions.add(transaction)
         saveInitialTransactions(newTransactions as List<Transaction>)
+    }
+
+    private fun handleError(throwable: Throwable) {
+        AlertUtil.showError(BudgetApplication.getAppContext(), throwable, "Could not retrieve transactions")
     }
 
     private fun onChange() {
