@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.SimpleAdapter
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
@@ -22,8 +21,6 @@ import java.math.BigDecimal
 import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class BudgetsFragment : Fragment() {
 
@@ -38,6 +35,14 @@ class BudgetsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        BudgetMonths().getBudgetMonths().forEach {
+            val tab = tabLayout.newTab()
+                    .setText(it.name)
+                    .setTag(it.month)
+            tabLayout.addTab(tab)
+        }
+        preselectTab()
+
         BudgetApi.transactions.listTransactions()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -46,47 +51,28 @@ class BudgetsFragment : Fragment() {
                 }, {
                     AlertUtil.showError(context, it, "Could not retrieve transaction list")
                 })
-        budgetList.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+
+        budgetList.setOnItemClickListener { _, _, _, _ ->
             rePopulateBudgets(LocalDate.now())
         }
 
-        // add budget tabs for every month ever since the app began
-        var month = DateUtil.firstDay
-        val lastMonth = LocalDate.now()
-        val monthFormat = DateTimeFormatter.ofPattern("MMM", Locale.US)
-        val monthAndYearFormat = DateTimeFormatter.ofPattern("MMM YYYY", Locale.US)
-        while (month <= lastMonth) {
-            val tabText = if (Period.between(month, lastMonth).years == 0) {
-                monthFormat.format(month)
-            } else {
-                monthAndYearFormat.format(month)
-            }
-            val tab = tabLayout.newTab().setText(tabText).setTag(month)
-            tabLayout.addTab(tab)
-            month = month.plusMonths(1)
-        }
-
-        if (selectedTab == -1) selectedTab = tabLayout.tabCount - 1
-
-        Handler().postDelayed({
-            tabLayout.getTabAt(selectedTab)!!.select()
-        }, 50)
-
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-            }
-
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val month: LocalDate = tab.tag as LocalDate
                 rePopulateBudgets(month)
                 selectedTab = tab.position
             }
-
         })
 
+    }
+
+    private fun preselectTab() {
+        if (selectedTab == -1) selectedTab = tabLayout.tabCount - 1
+        Handler().postDelayed({
+            tabLayout.getTabAt(selectedTab)!!.select()
+        }, 50)
     }
 
     fun rePopulateBudgets(month: LocalDate) {
