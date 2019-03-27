@@ -13,7 +13,7 @@ class BudgetModel {
     private val rollupList = ArrayList<MonthRollup>()
 
     init {
-        BudgetMonths().getBudgetMonths().forEach { budgetAndMonth ->
+        BudgetTabModel().getBudgetMonths().forEach { budgetAndMonth ->
             val rollup = MonthRollup(budgetAndMonth.month)
             rollupList.add(rollup)
             budgets.put(budgetAndMonth.month, rollup)

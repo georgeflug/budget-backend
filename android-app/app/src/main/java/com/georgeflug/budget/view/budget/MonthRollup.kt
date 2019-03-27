@@ -3,16 +3,16 @@ package com.georgeflug.budget.view.budget
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
+import com.georgeflug.budget.util.DateUtil
 import java.time.LocalDate
 import java.time.Period
 
 class MonthRollup(private val month: LocalDate) {
 
-    private val budgetMap = HashMap<Budget, BudgetRollup>()
+    private val budgetMap = HashMap<Budget, MonthCategoryRollup>()
     val budgets
         get() = budgetMap.values
-    private val firstMonth = LocalDate.of(2018, 9, 1)
-    private val monthCount = Period.between(firstMonth, month).months + 1
+    private val monthCount = Period.between(DateUtil.firstDay, month).months + 1
 
     fun addTransaction(transaction: Transaction) {
         if (transaction.bestDate.isBefore(month)) {
@@ -22,9 +22,9 @@ class MonthRollup(private val month: LocalDate) {
         }
     }
 
-    private fun getBudget(transactionSplit: TransactionSplit): BudgetRollup {
+    private fun getBudget(transactionSplit: TransactionSplit): MonthCategoryRollup {
         return budgetMap.computeIfAbsent(transactionSplit.realBudget) { budget ->
-            BudgetRollup(budget, monthCount)
+            MonthCategoryRollup(budget, monthCount)
         }
     }
 

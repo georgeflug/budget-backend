@@ -26,7 +26,7 @@ class BudgetsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        BudgetMonths().getBudgetMonths().forEach {
+        BudgetTabModel().getBudgetMonths().forEach {
             val tab = tabLayout.newTab()
                     .setText(it.name)
                     .setTag(it.month)
@@ -81,7 +81,7 @@ class BudgetsFragment : Fragment() {
         budgetList.adapter = SimpleAdapter(context, sorted, R.layout.budget_item, from, to)
     }
 
-    fun getAllocatedText(budget: BudgetRollup): String {
+    fun getAllocatedText(budget: MonthCategoryRollup): String {
         if (budget.perMonth == BigDecimal.ZERO) {
             return ""
         }

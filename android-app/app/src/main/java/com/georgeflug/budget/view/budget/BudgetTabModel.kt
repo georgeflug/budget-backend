@@ -6,7 +6,7 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class BudgetMonths {
+class BudgetTabModel {
     val monthFormat = DateTimeFormatter.ofPattern("MMM", Locale.US)
     val monthAndYearFormat = DateTimeFormatter.ofPattern("MMM YYYY", Locale.US)
 
