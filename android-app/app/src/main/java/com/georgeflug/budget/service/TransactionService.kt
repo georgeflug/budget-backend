@@ -9,12 +9,12 @@ import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.ReplaySubject
 import java.math.BigDecimal
 
 object TransactionService {
-    private val initial = BehaviorSubject.create<List<Transaction>>()
+    private val initial = ReplaySubject.create<List<Transaction>>()
 
     private val updates = PublishSubject.create<Transaction>()
     private val obs: Observable<Transaction> = updates.cache()
@@ -23,12 +23,14 @@ object TransactionService {
     fun downloadTransactions() {
         BudgetApi.transactions.listTransactions()
                 .doOnNext { transactions -> initial.onNext(transactions) }
+                .doOnNext { _ -> initial.onComplete() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ }, ::handleError)
     }
 
     fun getInitialTransactions(): Observable<List<Transaction>> = initial
     fun listenForNewTransactions() = obs
+
     fun getAllTransactions() = all
 
     fun addTransaction(amount: BigDecimal, budget: String, description: String): Observable<Transaction> {

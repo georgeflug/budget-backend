@@ -26,7 +26,7 @@ class TransactionAdapter(
     : ArrayAdapter<TransactionsModel.SectionOrTransaction>(context, 0, model.items) {
 
     init {
-        model.registerOnChange(Runnable {
+        model.setOnChangeListener(Runnable {
             this.notifyDataSetInvalidated()
         })
     }

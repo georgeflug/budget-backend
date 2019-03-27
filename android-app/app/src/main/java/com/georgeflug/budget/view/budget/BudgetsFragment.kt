@@ -32,24 +32,27 @@ class BudgetsFragment : Fragment() {
                     .setTag(it.month)
             tabLayout.addTab(tab)
         }
-        preselectTab()
-
-        rePopulateBudgets(LocalDate.now())
-
-        budgetList.setOnItemClickListener { _, _, _, _ ->
-            rePopulateBudgets(LocalDate.now())
-        }
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab) {}
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabSelected(tab: TabLayout.Tab) {
-                val month: LocalDate = tab.tag as LocalDate
-                rePopulateBudgets(month)
+                rePopulateBudgets(tab)
                 selectedTab = tab.position
             }
         })
 
+        preselectTab()
+
+        budgets.setOnChangeListener(Runnable {
+            val tab = tabLayout.getTabAt(selectedTab)!!
+            rePopulateBudgets(tab)
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        budgets.setOnChangeListener(null)
     }
 
     private fun preselectTab() {
@@ -59,7 +62,8 @@ class BudgetsFragment : Fragment() {
         }, 50)
     }
 
-    fun rePopulateBudgets(month: LocalDate) {
+    fun rePopulateBudgets(tab: TabLayout.Tab) {
+        val month = tab.tag as LocalDate
         val currencyFormatter = NumberFormat.getCurrencyInstance()
 
         val results = budgets.getMonth(month).budgets.map { budget ->

@@ -12,17 +12,17 @@ class TransactionsModel {
     data class SectionOrTransaction(val section: Section?, val transaction: Transaction?)
 
     val items = ArrayList<SectionOrTransaction>()
-    private val listeners = ArrayList<Runnable>()
+    private var listener: Runnable? = null
 
     init {
         TransactionService.getInitialTransactions()
                 .doOnNext(::saveInitialTransactions)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, ::handleError)
+                .subscribe({ onChange() }, ::handleError)
         TransactionService.listenForNewTransactions()
                 .doOnNext(::saveTransaction)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, ::handleError)
+                .subscribe({ onChange() }, ::handleError)
     }
 
     val size: Int
@@ -32,8 +32,8 @@ class TransactionsModel {
         return items.get(position)
     }
 
-    fun registerOnChange(onChange: Runnable) {
-        listeners.add(onChange)
+    fun setOnChangeListener(onChange: Runnable) {
+        listener = onChange
     }
 
     private fun saveInitialTransactions(transactions: List<Transaction>) {
@@ -50,7 +50,6 @@ class TransactionsModel {
         }
         items.clear()
         items.addAll(newList)
-        onChange()
     }
 
     private fun saveTransaction(transaction: Transaction) {
@@ -67,6 +66,6 @@ class TransactionsModel {
     }
 
     private fun onChange() {
-        listeners.forEach { it.run() }
+        listener?.run()
     }
 }
