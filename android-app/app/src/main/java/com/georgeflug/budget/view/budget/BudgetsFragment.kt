@@ -9,23 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import com.georgeflug.budget.R
-import com.georgeflug.budget.api.BudgetApi
-import com.georgeflug.budget.model.Budget
-import com.georgeflug.budget.model.Transaction
-import com.georgeflug.budget.model.TransactionSplit
-import com.georgeflug.budget.util.AlertUtil
-import com.georgeflug.budget.util.DateUtil
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_budgets.*
 import java.math.BigDecimal
 import java.text.NumberFormat
 import java.time.LocalDate
-import java.time.Period
 
 class BudgetsFragment : Fragment() {
-
-    private var transactions: List<Transaction> = ArrayList()
     private var selectedTab = -1
+    private val budgets = BudgetModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,14 +34,7 @@ class BudgetsFragment : Fragment() {
         }
         preselectTab()
 
-        BudgetApi.transactions.listTransactions()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    transactions = it
-                    rePopulateBudgets(LocalDate.now())
-                }, {
-                    AlertUtil.showError(context, it, "Could not retrieve transaction list")
-                })
+        rePopulateBudgets(LocalDate.now())
 
         budgetList.setOnItemClickListener { _, _, _, _ ->
             rePopulateBudgets(LocalDate.now())
@@ -76,43 +60,16 @@ class BudgetsFragment : Fragment() {
     }
 
     fun rePopulateBudgets(month: LocalDate) {
-        val results = ArrayList<Map<String, String?>>()
-        var carryovers = HashMap<Budget, BigDecimal>()
-
         val currencyFormatter = NumberFormat.getCurrencyInstance()
 
-        val monthCount = BigDecimal.valueOf(Period.between(month, DateUtil.firstDay).months.toLong())
-
-        // carry-forward earlier budget amounts
-        transactions
-                .filter { isBeforeMonth(DateUtil.parseDate(it.getBestDate()), month) }
-                .flatMap { transaction -> transaction.splits }
-                .groupBy { it.budget }
-                .forEach { budget: String, rows: List<TransactionSplit> ->
-                    val enumBudget = Budget.lookup(budget)
-                    if (enumBudget?.amount != null) {
-                        val totalSpent = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }.negate()
-                        val totalAllocated = enumBudget.amount.negate() * monthCount
-                        carryovers[enumBudget] = totalAllocated - totalSpent
-                    }
-                }
-
-        // get budgets for the current month
-        transactions
-                .filter { isSameMonth(DateUtil.parseDate(it.getBestDate()), month) }
-                .flatMap { transaction -> transaction.splits }
-                .groupBy { it.budget }
-                .forEach { budget: String, rows: List<TransactionSplit> ->
-                    val enumBudget = Budget.lookup(budget)
-                    val total = rows.fold(BigDecimal.ZERO) { total, row -> total + row.amount }.negate()
-                    val carryOver = carryovers[enumBudget]
-                    results.add(mapOf(
-                            "title" to budget,
-                            "total" to currencyFormatter.format(total),
-                            "allocated" to getAllocatedText(enumBudget, carryOver),
-                            "iconId" to enumBudget?.iconId.toString()
-                    ))
-                }
+        val results = budgets.getMonth(month).budgets.map { budget ->
+            mapOf(
+                    "title" to budget.title,
+                    "total" to currencyFormatter.format(budget.total),
+                    "allocated" to getAllocatedText(budget),
+                    "iconId" to budget.iconId.toString()
+            )
+        }
 
         val sorted = results.sortedBy {
             val prefix = if (it["allocated"] == null) "1" else "0"
@@ -124,21 +81,10 @@ class BudgetsFragment : Fragment() {
         budgetList.adapter = SimpleAdapter(context, sorted, R.layout.budget_item, from, to)
     }
 
-    fun isSameMonth(firstDate: LocalDate, secondDate: LocalDate): Boolean {
-        return firstDate.month == secondDate.month && firstDate.year == secondDate.year
-    }
-
-    fun isBeforeMonth(firstDate: LocalDate, secondDate: LocalDate): Boolean {
-        return firstDate.monthValue < secondDate.monthValue || firstDate.year < secondDate.year
-    }
-
-    fun getAllocatedText(budget: Budget?, carryOver: BigDecimal?): String? {
-        return when {
-            carryOver == null -> budget?.amount?.toString()
-            else -> budget!!.amount!!.toString() + when {
-                carryOver >= BigDecimal.ZERO -> " + " + carryOver.toString()
-                else -> " - " + carryOver.negate().toString()
-            } + " = " + (budget!!.amount!! + carryOver).toString()
+    fun getAllocatedText(budget: BudgetRollup): String {
+        if (budget.perMonth == BigDecimal.ZERO) {
+            return ""
         }
+        return "${budget.allocated} (${budget.perMonth} per month)"
     }
 }

@@ -6,4 +6,6 @@ data class TransactionSplit(
         val amount: BigDecimal,
         val budget: String,
         val description: String
-)
+) {
+    val realBudget = Budget.lookupOrUnknown(budget)
+}

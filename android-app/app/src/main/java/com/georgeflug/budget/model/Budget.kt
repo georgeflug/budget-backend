@@ -32,9 +32,13 @@ enum class Budget(
     SUBSCRIPTIONS("Subscriptions", "Insurance, Netflix, Amazon, Gym", null, R.drawable.ic_icons8_play_button_on_tv, true),
     UTILITIES("Utilities", "Internet, Phones, Electric, Water, Trash", null, R.drawable.ic_icons8_water_pipe, true);
 
-    fun hasAmount() = amount != BigDecimal.ZERO
+    fun hasAmount() = amount != null && amount != BigDecimal.ZERO
 
     companion object {
+        fun lookupOrUnknown(title: String): Budget {
+            return lookup(title) ?: Budget.UNKNOWN
+        }
+
         fun lookup(title: String): Budget? {
             return Budget.values().find { it.title == title }
         }

@@ -57,7 +57,7 @@ class AddTransactionFragment : Fragment() {
             } else {
                 val progressDialog = AlertUtil.showProgress(context, "Add Transaction", "Saving...")
 
-                val amount = BigDecimal(amountText.text.toString().trim()).negate()
+                val amount = BigDecimal(amountText.text.toString().trim())
                 val description = descriptionText.text.toString()
                 val budget = addTransactionBudgetSelector.selectedBudget?.title
                         ?: Budget.UNKNOWN.title

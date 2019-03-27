@@ -3,7 +3,7 @@ package com.georgeflug.budget.util
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
 
 class DateUtil {
     companion object {
@@ -19,23 +19,25 @@ class DateUtil {
             return LocalDate.parse(dateOnly, cleanedDateFormat)
         }
 
-        fun cleanupDate(apiDate: String): String {
-            return apiDate.takeWhile { char -> char != 'T' }
+        fun dateToString(date: LocalDate): String {
+            return date.format(cleanedDateFormat)
         }
 
-        fun getFriendlyDate(date: String): String {
-            val actualDate = parseDate(date)
+        fun getFriendlyDate(date: LocalDate): String {
             val today = LocalDate.now()
             val yesterday = today.minusDays(1)
 
-            return when(actualDate) {
-                today -> "Today, " + actualDate.format(monthAndDayFormat)
-                yesterday -> "Yesterday, " + actualDate.format(monthAndDayFormat)
-                else -> actualDate.format(printedDateFormat)
+            return when (date) {
+                today -> "Today, " + date.format(monthAndDayFormat)
+                yesterday -> "Yesterday, " + date.format(monthAndDayFormat)
+                else -> date.format(printedDateFormat)
             }
         }
 
         fun getToday(): String = LocalDate.now().format(cleanedDateFormat)
 
+        private fun cleanupDate(apiDate: String): String {
+            return apiDate.takeWhile { char -> char != 'T' }
+        }
     }
 }

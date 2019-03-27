@@ -36,8 +36,7 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
         editDescriptionText.setText(transaction.splits[0].description)
         editPostedDescriptionText.text = transaction.postedDescription
         editBudgetText.setSelection(budgetItems.indexOfFirst { it["title"] == transaction.splits[0].budget })
-        val dateToUse = if (transaction.date.isNullOrBlank()) transaction.postedDate else transaction.date
-        editDateText.setText(DateUtil.cleanupDate(dateToUse))
+        editDateText.setText(DateUtil.dateToString(transaction.bestDate))
 
         updateTransactionButton.setOnClickListener {
             val progressDialog = AlertUtil.showProgress(context, "Edit Transaction", "Saving...")

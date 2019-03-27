@@ -91,16 +91,14 @@ class TransactionAdapter(
 
     private fun getDescription(transaction: Transaction): String? {
         return when {
-            transaction.isPartial() -> transaction.splits[0].description
             transaction.splits[0].description.isBlank() -> transaction.postedDescription
-            transaction.postedDescription.isBlank() -> transaction.splits[0].description
+            transaction.postedDescription?.isBlank() == true -> transaction.splits[0].description
             else -> "${transaction.splits[0].description}\n${transaction.postedDescription}"
         }
     }
 
     private fun getAccount(transaction: Transaction): String {
         return when {
-            transaction.isPartial() -> ""
             transaction.account == "First Community Checking" -> "Checking"
             else -> transaction.account
         }

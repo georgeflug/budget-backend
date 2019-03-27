@@ -6,6 +6,7 @@ import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.time.LocalDate
 
 class TransactionsModel {
     data class SectionOrTransaction(val section: Section?, val transaction: Transaction?)
@@ -18,7 +19,7 @@ class TransactionsModel {
                 .doOnNext(::saveInitialTransactions)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, ::handleError)
-        TransactionService.listen()
+        TransactionService.listenForNewTransactions()
                 .doOnNext(::saveTransaction)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, ::handleError)
@@ -36,11 +37,11 @@ class TransactionsModel {
     }
 
     private fun saveInitialTransactions(transactions: List<Transaction>) {
-        val sorted = transactions.sortedBy { it.getBestDate() }.reversed()
+        val sorted = transactions.sortedBy { it.bestDate }.reversed()
         val newList = ArrayList<SectionOrTransaction>(sorted.size)
-        var lastDate = ""
+        var lastDate = LocalDate.MIN
         for (transaction in sorted) {
-            val currentDate = transaction.getBestDate()
+            val currentDate = transaction.bestDate
             if (lastDate != currentDate) {
                 newList.add(SectionOrTransaction(Section(DateUtil.getFriendlyDate(currentDate)), null))
             }
