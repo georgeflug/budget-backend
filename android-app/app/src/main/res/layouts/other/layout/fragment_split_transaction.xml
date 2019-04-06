@@ -2,7 +2,6 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
@@ -11,95 +10,92 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:padding="16dp"
             tools:context=".view.main.MainActivity">
 
             <TextView
-                android:id="@+id/editTransaction"
+                android:id="@+id/viewTransactionLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit Transaction"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="Split Transaction"
                 android:gravity="center_horizontal"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/editAmountLabel"
+                android:id="@+id/amountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount"
-                app:layout_constraintTop_toBottomOf="@id/editTransaction"
+                android:text="Total Amount"
                 android:layout_marginTop="16dp" />
 
             <EditText
-                android:id="@+id/editAmountText"
+                android:id="@+id/amountText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/editAmountLabel"
                 android:inputType="numberDecimal" />
 
             <TextView
-                android:id="@+id/editDescriptionLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                app:layout_constraintTop_toBottomOf="@id/editAmountText"
-                android:layout_marginTop="16dp" />
-
-            <EditText
-                android:id="@+id/editDescriptionText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/editDescriptionLabel" />
-
-            <TextView
-                android:id="@+id/editPostedDescriptionLabel"
+                android:id="@+id/postedDescriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Posted Description"
-                app:layout_constraintTop_toBottomOf="@id/editDescriptionText"
                 android:layout_marginTop="16dp" />
 
             <TextView
-                android:id="@+id/editPostedDescriptionText"
+                android:id="@+id/postedDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/editPostedDescriptionLabel"
                 tools:text="ALDI 41029 CREVE" />
 
             <TextView
-                android:id="@+id/editBudgetLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Budget"
-                app:layout_constraintTop_toBottomOf="@id/editPostedDescriptionText"
-                android:layout_marginTop="16dp" />
-
-            <Spinner
-                android:id="@+id/editBudgetText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/editBudgetLabel"
-                android:entries="@array/budgets" />
-
-            <TextView
-                android:id="@+id/editDateLabel"
+                android:id="@+id/dateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                app:layout_constraintTop_toBottomOf="@id/editBudgetText"
                 android:layout_marginTop="16dp" />
 
             <EditText
-                android:id="@+id/editDateText"
+                android:id="@+id/dateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Splits"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/budgetLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Budget"
+                android:layout_marginTop="16dp" />
+
+            <Spinner
+                android:id="@+id/budgetText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/editDateLabel" />
+                android:entries="@array/budgets" />
 
-        </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/descriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </ScrollView>
 
     <Button

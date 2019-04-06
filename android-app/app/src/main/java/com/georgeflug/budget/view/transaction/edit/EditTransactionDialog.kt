@@ -32,19 +32,19 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
 
         prepareBudgetSpinner()
 
-        editAmountText.setText(transaction.totalAmount.toString())
-        editDescriptionText.setText(transaction.splits[0].description)
-        editPostedDescriptionText.text = transaction.postedDescription
-        editBudgetText.setSelection(budgetItems.indexOfFirst { it["title"] == transaction.splits[0].budget })
-        editDateText.setText(DateUtil.dateToString(transaction.bestDate))
+        amountText.setText(transaction.totalAmount.toString())
+        descriptionText.setText(transaction.splits[0].description)
+        postedDescriptionText.text = transaction.postedDescription
+        budgetText.setSelection(budgetItems.indexOfFirst { it["title"] == transaction.splits[0].budget })
+        dateText.setText(DateUtil.dateToString(transaction.bestDate))
 
         updateTransactionButton.setOnClickListener {
             val progressDialog = AlertUtil.showProgress(context, "Edit Transaction", "Saving...")
 
-            val amount = BigDecimal(editAmountText.text.toString())
-            val description = editDescriptionText.text.toString()
-            val budget = (editBudgetText.selectedItem as HashMap<String, String>)["title"]!!
-            val date = editDateText.text.toString()
+            val amount = BigDecimal(amountText.text.toString())
+            val description = descriptionText.text.toString()
+            val budget = (budgetText.selectedItem as HashMap<String, String>)["title"]!!
+            val date = dateText.text.toString()
 
             val updatedTransaction = Transaction(
                     _id = transaction._id,
@@ -80,6 +80,6 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
     private fun prepareBudgetSpinner() {
         val from = arrayOf("title", "description", "iconId")
         val to = intArrayOf(R.id.line1, R.id.line2, R.id.image)
-        editBudgetText.adapter = SimpleAdapter(context, budgetItems, R.layout.budget_spinner_item, from, to)
+        budgetText.adapter = SimpleAdapter(context, budgetItems, R.layout.budget_spinner_item, from, to)
     }
 }

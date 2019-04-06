@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView android:id="@+id/budgetIcon"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    tools:src="@drawable/ic_icons8_user_male"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" />

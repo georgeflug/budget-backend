@@ -24,7 +24,7 @@ enum class Budget(
     CHRISTMAS("Christmas", "", null, R.drawable.ic_icons8_christmas_tree, false),
     CHARITY("Charity", "", null, R.drawable.ic_icons8_charity, false),
     RICHIE_PROJECTS("Richie Projects", "", null, R.drawable.ic_icons8_science_fiction, false),
-    UNKNOWN("To be determined", "", null, R.drawable.ic_icons8_play_button_on_tv, false),
+    UNKNOWN("To be determined", "", null, R.drawable.ic_help_outline_black_24dp, false),
     WORK_TRIPS("Work Expenses", "Expenses and trips that are reimbursed by our jobs", null, R.drawable.ic_work_black_24dp, false),
     GAS("Gas", "", null, R.drawable.ic_local_gas_station_black_24dp, false),
     MORTGAGE("Mortgage", "", null, R.drawable.ic_icons8_real_estate, true),

@@ -20,6 +20,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/layouts/other',
+                    'src/main/res/layouts/budget-tab',
+                    'src/main/res/layouts/transaction-list',
+                    'src/main/res/layouts/view-transaction',
+            ]
+        }
+    }
 }
 
 dependencies {
@@ -43,4 +55,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+androidExtensions {
+    experimental = true
 }

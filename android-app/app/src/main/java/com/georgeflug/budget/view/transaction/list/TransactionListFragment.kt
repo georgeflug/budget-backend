@@ -1,15 +1,16 @@
 package com.georgeflug.budget.view.transaction.list
 
+import android.app.Fragment
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.georgeflug.budget.R
-import com.georgeflug.budget.view.transaction.edit.EditTransactionDialog
+import com.georgeflug.budget.view.main.MainActivity
+import com.georgeflug.budget.view.transaction.details.ViewTransactionFragment
 import kotlinx.android.synthetic.main.fragment_transactions.*
 
-class TransactionsFragment : Fragment() {
+class TransactionListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -21,13 +22,23 @@ class TransactionsFragment : Fragment() {
 
         transactionList.adapter = TransactionAdapter(context)
 
-        transactionList.setOnItemClickListener { parent, view, position, id ->
+        transactionList.setOnItemClickListener { parent, _, position, _ ->
             val sectionOrTransaction = parent.adapter.getItem(position) as TransactionsModel.SectionOrTransaction
             if (sectionOrTransaction.transaction != null) {
-                val dialog = EditTransactionDialog(context, sectionOrTransaction.transaction!!)
-                dialog.show()
+
+                val fragment = ViewTransactionFragment.getFragment(sectionOrTransaction.transaction)
+                displayChildFragment(fragment)
+                MainActivity.addToBackStack(fragment)
+
             }
         }
     }
 
+    private fun displayChildFragment(fragment: Fragment) {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+    }
 }

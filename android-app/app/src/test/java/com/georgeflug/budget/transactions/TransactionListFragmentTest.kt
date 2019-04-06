@@ -2,7 +2,7 @@ package com.georgeflug.budget.transactions
 
 import org.junit.Test
 
-class TransactionsFragmentTest {
+class TransactionListFragmentTest {
 
     @Test
     fun test() {
