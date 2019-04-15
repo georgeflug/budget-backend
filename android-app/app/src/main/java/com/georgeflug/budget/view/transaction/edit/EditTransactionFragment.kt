@@ -1,4 +1,4 @@
-package com.georgeflug.budget.view.transaction.details
+package com.georgeflug.budget.view.transaction.edit
 
 import android.app.Fragment
 import android.os.Bundle
@@ -12,11 +12,9 @@ import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.DateUtil
 import com.georgeflug.budget.util.MoneyUtil
-import com.georgeflug.budget.view.main.MainActivity
-import com.georgeflug.budget.view.transaction.edit.EditTransactionFragment
 import kotlinx.android.synthetic.main.fragment_view_transaction.*
 
-class ViewTransactionFragment : Fragment() {
+class EditTransactionFragment : Fragment() {
     lateinit var transaction: Transaction
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +28,7 @@ class ViewTransactionFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_view_transaction, container, false)
+        return inflater.inflate(R.layout.fragment_edit_transaction, container, false)
     }
 
     override fun onStart() {
@@ -65,16 +63,6 @@ class ViewTransactionFragment : Fragment() {
                     iconView.findViewById<ImageView>(R.id.budgetIcon).setImageResource(it.iconId)
                     budgetIconHolder.addView(iconView)
                 }
-
-        editButton.setOnClickListener {
-            val fragment = EditTransactionFragment.getFragment(transaction)
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit()
-            MainActivity.addToBackStack(fragment)
-        }
     }
 
     private fun getDescription(split: TransactionSplit): String {
@@ -100,7 +88,7 @@ class ViewTransactionFragment : Fragment() {
         val TRANSACTION_BUNDLE_KEY = "Transaction"
 
         fun getFragment(transaction: Transaction): Fragment {
-            val fragment = ViewTransactionFragment()
+            val fragment = EditTransactionFragment()
             val bundle = Bundle()
             bundle.putParcelable(TRANSACTION_BUNDLE_KEY, transaction)
             fragment.arguments = bundle

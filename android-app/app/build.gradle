@@ -27,6 +27,7 @@ android {
                     'src/main/res',
                     'src/main/res/layouts/other',
                     'src/main/res/layouts/budget-tab',
+                    'src/main/res/layouts/edit-transaction',
                     'src/main/res/layouts/transaction-list',
                     'src/main/res/layouts/view-transaction',
             ]

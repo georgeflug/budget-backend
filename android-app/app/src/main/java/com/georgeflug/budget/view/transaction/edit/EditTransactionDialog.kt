@@ -15,7 +15,7 @@ import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_edit_transaction.*
+import kotlinx.android.synthetic.main.fragment_edit_transaction_dialog.*
 import java.math.BigDecimal
 
 class EditTransactionDialog(context: Context, private val transaction: Transaction) : Dialog(context) {
