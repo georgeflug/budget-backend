@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splitItem"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView android:id="@+id/budgetIcon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            tools:src="@drawable/ic_icons8_user_male"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools" />
+
+        <TextView
+            android:id="@+id/budgetText"
+            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:ellipsize="none"
+            android:maxLines="100"
+            android:textSize="12sp"
+            android:scrollHorizontally="false"
+            tools:text="To be determined" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:textSize="22sp"
+            tools:text="$1223.99" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Groceries" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/splitButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_call_split_black_24dp" />
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ic_edit_black_24dp" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/ic_remove_circle_outline_black_24dp" />
+
+</LinearLayout>

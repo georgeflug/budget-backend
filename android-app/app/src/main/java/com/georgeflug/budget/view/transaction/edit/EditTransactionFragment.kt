@@ -2,6 +2,7 @@ package com.georgeflug.budget.view.transaction.edit
 
 import android.app.Fragment
 import android.os.Bundle
+import android.support.annotation.IdRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Transaction
-import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.DateUtil
 import com.georgeflug.budget.util.MoneyUtil
 import kotlinx.android.synthetic.main.fragment_view_transaction.*
+import java.math.BigDecimal
 
 class EditTransactionFragment : Fragment() {
     lateinit var transaction: Transaction
@@ -39,37 +40,22 @@ class EditTransactionFragment : Fragment() {
         date.setText(DateUtil.getFriendlyDate(transaction.bestDate))
         account.setText(textOrUnknown(transaction.account))
 
-        if (transaction.splits.size == 1) {
-            highLevelDescription.setText(getHighLevelDescription())
-        } else {
-            transaction.splits
-                    .sortedBy { it.amount }
-                    .asReversed()
-                    .forEach {
-                        val splitView = layoutInflater.inflate(R.layout.view_transaction_split_item, splitListHolder, false)
-                        splitView.findViewById<TextView>(R.id.splitItemText).setText(getDescription(it))
-                        splitView.findViewById<TextView>(R.id.splitItemAmount).setText(MoneyUtil.format(it.amount))
-                        splitListHolder.addView(splitView)
-                    }
-        }
-
         transaction.splits
                 .sortedBy { it.amount }
                 .asReversed()
-                .map { it.realBudget }
-                .distinct()
                 .forEach {
-                    val iconView = layoutInflater.inflate(R.layout.view_transaction_budget_icon, budgetIconHolder, false)
-                    iconView.findViewById<ImageView>(R.id.budgetIcon).setImageResource(it.iconId)
-                    budgetIconHolder.addView(iconView)
+                    val splitView = layoutInflater.inflate(R.layout.edit_transaction_split_item, splitListHolder, false)
+                    splitView.findViewById<ImageView>(R.id.budgetIcon).setImageResource(it.realBudget.iconId)
+                    splitView.findViewById<TextView>(R.id.budgetText).setText(it.realBudget.title)
+                    splitView.findViewById<TextView>(R.id.amount).setText(MoneyUtil.format(it.amount))
+                    splitView.findViewById<TextView>(R.id.description).setText(it.description)
+                    if (it.amount == BigDecimal(0.01)) hideButton(splitView, R.id.splitButton)
+                    if (transaction.splits.size == 1) hideButton(splitView, R.id.deleteButton)
                 }
     }
 
-    private fun getDescription(split: TransactionSplit): String {
-        if (split.description.isEmpty()) {
-            return split.realBudget.name
-        }
-        return "${split.realBudget.name} - ${split.description}"
+    private fun hideButton(view: View, @IdRes id: Int) {
+        view.findViewById<View>(id).visibility = View.GONE
     }
 
     private fun getHighLevelDescription(): String {
