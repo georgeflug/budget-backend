@@ -88,8 +88,6 @@ class TransactionAdapter(
         splitItemHolder.removeAllViews()
 
         transaction.splits
-                .sortedBy { it.amount }
-                .asReversed()
                 .forEach { split ->
                     val splitItemView = LayoutInflater.from(context).inflate(R.layout.view_transaction_split_item, splitItemHolder, false)
                     splitItemView.findViewById<View>(R.id.splitItem).setBackgroundColor(getSplitColor(split))

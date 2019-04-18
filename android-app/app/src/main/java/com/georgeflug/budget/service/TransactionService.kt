@@ -1,5 +1,6 @@
 package com.georgeflug.budget.service
 
+import android.annotation.SuppressLint
 import com.georgeflug.budget.BudgetApplication
 import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.NewTransaction
@@ -20,10 +21,17 @@ object TransactionService {
     private val obs: Observable<Transaction> = updates.cache()
     private val all = Observable.concat(initial.flatMapIterable { it }, obs)
 
+    @SuppressLint("CheckResult")
     fun downloadTransactions() {
         BudgetApi.transactions.listTransactions()
+                .map { transactions ->
+                    transactions
+                            .sortedBy { it.bestDate }
+                            .asReversed()
+                            .map { copyTransactionWithSortedSplits(it) }
+                }
                 .doOnNext { transactions -> initial.onNext(transactions) }
-                .doOnNext { _ -> initial.onComplete() }
+                .doOnNext { initial.onComplete() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ }, ::handleError)
     }
@@ -48,5 +56,18 @@ object TransactionService {
 
     private fun handleError(throwable: Throwable) {
         AlertUtil.showError(BudgetApplication.getAppContext(), throwable, "Could not retrieve transactions")
+    }
+
+    private fun copyTransactionWithSortedSplits(transaction: Transaction): Transaction {
+        return Transaction(
+                _id = transaction._id,
+                plaidId = transaction.plaidId,
+                date = transaction.date,
+                totalAmount = transaction.totalAmount,
+                account = transaction.account,
+                postedDate = transaction.postedDate,
+                postedDescription = transaction.postedDescription,
+                splits = transaction.splits.sortedBy { it.amount }.asReversed()
+        )
     }
 }

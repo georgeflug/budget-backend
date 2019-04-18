@@ -75,8 +75,6 @@ class ViewTransactionFragment : Fragment() {
             highLevelDescription.setText(getHighLevelDescription())
         } else {
             transaction.splits
-                    .sortedBy { it.amount }
-                    .asReversed()
                     .forEach {
                         val splitView = layoutInflater.inflate(R.layout.view_transaction_split_item, splitListHolder, false)
                         splitView.findViewById<TextView>(R.id.splitItemText).setText(getDescription(it))

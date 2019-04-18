@@ -41,10 +41,7 @@ class EditTransactionFragment : Fragment() {
         val bundle = this.arguments
         if (bundle != null) {
             transaction = bundle.getParcelable(TRANSACTION_BUNDLE_KEY)
-            splits = transaction.splits
-                    .sortedBy { it.amount }
-                    .asReversed()
-                    .toMutableList()
+            splits = transaction.splits.toMutableList()
         }
     }
 

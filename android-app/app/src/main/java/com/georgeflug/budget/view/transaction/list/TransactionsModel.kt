@@ -37,10 +37,9 @@ class TransactionsModel {
     }
 
     private fun saveInitialTransactions(transactions: List<Transaction>) {
-        val sorted = transactions.sortedBy { it.bestDate }.reversed()
-        val newList = ArrayList<SectionOrTransaction>(sorted.size)
+        val newList = ArrayList<SectionOrTransaction>(transactions.size)
         var lastDate = LocalDate.MIN
-        for (transaction in sorted) {
+        for (transaction in transactions) {
             val currentDate = transaction.bestDate
             if (lastDate != currentDate) {
                 newList.add(SectionOrTransaction(Section(DateUtil.getFriendlyDate(currentDate)), null))
@@ -56,9 +55,13 @@ class TransactionsModel {
         val newTransactions = items
                 .filter { it.transaction != null }
                 .map { it.transaction!! }
-                .filter { it._id != transaction._id }
                 .toMutableList()
-        newTransactions.add(transaction)
+        val existingIndex = newTransactions.indexOfFirst { it._id == transaction._id }
+        if (existingIndex < 0) {
+            newTransactions.add(transaction)
+        } else {
+            newTransactions[existingIndex] = transaction
+        }
         saveInitialTransactions(newTransactions)
     }
 
