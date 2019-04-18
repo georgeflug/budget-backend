@@ -71,7 +71,7 @@ class EditTransactionFragment : Fragment() {
         updateView()
 
         doneButton.setOnClickListener {
-            val progressDialog = AlertUtil.showProgress(context, "Add Transaction", "Saving...")
+            val progressDialog = AlertUtil.showProgress(context, "Update Transaction", "Saving...")
             val theDate = selectedDate
             val updatedTransaction = Transaction(
                     _id = transaction._id,

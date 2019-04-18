@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_select_budget.*
 class SelectBudgetFragment : Fragment() {
 
     var budget: Budget? = null
+    var showAdvancedButton = false
     private val enterDescriptionFragment = EnterDescriptionFragment()
     val isSuccess
         get() = enterDescriptionFragment.isSuccess
@@ -21,6 +22,7 @@ class SelectBudgetFragment : Fragment() {
         set(value) {
             enterDescriptionFragment.description = value
         }
+    var isAdvancedButtonExit = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_select_budget, container, false)
@@ -43,6 +45,12 @@ class SelectBudgetFragment : Fragment() {
             budgetSelector.selectedBudget = budget
         } else {
             nextButton.isEnabled = false
+        }
+
+        advancedButton.visibility = if (showAdvancedButton) View.VISIBLE else View.GONE
+        advancedButton.setOnClickListener {
+            isAdvancedButtonExit = true
+            FragmentUtil.popBackStackTo(FragmentUtil.EditDetailsWorkflowStack)
         }
     }
 }
