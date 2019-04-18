@@ -1,5 +1,6 @@
 package com.georgeflug.budget.view.transaction.edit
 
+import android.app.DatePickerDialog
 import android.app.Fragment
 import android.os.Bundle
 import android.support.annotation.IdRes
@@ -9,19 +10,26 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
+import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.util.MoneyUtil
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_edit_transaction.*
 import java.math.BigDecimal
+import java.time.LocalDate
+
 
 class EditTransactionFragment : Fragment() {
     lateinit var transaction: Transaction
     lateinit var splits: MutableList<TransactionSplit>
+    var selectedDate: LocalDate? = null
     var splitFragment: EnterAmountFragment? = null
     var splitToFurtherSplit: Int? = null
     var editFragment: SelectBudgetFragment? = null
@@ -50,7 +58,7 @@ class EditTransactionFragment : Fragment() {
 
         totalAmount.setText(MoneyUtil.format(transaction.totalAmount))
         postedDescription.setText(textOrUnknown(transaction.postedDescription))
-        date.setText(DateUtil.getFriendlyDate(transaction.bestDate))
+        dateInput.setText(DateUtil.getFriendlyDate(transaction.bestDate))
         account.setText(textOrUnknown(transaction.account))
     }
 
@@ -61,6 +69,45 @@ class EditTransactionFragment : Fragment() {
         processResultOfEditWorkflow()
 
         updateView()
+
+        doneButton.setOnClickListener {
+            val progressDialog = AlertUtil.showProgress(context, "Add Transaction", "Saving...")
+            val theDate = selectedDate
+            val updatedTransaction = Transaction(
+                    _id = transaction._id,
+                    plaidId = transaction.plaidId,
+                    date = if (theDate != null) DateUtil.dateToString(theDate) else transaction.date,
+                    totalAmount = transaction.totalAmount,
+                    account = transaction.account,
+                    postedDate = transaction.postedDate,
+                    postedDescription = transaction.postedDescription,
+                    splits = splits
+            )
+            TransactionService.updateTransaction(updatedTransaction)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext { progressDialog.dismiss(); }
+                    .subscribe({
+                        Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
+                        FragmentUtil.popBackStack()
+                    }, {
+                        AlertUtil.showError(context, it, "Could not update transaction")
+                    })
+        }
+
+        val dateListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            val theDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth)
+            dateInput.setText(DateUtil.getFriendlyDate(theDate))
+            selectedDate = theDate
+        }
+        dateInput.setOnClickListener {
+            DatePickerDialog(
+                    context,
+                    dateListener,
+                    transaction.bestDate.year,
+                    transaction.bestDate.monthValue - 1,
+                    transaction.bestDate.dayOfMonth
+            ).show()
+        }
     }
 
     private fun processResultOfSplitWorkflow() {

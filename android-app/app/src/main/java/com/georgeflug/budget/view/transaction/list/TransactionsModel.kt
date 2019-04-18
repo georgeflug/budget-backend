@@ -54,11 +54,12 @@ class TransactionsModel {
 
     private fun saveTransaction(transaction: Transaction) {
         val newTransactions = items
-                .map { it.transaction }
-                .filter { it != null }
+                .filter { it.transaction != null }
+                .map { it.transaction!! }
+                .filter { it._id != transaction._id }
                 .toMutableList()
         newTransactions.add(transaction)
-        saveInitialTransactions(newTransactions as List<Transaction>)
+        saveInitialTransactions(newTransactions)
     }
 
     private fun handleError(throwable: Throwable) {

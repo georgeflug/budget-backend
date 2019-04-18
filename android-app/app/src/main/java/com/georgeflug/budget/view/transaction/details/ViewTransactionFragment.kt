@@ -10,14 +10,19 @@ import android.widget.TextView
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
+import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.util.MoneyUtil
 import com.georgeflug.budget.view.transaction.edit.EditTransactionFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_view_transaction.*
 
 class ViewTransactionFragment : Fragment() {
     lateinit var transaction: Transaction
+    var listener: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +38,33 @@ class ViewTransactionFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_view_transaction, container, false)
     }
 
+    override fun onStop() {
+        super.onStop()
+        listener?.dispose()
+    }
+
     override fun onStart() {
         super.onStart()
 
+        listener = TransactionService.listenForNewTransactions()
+                .filter { it._id == transaction._id }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    transaction = it
+                    populateDetails()
+                }, {
+                    AlertUtil.showError(context, it, "Could not retrieve transactions")
+                })
+
+        populateDetails()
+
+        editButton.setOnClickListener {
+            val fragment = EditTransactionFragment.getFragment(transaction)
+            FragmentUtil.showAndAddToBackStack(fragment)
+        }
+    }
+
+    private fun populateDetails() {
         totalAmount.setText(MoneyUtil.format(transaction.totalAmount))
         postedDescription.setText(textOrUnknown(transaction.postedDescription))
         date.setText(DateUtil.getFriendlyDate(transaction.bestDate))
@@ -55,6 +84,7 @@ class ViewTransactionFragment : Fragment() {
                     }
         }
 
+        budgetIconHolder.removeAllViews()
         transaction.splits
                 .sortedBy { it.amount }
                 .asReversed()
@@ -65,11 +95,6 @@ class ViewTransactionFragment : Fragment() {
                     iconView.findViewById<ImageView>(R.id.budgetIcon).setImageResource(it.iconId)
                     budgetIconHolder.addView(iconView)
                 }
-
-        editButton.setOnClickListener {
-            val fragment = EditTransactionFragment.getFragment(transaction)
-            FragmentUtil.showAndAddToBackStack(fragment)
-        }
     }
 
     private fun getDescription(split: TransactionSplit): String {

@@ -41,6 +41,11 @@ object TransactionService {
                 .doOnNext { transaction -> updates.onNext(transaction) }
     }
 
+    fun updateTransaction(transaction: Transaction): Observable<Transaction> {
+        return BudgetApi.transactions.updateTransaction(transaction._id, transaction)
+                .doOnNext { transaction -> updates.onNext(transaction) }
+    }
+
     private fun handleError(throwable: Throwable) {
         AlertUtil.showError(BudgetApplication.getAppContext(), throwable, "Could not retrieve transactions")
     }

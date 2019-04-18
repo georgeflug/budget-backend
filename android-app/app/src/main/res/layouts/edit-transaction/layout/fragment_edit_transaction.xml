@@ -51,10 +51,12 @@
                 android:layout_marginTop="16dp" />
 
             <EditText
-                android:id="@+id/date"
+                android:id="@+id/dateInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Monday, July 5th"
+                android:clickable="true"
+                android:editable="false"
                 android:layout_marginTop="4dp" />
 
             <TextView
@@ -86,6 +88,15 @@
                 android:layout_height="wrap_content"
                 tools:text="First Community Checking"
                 android:layout_marginTop="4dp" />
+
+            <Button
+                android:id="@+id/doneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Done"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp" />
 
         </LinearLayout>
     </ScrollView>
