@@ -12,12 +12,15 @@ import kotlinx.android.synthetic.main.fragment_select_budget.*
 
 class SelectBudgetFragment : Fragment() {
 
-    var selectedBudget: Budget? = null
+    var budget: Budget? = null
     private val enterDescriptionFragment = EnterDescriptionFragment()
     val isSuccess
         get() = enterDescriptionFragment.isSuccess
-    val description
+    var description
         get() = enterDescriptionFragment.description
+        set(value) {
+            enterDescriptionFragment.description = value
+        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_select_budget, container, false)
@@ -31,11 +34,11 @@ class SelectBudgetFragment : Fragment() {
         }
 
         budgetSelector.setOnClickListener {
-            selectedBudget = budgetSelector.selectedBudget
+            budget = budgetSelector.selectedBudget
             nextButton.isEnabled = true
         }
 
-        val budget = selectedBudget
+        val budget = budget
         if (budget != null) {
             budgetSelector.selectedBudget = budget
         } else {

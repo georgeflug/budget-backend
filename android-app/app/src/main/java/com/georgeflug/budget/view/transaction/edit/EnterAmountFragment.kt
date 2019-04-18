@@ -20,7 +20,7 @@ class EnterAmountFragment : Fragment() {
     val description
         get() = selectBudgetFragment.description
     val budget
-        get() = selectBudgetFragment.selectedBudget!!
+        get() = selectBudgetFragment.budget!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

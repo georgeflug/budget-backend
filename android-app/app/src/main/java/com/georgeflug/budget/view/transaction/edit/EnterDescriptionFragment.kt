@@ -25,9 +25,7 @@ class EnterDescriptionFragment : Fragment() {
 
         doneButton.setOnClickListener {
             isSuccess = true
-            FragmentUtil.popBackStack()
-            FragmentUtil.popBackStack()
-            FragmentUtil.popBackStack()
+            FragmentUtil.popBackStackTo(FragmentUtil.EditDetailsWorkflowStack)
         }
 
         descriptionText.addTextChangedListener(object : TextWatcher {

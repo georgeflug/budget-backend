@@ -24,6 +24,8 @@ class EditTransactionFragment : Fragment() {
     lateinit var splits: MutableList<TransactionSplit>
     var splitFragment: EnterAmountFragment? = null
     var splitToFurtherSplit: Int? = null
+    var editFragment: SelectBudgetFragment? = null
+    var splitToEdit: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +57,13 @@ class EditTransactionFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        processResultOfSplitWorkflow()
+        processResultOfEditWorkflow()
+
+        updateView()
+    }
+
+    private fun processResultOfSplitWorkflow() {
         val fragment = splitFragment
         val splitIndex = splitToFurtherSplit
         splitFragment = null
@@ -66,8 +75,18 @@ class EditTransactionFragment : Fragment() {
             splits[splitIndex] = modifiedSplit
             splits.add(splitIndex + 1, newSplit)
         }
+    }
 
-        updateView()
+    private fun processResultOfEditWorkflow() {
+        val fragment = editFragment
+        val splitIndex = splitToEdit
+        editFragment = null
+        splitToEdit = null
+        if (fragment != null && splitIndex != null && fragment.isSuccess) {
+            val originalSplit = splits[splitIndex]
+            val modifiedSplit = TransactionSplit(originalSplit.amount, fragment.budget!!.title, fragment.description)
+            splits[splitIndex] = modifiedSplit
+        }
     }
 
     private fun updateView() {
@@ -85,7 +104,7 @@ class EditTransactionFragment : Fragment() {
                     splitView.findViewById<Button>(R.id.splitButton).setOnClickListener {
                         splitFragment = EnterAmountFragment()
                         splitToFurtherSplit = index
-                        FragmentUtil.showAndAddToBackStack(splitFragment!!)
+                        FragmentUtil.showAndAddToBackStack(splitFragment!!, FragmentUtil.EditDetailsWorkflowStack)
                     }
                     splitView.findViewById<Button>(R.id.deleteButton).setOnClickListener {
                         splits.remove(split)
@@ -95,6 +114,14 @@ class EditTransactionFragment : Fragment() {
                         splits.remove(unknownSplit)
                         splits.add(newUnknownSplit)
                         updateView()
+                    }
+                    splitView.findViewById<Button>(R.id.editButton).setOnClickListener {
+                        val fragment = SelectBudgetFragment()
+                        fragment.budget = split.realBudget
+                        fragment.description = split.description
+                        splitToEdit = index
+                        editFragment = fragment
+                        FragmentUtil.showAndAddToBackStack(editFragment!!, FragmentUtil.EditDetailsWorkflowStack)
                     }
 
                     splitListHolder.addView(splitView)
