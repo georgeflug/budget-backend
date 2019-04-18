@@ -18,6 +18,8 @@ class BudgetSelector : FlexboxLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
 
+    val viewsByBudget = mutableMapOf<Budget, View>()
+
     var selectedRadio: CheckBox? = null
         set(newValue) {
             field?.isChecked = false
@@ -25,6 +27,11 @@ class BudgetSelector : FlexboxLayout {
             field?.isChecked = true
         }
     var selectedBudget: Budget? = null
+        set(value) {
+            field = value
+            selectedRadio = viewsByBudget[value] as CheckBox
+        }
+
     var unselectedVisible = View.VISIBLE
         set(newValue) {
             for (i in 0 until childCount) {
@@ -54,6 +61,7 @@ class BudgetSelector : FlexboxLayout {
                 .forEach { budget ->
                     val icon = ContextCompat.getDrawable(context, budget.iconId)
                     addView(CheckBox(context, null, 0).apply {
+                        viewsByBudget[budget] = this
                         text = budget.title
                         setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null)
                         textSize = textPixels

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.georgeflug.budget.R
-import com.georgeflug.budget.view.main.MainActivity
+import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.view.transaction.details.ViewTransactionFragment
 import kotlinx.android.synthetic.main.fragment_transactions.*
 
@@ -27,18 +27,8 @@ class TransactionListFragment : Fragment() {
             if (sectionOrTransaction.transaction != null) {
 
                 val fragment = ViewTransactionFragment.getFragment(sectionOrTransaction.transaction)
-                displayChildFragment(fragment)
-                MainActivity.addToBackStack(fragment)
-
+                FragmentUtil.showAndAddToBackStack(fragment)
             }
         }
-    }
-
-    private fun displayChildFragment(fragment: Fragment) {
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(null)
-                .commit()
     }
 }

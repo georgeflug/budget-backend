@@ -11,8 +11,8 @@ import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.DateUtil
+import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.util.MoneyUtil
-import com.georgeflug.budget.view.main.MainActivity
 import com.georgeflug.budget.view.transaction.edit.EditTransactionFragment
 import kotlinx.android.synthetic.main.fragment_view_transaction.*
 
@@ -68,12 +68,7 @@ class ViewTransactionFragment : Fragment() {
 
         editButton.setOnClickListener {
             val fragment = EditTransactionFragment.getFragment(transaction)
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit()
-            MainActivity.addToBackStack(fragment)
+            FragmentUtil.showAndAddToBackStack(fragment)
         }
     }
 

@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         var currentTab: Int = 0
 
+        lateinit var fragmentManager: FragmentManager
+
         fun addToBackStack(fragment: Fragment) {
             val currentBackStack = backStack[currentTab]
             currentBackStack?.add(fragment)
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        MainActivity.fragmentManager = fragmentManager
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)

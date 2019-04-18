@@ -6,17 +6,23 @@ import android.support.annotation.IdRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Transaction
+import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.DateUtil
+import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.util.MoneyUtil
 import kotlinx.android.synthetic.main.fragment_view_transaction.*
 import java.math.BigDecimal
 
 class EditTransactionFragment : Fragment() {
     lateinit var transaction: Transaction
+    lateinit var splits: MutableList<TransactionSplit>
+    var splitFragment: EnterAmountFragment? = null
+    var splitToFurtherSplit: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +30,10 @@ class EditTransactionFragment : Fragment() {
         val bundle = this.arguments
         if (bundle != null) {
             transaction = bundle.getParcelable(TRANSACTION_BUNDLE_KEY)
+            splits = transaction.splits
+                    .sortedBy { it.amount }
+                    .asReversed()
+                    .toMutableList()
         }
     }
 
@@ -39,18 +49,40 @@ class EditTransactionFragment : Fragment() {
         postedDescription.setText(textOrUnknown(transaction.postedDescription))
         date.setText(DateUtil.getFriendlyDate(transaction.bestDate))
         account.setText(textOrUnknown(transaction.account))
+    }
 
-        transaction.splits
-                .sortedBy { it.amount }
-                .asReversed()
-                .forEach {
+    override fun onResume() {
+        super.onResume()
+
+        val fragment = splitFragment
+        val splitIndex = splitToFurtherSplit
+        splitFragment = null
+        splitToFurtherSplit = null
+        if (fragment != null && splitIndex != null && fragment.isSuccess) {
+            val originalSplit = splits[splitIndex]
+            val newSplit = TransactionSplit(fragment.amount, fragment.budget.title, fragment.description)
+            val modifiedSplit = TransactionSplit(originalSplit.amount - fragment.amount, originalSplit.budget, originalSplit.description)
+            splits[splitIndex] = modifiedSplit
+            splits.add(splitIndex + 1, newSplit)
+        }
+
+        splits
+                .forEachIndexed { index, split ->
                     val splitView = layoutInflater.inflate(R.layout.edit_transaction_split_item, splitListHolder, false)
-                    splitView.findViewById<ImageView>(R.id.budgetIcon).setImageResource(it.realBudget.iconId)
-                    splitView.findViewById<TextView>(R.id.budgetText).setText(it.realBudget.title)
-                    splitView.findViewById<TextView>(R.id.amount).setText(MoneyUtil.format(it.amount))
-                    splitView.findViewById<TextView>(R.id.description).setText(it.description)
-                    if (it.amount == BigDecimal(0.01)) hideButton(splitView, R.id.splitButton)
+                    splitView.findViewById<ImageView>(R.id.budgetIcon).setImageResource(split.realBudget.iconId)
+                    splitView.findViewById<TextView>(R.id.budgetText).setText(split.realBudget.title)
+                    splitView.findViewById<TextView>(R.id.amount).setText(MoneyUtil.format(split.amount))
+                    splitView.findViewById<TextView>(R.id.description).setText(split.description)
+                    if (split.amount == BigDecimal(0.01)) hideButton(splitView, R.id.splitButton)
                     if (transaction.splits.size == 1) hideButton(splitView, R.id.deleteButton)
+
+                    splitView.findViewById<Button>(R.id.splitButton).setOnClickListener {
+                        splitFragment = EnterAmountFragment()
+                        splitToFurtherSplit = index
+                        FragmentUtil.showAndAddToBackStack(splitFragment!!)
+                    }
+
+                    splitListHolder.addView(splitView)
                 }
     }
 
