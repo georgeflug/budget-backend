@@ -31,6 +31,15 @@ class MainActivity : AppCompatActivity() {
             val currentBackStack = backStack[currentTab]
             currentBackStack?.add(fragment)
         }
+
+        fun popFromBackStack() {
+            val currentBackStack = backStack[currentTab]
+            if (currentBackStack != null && currentBackStack.size > 0) {
+                currentBackStack.removeAt(currentBackStack.size - 1)
+            }
+        }
+
+        fun backStackSize() = backStack[currentTab]?.size ?: 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

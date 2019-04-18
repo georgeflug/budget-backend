@@ -30,14 +30,23 @@ object FragmentUtil {
 
     fun popBackStack() {
         MainActivity.fragmentManager.popBackStack()
+        MainActivity.popFromBackStack()
     }
 
     fun clearBackStack() {
         popBackStackTo(null)
+        while (MainActivity.backStackSize() > 0) {
+            MainActivity.popFromBackStack()
+        }
     }
 
     fun popBackStackTo(name: String?) {
-        MainActivity.fragmentManager.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        val startSize = MainActivity.fragmentManager.backStackEntryCount
+        MainActivity.fragmentManager.popBackStackImmediate(name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        val stopSize = MainActivity.fragmentManager.backStackEntryCount
+        for (i in stopSize until startSize) {
+            MainActivity.popFromBackStack()
+        }
     }
 
 }
