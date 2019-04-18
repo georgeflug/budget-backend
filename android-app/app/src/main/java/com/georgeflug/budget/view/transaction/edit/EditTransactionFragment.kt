@@ -10,12 +10,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.georgeflug.budget.R
+import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.DateUtil
 import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.util.MoneyUtil
-import kotlinx.android.synthetic.main.fragment_view_transaction.*
+import kotlinx.android.synthetic.main.fragment_edit_transaction.*
 import java.math.BigDecimal
 
 class EditTransactionFragment : Fragment() {
@@ -66,6 +67,11 @@ class EditTransactionFragment : Fragment() {
             splits.add(splitIndex + 1, newSplit)
         }
 
+        updateView()
+    }
+
+    private fun updateView() {
+        splitListHolder.removeAllViews()
         splits
                 .forEachIndexed { index, split ->
                     val splitView = layoutInflater.inflate(R.layout.edit_transaction_split_item, splitListHolder, false)
@@ -74,12 +80,21 @@ class EditTransactionFragment : Fragment() {
                     splitView.findViewById<TextView>(R.id.amount).setText(MoneyUtil.format(split.amount))
                     splitView.findViewById<TextView>(R.id.description).setText(split.description)
                     if (split.amount == BigDecimal(0.01)) hideButton(splitView, R.id.splitButton)
-                    if (transaction.splits.size == 1) hideButton(splitView, R.id.deleteButton)
+                    if (splits.size == 1) hideButton(splitView, R.id.deleteButton)
 
                     splitView.findViewById<Button>(R.id.splitButton).setOnClickListener {
                         splitFragment = EnterAmountFragment()
                         splitToFurtherSplit = index
                         FragmentUtil.showAndAddToBackStack(splitFragment!!)
+                    }
+                    splitView.findViewById<Button>(R.id.deleteButton).setOnClickListener {
+                        splits.remove(split)
+                        val unknownSplit = splits.find { it.realBudget == Budget.UNKNOWN && it.description.isEmpty() }
+                                ?: TransactionSplit(BigDecimal.ZERO, Budget.UNKNOWN.title, "")
+                        val newUnknownSplit = TransactionSplit(split.amount + unknownSplit.amount, unknownSplit.budget, unknownSplit.description)
+                        splits.remove(unknownSplit)
+                        splits.add(newUnknownSplit)
+                        updateView()
                     }
 
                     splitListHolder.addView(splitView)
@@ -88,14 +103,6 @@ class EditTransactionFragment : Fragment() {
 
     private fun hideButton(view: View, @IdRes id: Int) {
         view.findViewById<View>(id).visibility = View.GONE
-    }
-
-    private fun getHighLevelDescription(): String {
-        val split = transaction.splits[0]
-        if (split.description.isEmpty()) {
-            return split.realBudget.name
-        }
-        return "${split.budget} - ${split.description}"
     }
 
     private fun textOrUnknown(text: String?): String {
