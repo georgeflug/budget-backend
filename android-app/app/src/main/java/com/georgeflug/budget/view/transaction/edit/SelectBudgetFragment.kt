@@ -38,6 +38,7 @@ class SelectBudgetFragment : Fragment() {
         budgetSelector.setOnClickListener {
             budget = budgetSelector.selectedBudget
             nextButton.isEnabled = true
+            FragmentUtil.showAndAddToBackStack(enterDescriptionFragment)
         }
 
         val budget = budget
