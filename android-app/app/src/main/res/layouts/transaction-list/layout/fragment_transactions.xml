@@ -9,6 +9,6 @@
         android:id="@+id/transactionList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/split_item" />
+        tools:listitem="@layout/transaction_split_item" />
 
 </FrameLayout>

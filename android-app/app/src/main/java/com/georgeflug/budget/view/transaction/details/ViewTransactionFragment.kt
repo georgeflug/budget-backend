@@ -70,6 +70,7 @@ class ViewTransactionFragment : Fragment() {
         date.setText(DateUtil.getFriendlyDate(transaction.bestDate))
         account.setText(textOrUnknown(transaction.account))
 
+        splitListHolder.removeAllViews()
         if (transaction.splits.size == 1) {
             highLevelDescription.setText(getHighLevelDescription())
         } else {

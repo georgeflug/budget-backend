@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.TextView
 import com.georgeflug.budget.R
 import com.georgeflug.budget.R.id.itemAccountText
@@ -18,6 +17,7 @@ import com.georgeflug.budget.R.id.splitItemList
 import com.georgeflug.budget.R.id.transactionItem
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
+import com.georgeflug.budget.model.TransactionSplit
 import java.text.NumberFormat
 
 class TransactionAdapter(
@@ -84,15 +84,45 @@ class TransactionAdapter(
         view.findViewById<View>(transactionItem).setBackgroundColor(Color.WHITE)
         view.findViewById<TextView>(itemDescriptionText).text = getDescription(transaction)
         view.findViewById<TextView>(itemAmountText).text = NumberFormat.getCurrencyInstance().format(transaction.totalAmount)
-        view.findViewById<ListView>(splitItemList).adapter = SplitTransactionAdapter(context, transaction.splits)
+        val splitItemHolder = view.findViewById<ViewGroup>(splitItemList)//.adapter = SplitTransactionAdapter(context, transaction.splits)
+        splitItemHolder.removeAllViews()
+
+        transaction.splits
+                .sortedBy { it.amount }
+                .asReversed()
+                .forEach { split ->
+                    val splitItemView = LayoutInflater.from(context).inflate(R.layout.view_transaction_split_item, splitItemHolder, false)
+                    splitItemView.findViewById<View>(R.id.splitItem).setBackgroundColor(getSplitColor(split))
+                    splitItemView.findViewById<TextView>(R.id.splitItemText).text = getSplitDescription(split)
+                    splitItemView.findViewById<TextView>(R.id.splitItemAmount).text = NumberFormat.getCurrencyInstance().format(split.amount)
+                    splitItemHolder.addView(splitItemView)
+                }
 
         return view
     }
 
-    private fun getDescription(transaction: Transaction): String? {
+    private fun getSplitDescription(split: TransactionSplit): String {
         return when {
-            transaction.splits[0].description.isBlank() -> transaction.postedDescription
-            transaction.postedDescription?.isBlank() == true -> transaction.splits[0].description
+            split.budget.isBlank() -> split.description
+            split.description.isBlank() -> split.budget
+            else -> "${split.budget} - ${split.description}"
+        }
+    }
+
+    private fun getSplitColor(split: TransactionSplit): Int {
+        return Color.parseColor(when {
+            split.budget.isBlank() -> "#ff9e80" // red
+            split.budget == Budget.UNKNOWN.title -> "#42a5f5" // blue
+            else -> "#ffffff"
+        })
+    }
+
+    private fun getDescription(transaction: Transaction): String? {
+        val largestSplit = transaction.splits.maxBy { it.amount }!!
+        return when {
+            largestSplit.description.isBlank() && transaction.postedDescription.isNullOrBlank() -> largestSplit.realBudget.title
+            largestSplit.description.isBlank() -> transaction.postedDescription
+            transaction.postedDescription.isNullOrBlank() -> transaction.splits[0].description
             else -> "${transaction.splits[0].description}\n${transaction.postedDescription}"
         }
     }
