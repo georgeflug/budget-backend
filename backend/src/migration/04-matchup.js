@@ -187,7 +187,7 @@ const ACCOUNT_MAP = {
   '1EzgJnaKqxFD8R9D5pdXug0qLPKx0XHmJXXEY': 'Savings'
 };
 
-function adaptPlaidTransactionForDb(transactions) {
+function adaptTransactions(transactions) {
   return transactions.map(transaction => {
     return {
       date: transaction.date,
