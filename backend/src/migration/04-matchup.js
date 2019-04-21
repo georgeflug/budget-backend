@@ -130,7 +130,7 @@ const data = matches.map(row => Object.values(row).join('|'));
 //   proc.stdin.write(data); proc.stdin.end();
 // }
 
-require('./src/db/db').initDb().then(async function () {
+require('../db/db').initDb().then(async function () {
   const adaptTransactions = require('./adapt-transactions');
   const saveTransactions = require('./save-transactions');
 
