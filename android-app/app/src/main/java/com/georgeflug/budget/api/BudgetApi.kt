@@ -15,7 +15,8 @@ object BudgetApi {
 
     private val retrofit = Retrofit.Builder()
             .client(CustomClient().createClient())
-            .baseUrl("https://10.0.2.2:3000")
+//            .baseUrl("https://10.0.2.2:3000")
+            .baseUrl("https://georgeflug.duckdns.org:3000")
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build()
