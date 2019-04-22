@@ -58,6 +58,7 @@ class BudgetSelector : FlexboxLayout {
 
         Budget.values()
                 .filter { budget -> !budget.isAutomatic }
+                .sortedBy { budget -> budget.title }
                 .forEach { budget ->
                     val icon = ContextCompat.getDrawable(context, budget.iconId)
                     addView(CheckBox(context, null, 0).apply {

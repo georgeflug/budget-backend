@@ -38,7 +38,12 @@ class SelectBudgetFragment : Fragment() {
         budgetSelector.setOnClickListener {
             budget = budgetSelector.selectedBudget
             nextButton.isEnabled = true
-            FragmentUtil.showAndAddToBackStack(enterDescriptionFragment)
+            if (budget?.askForDescription == true) {
+                FragmentUtil.showAndAddToBackStack(enterDescriptionFragment)
+            } else {
+                enterDescriptionFragment.isSuccess = true
+                FragmentUtil.popBackStackTo(FragmentUtil.EditDetailsWorkflowStack)
+            }
         }
 
         val budget = budget
