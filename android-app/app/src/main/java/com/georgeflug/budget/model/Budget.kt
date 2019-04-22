@@ -29,6 +29,7 @@ enum class Budget(
     WORK_TRIPS("Work Expenses", "Expenses and trips that are reimbursed by our jobs", null, R.drawable.ic_work_black_24dp, false, true),
     GAS("Gas", "", null, R.drawable.ic_local_gas_station_black_24dp, false, false),
     INCOME("Income", "", null, R.drawable.ic_attach_money_black_24dp, false, false),
+    TRANSFER("Transfer", "Pay Credit Card, Invest Money", null, R.drawable.ic_compare_arrows_black_24dp, false, false),
     MORTGAGE("Mortgage", "", null, R.drawable.ic_icons8_real_estate, false, false),
     STUDENT_LOAN("Student Loan", "", null, R.drawable.ic_icons8_graduation_cap, false, false),
     SUBSCRIPTIONS("Subscriptions", "Insurance, Netflix, Amazon, Gym", null, R.drawable.ic_icons8_play_button_on_tv, false, false),
