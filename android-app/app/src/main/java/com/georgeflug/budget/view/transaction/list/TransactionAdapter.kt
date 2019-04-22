@@ -27,7 +27,7 @@ class TransactionAdapter(
 
     init {
         model.setOnChangeListener(Runnable {
-            this.notifyDataSetInvalidated()
+            this.notifyDataSetChanged()
         })
     }
 
