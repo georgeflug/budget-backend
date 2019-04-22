@@ -109,8 +109,7 @@ class TransactionAdapter(
 
     private fun getSplitColor(split: TransactionSplit): Int {
         return Color.parseColor(when {
-            split.budget.isBlank() -> "#ff9e80" // red
-            split.budget == Budget.UNKNOWN.title -> "#42a5f5" // blue
+            split.budget.isBlank() || split.budget == Budget.UNKNOWN.title -> "#ff9e80" // red
             else -> "#ffffff"
         })
     }
