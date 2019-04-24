@@ -14,10 +14,10 @@ class BudgetModel {
     private var listener: Runnable? = null
 
     init {
-        BudgetTabModel().getBudgetMonths().forEach { budgetAndMonth ->
-            val rollup = MonthRollup(budgetAndMonth.month)
+        BudgetTabModel().getBudgetMonths().forEach { monthAndName ->
+            val rollup = MonthRollup(monthAndName.month)
             rollupList.add(rollup)
-            budgets[budgetAndMonth.month] = rollup
+            budgets[monthAndName.month] = rollup
         }
 
         TransactionService.getAllTransactions()

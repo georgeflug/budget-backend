@@ -14,17 +14,17 @@ class MonthRollup(private val month: LocalDate) {
         get() = budgetMap.values
     private val monthCount = Period.between(DateUtil.firstDay, month).months + 1
 
+    init {
+        Budget.values().forEach {
+            budgetMap[it] = MonthCategoryRollup(it, monthCount)
+        }
+    }
+
     fun addTransaction(transaction: Transaction) {
         if (transaction.bestDate.isBefore(month)) {
             addCarryovers(transaction)
         } else if (isSameMonth(transaction.bestDate, month)) {
             addTransactions(transaction)
-        }
-    }
-
-    private fun getBudget(transactionSplit: TransactionSplit): MonthCategoryRollup {
-        return budgetMap.computeIfAbsent(transactionSplit.realBudget) { budget ->
-            MonthCategoryRollup(budget, monthCount)
         }
     }
 
@@ -40,6 +40,10 @@ class MonthRollup(private val month: LocalDate) {
             val budget = getBudget(split)
             budget.addTransaction(split)
         }
+    }
+
+    private fun getBudget(transactionSplit: TransactionSplit): MonthCategoryRollup {
+        return budgetMap[transactionSplit.realBudget]!!
     }
 
     private fun isSameMonth(firstDate: LocalDate, secondDate: LocalDate): Boolean {
