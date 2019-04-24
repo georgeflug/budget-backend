@@ -18,6 +18,7 @@ import com.georgeflug.budget.R.id.transactionItem
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
+import java.math.BigDecimal
 import java.text.NumberFormat
 
 class TransactionAdapter(
@@ -72,7 +73,14 @@ class TransactionAdapter(
         view.findViewById<TextView>(itemDescriptionText).text = getDescription(transaction)
         view.findViewById<TextView>(itemBudgetText).text = transaction.splits[0].budget
         view.findViewById<TextView>(itemAccountText).text = getAccount(transaction)
-        view.findViewById<TextView>(itemAmountText).text = NumberFormat.getCurrencyInstance().format(transaction.totalAmount)
+        val amountText = view.findViewById<TextView>(itemAmountText)
+        if (transaction.totalAmount >= BigDecimal.ZERO) {
+            amountText.text = NumberFormat.getCurrencyInstance().format(transaction.totalAmount)
+            amountText.setTextColor(context.resources.getColor(android.R.color.tab_indicator_text))
+        } else {
+            amountText.text = "+" + NumberFormat.getCurrencyInstance().format(-transaction.totalAmount)
+            amountText.setTextColor(Color.parseColor("#44d334"))
+        }
 
         return view
     }
@@ -127,7 +135,7 @@ class TransactionAdapter(
     private fun getAccount(transaction: Transaction): String {
         return when {
             transaction.account == "First Community Checking" -> "Checking"
-            else -> transaction.account
+            else -> transaction.account ?: ""
         }
     }
 
@@ -135,7 +143,7 @@ class TransactionAdapter(
         return Color.parseColor(when {
             transaction.splits[0].budget.isBlank() -> "#ff9e80" // red
             transaction.splits[0].budget == Budget.UNKNOWN.title -> "#42a5f5" // blue
-            transaction.account.isBlank() -> "#ffe57f" // yellow
+            transaction.account.isNullOrBlank() -> "#ffe57f" // yellow
             else -> "#ffffff"
         })
     }

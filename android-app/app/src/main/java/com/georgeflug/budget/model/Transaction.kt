@@ -12,7 +12,7 @@ data class Transaction(
         val plaidId: String?,
         val date: String,
         val totalAmount: BigDecimal,
-        val account: String,
+        val account: String?,
         val postedDate: String?,
         val postedDescription: String?,
         val splits: List<TransactionSplit>

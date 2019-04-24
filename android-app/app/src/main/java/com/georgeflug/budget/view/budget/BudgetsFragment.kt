@@ -72,12 +72,11 @@ class BudgetsFragment : Fragment() {
 
     fun rePopulateBudgets(tab: TabLayout.Tab) {
         val month = tab.tag as LocalDate
-        val currencyFormatter = NumberFormat.getCurrencyInstance()
 
         val results = budgets.getMonth(month).budgets.map { budget ->
             mapOf(
                     "title" to budget.title,
-                    "total" to currencyFormatter.format(budget.total),
+                    "total" to getTotalAmountText(budget),
                     "allocated" to getAllocatedText(budget),
                     "iconId" to budget.iconId.toString()
             )
@@ -92,6 +91,15 @@ class BudgetsFragment : Fragment() {
         visibleBudgets.addAll(sorted)
 
         (budgetList.adapter as SimpleAdapter).notifyDataSetChanged()
+    }
+
+    fun getTotalAmountText(budget: MonthCategoryRollup): String {
+        val currencyFormatter = NumberFormat.getCurrencyInstance()
+        return if (budget.total >= BigDecimal.ZERO) {
+            currencyFormatter.format(budget.total)
+        } else {
+            "+" + currencyFormatter.format(-budget.total)
+        }
     }
 
     fun getAllocatedText(budget: MonthCategoryRollup): String {
