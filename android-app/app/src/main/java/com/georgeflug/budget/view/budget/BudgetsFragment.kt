@@ -17,6 +17,7 @@ import java.time.LocalDate
 class BudgetsFragment : Fragment() {
     private var selectedTab = -1
     private val budgets = BudgetModel()
+    private val visibleBudgets = mutableListOf<Map<String, String>>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,6 +43,7 @@ class BudgetsFragment : Fragment() {
             }
         })
 
+        setUpBudgetListAdapter()
         preselectTab()
 
         budgets.setOnChangeListener(Runnable {
@@ -62,6 +64,12 @@ class BudgetsFragment : Fragment() {
         }, 50)
     }
 
+    fun setUpBudgetListAdapter() {
+        val from = arrayOf("title", "allocated", "total", "iconId")
+        val to = intArrayOf(R.id.budgetNameText, R.id.budgetAllocationText, R.id.budgetTotalText, R.id.budgetImage)
+        budgetList.adapter = SimpleAdapter(context, visibleBudgets, R.layout.budget_item, from, to)
+    }
+
     fun rePopulateBudgets(tab: TabLayout.Tab) {
         val month = tab.tag as LocalDate
         val currencyFormatter = NumberFormat.getCurrencyInstance()
@@ -80,9 +88,10 @@ class BudgetsFragment : Fragment() {
             prefix + it["title"]
         }
 
-        val from = arrayOf("title", "allocated", "total", "iconId")
-        val to = intArrayOf(R.id.budgetNameText, R.id.budgetAllocationText, R.id.budgetTotalText, R.id.budgetImage)
-        budgetList.adapter = SimpleAdapter(context, sorted, R.layout.budget_item, from, to)
+        visibleBudgets.clear()
+        visibleBudgets.addAll(sorted)
+
+        (budgetList.adapter as SimpleAdapter).notifyDataSetChanged()
     }
 
     fun getAllocatedText(budget: MonthCategoryRollup): String {
