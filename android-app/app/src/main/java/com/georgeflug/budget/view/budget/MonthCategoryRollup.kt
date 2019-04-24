@@ -18,6 +18,6 @@ class MonthCategoryRollup(budget: Budget, carryoverMonths: Int) {
     }
 
     fun addCarryoverTransaction(transactionSplit: TransactionSplit) {
-        allocated += transactionSplit.amount
+        allocated -= transactionSplit.amount
     }
 }
