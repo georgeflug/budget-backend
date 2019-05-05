@@ -1,5 +1,6 @@
 const moment = require('moment');
 const downloader = require('./index');
+const log = require('../log');
 
 const TIME_OF_DAY_TO_RUN_IT = 18;
 
@@ -17,7 +18,13 @@ function startScheduler(getCurrentMoment = moment) {
     const millisFromNow = scheduledTime.diff(getCurrentMoment());
 
     setTimeout(async function () {
-      await downloader.saveLatestTransactionsToDb();
+      log.debug('SCHEDULER', 'Beginning scheduled download');
+      try {
+        await downloader.saveLatestTransactionsToDb();
+        log.debug('SCHEDULER', 'Finished scheduled download');
+      } catch (ex) {
+        log.error('SCHEDULER', 'Failed to download transactions', ex);
+      }
       scheduleNextExecution(day.add(1, 'days'));
     }, millisFromNow);
   }
