@@ -33,3 +33,11 @@ Migration Plan:
   - install the new app on phones
   - transfer any remaining transactions
   - deprecate/disable the old google sheets
+
+How to run backend on the server:
+  - Clone the repo
+  - Set up all the environment variables defined in the docker.compose.yml file.
+  - Open port: sudo ufw allow 3000
+  - Start docker: sudo service docker start
+  - Start the service: docker-compose up --build -d
+
