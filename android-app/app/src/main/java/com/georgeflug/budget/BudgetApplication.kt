@@ -2,8 +2,7 @@ package com.georgeflug.budget
 
 import android.app.Application
 import android.content.Context
-import android.widget.Toast
-import com.georgeflug.budget.api.BudgetApi
+import com.georgeflug.budget.service.TransactionService
 
 class BudgetApplication : Application() {
 
@@ -18,7 +17,6 @@ class BudgetApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
-        Toast.makeText(context, "isHomeNetwork: " + BudgetApi.isHomeNetwork() + ", Name: " + BudgetApi.homeNetworkName(), Toast.LENGTH_LONG).show()
-//        TransactionService.downloadTransactions()
+        TransactionService.downloadTransactions()
     }
 }
