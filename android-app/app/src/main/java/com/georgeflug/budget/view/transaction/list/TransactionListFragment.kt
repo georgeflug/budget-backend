@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.georgeflug.budget.R
+import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.service.TransactionService
@@ -21,6 +22,18 @@ import kotlinx.android.synthetic.main.fragment_transactions.*
 class TransactionListFragment : Fragment() {
     var editFragment: SelectBudgetFragment? = null
     var transactionToEdit: Transaction? = null
+    val model = TransactionsDynamicallyFilterableModel()
+
+    var filterMonth: Int? = null
+        set(value) {
+            model.filterMonth = value
+            field = value
+        }
+    var filterBudget: Budget? = null
+        set(value) {
+            model.filterBudget = value
+            field = value
+        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,11 +42,16 @@ class TransactionListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
 
-        transactionList.adapter = TransactionAdapter(context)
+    override fun onResume() {
+        super.onResume()
+        processQuickEditResult()
+
+        transactionList.adapter = TransactionAdapter(context, model)
 
         transactionList.setOnItemClickListener { parent, _, position, _ ->
-            val sectionOrTransaction = parent.adapter.getItem(position) as TransactionsModel.SectionOrTransaction
+            val sectionOrTransaction = parent.adapter.getItem(position) as SectionOrTransaction
 
             sectionOrTransaction.transaction?.let { transaction ->
                 if (transaction.splits.size == 1) {
@@ -43,11 +61,7 @@ class TransactionListFragment : Fragment() {
                 }
             }
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        processQuickEditResult()
     }
 
     private fun showViewTransactionFragment(transaction: Transaction) {

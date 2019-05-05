@@ -6,7 +6,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.TextView
 import com.georgeflug.budget.R
 import com.georgeflug.budget.R.id.itemAccountText
@@ -22,14 +22,24 @@ import java.math.BigDecimal
 import java.text.NumberFormat
 
 class TransactionAdapter(
-        context: Context,
-        private val model: TransactionsModel = TransactionsModel())
-    : ArrayAdapter<TransactionsModel.SectionOrTransaction>(context, 0, model.items) {
+        private val context: Context,
+        private val model: TransactionsModel)
+    : BaseAdapter() {
+
+    override fun getItem(position: Int): Any {
+        return model.getSectionOrTransactionAt(position)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getCount(): Int {
+        return model.size
+    }
 
     init {
-        model.setOnChangeListener(Runnable {
-            this.notifyDataSetChanged()
-        })
+        model.setOnChangeListener(::notifyDataSetChanged)
     }
 
     override fun getViewTypeCount() = 3
@@ -52,8 +62,8 @@ class TransactionAdapter(
         }
     }
 
-    private fun isSection(item: TransactionsModel.SectionOrTransaction) = item.section != null
-    private fun isUnsplitTransaction(item: TransactionsModel.SectionOrTransaction) = item.transaction!!.splits.size == 1
+    private fun isSection(item: SectionOrTransaction) = item.section != null
+    private fun isUnsplitTransaction(item: SectionOrTransaction) = item.transaction!!.splits.size == 1
 
     private fun getSectionView(section: Section, convertView: View?, parent: ViewGroup): View {
         val view = convertView
