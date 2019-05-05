@@ -18,6 +18,7 @@ class TransactionsDynamicallyFilterableModel : TransactionsModel {
         }
 
     init {
+        onNewModel()
     }
 
     override val items: ArrayList<SectionOrTransaction>

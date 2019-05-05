@@ -42,13 +42,12 @@ class TransactionListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        transactionList.adapter = TransactionAdapter(context, model)
     }
 
     override fun onResume() {
         super.onResume()
         processQuickEditResult()
-
-        transactionList.adapter = TransactionAdapter(context, model)
 
         transactionList.setOnItemClickListener { parent, _, position, _ ->
             val sectionOrTransaction = parent.adapter.getItem(position) as SectionOrTransaction

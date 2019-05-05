@@ -39,7 +39,9 @@ class TransactionAdapter(
     }
 
     init {
-        model.setOnChangeListener(::notifyDataSetChanged)
+        model.setOnChangeListener {
+            this.notifyDataSetChanged()
+        }
     }
 
     override fun getViewTypeCount() = 3
