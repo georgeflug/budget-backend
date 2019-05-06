@@ -2,6 +2,7 @@ package com.georgeflug.budget.api
 
 import android.content.Context
 import android.net.wifi.WifiManager
+import android.os.Build
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
@@ -19,7 +20,6 @@ object BudgetApi {
 
     private val retrofit = Retrofit.Builder()
             .client(CustomClient().createClient())
-//            .baseUrl(getDebugBaseUrl())
             .baseUrl(getBaseUrl())
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
@@ -28,15 +28,15 @@ object BudgetApi {
     val transactions: TransactionApi = retrofit.create(TransactionApi::class.java)
     val featureIdeas: FeatureApi = retrofit.create(FeatureApi::class.java)
 
-    private fun getDebugBaseUrl() = "https://10.0.2.2:3000"
+    private fun getBaseUrl() = "https://${getHost()}:3000"
 
-    private fun getBaseUrl(): String {
-        return if (isHomeNetwork()) {
-            "https://192.168.1.132:3000"
-        } else {
-            "https://georgeflug.duckdns.org:3000"
-        }
+    private fun getHost() = when {
+        isEmulator() -> "10.0.2.2"
+        isHomeNetwork() -> "192.168.1.132"
+        else -> "georgeflug.duckdns.org"
     }
+
+    fun isEmulator(): Boolean = Build.FINGERPRINT.contains("generic")
 
     fun isHomeNetwork(): Boolean {
         val wifiMgr = BudgetApplication.getAppContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
