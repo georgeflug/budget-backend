@@ -1,5 +1,6 @@
 package com.georgeflug.budget.view.transaction.list
 
+import android.annotation.SuppressLint
 import com.georgeflug.budget.BudgetApplication
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
@@ -17,14 +18,7 @@ class TransactionsFilteredModel(
     private var listener: (() -> Unit)? = null
 
     init {
-        TransactionService.getInitialTransactions()
-                .doOnNext(::saveInitialTransactions)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ onChange() }, ::handleError)
-        TransactionService.listenForNewTransactions()
-                .doOnNext(::saveTransaction)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ onChange() }, ::handleError)
+        listenForTransactions()
     }
 
     override val size: Int
@@ -36,6 +30,18 @@ class TransactionsFilteredModel(
 
     override fun setOnChangeListener(onChange: () -> Unit) {
         listener = onChange
+    }
+
+    @SuppressLint("CheckResult")
+    private fun listenForTransactions() {
+        TransactionService.getInitialTransactions()
+                .doOnNext(::saveInitialTransactions)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ onChange() }, ::handleError)
+        TransactionService.listenForNewTransactions()
+                .doOnNext(::saveTransaction)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ onChange() }, ::handleError)
     }
 
     private fun saveInitialTransactions(transactions: List<Transaction>) {

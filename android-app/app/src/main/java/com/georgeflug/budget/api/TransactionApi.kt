@@ -9,10 +9,11 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TransactionApi {
     @GET("transactions")
-    fun listTransactions(): Observable<List<Transaction>>
+    fun listTransactions(@Query("startedAt") startedAt: String?): Observable<List<Transaction>>
 
     @POST("transactions")
     fun createTransaction(@Body transaction: NewTransaction): Observable<Transaction>

@@ -23,9 +23,14 @@ object TransactionService {
 
     @SuppressLint("CheckResult")
     fun downloadTransactions() {
-        BudgetApi.transactions.listTransactions()
+        val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
+        val latestTimestamp = PersistedTransactionService.getLatestTimestamp(persistedTransactions)
+        initial.onNext(persistedTransactions)
+
+        BudgetApi.transactions.listTransactions(latestTimestamp)
                 .map { transactions ->
                     transactions
+                            .union(persistedTransactions)
                             .sortedBy { it.bestDate }
                             .asReversed()
                             .map { copyTransactionWithSortedSplits(it) }

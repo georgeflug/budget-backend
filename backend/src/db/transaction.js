@@ -23,7 +23,13 @@ const TransactionSchema = new Schema({
   account: String,
   postedDate: Date,
   postedDescription: String,
+  lastModified: Date,
   splits: [SplitTransactionSchema], // splits will have 1 item for un-split transactions
+});
+
+TransactionSchema.pre('save', function (next) {
+  this.lastModified = Date.now();
+  next();
 });
 
 mongoose.model('Transaction', TransactionSchema);

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Transaction = require('../db/transaction');
+const moment = require('moment');
 
 router.route('/transactions')
   .post(function (req, res, next) {
@@ -11,7 +12,8 @@ router.route('/transactions')
     });
   })
   .get(function (req, res, next) {
-    Transaction.model.find({}, function (err, transactions) {
+    const query = req.query.startingAt ? { lastModified: { $gte: moment(req.query.startingAt) } } : {};
+    Transaction.model.find(query, function (err, transactions) {
       returnTheThing(res, err, transactions);
     });
   });

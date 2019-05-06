@@ -1,6 +1,7 @@
 package com.georgeflug.budget.model
 
 import android.os.Parcelable
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.georgeflug.budget.util.DateUtil
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
@@ -19,5 +20,6 @@ data class Transaction(
 ) : Parcelable {
 
     @IgnoredOnParcel
+    @JsonIgnore
     val bestDate = DateUtil.parseDate(if (date.isBlank()) postedDate!! else date)
 }
