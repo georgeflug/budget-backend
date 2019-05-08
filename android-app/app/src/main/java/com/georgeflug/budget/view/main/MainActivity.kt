@@ -3,17 +3,25 @@ package com.georgeflug.budget.view.main
 import android.app.Activity
 import android.app.Fragment
 import android.app.FragmentManager
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.support.design.internal.BottomNavigationMenuView
+import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.georgeflug.budget.R
 import com.georgeflug.budget.view.budget.BudgetsFragment
 import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
+import com.georgeflug.budget.view.transaction.Count
 import com.georgeflug.budget.view.transaction.add.AddTransactionFragment
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -26,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         var currentTab: Int = 0
 
         lateinit var fragmentManager: FragmentManager
+        private lateinit var bottomNav: BottomNavigationView
 
         fun addToBackStack(fragment: Fragment) {
             val currentBackStack = backStack[currentTab]
@@ -40,6 +49,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun backStackSize() = backStack[currentTab]?.size ?: 0
+
+        fun updateTransactionCount(count: Int) {
+            Log.d("MainActivity", "Setting Red Transaction Count to: $count");
+            val icon = bottomNav.menu.findItem(R.id.nav_transactions).icon as LayerDrawable
+            Count.setCounting(icon, count)
+            bottomNav.invalidate()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +67,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = "Add Transaction"
+
+        initializeRedTransactionBadge()
 
         val addTransactionsFragment = AddTransactionFragment()
         val listTransactionsFragment = TransactionListFragment()
@@ -84,6 +102,17 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.selectedItemId = R.id.nav_transactions
         showFragment(listTransactionsFragment)
+    }
+
+    private fun initializeRedTransactionBadge() {
+        val menuView = bottomNav.getChildAt(0) as BottomNavigationMenuView
+        val iconView = menuView.getChildAt(1).findViewById<View>(android.support.design.R.id.icon)
+        val layoutParams = iconView.layoutParams
+        val displayMetrics = resources.displayMetrics
+        layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48f, displayMetrics).toInt()
+
+        MainActivity.bottomNav = bottomNav
+        updateTransactionCount(0)
     }
 
     override fun onBackPressed() {

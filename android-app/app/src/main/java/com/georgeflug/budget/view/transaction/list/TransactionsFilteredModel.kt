@@ -7,6 +7,7 @@ import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
+import com.georgeflug.budget.view.main.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.time.LocalDate
 
@@ -57,6 +58,11 @@ class TransactionsFilteredModel(
                 lastDate = currentDate
             }
         }
+        val redTransactionCount = newList.stream()
+                .filter { it.transaction != null }
+                .filter { it.transaction!!.splits.any { split -> split.realBudget == Budget.UNKNOWN } }
+                .count().toInt()
+        MainActivity.updateTransactionCount(redTransactionCount)
         items.clear()
         items.addAll(newList)
     }
