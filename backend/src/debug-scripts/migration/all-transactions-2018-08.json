@@ -1,0 +1,3386 @@
+[
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 34.47,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-29",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Creve Coeur",
+      "lat": null,
+      "lon": null,
+      "state": "MO",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "PETROMART 65",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "NyOyO87dvwuaPXKooY3Dc9KJ6DonArsR9ZqMw",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 25.34,
+    "category": [
+      "Shops"
+    ],
+    "category_id": "19000000",
+    "date": "2018-08-28",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Amazon",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "XxYxYQryjKfBbAJmm3PwHgZMNXdP3as45oe15",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 293.6,
+    "category": [
+      "Travel",
+      "Airlines and Aviation Services"
+    ],
+    "category_id": "22001000",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Tulsa",
+      "lat": null,
+      "lon": null,
+      "state": "OK",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "American Airlines",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "nBYBYmXM6EU8e5MxxODXHYXm8pOEzAsAgrdPk",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 6,
+    "category": [
+      "Bank Fees"
+    ],
+    "category_id": "10000000",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Arlington",
+      "lat": null,
+      "lon": null,
+      "state": "VA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "TRAVEL AGENCY FEE",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "pywywqmRDQuKeVM99PaNcwE4AbV89JcJgvBM5",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 15.33,
+    "category": [
+      "Shops"
+    ],
+    "category_id": "19000000",
+    "date": "2018-08-23",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Amazon",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "QAYAYbBL5DHNJ5vXX6a9HkpRP1OYj4CEvNZBq",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 25,
+    "category": [
+      "Transfer",
+      "Third Party",
+      "PayPal"
+    ],
+    "category_id": "21010004",
+    "date": "2018-08-21",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "CA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CATHOLICNEW",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "PayPal",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "RvYvY8bDj1Hk3ApwwLdzc0p8Z7eMvqfy0OvE7",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 68.23,
+    "category": [
+      "Shops",
+      "Automotive",
+      "Car Parts and Accessories"
+    ],
+    "category_id": "19005006",
+    "date": "2018-08-21",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "MO",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DOBBS TIRE #10 DOW ST LOUIS",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Ew8w8n0VN7Um1B6zzpVZcJgYM1xQLnfpMgy0D",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 299.71,
+    "category": [
+      "Service",
+      "Automotive",
+      "Maintenance and Repair"
+    ],
+    "category_id": "18006003",
+    "date": "2018-08-20",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "MO",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "SPENCER AUTO GLASS GOSQ.COM",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "Square",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "M3V3V8PXZdtoOQyKKqEvcbyoKrVZEpCMb8jno",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 187.38,
+    "category": [
+      "Shops",
+      "Hardware Store"
+    ],
+    "category_id": "19030000",
+    "date": "2018-08-19",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": "3803  Mexico Rd",
+      "city": "Saint Charles",
+      "lat": 38.7911,
+      "lon": -90.5645,
+      "state": "MO",
+      "store_number": "304",
+      "zip": "63303"
+    },
+    "name": "Harbor Freight Tools",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "V4Y4YoMBO3C0r8abbqePco5dM64NejhrmR9AR",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 5.58,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-19",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Saint Charles",
+      "lat": null,
+      "lon": null,
+      "state": "MO",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "SHELL 57443314307",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "OKYKY8BwQ6I1QmkVVdzNsqkAO1xMegT8qw6Br",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 12.95,
+    "category": [
+      "Shops",
+      "Furniture and Home Decor"
+    ],
+    "category_id": "19027000",
+    "date": "2018-08-18",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Long Beach",
+      "lat": null,
+      "lon": null,
+      "state": "CA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "REDSTONE POTTERY",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "Square",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "9ZyZy3J4wjfJNOk118d0sbKrNnzBQqCdmA0jb",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 20,
+    "category": [
+      "Transfer",
+      "Third Party",
+      "PayPal"
+    ],
+    "category_id": "21010004",
+    "date": "2018-08-18",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "CA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "WIKIMEDIAFO",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "PayPal",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "mqYqYDjOwMHZerOLLVPaUxzLVAovRMUM6VzwO",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 70,
+    "category": [
+      "Service",
+      "Telecommunication Services"
+    ],
+    "category_id": "18063000",
+    "date": "2018-08-17",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "FL",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Cricket Wireless",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "zxKxKrR1X3fmyqMJJpwzcKQw1AxB3OsO8gVXm",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 155,
+    "category": [
+      "Community",
+      "Organizations and Associations",
+      "Charities and Non-Profits"
+    ],
+    "category_id": "12015003",
+    "date": "2018-08-16",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "AR",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "HEIFER INTL",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "Blackbaud",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "YJYJYZMKjkI6xgOjjyqbcdz5MpJmkAfQ50R8m",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 32.9,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-15",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Saint Louis",
+      "lat": null,
+      "lon": null,
+      "state": "MO",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "SHELL 57443312103",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "eEYEY9yZx5F7ejkAA8JQc1Z5MrnBVdfdzwAqv",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 196.66,
+    "category": [
+      "Transfer",
+      "Third Party",
+      "PayPal"
+    ],
+    "category_id": "21010004",
+    "date": "2018-08-14",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "CA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "NICODANAN",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "PayPal",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "XxYxYQryjKfBbAJmm3PwHgZMNXdP3as45oe1A",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 34.42,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-14",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Creve Coeur",
+      "lat": null,
+      "lon": null,
+      "state": "MO",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "PETROMART 65",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "NyOyO87dvwuaPXKooY3Dc9KJ6DonArsR9ZqM4",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 15.75,
+    "category": [
+      "Shops",
+      "Hardware Store"
+    ],
+    "category_id": "19030000",
+    "date": "2018-08-12",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": "11245  Saint Charles Rock Rd",
+      "city": "Bridgeton",
+      "lat": 38.739063,
+      "lon": -90.40109,
+      "state": "MO",
+      "store_number": "3003",
+      "zip": "63044"
+    },
+    "name": "Home Depot",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "pywywqmRDQuKeVM99PaNcwE4AbV89JcJgvBMB",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 51.74,
+    "category": [
+      "Recreation"
+    ],
+    "category_id": "17000000",
+    "date": "2018-08-07",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "NJ",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "BT RUNSIGNUP38ZSTB",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "QAYAYbBL5DHNJ5vXX6a9HkpRP1OYj4CEvNZBo",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 37.34,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-07",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": "Saint Louis",
+      "lat": null,
+      "lon": null,
+      "state": "MO",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "SHELL 57443312103",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "nBYBYmXM6EU8e5MxxODXHYXm8pOEzAsAgrdPL",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 5,
+    "category": [
+      "Community",
+      "Organizations and Associations",
+      "Charities and Non-Profits"
+    ],
+    "category_id": "12015003",
+    "date": "2018-08-05",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "CA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "GOFUNDME",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "WePay",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "M3V3V8PXZdtoOQyKKqEvcbyoKrVZEpCMb8jED",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 150,
+    "category": [
+      "Community",
+      "Organizations and Associations",
+      "Charities and Non-Profits"
+    ],
+    "category_id": "12015003",
+    "date": "2018-08-05",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "CA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "LAUREN KNEEDS YOUR H",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "WePay",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Ew8w8n0VN7Um1B6zzpVZcJgYM1xQLnfpMgyzP",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 7.99,
+    "category": [
+      "Service",
+      "Subscription"
+    ],
+    "category_id": "18061000",
+    "date": "2018-08-05",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": "CA",
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Netflix",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "RvYvY8bDj1Hk3ApwwLdzc0p8Z7eMvqfy0OvEQ",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 28.83,
+    "category": [
+      "Shops"
+    ],
+    "category_id": "19000000",
+    "date": "2018-08-02",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "AMZN MKTP US AMZN.COM/BILLWA",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "V4Y4YoMBO3C0r8abbqePco5dM64NejhrmR9BD",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": 20.08,
+    "category": [
+      "Food and Drink",
+      "Restaurants"
+    ],
+    "category_id": "13005000",
+    "date": "2018-08-02",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": "11939 Olive Blvd",
+      "city": "Saint Louis",
+      "lat": 38.671638,
+      "lon": -90.446543,
+      "state": "MO",
+      "store_number": null,
+      "zip": "63141"
+    },
+    "name": "Flavor Of India",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "OKYKY8BwQ6I1QmkVVdzNsqkAO1xMegT8qw6Y3",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
+    "account_owner": null,
+    "amount": -2311.04,
+    "category": [
+      "Transfer",
+      "Credit"
+    ],
+    "category_id": "21005000",
+    "date": "2018-08-01",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIRECTPAY FULL BALANCE",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "9ZyZy3J4wjfJNOk118d0sbKrNnzBQqCdmA0QR",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": -4.5,
+    "category": [
+      "Bank Fees",
+      "ATM"
+    ],
+    "category_id": "10002000",
+    "date": "2018-08-31",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ATM FEE REFUND / Share Deposit",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "EoJkRd6OgQT6a436xrOKIJRvaNyrYmfpMg3vV",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": -74.84,
+    "category": [
+      "Transfer",
+      "Deposit"
+    ],
+    "category_id": "21007000",
+    "date": "2018-08-31",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIVIDEND / Dividend",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "MEAxRByNYjFy8RdywPxaSb358gxAoDCMb8xqv",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 24.72,
+    "category": [
+      "Shops",
+      "Hardware Store"
+    ],
+    "category_id": "19030000",
+    "date": "2018-08-31",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Home Depot",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "a5bARdV4pQHBak1BZPorIrw5L0nxjyFZg8oVv",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": -6074.63,
+    "category": [
+      "Healthcare",
+      "Healthcare Services"
+    ],
+    "category_id": "14001000",
+    "date": "2018-08-31",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Mercy Health - PR PAYMENT / Direct Deposit",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "xK9gXrjdeZFMb3eMxYQdi3N1Z6n0rduM4eZgL",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 100,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-30",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 216 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "9O9Pqxga0Etk4oxkv5jrSbYxvaPjroCdmAYRQ",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 15,
+    "category": [
+      "Healthcare",
+      "Healthcare Services"
+    ],
+    "category_id": "14001000",
+    "date": "2018-08-30",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ST LOUIS BEHAVIORAL MEDSAINT / LOUIS MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Oo0PXykdV7TkED6kaLYJSqP8E6oYA5I8qwrDL",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 35.7,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-30",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Schnucks Markets",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "V5Ar8XaqVPHaVw3aDAE7co0rVPq3dOUrmRe8A",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 46.23,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-29",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "bgKbMwOaePCOPzbOeKvBS3EdrKjz5Xuq5p0Lz",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 28.23,
+    "category": [
+      "Payment"
+    ],
+    "category_id": "16000000",
+    "date": "2018-08-29",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Spire - 54303681 - / 7846290000 - PAYMENT : ACH Withdrawal",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": "ACH",
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "7Vg91xorAEfyoXayKqVASOybmp6ZKnUQxyvRx",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 2,
+    "category": [
+      "Service",
+      "Shipping and Freight"
+    ],
+    "category_id": "18058000",
+    "date": "2018-08-29",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "THE UPS STORE # 11469 OLIVE / BLVE CREVE COUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "gMAyaPn5eKHvk4DvL9KPcPagdD975NCq5goOY",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 8.02,
+    "category": [
+      "Food and Drink",
+      "Restaurants",
+      "Coffee Shop"
+    ],
+    "category_id": "13005043",
+    "date": "2018-08-28",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Starbucks",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "o610prmMeaIELM8EKJZNcbdvEz3pnjCB68XMA",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 1,
+    "category": [
+      "Bank Fees",
+      "ATM"
+    ],
+    "category_id": "10002000",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Cardtronics",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "8V1QPxm4vzfXKVdX5B9qFKjo74Rm5gsy3dMzD",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 43.5,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "ATM"
+    ],
+    "category_id": "21012002",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Cardtronics",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Z5vLaXZKVrHwY1Aw0bE9T9yRNezMLEfRD01Ed",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "1EzgJnaKqxFD8R9D5pdXug0qLPKx0XHmJXXEY",
+    "account_owner": null,
+    "amount": -151,
+    "category": [
+      "Transfer",
+      "Deposit"
+    ],
+    "category_id": "21007000",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "FIRST COMMUNITY / -RDC DEP : Deposit",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "a5bARdV4pQHBak1BZPorIrw5L0nxjyFZg86wP",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "1EzgJnaKqxFD8R9D5pdXug0qLPKx0XHmJXXEY",
+    "account_owner": null,
+    "amount": -74.99,
+    "category": [
+      "Transfer",
+      "Deposit"
+    ],
+    "category_id": "21007000",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "FIRST COMMUNITY / -RDC DEP : Deposit",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "EoJkRd6OgQT6a436xrOKIJRvaNyrYmfpMgx1e",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 5.23,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Shell",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "5zE6LnZ0KgIBpxNBraDmIq4yx0gwA1IBgqJR8",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 44.41,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-27",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Shell",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "JXOLR1qnVZUqBJ1qLONjsAMbBOR0oeSb8Yj5j",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 65.93,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-25",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41042 St. Ann / MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "a5bARdV4pQHBak1BZPorIrw5L0nxjyFZg8oVX",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 129.5,
+    "category": [
+      "Service",
+      "Veterinarians"
+    ],
+    "category_id": "18069000",
+    "date": "2018-08-25",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CREVE COEUR ANIMAL HOSPCREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "xK9gXrjdeZFMb3eMxYQdi3N1Z6n0rduM4eZge",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 70.09,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-24",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "r17EpryQeBHMdLbMQm1NiLxvn9ozOAtBpvP79",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 28.6,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-24",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIERBERGS WEST OAK CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "j5dMp36gmaHrRJyrPjvkFkKLyEZYbnfRrL9Bp",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 10,
+    "category": [
+      "Transfer",
+      "Third Party",
+      "Square Cash"
+    ],
+    "category_id": "21010002",
+    "date": "2018-08-24",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "JOSEPH STILL / 8774174551 CAUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "Square Cash",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "4VEw6n8vygfqmD5qba9Ys7wavYJBbDfkBXwrY",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "1EzgJnaKqxFD8R9D5pdXug0qLPKx0XHmJXXEY",
+    "account_owner": null,
+    "amount": -3347.67,
+    "category": [
+      "Transfer",
+      "Deposit"
+    ],
+    "category_id": "21007000",
+    "date": "2018-08-24",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "WORLD WIDE TECH - DIRECT DEP / Direct Deposit",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "MEAxRByNYjFy8RdywPxaSb358gxAoDCMb8omL",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 57.25,
+    "category": [
+      "Community",
+      "Government Departments and Agencies"
+    ],
+    "category_id": "12009000",
+    "date": "2018-08-23",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "MO DMV / MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "0eEgOn4mPNfLBDQL6dAjUbgERY4wBNCrKb3X1",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 128.63,
+    "category": [
+      "Service",
+      "Utilities"
+    ],
+    "category_id": "18068000",
+    "date": "2018-08-22",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "AMERENMO - / 3581504123 - UTIL PA : ACH Withdrawal",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": "ACH",
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "v3oPpgvNeZtMLqbMQAeziq54KazeNyImdQEDK",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 20,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-21",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 203 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "AVmJ08QgZ9fxBDKx6rJqTyJmBQAa61C6E7KJr",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 293,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-21",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 214 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "kXwNpyL7eoU4B8x4qnNpcpO0LKDmJVfRAqQdM",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 62.02,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-20",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Ko9xNPBpXKTp03mpQO9rFBEz0PyKLeFQBpr53",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 10.43,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-20",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIERBERGS WEST OAK CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "yk70p4rweVFMkybMJYXwiyE1mzj7YwCOn4m7P",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 25.17,
+    "category": [
+      "Food and Drink",
+      "Restaurants"
+    ],
+    "category_id": "13005000",
+    "date": "2018-08-20",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ST LOUIS BREAD #600634 SAINT / LOUIS MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "3VOdwnJA3zfPMw1P8p6oU9gXYAv78JfKj9aJZ",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 40,
+    "category": [
+      "Service",
+      "Telecommunication Services"
+    ],
+    "category_id": "18063000",
+    "date": "2018-08-17",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ATT - / 825582011EPAYF - Payment : ACH Withdrawal",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": "ACH",
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "qDwqpr3Re9tMx6bMQVDLi6wAjEdRYNtJLbQAq",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 1697.38,
+    "category": [
+      "Service",
+      "Financial",
+      "Loans and Mortgages"
+    ],
+    "category_id": "18020004",
+    "date": "2018-08-17",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "FEDLOANSERVICING / 6MNG805K491 STDNT LOA : ACH Withdrawal",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": "ACH",
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "BpNkjxn750HJYE1Jqr3BcAvEY9proPS90A1Ow",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 54.63,
+    "category": [
+      "Service",
+      "Utilities"
+    ],
+    "category_id": "18068000",
+    "date": "2018-08-17",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "MSD 0442603 / UTILITY : ACH Withdrawal",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": "ACH",
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "PoZXRKAwVqTApgLAaEY8TjPmpk4zn7Hm8ZVb3",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 100,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-16",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 213 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "1EzgJnaKqxFD8R9D5pdXug0oDKN63atmJXw6D",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": -10107.91,
+    "category": [
+      "Healthcare",
+      "Healthcare Services"
+    ],
+    "category_id": "14001000",
+    "date": "2018-08-15",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Mercy Health - PR PAYMENT / Direct Deposit",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "DoQmRxwVbDTw4X5wbBNyTEZ34NyvO5uZE8POp",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 50,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-14",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 212 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "LomxRq3XVnTpRjypLx04F3y0Rdj1Ewu03p1RR",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 49.69,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-13",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "6VBLDe5jkQf3Awm3ex1MidEnqjwOeaCab3Ppj",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 46.07,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-13",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIERBERGS WEST OAK CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "wyjgpR0eY5tMLBbMaKDQiBmva6zpwOFL8aVDg",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 124,
+    "category": [
+      "Service",
+      "Personal Care"
+    ],
+    "category_id": "18045000",
+    "date": "2018-08-13",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "JON TOMAS SALON SPA ST LOUIS MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "d5g3aLEJeoHKgEqKQ34VhV0dzAmBLwUbvdB4D",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 121.61,
+    "category": [
+      "Shops",
+      "Department Stores"
+    ],
+    "category_id": "19018000",
+    "date": "2018-08-13",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "TARGET T-0012 12275 Saint / Charles RocBridgeton MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "mdg9pk1VemFOn54O3wboSxZyJme6LPFM6VXZ4",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 5.33,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-11",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIERBERGS DES PERES DES / PERES MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "YQr67X8yVACOdDkOZMEASd6QjNyn5YCQ50yEw",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 15,
+    "category": [
+      "Healthcare",
+      "Healthcare Services",
+      "Hospitals, Clinics and Medical Centers"
+    ],
+    "category_id": "14001010",
+    "date": "2018-08-11",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "MERCY CLINIC ST LOUIS SAINT / LOUIS MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "zAomda46egSMkKQM8YA6iKpboYqzw6sO8go5z",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 6.06,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-10",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "NoQMR3KeVZTKL8wK417eh9pRxPBYJ7fR9ZV8y",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 6.98,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-10",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "FRESH THYME #40 1018 N KIRKWOOD / RD KIRKWOOD MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "ezK3aDR8eoIkgRvkwyr1S1EXyYpK5bCdzwpNb",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "1EzgJnaKqxFD8R9D5pdXug0qLPKx0XHmJXXEY",
+    "account_owner": null,
+    "amount": -1877.07,
+    "category": [
+      "Transfer",
+      "Deposit"
+    ],
+    "category_id": "21007000",
+    "date": "2018-08-10",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "WORLD WIDE TECH - DIRECT DEP / Direct Deposit",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Oo0PXykdV7TkED6kaLYJSqP8E6oYA5I8qwyJQ",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 26.85,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-09",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "nwD9pAPOeqHMvE7MyAw0iYor4x3Lm6tAgrDVQ",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 100,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-09",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 211 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "QoQxRkv6VrTvopnvmdYZckvEo87MRrfEvNXPk",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 11.49,
+    "category": [
+      "Food and Drink",
+      "Restaurants"
+    ],
+    "category_id": "13005000",
+    "date": "2018-08-09",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CRAZY BOWLS & WRAPS CBWCREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "X5MwaXJ3OkHJ4LKJaDEVcgBQ4YKxMwt45oRKd",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 10.87,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-09",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIERBERGS WEST OAK CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "pLdapxBEeXUMxwbMQDZLiwPk0XNY4aUJgvqmJ",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 10,
+    "category": [
+      "Transfer",
+      "Third Party",
+      "Square Cash"
+    ],
+    "category_id": "21010002",
+    "date": "2018-08-08",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "SQUARE CASH / 8774174551 CAUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": "Square Cash",
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Ro4ORA0LE3Tpxo1pyKY5F0aKxPo589Cy0ONgp",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 8,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-07",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 209 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Oo0PXykdV7TkED6kaLYJSqP8E6oYA5I8qwr9L",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 75,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-07",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 210 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "V5Ar8XaqVPHaVw3aDAE7co0rVPq3dOUrmReKA",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 3.66,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-07",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DIERBERGS WEST OAK CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "MEAxRByNYjFy8RdywPxaSb358gxAoDCMb8xwv",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 1.26,
+    "category": [
+      "Shops",
+      "Hardware Store"
+    ],
+    "category_id": "19030000",
+    "date": "2018-08-07",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Home Depot",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "EoJkRd6OgQT6a436xrOKIJRvaNyrYmfpMg3NV",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 58.71,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-06",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41042 St. Ann / MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "gMAyaPn5eKHvk4DvL9KPcPagdD975NCq5gomY",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 49.3,
+    "category": [
+      "Food and Drink",
+      "Restaurants"
+    ],
+    "category_id": "13005000",
+    "date": "2018-08-06",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHANDLER HILL VINEYARDSDEFIANCE / MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "9O9Pqxga0Etk4oxkv5jrSbYxvaPjroCdmAYoQ",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 13.9,
+    "category": [
+      "Shops",
+      "Hardware Store"
+    ],
+    "category_id": "19030000",
+    "date": "2018-08-06",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Home Depot",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "7Vg91xorAEfyoXayKqVASOybmp6ZKnUQxyvAx",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 7.18,
+    "category": [
+      "Shops",
+      "Supermarkets and Groceries"
+    ],
+    "category_id": "19047000",
+    "date": "2018-08-04",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "o610prmMeaIELM8EKJZNcbdvEz3pnjCB68XLA",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 29.33,
+    "category": [
+      "Shops",
+      "Pharmacies"
+    ],
+    "category_id": "19043000",
+    "date": "2018-08-04",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CVS/PHARMACY #0 03087--11560 / OLIVE BOULCREVE COEUR MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "bgKbMwOaePCOPzbOeKvBS3EdrKjz5Xuq5p0Oz",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 23.73,
+    "category": [
+      "Shops",
+      "Hardware Store"
+    ],
+    "category_id": "19030000",
+    "date": "2018-08-03",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Harbor Freight Tools",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "5zE6LnZ0KgIBpxNBraDmIq4yx0gwA1IBgqJQ8",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 100,
+    "category": [
+      "Transfer",
+      "Withdrawal",
+      "Check"
+    ],
+    "category_id": "21012001",
+    "date": "2018-08-02",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "CHECK # 208 / Share Draft",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "xK9gXrjdeZFMb3eMxYQdi3N1Z6n0rduM4eZVe",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 2311.04,
+    "category": [
+      "Payment",
+      "Credit Card"
+    ],
+    "category_id": "16001000",
+    "date": "2018-08-02",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "DISCOVER 0661 / E-PAYMENT : ACH Withdrawal",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": "ACH",
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "8V1QPxm4vzfXKVdX5B9qFKjo74Rm5gsy3dMAD",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 15,
+    "category": [
+      "Healthcare",
+      "Healthcare Services"
+    ],
+    "category_id": "14001000",
+    "date": "2018-08-02",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "ST LOUIS BEHAVIORAL MEDSAINT / LOUIS MOUS : POS Transaction",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "Z5vLaXZKVrHwY1Aw0bE9T9yRNezMLEfRD01rd",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 24.18,
+    "category": [
+      "Travel",
+      "Gas Stations"
+    ],
+    "category_id": "22009000",
+    "date": "2018-08-02",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Shell",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "JXOLR1qnVZUqBJ1qLONjsAMbBOR0oeSb8Yjxj",
+    "transaction_type": "place",
+    "unofficial_currency_code": null
+  },
+  {
+    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
+    "account_owner": null,
+    "amount": 2325.47,
+    "category": [
+      "Transfer",
+      "Debit"
+    ],
+    "category_id": "21006000",
+    "date": "2018-08-01",
+    "iso_currency_code": "USD",
+    "location": {
+      "address": null,
+      "city": null,
+      "lat": null,
+      "lon": null,
+      "state": null,
+      "store_number": null,
+      "zip": null
+    },
+    "name": "Payment to920436044-01L / Automatic Transfer",
+    "payment_meta": {
+      "by_order_of": null,
+      "payee": null,
+      "payer": null,
+      "payment_method": null,
+      "payment_processor": null,
+      "ppd_id": null,
+      "reason": null,
+      "reference_number": null
+    },
+    "pending": false,
+    "pending_transaction_id": null,
+    "transaction_id": "a5bARdV4pQHBak1BZPorIrw5L0nxjyFZg8ozX",
+    "transaction_type": "special",
+    "unofficial_currency_code": null
+  }
+]

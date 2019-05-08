@@ -1,5 +1,5 @@
-const plaidData = require('./all-transactions.json');
-let sheetsData = require('./google-sheets.json').rows;
+const plaidData = require('./all-transactions.json.js');
+let sheetsData = require('./google-sheets.json.js').rows;
 const moment = require('moment');
 
 // ignore initial carryover
@@ -130,8 +130,8 @@ const data = matches.map(row => Object.values(row).join('|'));
 //   proc.stdin.write(data); proc.stdin.end();
 // }
 
-require('../db/db').initDb().then(async function () {
-  const saveTransactions = require('../plaid/save-transactions');
+require('../../db/db').initDb().then(async function () {
+  const saveTransactions = require('../../plaid/save-transactions');
 
   console.log("Adapting transactions...");
   const adaptedTransactions = await adaptTransactions(plaidData);
