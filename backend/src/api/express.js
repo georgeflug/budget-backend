@@ -23,6 +23,7 @@ function initExpress() {
   app.use(require('./scrape-mfa'));
   app.use(require('../plaid/rest'));
   app.use(require('./refresh'));
+  app.use(require('./balances'));
 
   https.createServer(serverOptions, app).listen(port);
 
