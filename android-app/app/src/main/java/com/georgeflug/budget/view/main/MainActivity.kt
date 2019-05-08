@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager
 import com.georgeflug.budget.R
 import com.georgeflug.budget.view.budget.BudgetsFragment
 import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
-import com.georgeflug.budget.view.transaction.Count
 import com.georgeflug.budget.view.transaction.add.AddTransactionFragment
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             bottomNav.invalidate()
         }
     }
+
+    private val countModel = CountModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

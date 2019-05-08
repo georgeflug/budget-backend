@@ -1,4 +1,4 @@
-package com.georgeflug.budget.view.transaction
+package com.georgeflug.budget.view.main
 
 import android.graphics.Canvas
 import android.graphics.Color
