@@ -6,6 +6,11 @@ services:
       service: budget-backend
     links:
       - mongo
+    command:
+      - npm
+      - run
+      - testIntegration
+    restart: "no"
   mongo:
     extends:
       file: docker-compose-base.yml

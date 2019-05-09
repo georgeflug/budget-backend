@@ -6,6 +6,11 @@ services:
       service: budget-backend
     links:
       - mongo
+    command:
+      - node
+      - "--inspect-brk=0.0.0.0"
+      - "index.js"
+    restart: "no"
   mongo:
     extends:
       file: docker-compose-base.yml
