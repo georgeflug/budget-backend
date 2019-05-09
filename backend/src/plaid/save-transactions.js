@@ -53,7 +53,7 @@ async function findExistingTransaction(plaidTransaction) {
   if (existingTransaction) {
     return existingTransaction;
   }
-  return await Transaction.model.findOne({ account: null, amount: plaidTransaction.amount }).exec();
+  return await Transaction.model.findOne({ account: null, totalAmount: plaidTransaction.totalAmount }).exec();
 }
 
 async function saveNewTransaction(plaidTransaction) {

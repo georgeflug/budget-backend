@@ -145,6 +145,43 @@ describe('Plaid', () => {
     expect(metrics.totalRecords).to.equal(1, 'totalRecords');
   });
 
+
+  it('create new transaction does not match with existing user-entered transaction when amount is different', async () => {
+    // this was a bug in the app so we have a test for it. it occurred when the .amount key changed to .totalAmount
+    const existingTransactionWithNulls = {
+      date: '2019-12-31',
+      totalAmount: 10,
+      splits: [{
+        amount: 10,
+        budget: 'Richie',
+        description: 'Richie spent ten dollars'
+      }]
+    };
+    const existingTransactionWithBlanks = {
+      plaidId: '',
+      date: '2019-12-31',
+      totalAmount: 10,
+      account: '',
+      postedDate: '',
+      postedDescription: '',
+      splits: [{
+        amount: 10,
+        budget: 'Richie',
+        description: 'Richie spent ten dollars'
+      }]
+    };
+    await (new Transaction.model(existingTransactionWithNulls)).save()
+    await (new Transaction.model(existingTransactionWithBlanks)).save()
+
+    const metrics = await saveTransactions([newTransaction]);
+    const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
+
+    compareTransactions(actual, newTransaction);
+    expect(metrics.newRecords).to.equal(1, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(0, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
+  });
+
   function compareTransactions(actualTransaction, expectedTransaction) {
     // new values
     expect(actualTransaction.plaidId).to.eq(expectedTransaction.plaidId);
