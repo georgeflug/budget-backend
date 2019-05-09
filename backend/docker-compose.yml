@@ -28,6 +28,7 @@ services:
     # uncomment this command to run integration tests
     # command:
     #   - npm
+    #   - run
     #   - testIntegration
     # restart: "no"
   mongo:
