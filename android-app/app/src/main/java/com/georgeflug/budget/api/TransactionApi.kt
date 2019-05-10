@@ -14,7 +14,7 @@ import retrofit2.http.Query
 
 interface TransactionApi {
     @GET("transactions")
-    fun listTransactions(@Query("startedAt") startedAt: String?): Observable<List<Transaction>>
+    fun listTransactions(@Query("startingAt") startingAt: String?): Observable<List<Transaction>>
 
     @POST("transactions")
     fun createTransaction(@Body transaction: NewTransaction): Observable<Transaction>
