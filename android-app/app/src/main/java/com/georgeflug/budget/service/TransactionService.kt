@@ -36,8 +36,12 @@ object TransactionService {
 
         return BudgetApi.transactions.listTransactions(latestTimestamp)
                 .map { transactions ->
+                    val newIds = transactions.map { it._id }
+                    val keepTransactions = persistedTransactions
+                            .filter { !newIds.contains(it._id) }
+
                     transactions
-                            .union(persistedTransactions)
+                            .union(keepTransactions)
                             .sortedBy { it.bestDate }
                             .asReversed()
                             .map { copyTransactionWithSortedSplits(it) }
