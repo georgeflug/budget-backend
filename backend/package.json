@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "docker-compose up --build",
+    "startBackground": "docker-compose up --build --detach",
     "startTest": "npm run test",
     "startIntegration": "docker-compose --file docker-compose-integration.yml up --build",
     "startDebug": "docker-compose --file docker-compose-integration.yml up --build",

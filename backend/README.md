@@ -39,5 +39,5 @@ How to run backend on the server:
   - Set up all the environment variables defined in the docker.compose.yml file.
   - Open port: sudo ufw allow 3000
   - Start docker: sudo service docker start
-  - Start the service: docker-compose up --build -d
+  - Start the service: npm run startBackground
 
