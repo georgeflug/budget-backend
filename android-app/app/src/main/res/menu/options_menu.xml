@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_add_box_black_24dp"
         />
 
+    <item
+        android:id="@+id/option_clear_cache"
+        android:title="Clear local cache"
+        />
+
 </menu>

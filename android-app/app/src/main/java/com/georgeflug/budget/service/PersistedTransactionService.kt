@@ -43,6 +43,10 @@ object PersistedTransactionService {
         return latestTransaction?.date
     }
 
+    fun clearCache() {
+        FileService.clearFile(FILENAME)
+    }
+
     private fun saveInitialTransactions(transactions: List<Transaction>) {
         this.transactions.clear()
         this.transactions.addAll(transactions)

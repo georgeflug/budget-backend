@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.georgeflug.budget.R
+import com.georgeflug.budget.service.PersistedTransactionService
 import com.georgeflug.budget.view.budget.BudgetsFragment
 import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
 import com.georgeflug.budget.view.transaction.add.AddTransactionFragment
@@ -137,6 +138,10 @@ class MainActivity : AppCompatActivity() {
                 suggestAFeature()
                 true
             }
+            R.id.option_clear_cache -> {
+                clearCache()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -158,5 +163,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun suggestAFeature() {
         SuggestAFeatureDialog(this).show()
+    }
+
+    private fun clearCache() {
+        PersistedTransactionService.clearCache()
     }
 }

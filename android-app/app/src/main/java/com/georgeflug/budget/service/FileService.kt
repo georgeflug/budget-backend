@@ -36,4 +36,8 @@ object FileService {
         }
         return null
     }
+
+    fun clearFile(fileName: String) {
+        BudgetApplication.getAppContext().deleteFile(fileName)
+    }
 }
