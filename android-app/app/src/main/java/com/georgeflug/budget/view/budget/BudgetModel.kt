@@ -1,10 +1,10 @@
 package com.georgeflug.budget.view.budget
 
+import android.annotation.SuppressLint
 import com.georgeflug.budget.BudgetApplication
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.util.AlertUtil
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.time.LocalDate
 
@@ -14,17 +14,33 @@ class BudgetModel {
     private var listener: Runnable? = null
 
     init {
+        listenForTransactions()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun listenForTransactions() {
+        TransactionService.getInitialTransactions()
+                .observeOn(Schedulers.computation())
+                .subscribe({ transactions ->
+                    reset()
+                    transactions.forEach(::processTransaction)
+                    onChange()
+                }, ::handleError)
+        TransactionService.listenForNewTransactions()
+                .observeOn(Schedulers.computation())
+                .subscribe({
+                    processTransaction(it)
+                    onChange()
+                }, ::handleError)
+    }
+
+    private fun reset() {
         BudgetTabModel().getBudgetMonths().forEach { monthAndName ->
+            rollupList.clear()
             val rollup = MonthRollup(monthAndName.month)
             rollupList.add(rollup)
             budgets[monthAndName.month] = rollup
         }
-
-        TransactionService.getAllTransactions()
-                .doOnNext(::processTransaction)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ onChange() }, ::handleError)
     }
 
     fun getMonth(month: LocalDate): MonthRollup {

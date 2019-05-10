@@ -20,7 +20,6 @@ object TransactionService {
 
     private val updates = PublishSubject.create<Transaction>()
     private val obs: Observable<Transaction> = updates.cache()
-    private val all = Observable.concat(initial.flatMapIterable { it }, obs)
 
     @SuppressLint("CheckResult")
     fun downloadTransactions() {
@@ -51,8 +50,6 @@ object TransactionService {
 
     fun getInitialTransactions(): Observable<List<Transaction>> = initial
     fun listenForNewTransactions() = obs
-
-    fun getAllTransactions() = all
 
     fun addTransaction(amount: BigDecimal, budget: String, description: String): Observable<Transaction> {
         val date = DateUtil.getToday()
