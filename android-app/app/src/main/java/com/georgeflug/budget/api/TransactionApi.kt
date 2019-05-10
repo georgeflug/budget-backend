@@ -1,6 +1,7 @@
 package com.georgeflug.budget.api
 
 import com.georgeflug.budget.model.NewTransaction
+import com.georgeflug.budget.model.RefreshResult
 import com.georgeflug.budget.model.Transaction
 import io.reactivex.Observable
 import retrofit2.http.Body
@@ -26,4 +27,8 @@ interface TransactionApi {
 
     @DELETE("transactions/{id}")
     fun deleteTransactions(@Path("id") id: String): Observable<List<Transaction>>
+
+    @POST("refresh")
+    fun refreshTransactions(): Observable<RefreshResult>
+
 }

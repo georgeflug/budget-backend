@@ -1,6 +1,7 @@
 package com.georgeflug.budget.api.okhttp
 
 import okhttp3.OkHttpClient
+import java.time.Duration
 import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
@@ -17,6 +18,7 @@ class CustomClient {
                 .hostnameVerifier(hostNameVerifier)
                 .addInterceptor(authInterceptor)
                 .sslSocketFactory(sslSocketFactory, trustManager)
+                .readTimeout(Duration.ofSeconds(60))
                 .build()
     }
 

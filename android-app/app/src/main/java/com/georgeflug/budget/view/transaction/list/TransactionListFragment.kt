@@ -17,12 +17,14 @@ import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.view.transaction.details.ViewTransactionFragment
 import com.georgeflug.budget.view.transaction.edit.SelectBudgetFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_transactions.*
 
 class TransactionListFragment : Fragment() {
     var editFragment: SelectBudgetFragment? = null
     var transactionToEdit: Transaction? = null
     val model = TransactionsDynamicallyFilterableModel()
+    var disposable: Disposable? = null
 
     var filterMonth: Int? = null
         set(value) {
@@ -43,6 +45,24 @@ class TransactionListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         transactionList.adapter = TransactionAdapter(context, model)
+        pullToRefresh.setOnRefreshListener(this::refreshNow)
+    }
+
+    private fun refreshNow() {
+        pullToRefresh.isRefreshing = true
+        disposable = TransactionService.refresh()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    pullToRefresh.isRefreshing = false
+                }, {
+                    pullToRefresh.isRefreshing = false
+                    AlertUtil.showError(context, it, "Failed to refresh transactions")
+                })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        disposable?.dispose()
     }
 
     override fun onResume() {

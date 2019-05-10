@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pullToRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.transaction.list.TransactionListFragment">
@@ -11,4 +12,4 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/transaction_split_item" />
 
-</FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

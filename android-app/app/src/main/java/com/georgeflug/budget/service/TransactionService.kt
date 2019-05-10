@@ -8,6 +8,7 @@ import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
@@ -23,11 +24,17 @@ object TransactionService {
 
     @SuppressLint("CheckResult")
     fun downloadTransactions() {
+        downloadTransactionsObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ }, ::handleError)
+    }
+
+    private fun downloadTransactionsObservable(): Observable<List<Transaction>> {
         val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
         val latestTimestamp = PersistedTransactionService.getLatestTimestamp(persistedTransactions)
         initial.onNext(persistedTransactions)
 
-        BudgetApi.transactions.listTransactions(latestTimestamp)
+        return BudgetApi.transactions.listTransactions(latestTimestamp)
                 .map { transactions ->
                     transactions
                             .union(persistedTransactions)
@@ -36,9 +43,6 @@ object TransactionService {
                             .map { copyTransactionWithSortedSplits(it) }
                 }
                 .doOnNext { transactions -> initial.onNext(transactions) }
-                .doOnNext { initial.onComplete() }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ }, ::handleError)
     }
 
     fun getInitialTransactions(): Observable<List<Transaction>> = initial
@@ -57,6 +61,13 @@ object TransactionService {
     fun updateTransaction(transaction: Transaction): Observable<Transaction> {
         return BudgetApi.transactions.updateTransaction(transaction._id, transaction)
                 .doOnNext { transaction -> updates.onNext(transaction) }
+    }
+
+    fun refresh(): Completable {
+        return BudgetApi.transactions.refreshTransactions()
+                .flatMap { downloadTransactionsObservable() } // emits twice
+                .skip(1)
+                .ignoreElements()
     }
 
     private fun handleError(throwable: Throwable) {
