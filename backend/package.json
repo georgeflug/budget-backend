@@ -2,19 +2,22 @@
   "name": "budget-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "docker-compose up --build",
     "startBackground": "docker-compose up --build --detach",
     "startTest": "npm run test",
     "startIntegration": "docker-compose --file docker-compose-integration.yml up --build",
     "startDebug": "docker-compose --file docker-compose-integration.yml up --build",
-    "test": "mocha src/**/*.unit.spec.js",
-    "testIntegration": "mocha src/**/*.integration.spec.js"
+    "runInDocker": "ts-node index",
+    "test": "ts-mocha src/**/*.unit.spec.ts",
+    "testIntegration": "ts-mocha src/**/*.integration.spec.ts"
   },
   "author": "Richard White",
   "license": "ISC",
   "dependencies": {
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^12.0.0",
     "chai": "^4.2.0",
     "chai-subset": "^1.6.0",
     "compression": "^1.7.4",
@@ -28,7 +31,10 @@
     "morgan": "^1.9.1",
     "ofx": "^0.4.0",
     "plaid": "^2.10.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "ts-mocha": "^6.0.0",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.5"
   },
   "devDependencies": {
     "puppeteer": "^1.11.0"

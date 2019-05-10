@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export {};
+
 const express = require('express')
 const app = express()
 const fs = require('fs');

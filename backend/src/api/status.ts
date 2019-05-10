@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export {};
+
 function init(app) {
   app.get('/', function (req, res) {
     res.send('Hello World')

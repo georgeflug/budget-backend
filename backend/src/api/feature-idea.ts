@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export {};
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var express = require('express');

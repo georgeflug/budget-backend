@@ -1,9 +1,9 @@
 
-let fccuRes = [];
-let fccuTimeouts = [];
+let fccuRes: any[] = [];
+let fccuTimeouts: any[] = [];
 
 function saveFccu(token) {
-  fccuRes.forEach(res => res(token));
+  fccuRes.forEach((res: any) => res(token));
   fccuRes = [];
   fccuTimeouts.forEach(timeout => clearTimeout(timeout));
   fccuTimeouts = [];

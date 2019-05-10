@@ -1,10 +1,13 @@
+// temporary code to have typescript recognize this file as a module
+export { };
+
 const Transaction = require('../db/transaction');
 const moment = require('moment');
 
 module.exports = async function saveTransactions(transactions) {
   const results = await Promise.all(transactions.map(saveTransaction));
-  const existingCount = results.reduce((total, current) => total + (current.type === 'updated' ? 1 : 0), 0);
-  const unchangedCount = results.reduce((total, current) => total + (current.type === 'unchanged' ? 1 : 0), 0);
+  const existingCount = results.reduce((total: any, current: any) => total + (current.type === 'updated' ? 1 : 0), 0);
+  const unchangedCount = results.reduce((total: any, current: any) => total + (current.type === 'unchanged' ? 1 : 0), 0);
   const totalCount = transactions.length;
   const newRecords = totalCount - existingCount - unchangedCount;
 

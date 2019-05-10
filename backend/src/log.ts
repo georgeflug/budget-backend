@@ -1,3 +1,5 @@
+// temporary code to have typescript recognize this file as a module
+export {};
 
 function createLogger(level) {
   return function (section, logText, exception) {

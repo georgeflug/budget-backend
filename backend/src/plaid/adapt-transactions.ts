@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export {};
+
 const ACCOUNT_MAP = {
   'o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5': 'Discover',
   'DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w': 'Checking',

@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export {};
+
 const plaidClient = require('./client');
 const moment = require('moment');
 

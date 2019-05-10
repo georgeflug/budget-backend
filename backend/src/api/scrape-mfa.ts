@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export {};
+
 const mfaCodes = require('../scrape/mfa-codes');
 const express = require('express');
 

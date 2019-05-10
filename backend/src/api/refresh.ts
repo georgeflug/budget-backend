@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export {};
+
 var express = require('express');
 var router = express.Router();
 const downloader = require('../plaid/index');
