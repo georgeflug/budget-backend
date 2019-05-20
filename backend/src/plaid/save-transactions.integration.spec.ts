@@ -203,7 +203,7 @@ describe('Plaid', () => {
       totalAmount: newTransaction.totalAmount,
       account: newTransaction.account,
       postedDate: newTransaction.postedDate,
-      postedDescription: newTransaction.postedDescription,
+      postedDescription: newTransaction.postedDescription + ' (pending transaction)',
       splits: [{ amount: newTransaction.totalAmount }]
     };
     await (new Transaction.model(existingTransaction)).save()

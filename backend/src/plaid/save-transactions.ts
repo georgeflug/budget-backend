@@ -82,7 +82,11 @@ async function updateExistingTransaction(plaidTransaction, existingTransaction) 
 
 async function updateTopLevelData(existingTransaction, plaidTransaction) {
   existingTransaction.postedDate = plaidTransaction.postedDate;
-  existingTransaction.postedDescription = plaidTransaction.postedDescription;
+  if (existingTransaction.postedDescription && existingTransaction.plaidId != plaidTransaction.plaidId) {
+    existingTransaction.postedDescription = plaidTransaction.postedDescription + ` (${existingTransaction.postedDescription})`;
+  } else {
+    existingTransaction.postedDescription = plaidTransaction.postedDescription;
+  }
   existingTransaction.account = plaidTransaction.account;
   existingTransaction.plaidId = plaidTransaction.plaidId;
   existingTransaction.totalAmount = plaidTransaction.totalAmount;
