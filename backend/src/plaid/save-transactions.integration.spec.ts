@@ -1,5 +1,5 @@
 // temporary code to have typescript recognize this file as a module
-export {};
+export { };
 
 const expect = require('chai').expect;
 const db = require('../db/db');
@@ -12,7 +12,7 @@ chai.use(chaiSubset);
 
 describe('Plaid', () => {
 
-  const newTransaction = {
+  const newTransaction: any = {
     plaidId: '111',
     date: '2019-01-01',
     totalAmount: 999888777666,
@@ -175,6 +175,61 @@ describe('Plaid', () => {
     };
     await (new Transaction.model(existingTransactionWithNulls)).save()
     await (new Transaction.model(existingTransactionWithBlanks)).save()
+
+    const metrics = await saveTransactions([newTransaction]);
+    const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
+
+    compareTransactions(actual, newTransaction);
+    expect(metrics.newRecords).to.equal(1, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(0, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
+  });
+
+
+  it('edit existing transaction if new one has a different plaid id but overwrites a pending transaction', async () => {
+    const existingTransaction = {
+      plaidId: '999',
+      date: '2018-12-31',
+      totalAmount: 1,
+      account: 'Discover2',
+      postedDate: '2019-12-31',
+      postedDescription: 'pending transaction',
+      splits: [{ amount: 1 }]
+    };
+    newTransaction.pending_transaction_id = '999';
+    const expectedTransaction = {
+      plaidId: '111',
+      date: existingTransaction.date,
+      totalAmount: newTransaction.totalAmount,
+      account: newTransaction.account,
+      postedDate: newTransaction.postedDate,
+      postedDescription: newTransaction.postedDescription,
+      splits: [{ amount: newTransaction.totalAmount }]
+    };
+    await (new Transaction.model(existingTransaction)).save()
+
+    const metrics = await saveTransactions([newTransaction]);
+    const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });
+
+    compareTransactions(actual, expectedTransaction);
+    expect(metrics.newRecords).to.equal(0, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(1, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
+  });
+
+
+
+  it('create new transaction does not match with existing user-entered transaction when existing transaction is quite old', async () => {
+    const elevenDayOldTransaction = {
+      date: '2018-12-22',
+      totalAmount: newTransaction.totalAmount,
+      splits: [{
+        amount: newTransaction.totalAmount,
+        budget: 'Richie',
+        description: 'Richie spent ten dollars'
+      }]
+    };
+    await (new Transaction.model(elevenDayOldTransaction)).save()
 
     const metrics = await saveTransactions([newTransaction]);
     const actual = await Transaction.model.findOne({ plaidId: newTransaction.plaidId });

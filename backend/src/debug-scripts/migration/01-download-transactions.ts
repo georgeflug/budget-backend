@@ -1,3 +1,6 @@
+// temporary code to have typescript recognize this file as a module
+export { };
+
 const plaid = require('plaid');
 const moment = require('moment');
 const fs = require('fs');
@@ -13,14 +16,15 @@ const client = new plaid.Client(
 );
 
 async function downloadTransactions() {
-  await downloadTransactionsForMonth('2018', '08');
-  await downloadTransactionsForMonth('2018', '09');
-  await downloadTransactionsForMonth('2018', '10');
-  await downloadTransactionsForMonth('2018', '11');
-  await downloadTransactionsForMonth('2018', '12');
-  await downloadTransactionsForMonth('2019', '01');
-  await downloadTransactionsForMonth('2019', '02');
-  await downloadTransactionsForMonth('2019', '03');
+  // await downloadTransactionsForMonth('2018', '08');
+  // await downloadTransactionsForMonth('2018', '09');
+  // await downloadTransactionsForMonth('2018', '10');
+  // await downloadTransactionsForMonth('2018', '11');
+  // await downloadTransactionsForMonth('2018', '12');
+  // await downloadTransactionsForMonth('2019', '01');
+  // await downloadTransactionsForMonth('2019', '02');
+  // await downloadTransactionsForMonth('2019', '03');
+  await downloadTransactionsForMonth('2019', '05');
 };
 
 async function downloadTransactionsForMonth(year, month) {

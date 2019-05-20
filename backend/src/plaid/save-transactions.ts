@@ -56,7 +56,19 @@ async function findExistingTransaction(plaidTransaction) {
   if (existingTransaction) {
     return existingTransaction;
   }
-  return await Transaction.model.findOne({ account: null, totalAmount: plaidTransaction.totalAmount }).exec();
+  if (plaidTransaction.pending_transaction_id) {
+    const pendingTransaction = await Transaction.model.findOne({ plaidId: plaidTransaction.pending_transaction_id }).exec();
+    if (pendingTransaction) {
+      return pendingTransaction;
+    }
+  }
+  const similarTransaction = await Transaction.model.findOne({ account: null, totalAmount: plaidTransaction.totalAmount }).exec();
+  if (similarTransaction) {
+    if (Math.abs(moment(similarTransaction.date).diff(moment(plaidTransaction.postedDate), 'days')) <= 10) {
+      return similarTransaction;
+    }
+  }
+  return null;
 }
 
 async function saveNewTransaction(plaidTransaction) {
