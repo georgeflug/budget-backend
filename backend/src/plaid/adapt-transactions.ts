@@ -1,5 +1,5 @@
 // temporary code to have typescript recognize this file as a module
-export {};
+export { };
 
 const ACCOUNT_MAP = {
   'o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5': 'Discover',
@@ -18,7 +18,8 @@ module.exports = function adaptPlaidTransactionForDb(transactions) {
       plaidId: transaction.transaction_id,
       splits: [{
         amount: transaction.amount
-      }]
+      }],
+      pendingPlaidId: transaction.pending_transaction_id,
     };
   });
 };

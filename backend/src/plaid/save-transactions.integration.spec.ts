@@ -5,6 +5,7 @@ const expect = require('chai').expect;
 const db = require('../db/db');
 const saveTransactions = require('./save-transactions');
 const Transaction = require('../db/transaction');
+const fail = require('assert').fail;
 
 var chai = require('chai');
 var chaiSubset = require('chai-subset');
@@ -196,7 +197,7 @@ describe('Plaid', () => {
       postedDescription: 'pending transaction',
       splits: [{ amount: 1 }]
     };
-    newTransaction.pending_transaction_id = '999';
+    newTransaction.pendingPlaidId = '999';
     const expectedTransaction = {
       plaidId: '111',
       date: existingTransaction.date,
@@ -241,23 +242,31 @@ describe('Plaid', () => {
   });
 
   function compareTransactions(actualTransaction, expectedTransaction) {
-    // new values
-    expect(actualTransaction.plaidId).to.eq(expectedTransaction.plaidId);
-    expect(actualTransaction.totalAmount).to.eq(expectedTransaction.totalAmount);
-    expect(actualTransaction.account).to.eq(expectedTransaction.account);
-    expect(actualTransaction.postedDescription).to.eq(expectedTransaction.postedDescription);
-    expect(Date.parse(actualTransaction.postedDate)).to.eq(Date.parse(expectedTransaction.postedDate), 'postedDate');
+    const differingData = areTransactionsEqual(actualTransaction, expectedTransaction);
+    if (!!differingData) {
+      const failureMessage = 'Expected transaction:\n' +
+        JSON.stringify(actualTransaction, null, 2) +
+        '\n\nto equal:\n\n' +
+        JSON.stringify(expectedTransaction, null, 2) +
+        `\n\nFirst difference noticed on key: ${differingData}`;
+      fail(failureMessage);
+    }
+  }
+
+  function areTransactionsEqual(t1, t2) {
+    if (t1.plaidId != t2.plaidId) return 'plaidId';
+    if (t1.totalAmount != t2.totalAmount) return 'totalAmount';
+    if (t1.account != t2.account) return 'account';
+    if (t1.postedDescription != t2.postedDescription) return 'postedDescription';
+    if (Date.parse(t1.postedDate) != Date.parse(t2.postedDate)) return 'postedDate';
 
     // maintain old values
-    for (let i = 0; i < actualTransaction.splits.length; i++) {
-      expect(actualTransaction.splits[i].amount).to.eq(expectedTransaction.splits[i].amount, `splits[${i}]`);
-      if (expectedTransaction.splits[i].budget) {
-        expect(actualTransaction.splits[i].budget).to.eq(expectedTransaction.splits[i].budget, `splits[${i}]`);
-      }
-      if (expectedTransaction.splits[i].description) {
-        expect(actualTransaction.splits[i].description).to.eq(expectedTransaction.splits[i].description, `splits[${i}]`);
-      }
+    for (let i = 0; i < t1.splits.length; i++) {
+      if (t1.splits[i].amount != t2.splits[i].amount) return `splits[${i}].amount`;
+      if ((t1.splits[i].budget || '') != (t2.splits[i].budget || '')) return `splits[${i}].budget`;
+      if ((t1.splits[i].description || '') != (t2.splits[i].description || '')) return `splits[${i}].description`;
     }
-    expect(Date.parse(actualTransaction.date)).to.eq(Date.parse(expectedTransaction.date), 'date');
+    if (Date.parse(t1.date) != Date.parse(t2.date)) return `date`;
+    return null;
   }
 });

@@ -56,8 +56,8 @@ async function findExistingTransaction(plaidTransaction) {
   if (existingTransaction) {
     return existingTransaction;
   }
-  if (plaidTransaction.pending_transaction_id) {
-    const pendingTransaction = await Transaction.model.findOne({ plaidId: plaidTransaction.pending_transaction_id }).exec();
+  if (plaidTransaction.pendingPlaidId) {
+    const pendingTransaction = await Transaction.model.findOne({ plaidId: plaidTransaction.pendingPlaidId }).exec();
     if (pendingTransaction) {
       return pendingTransaction;
     }
