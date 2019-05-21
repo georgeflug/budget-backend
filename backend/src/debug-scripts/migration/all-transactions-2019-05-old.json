@@ -2,42 +2,6 @@
   {
     "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
     "account_owner": null,
-    "amount": 42.76,
-    "category": [
-      "Shops"
-    ],
-    "category_id": "19000000",
-    "date": "2019-05-19",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "AMZN Mktp US",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": true,
-    "pending_transaction_id": null,
-    "transaction_id": "o3d3dPnELRtY7gEPPa7gIx9onq7egeIBwmaJa",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
-    "account_owner": null,
     "amount": 26.03,
     "category": [
       "Shops",
@@ -163,11 +127,11 @@
       "city": null,
       "lat": null,
       "lon": null,
-      "state": "MO",
+      "state": null,
       "store_number": null,
       "zip": null
     },
-    "name": "CITYOFSTLOUIS-LAMBERT ST LOUIS",
+    "name": "CITYOFSTLOUIS-LAMBERT",
     "payment_meta": {
       "by_order_of": null,
       "payee": null,
@@ -178,9 +142,9 @@
       "reason": null,
       "reference_number": null
     },
-    "pending": false,
+    "pending": true,
     "pending_transaction_id": null,
-    "transaction_id": "bVYVYZox9JH9V7OqqaV7tNeE4ppYPZIqYrAdy",
+    "transaction_id": "eEYEY9yZx5F7ejkAA8e8H7bxAQg9mBCdroVma",
     "transaction_type": "place",
     "unofficial_currency_code": null
   },
@@ -275,7 +239,7 @@
       "city": null,
       "lat": null,
       "lon": null,
-      "state": "CA",
+      "state": null,
       "store_number": null,
       "zip": null
     },
@@ -290,16 +254,16 @@
       "reason": null,
       "reference_number": null
     },
-    "pending": false,
+    "pending": true,
     "pending_transaction_id": null,
-    "transaction_id": "gwYwYZkozbUaepvVV5epCZnaoBBbkrfqV4Zbd",
+    "transaction_id": "NyOyO87dvwuaPXKooYPYHDwKZjwkY0IRwQKxA",
     "transaction_type": "special",
     "unofficial_currency_code": null
   },
   {
     "account_id": "o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5",
     "account_owner": null,
-    "amount": 40,
+    "amount": 33.23,
     "category": [
       "Food and Drink",
       "Restaurants"
@@ -309,10 +273,10 @@
     "iso_currency_code": "USD",
     "location": {
       "address": null,
-      "city": "Sandston",
+      "city": null,
       "lat": null,
       "lon": null,
-      "state": "VA",
+      "state": null,
       "store_number": "1562",
       "zip": null
     },
@@ -327,9 +291,9 @@
       "reason": null,
       "reference_number": null
     },
-    "pending": false,
+    "pending": true,
     "pending_transaction_id": null,
-    "transaction_id": "7JBJBqRjmvIN16yLL316ijgyx77P5wIQLkOzb",
+    "transaction_id": "o3d3dPnELRtY7gEPPa7aC7wZ08wkpocB7yaoz",
     "transaction_type": "place",
     "unofficial_currency_code": null
   },
@@ -428,7 +392,7 @@
       "store_number": null,
       "zip": null
     },
-    "name": "CVB PARKING MANAGEMENT 2 VIRGINIA BEACVA",
+    "name": "CVB PARKING MANAGEMENT",
     "payment_meta": {
       "by_order_of": null,
       "payee": null,
@@ -439,9 +403,9 @@
       "reason": null,
       "reference_number": null
     },
-    "pending": false,
+    "pending": true,
     "pending_transaction_id": null,
-    "transaction_id": "o3d3dPnELRtY7gEPPa7gIMydKAADLPIBNQak7",
+    "transaction_id": "6xqxqPb0rAfBDa3ppNDbUx6N3rQD4Kfa4z9eK",
     "transaction_type": "place",
     "unofficial_currency_code": null
   },
@@ -1145,453 +1109,6 @@
     "pending_transaction_id": null,
     "transaction_id": "o3d3dPnELRtY7gEPPa7xfAaKBB4oRBfBeO7kr",
     "transaction_type": "special",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 26.73,
-    "category": [
-      "Shops",
-      "Supermarkets and Groceries"
-    ],
-    "category_id": "19047000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "ALDI 41029 CREVE / COEUR MOUS : POS Transaction",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "AVmJ08QgZ9fxBDKx6rZxSQr85dbabnT6KMnmg",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 3.24,
-    "category": [
-      "Food and Drink",
-      "Restaurants",
-      "Coffee Shop"
-    ],
-    "category_id": "13005043",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "ANB COFFEE L / Unknown Debit",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": "Square",
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": true,
-    "pending_transaction_id": null,
-    "transaction_id": "Ko9xNPBpXKTp03mpQOZpt70yoPAQ41iQbzvJ1",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 16.2,
-    "category": [
-      "Transfer",
-      "Debit"
-    ],
-    "category_id": "21006000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "BRANDT & SONS AC / Unknown Debit",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": true,
-    "pending_transaction_id": null,
-    "transaction_id": "yk70p4rweVFMkybMJYDMFbmj0zqQRkFO8JoYg",
-    "transaction_type": "special",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 1,
-    "category": [
-      "Bank Fees",
-      "ATM"
-    ],
-    "category_id": "10002000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "FIRST BANK 6211 MID RIVERS / MALL DRST CHARLES MOUS : ATM Fee",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "v3oPpgvNeZtMLqbMQANYSa4Ay0QQ9BumAEzRL",
-    "transaction_type": "special",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 83,
-    "category": [
-      "Transfer",
-      "Withdrawal",
-      "ATM"
-    ],
-    "category_id": "21012002",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "FIRST BANK 6211 MID RIVERS / MALL DRST CHARLES MOUS : ATM Withdrawal",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "0eEgOn4mPNfLBDQL6d8VFYE9NxMMzetrm3oLY",
-    "transaction_type": "special",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 4,
-    "category": [
-      "Community",
-      "Organizations and Associations",
-      "Charities and Non-Profits"
-    ],
-    "category_id": "12015003",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "IN *ST. VINCENT 1115 OLIVE BLVD / CREVE COEUR MOUS : POS Transaction",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "AVmJ08QgZ9fxBDKx6rZxSdBAVQqR9oI6yOB5B",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 35.33,
-    "category": [
-      "Shops",
-      "Food and Beverage Store"
-    ],
-    "category_id": "19025000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "LEGENDS BREWING CO RICHMOND / VAUS : POS Transaction",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "j5dMp36gmaHrRJyrPj0rIEQR4adYdDtR9ejE0",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 94,
-    "category": [
-      "Service",
-      "Personal Care"
-    ],
-    "category_id": "18045000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "MARY CATES SALON-CC SAINT / LOUIS MOUS : POS Transaction",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "kXwNpyL7eoU4B8x4qnR4fKnoEyvmvRsRQovLa",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 5.36,
-    "category": [
-      "Travel",
-      "Airports"
-    ],
-    "category_id": "22002000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "RICHMOND AIRPORT RICHMOND / VAUS : POS Transaction",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "0eEgOn4mPNfLBDQL6d8LTYvaoJjwj6tr3Av6P",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 27.96,
-    "category": [
-      "Shops",
-      "Clothing and Accessories"
-    ],
-    "category_id": "19012000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "T.J.Maxx",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "kXwNpyL7eoU4B8x4qnR4fyLD1KPkbBhRYKD1p",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 50.15,
-    "category": [
-      "Shops",
-      "Department Stores"
-    ],
-    "category_id": "19018000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "TARGET T-1035 6241 Mid Rivers / Mall DrSaint Peters MOUS : POS Transaction",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "j5dMp36gmaHrRJyrPj0xcELMnmpp7giRJ9m4z",
-    "transaction_type": "place",
-    "unofficial_currency_code": null
-  },
-  {
-    "account_id": "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w",
-    "account_owner": null,
-    "amount": 18.22,
-    "category": [
-      "Food and Drink",
-      "Restaurants"
-    ],
-    "category_id": "13005000",
-    "date": "2019-05-20",
-    "iso_currency_code": "USD",
-    "location": {
-      "address": null,
-      "city": null,
-      "lat": null,
-      "lon": null,
-      "state": null,
-      "store_number": null,
-      "zip": null
-    },
-    "name": "TUBBYS PUB SAINT / CHARLESMOUS : POS Transaction",
-    "payment_meta": {
-      "by_order_of": null,
-      "payee": null,
-      "payer": null,
-      "payment_method": null,
-      "payment_processor": null,
-      "ppd_id": null,
-      "reason": null,
-      "reference_number": null
-    },
-    "pending": false,
-    "pending_transaction_id": null,
-    "transaction_id": "v3oPpgvNeZtMLqbMQANMFanokrgegmUmEV0wP",
-    "transaction_type": "place",
     "unofficial_currency_code": null
   },
   {

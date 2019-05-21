@@ -1,5 +1,7 @@
 // temporary code to have typescript recognize this file as a module
-export {};
+export { };
+
+import { saveRawTransactions } from './save-raw-transactions';
 
 const downloadTransactions = require('./download-transactions');
 const adaptTransactions = require('./adapt-transactions');
@@ -13,6 +15,8 @@ async function saveLatestTransactionsToDb() {
   const startTime = Date.now();
 
   const plaidTransactions = await downloadTransactions();
+  await saveRawTransactions(plaidTransactions);
+
   const transactions = await adaptTransactions(plaidTransactions);
   const results = await saveTransactions(transactions);
 

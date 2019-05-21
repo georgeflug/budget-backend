@@ -1,5 +1,5 @@
 // temporary code to have typescript recognize this file as a module
-export {};
+export { };
 
 const express = require('express')
 const app = express()
@@ -8,6 +8,7 @@ const https = require('https');
 const morgan = require('morgan');
 const log = require('../log');
 const compression = require('compression');
+import rawPlaid from './raw-plaid'
 
 const port = 3000;
 const serverOptions = {
@@ -29,6 +30,7 @@ function initExpress() {
   app.use(require('../plaid/rest'));
   app.use(require('./refresh'));
   app.use(require('./balances'));
+  app.use(rawPlaid);
 
   https.createServer(serverOptions, app).listen(port);
 

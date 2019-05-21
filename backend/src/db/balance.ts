@@ -1,5 +1,5 @@
 // temporary code to have typescript recognize this file as a module
-export {};
+export { };
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -7,7 +7,10 @@ const Schema = mongoose.Schema;
 const BalanceSchema = new Schema({
   accountId: String,
   balance: Number,
-  date: Date,
+  date: {
+    type: Date,
+    default: Date.now,
+  },
   name: String
 });
 
