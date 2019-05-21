@@ -1,10 +1,11 @@
 // temporary code to have typescript recognize this file as a module
-export {};
+export { };
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-var express = require('express');
+import express from 'express';
+import mongoose from 'mongoose';
+
 var router = express.Router();
+const Schema = mongoose.Schema;
 
 var FeatureIdeaSchema = new Schema({
   date: {
@@ -21,7 +22,7 @@ router.route('/feature-ideas')
   .post(function (req, res, next) {
     var featureIdea = new FeatureIdea(req.body);
 
-    featureIdea.save(function (err) {
+    featureIdea.save(function (err: Error) {
       if (err) {
         next(err);
       } else {
@@ -30,7 +31,7 @@ router.route('/feature-ideas')
     });
   })
   .get(function (req, res, next) {
-    FeatureIdea.find({}, function (err, featureIdeas) {
+    FeatureIdea.find({}, function (err: Error, featureIdeas) {
       if (err) {
         res.send(err);
       } else {
