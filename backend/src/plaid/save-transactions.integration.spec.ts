@@ -20,6 +20,7 @@ describe('Plaid', () => {
     account: 'Discover',
     postedDate: '2019-01-02',
     postedDescription: 'CHOCOLATE CHOCOLAT ST LOUIS',
+    pending: false,
     splits: [{ amount: 999888777666 }]
   };
 
@@ -197,14 +198,50 @@ describe('Plaid', () => {
       postedDescription: 'pending transaction',
       splits: [{ amount: 1 }]
     };
-    newTransaction.pendingPlaidId = '999';
+    const newTransaction2 = Object.assign({ pendingPlaidId: '999' }, newTransaction);
     const expectedTransaction = {
       plaidId: '111',
+      date: existingTransaction.date,
+      totalAmount: newTransaction2.totalAmount,
+      account: newTransaction2.account,
+      postedDate: newTransaction2.postedDate,
+      postedDescription: newTransaction2.postedDescription + ' (pending transaction)',
+      splits: [{ amount: newTransaction2.totalAmount }]
+    };
+    await (new Transaction.model(existingTransaction)).save()
+
+    const metrics = await saveTransactions([newTransaction2]);
+    const actual = await Transaction.model.findOne({ plaidId: newTransaction2.plaidId });
+
+    compareTransactions(actual, expectedTransaction);
+    expect(metrics.newRecords).to.equal(0, 'newRecords');
+    expect(metrics.updatedRecords).to.equal(1, 'updatedRecords');
+    expect(metrics.totalRecords).to.equal(1, 'totalRecords');
+  });
+
+
+  it('edit existing transaction if new one has a different plaid id but it is clearly the same transaction', async () => {
+    // here's a real example of a new transaction replacing a pending one, without the new transaction showing the pending_trasaction_id:
+    // pending transaction: {"account_id":"o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5","account_owner":null,"amount":56,"category":["Travel","Parking"],"category_id":"22013000","date":"2019-05-18","iso_currency_code":"USD","location":{"address":null,"city":null,"lat":null,"lon":null,"state":null,"store_number":null,"zip":null},"name":"CITYOFSTLOUIS-LAMBERT",         "payment_meta":{"by_order_of":null,"payee":null,"payer":null,"payment_method":null,"payment_processor":null,"ppd_id":null,"reason":null,"reference_number":null},"pending":true, "pending_transaction_id":null,"transaction_id":"eEYEY9yZx5F7ejkAA8e8H7bxAQg9mBCdroVma","transaction_type":"place","unofficial_currency_code":null}
+    // final transaction:   {"account_id":"o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5","account_owner":null,"amount":56,"category":["Travel","Parking"],"category_id":"22013000","date":"2019-05-18","iso_currency_code":"USD","location":{"address":null,"city":null,"lat":null,"lon":null,"state":"MO","store_number":null,"zip":null},"name":"CITYOFSTLOUIS-LAMBERT ST LOUIS","payment_meta":{"by_order_of":null,"payee":null,"payer":null,"payment_method":null,"payment_processor":null,"ppd_id":null,"reason":null,"reference_number":null},"pending":false,"pending_transaction_id":null,"transaction_id":"bVYVYZox9JH9V7OqqaV7tNeE4ppYPZIqYrAdy","transaction_type":"place","unofficial_currency_code":null}
+    const existingTransaction = {
+      plaidId: '999',
+      date: '2019-01-02',
+      totalAmount: newTransaction.totalAmount,
+      account: newTransaction.account,
+      postedDate: newTransaction.postedDate,
+      postedDescription: 'pending transaction',
+      pending: true,
+      splits: [{ amount: newTransaction.totalAmount }]
+    };
+    const expectedTransaction = {
+      plaidId: newTransaction.plaidId,
       date: existingTransaction.date,
       totalAmount: newTransaction.totalAmount,
       account: newTransaction.account,
       postedDate: newTransaction.postedDate,
       postedDescription: newTransaction.postedDescription + ' (pending transaction)',
+      pending: false,
       splits: [{ amount: newTransaction.totalAmount }]
     };
     await (new Transaction.model(existingTransaction)).save()
@@ -217,7 +254,6 @@ describe('Plaid', () => {
     expect(metrics.updatedRecords).to.equal(1, 'updatedRecords');
     expect(metrics.totalRecords).to.equal(1, 'totalRecords');
   });
-
 
 
   it('create new transaction does not match with existing user-entered transaction when existing transaction is quite old', async () => {

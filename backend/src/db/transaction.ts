@@ -27,6 +27,7 @@ const TransactionSchema = new Schema({
   postedDate: Date,
   postedDescription: String,
   lastModified: Date,
+  pending: Boolean,
   splits: [SplitTransactionSchema], // splits will have 1 item for un-split transactions
 });
 

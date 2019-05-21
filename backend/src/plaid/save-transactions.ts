@@ -62,6 +62,15 @@ async function findExistingTransaction(plaidTransaction) {
       return pendingTransaction;
     }
   }
+  const replacedTransaction = await Transaction.model.findOne({
+    pending: true,
+    totalAmount: plaidTransaction.totalAmount,
+    postedDate: plaidTransaction.postedDate,
+    account: plaidTransaction.account
+  }).exec();
+  if (replacedTransaction) {
+    return replacedTransaction;
+  }
   const similarTransaction = await Transaction.model.findOne({ account: null, totalAmount: plaidTransaction.totalAmount }).exec();
   if (similarTransaction) {
     if (Math.abs(moment(similarTransaction.date).diff(moment(plaidTransaction.postedDate), 'days')) <= 10) {
@@ -90,6 +99,7 @@ async function updateTopLevelData(existingTransaction, plaidTransaction) {
   existingTransaction.account = plaidTransaction.account;
   existingTransaction.plaidId = plaidTransaction.plaidId;
   existingTransaction.totalAmount = plaidTransaction.totalAmount;
+  existingTransaction.pending = plaidTransaction.pending;
   // save fields
   return await existingTransaction.save();
 }

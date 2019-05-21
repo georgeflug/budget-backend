@@ -20,6 +20,7 @@ module.exports = function adaptPlaidTransactionForDb(transactions) {
         amount: transaction.amount
       }],
       pendingPlaidId: transaction.pending_transaction_id,
+      pending: transaction.pending
     };
   });
 };
