@@ -1,5 +1,4 @@
-// temporary code to have typescript recognize this file as a module
-export { };
+import { PlaidTransaction } from "./plaid-types";
 
 const ACCOUNT_MAP = {
   'o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5': 'Discover',
@@ -7,7 +6,7 @@ const ACCOUNT_MAP = {
   '1EzgJnaKqxFD8R9D5pdXug0qLPKx0XHmJXXEY': 'Savings'
 };
 
-module.exports = function adaptPlaidTransactionForDb(transactions) {
+export function adaptTransactions(transactions: PlaidTransaction[]) {
   return transactions.map(transaction => {
     return {
       date: transaction.date,

@@ -1,9 +1,6 @@
-// temporary code to have typescript recognize this file as a module
-export { };
-
 const expect = require('chai').expect;
 const db = require('../db/db');
-const saveTransactions = require('./save-transactions');
+import { saveTransactions } from './save-transactions';
 const Transaction = require('../db/transaction');
 const fail = require('assert').fail;
 

@@ -1,10 +1,7 @@
-// temporary code to have typescript recognize this file as a module
-export { };
-
 const Transaction = require('../db/transaction');
 const moment = require('moment');
 
-module.exports = async function saveTransactions(transactions) {
+export async function saveTransactions(transactions) {
   const results = await Promise.all(transactions
     .filter(t => !t.pending)
     .map(saveTransaction)

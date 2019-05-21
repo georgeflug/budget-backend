@@ -1,13 +1,13 @@
 // temporary code to have typescript recognize this file as a module
 export { };
 
+import { downloadTransactions } from './download-transactions';
 import { saveRawTransactions } from './save-raw-transactions';
 
-const downloadTransactions = require('./download-transactions');
-const adaptTransactions = require('./adapt-transactions');
-const saveTransactions = require('./save-transactions');
-const getBalances = require('./download-balances');
-const saveBalances = require('./save-balances');
+import { adaptTransactions } from './adapt-transactions';
+import { saveTransactions } from './save-transactions';
+import { downloadBalances } from './download-balances';
+import { saveBalances } from './save-balances';
 const log = require('../log');
 
 async function saveLatestTransactionsToDb() {
@@ -18,10 +18,10 @@ async function saveLatestTransactionsToDb() {
   await saveRawTransactions(plaidTransactions);
 
   const transactions = await adaptTransactions(plaidTransactions);
-  const results = await saveTransactions(transactions);
+  const results: any = await saveTransactions(transactions);
 
   const transactionDownloadedTime = Date.now();
-  const balances = await getBalances();
+  const balances = await downloadBalances();
   await saveBalances(balances);
 
   const endTime = Date.now();

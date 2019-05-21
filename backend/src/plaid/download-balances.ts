@@ -1,10 +1,7 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
 const plaidClient = require('./client');
 const moment = require('moment');
 
-module.exports = async function downloadBalances() {
+export async function downloadBalances() {
   const discoverBalances = await getBalance(process.env.DISCOVER_ACCESS_KEY);
   const fccuBalances = await getBalance(process.env.FCCU_ACCESS_KEY);
   return discoverBalances.concat(fccuBalances);
