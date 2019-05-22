@@ -2,24 +2,13 @@
 export { };
 
 import express from 'express';
-import mongoose from 'mongoose';
+import FeatureIdeaModel from '../db/feature-idea';
 
 var router = express.Router();
-const Schema = mongoose.Schema;
-
-var FeatureIdeaSchema = new Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  description: String,
-});
-
-var FeatureIdea = mongoose.model('FeatureIdea', FeatureIdeaSchema);
 
 router.route('/feature-ideas')
   .post(function (req, res, next) {
-    var featureIdea = new FeatureIdea(req.body);
+    var featureIdea = new FeatureIdeaModel(req.body);
 
     featureIdea.save(function (err: Error) {
       if (err) {
@@ -30,7 +19,7 @@ router.route('/feature-ideas')
     });
   })
   .get(function (req, res, next) {
-    FeatureIdea.find({}, function (err: Error, featureIdeas) {
+    FeatureIdeaModel.find({}, function (err: Error, featureIdeas) {
       if (err) {
         res.send(err);
       } else {
