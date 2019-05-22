@@ -15,8 +15,7 @@ var FeatureIdeaSchema = new Schema({
   description: String,
 });
 
-mongoose.model('FeatureIdea', FeatureIdeaSchema);
-var FeatureIdea = mongoose.model('FeatureIdea');
+var FeatureIdea = mongoose.model('FeatureIdea', FeatureIdeaSchema);
 
 router.route('/feature-ideas')
   .post(function (req, res, next) {

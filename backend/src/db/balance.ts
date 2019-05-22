@@ -14,5 +14,4 @@ const BalanceSchema = new Schema({
   name: String
 });
 
-mongoose.model('Balance', BalanceSchema);
-export default mongoose.model('Balance');
+export default mongoose.model('Balance', BalanceSchema);

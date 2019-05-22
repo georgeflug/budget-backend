@@ -9,5 +9,4 @@ const rawPlaidSchema = new Schema({
   data: Schema.Types.Mixed
 });
 
-mongoose.model('RawPlaid', rawPlaidSchema);
-export default mongoose.model('RawPlaid');
+export default mongoose.model('RawPlaid', rawPlaidSchema);

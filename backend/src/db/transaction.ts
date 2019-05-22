@@ -36,5 +36,4 @@ TransactionSchema.pre('save', function (next) {
   next();
 });
 
-mongoose.model('Transaction', TransactionSchema);
-export default mongoose.model('Transaction');
+export default mongoose.model('Transaction', TransactionSchema);
