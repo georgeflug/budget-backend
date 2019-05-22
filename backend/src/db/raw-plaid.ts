@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-export const rawPlaidSchema = new Schema({
+const rawPlaidSchema = new Schema({
   date: {
     type: Date,
     default: Date.now,
@@ -10,9 +10,4 @@ export const rawPlaidSchema = new Schema({
 });
 
 mongoose.model('RawPlaid', rawPlaidSchema);
-export const RawPlaidModel = mongoose.model('RawPlaid');
-
-// export {
-//   schema: RawPlaidSchema,
-//   model: model
-// };
+export default mongoose.model('RawPlaid');

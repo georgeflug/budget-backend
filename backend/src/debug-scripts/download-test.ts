@@ -1,7 +1,6 @@
 const downloadTransactions = require('../plaid/download-transactions');
 const adaptTransactions = require('../plaid/adapt-transactions');
 const saveTransactions = require('../plaid/save-transactions');
-const Transaction = require('../db/transaction');
 
 async function doThings() {
   console.log('Connecting to DB (start docker-compose first)');

@@ -1,4 +1,4 @@
-import { RawPlaidModel } from '../db/raw-plaid';
+import RawPlaidModel from '../db/raw-plaid';
 import { PlaidTransaction } from './plaid-types';
 
 export async function saveRawTransactions(transactions: PlaidTransaction[]) {

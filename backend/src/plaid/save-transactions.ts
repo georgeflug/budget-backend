@@ -1,4 +1,4 @@
-const Transaction = require('../db/transaction');
+import TransactionModel from '../db/transaction';
 const moment = require('moment');
 
 export async function saveTransactions(transactions) {
@@ -52,17 +52,17 @@ function isTransactionTheSame(plaidTransaction, existingTransaction) {
 }
 
 async function findExistingTransaction(plaidTransaction) {
-  const existingTransaction = await Transaction.model.findOne({ plaidId: plaidTransaction.plaidId }).exec();
+  const existingTransaction = await TransactionModel.findOne({ plaidId: plaidTransaction.plaidId }).exec();
   if (existingTransaction) {
     return existingTransaction;
   }
   if (plaidTransaction.pendingPlaidId) {
-    const pendingTransaction = await Transaction.model.findOne({ plaidId: plaidTransaction.pendingPlaidId }).exec();
+    const pendingTransaction = await TransactionModel.findOne({ plaidId: plaidTransaction.pendingPlaidId }).exec();
     if (pendingTransaction) {
       return pendingTransaction;
     }
   }
-  const replacedTransaction = await Transaction.model.findOne({
+  const replacedTransaction = await TransactionModel.findOne({
     pending: true,
     totalAmount: plaidTransaction.totalAmount,
     postedDate: plaidTransaction.postedDate,
@@ -71,7 +71,7 @@ async function findExistingTransaction(plaidTransaction) {
   if (replacedTransaction) {
     return replacedTransaction;
   }
-  const similarTransaction = await Transaction.model.findOne({ account: null, totalAmount: plaidTransaction.totalAmount }).exec();
+  const similarTransaction = await TransactionModel.findOne({ account: null, totalAmount: plaidTransaction.totalAmount }).exec();
   if (similarTransaction) {
     if (Math.abs(moment(similarTransaction.date).diff(moment(plaidTransaction.postedDate), 'days')) <= 10) {
       return similarTransaction;
@@ -81,7 +81,7 @@ async function findExistingTransaction(plaidTransaction) {
 }
 
 async function saveNewTransaction(plaidTransaction) {
-  return await (new Transaction.model(plaidTransaction)).save();
+  return await (new TransactionModel(plaidTransaction)).save();
 }
 
 async function updateExistingTransaction(plaidTransaction, existingTransaction) {

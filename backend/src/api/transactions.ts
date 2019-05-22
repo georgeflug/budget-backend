@@ -3,12 +3,12 @@ export { };
 
 var express = require('express');
 var router = express.Router();
-const Transaction = require('../db/transaction');
+import TransactionModel from '../db/transaction';
 const moment = require('moment');
 
 router.route('/transactions')
   .post(function (req, res, next) {
-    var transaction = new Transaction.model(req.body);
+    var transaction = new TransactionModel(req.body);
     verifySplits(transaction);
     transaction.save(function (err) {
       returnTheThing(res, err, transaction);
@@ -16,26 +16,26 @@ router.route('/transactions')
   })
   .get(function (req, res, next) {
     const query = req.query.startingAt ? { lastModified: { $gte: moment(req.query.startingAt) } } : {};
-    Transaction.model.find(query, function (err, transactions) {
+    TransactionModel.find(query, function (err, transactions) {
       returnTheThing(res, err, transactions);
     });
   });
 
 router.route('/transactions/:id')
   .get(function (req, res, next) {
-    Transaction.model.findById(req.params.id, function (err, transaction) {
+    TransactionModel.findById(req.params.id, function (err, transaction) {
       returnTheThing(res, err, transaction);
     });
   })
   .put(function (req, res, next) {
-    var transaction = new Transaction.model(req.body);
+    var transaction = new TransactionModel(req.body);
     verifySplits(transaction);
-    Transaction.model.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, transaction) {
+    TransactionModel.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, transaction) {
       returnTheThing(res, err, transaction);
     });
   })
   .delete(function (req, res, next) {
-    Transaction.model.remove({ _id: req.params.id }, function (err, transaction) {
+    TransactionModel.remove({ _id: req.params.id }, function (err, transaction) {
       if (err) {
         res.send(err);
       } else {

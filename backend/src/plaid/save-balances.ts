@@ -1,7 +1,7 @@
-const Balance = require('../db/balance');
+import BalanceModel from '../db/balance';
 
 export async function saveBalances(balances) {
   await Promise.all(balances.map(balance => {
-    return (new Balance.model(balance)).save();
+    return (new BalanceModel(balance)).save();
   }));
 };

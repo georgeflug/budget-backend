@@ -5,12 +5,12 @@ import express from 'express';
 import moment from 'moment';
 
 var router = express.Router();
-const Balance = require('../db/balance');
+import BalanceModel from '../db/balance';
 
 router.route('/balances')
   .get(function (req, res, next) {
     const query = req.query.startingAt ? { date: { $gte: moment(req.query.startingAt) } } : {};
-    Balance.model.find(query, function (err: Error, transactions) {
+    BalanceModel.find(query, function (err: Error, transactions) {
       returnTheThing(res, err, transactions);
     });
   });

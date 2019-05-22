@@ -3,7 +3,7 @@ export { };
 
 import express from 'express';
 import moment from 'moment';
-import { RawPlaidModel } from '../db/raw-plaid';
+import RawPlaidModel from '../db/raw-plaid';
 
 const router = express.Router();
 export default router;
