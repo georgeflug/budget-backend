@@ -47,7 +47,7 @@ router.route('/transactions/:id')
 function verifySplits(transaction) {
   var totalSplits = transaction.splits.reduce((total, currentSplit) => total + currentSplit.amount, 0);
   var totalAmount = transaction.totalAmount;
-  if (totalAmount != totalSplits) {
+  if (Math.abs(totalAmount - totalSplits) > 0.0001) {
     throw `Total Amount ${totalAmount} does not match sum of split amounts ${totalSplits}`;
   }
 }
