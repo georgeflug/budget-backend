@@ -1,7 +1,7 @@
-import BalanceModel from '../db/balance';
+import { Balance, BalanceDbModel } from '../db/balance';
 
-export async function saveBalances(balances) {
+export async function saveBalances(balances: Balance[]) {
   await Promise.all(balances.map(balance => {
-    return (new BalanceModel(balance)).save();
+    return (new BalanceDbModel(balance)).save();
   }));
 };

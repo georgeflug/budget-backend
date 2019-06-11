@@ -1,10 +1,16 @@
 // temporary code to have typescript recognize this file as a module
 export { };
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-const BalanceSchema = new Schema({
+export interface Balance extends mongoose.Document {
+  accountId: string,
+  balance: Number,
+  date: Date,
+  name: string
+}
+
+const BalanceSchema = new mongoose.Schema({
   accountId: String,
   balance: Number,
   date: {
@@ -14,4 +20,4 @@ const BalanceSchema = new Schema({
   name: String
 });
 
-export default mongoose.model('Balance', BalanceSchema);
+export const BalanceDbModel = mongoose.model('Balance', BalanceSchema);

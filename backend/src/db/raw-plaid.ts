@@ -1,12 +1,17 @@
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import { PlaidTransaction } from '../plaid/plaid-types';
 
-const rawPlaidSchema = new Schema({
+export interface RawPlaid extends mongoose.Document {
+  date: Date,
+  data: PlaidTransaction[]
+}
+
+const rawPlaidSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
   },
-  data: Schema.Types.Mixed
+  data: mongoose.Schema.Types.Mixed
 });
 
-export default mongoose.model('RawPlaid', rawPlaidSchema);
+export const RawPlaidDbModel = mongoose.model('RawPlaid', rawPlaidSchema);

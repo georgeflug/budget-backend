@@ -2,13 +2,13 @@
 export { };
 
 import express from 'express';
-import FeatureIdeaModel from '../db/feature-idea';
+import { FeatureIdea, FeatureIdeaDbModel } from '../db/feature-idea';
 
 var router = express.Router();
 
 router.route('/feature-ideas')
   .post(function (req, res, next) {
-    var featureIdea = new FeatureIdeaModel(req.body);
+    var featureIdea = new FeatureIdeaDbModel(req.body);
 
     featureIdea.save(function (err: Error) {
       if (err) {
@@ -19,7 +19,7 @@ router.route('/feature-ideas')
     });
   })
   .get(function (req, res, next) {
-    FeatureIdeaModel.find({}, function (err: Error, featureIdeas) {
+    FeatureIdeaDbModel.find({}, function (err: Error, featureIdeas: FeatureIdea[]) {
       if (err) {
         res.send(err);
       } else {

@@ -1,10 +1,27 @@
 // temporary code to have typescript recognize this file as a module
 export { };
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-const SplitTransactionSchema = new Schema({
+export interface Transaction extends Document {
+  plaidId: String,
+  date: Date,
+  totalAmount: Number,
+  account: String,
+  postedDate: Date,
+  postedDescription: String,
+  updatedAt: Date,
+  pending: Boolean,
+  splits: TransactionSplit[], // splits will have 1 item for un-split transactions
+};
+
+export interface TransactionSplit {
+  amount: Number,
+  budget: String,
+  description: String,
+};
+
+const SplitTransactionSchema = new mongoose.Schema({
   amount: Number,
   budget: {
     type: String,
@@ -16,7 +33,7 @@ const SplitTransactionSchema = new Schema({
   },
 });
 
-const TransactionSchema = new Schema({
+const TransactionSchema = new mongoose.Schema({
   plaidId: String,
   date: {
     type: Date,
@@ -26,14 +43,14 @@ const TransactionSchema = new Schema({
   account: String,
   postedDate: Date,
   postedDescription: String,
-  lastModified: Date,
+  updatedAt: Date,
   pending: Boolean,
   splits: [SplitTransactionSchema], // splits will have 1 item for un-split transactions
 });
 
 TransactionSchema.pre('save', function (next) {
-  this.lastModified = Date.now();
+  (<Transaction>this).updatedAt = Date.now();
   next();
 });
 
-export default mongoose.model('Transaction', TransactionSchema);
+export const TransactionDbModel = mongoose.model<Transaction>('Transaction', TransactionSchema);

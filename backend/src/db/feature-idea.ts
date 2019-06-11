@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
+export interface FeatureIdea extends mongoose.Document {
+  date: Date,
+  description: String
+};
 
-var FeatureIdeaSchema = new Schema({
+var FeatureIdeaSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
@@ -10,4 +13,4 @@ var FeatureIdeaSchema = new Schema({
   description: String,
 });
 
-export default mongoose.model('FeatureIdea', FeatureIdeaSchema);
+export const FeatureIdeaDbModel = mongoose.model('FeatureIdea', FeatureIdeaSchema);

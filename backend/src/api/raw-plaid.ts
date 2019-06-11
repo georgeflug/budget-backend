@@ -3,7 +3,7 @@ export { };
 
 import express from 'express';
 import moment from 'moment';
-import RawPlaidModel from '../db/raw-plaid';
+import { RawPlaid, RawPlaidDbModel } from '../db/raw-plaid';
 
 const router = express.Router();
 export default router;
@@ -19,7 +19,7 @@ router.route('/raw-plaid')
           $lte: moment(req.query.date).hour(23).minute(59).second(59)
         }
       };
-      RawPlaidModel.find(query, function (err: Error, rawTransactions) {
+      RawPlaidDbModel.find(query, function (err: Error, rawTransactions: RawPlaid[]) {
         returnTheThing(res, err, rawTransactions);
       });
     }
