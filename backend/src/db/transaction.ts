@@ -3,7 +3,7 @@ export { };
 
 import mongoose from 'mongoose';
 
-export interface Transaction extends Document {
+export interface Transaction extends mongoose.Document {
   plaidId: String,
   date: Date,
   totalAmount: Number,
@@ -49,7 +49,7 @@ const TransactionSchema = new mongoose.Schema({
 });
 
 TransactionSchema.pre('save', function (next) {
-  (<Transaction>this).updatedAt = Date.now();
+  (<Transaction>this).updatedAt = new Date();
   next();
 });
 

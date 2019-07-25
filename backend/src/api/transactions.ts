@@ -35,7 +35,7 @@ router.route('/transactions/:id')
     });
   })
   .delete(function (req, res, next) {
-    TransactionDbModel.remove({ _id: req.params.id }, function (err, transaction) {
+    TransactionDbModel.remove({ _id: req.params.id }, function (err) {
       if (err) {
         res.send(err);
       } else {
