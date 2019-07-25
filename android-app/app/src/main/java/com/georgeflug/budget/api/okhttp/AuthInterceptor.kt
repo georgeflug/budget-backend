@@ -8,8 +8,9 @@ import okhttp3.Response
 
 class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val username = BudgetApplication.getAppContext().getString(R.string.user_name)
-        val password = BudgetApplication.getAppContext().getString(R.string.password)
+        // If user_name and password are unresolved, then add them to a new resource file src/main/res/values/secrets.xml
+        val username = BudgetApplication.getAppContext().getString(R.string.user_name) // read comment above
+        val password = BudgetApplication.getAppContext().getString(R.string.password) // read comment above
         val credentials: String = Credentials.basic(username, password)
 
         val authenticatedRequest = chain.request()
