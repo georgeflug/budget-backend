@@ -16,7 +16,8 @@ data class Transaction(
         val account: String?,
         val postedDate: String?,
         val postedDescription: String?,
-        val splits: List<TransactionSplit>
+        val splits: List<TransactionSplit>,
+        val lastModified: String = "2018-09-01T12:00:00.000Z"
 ) : Parcelable {
 
     @IgnoredOnParcel

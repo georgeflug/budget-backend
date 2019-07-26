@@ -78,7 +78,8 @@ class EditTransactionFragment : Fragment() {
                     account = transaction.account,
                     postedDate = transaction.postedDate,
                     postedDescription = transaction.postedDescription,
-                    splits = splits
+                    splits = splits,
+                    lastModified = transaction.lastModified
             )
             TransactionService.updateTransaction(updatedTransaction)
                     .observeOn(AndroidSchedulers.mainThread())

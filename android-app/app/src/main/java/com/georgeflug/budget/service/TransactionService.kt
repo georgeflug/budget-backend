@@ -84,7 +84,8 @@ object TransactionService {
                 account = transaction.account,
                 postedDate = transaction.postedDate,
                 postedDescription = transaction.postedDescription,
-                splits = transaction.splits.sortedBy { it.amount }.asReversed()
+                splits = transaction.splits.sortedBy { it.amount }.asReversed(),
+                lastModified = transaction.lastModified
         )
     }
 }

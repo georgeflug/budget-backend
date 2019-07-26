@@ -24,7 +24,7 @@ class AlertUtil {
         }
 
         fun showError(context: Context, error: Throwable, message: String) {
-            Log.d("SHOWERROR", message, error)
+            Log.d("AlertUtil", message, error)
             Toast.makeText(context, "$message: $error", Toast.LENGTH_LONG).show()
         }
     }

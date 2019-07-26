@@ -31,17 +31,14 @@ object PersistedTransactionService {
         } else {
             try {
                 mapper.readValue(json, Array<Transaction>::class.java).toList()
-            } catch (ex: RuntimeException) {
+            } catch (ex: Exception) {
                 Log.e("PersistedTransactionService", "Could not read transactions from disk", ex)
                 listOf<Transaction>()
             }
         }
     }
 
-    fun getLatestTimestamp(transactions: List<Transaction>): String? {
-        val latestTransaction = transactions.maxBy { it.bestDate }
-        return latestTransaction?.date
-    }
+    fun getLatestTimestamp(transactions: List<Transaction>): String? = transactions.map { it.lastModified }.max()
 
     fun clearCache() {
         FileService.clearFile(FILENAME)

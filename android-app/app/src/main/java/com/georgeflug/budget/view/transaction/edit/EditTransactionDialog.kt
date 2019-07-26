@@ -56,7 +56,9 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
                     postedDescription = transaction.postedDescription,
                     splits = listOf(
                             TransactionSplit(amount = amount, budget = budget, description = description)
-                    ))
+                    ),
+                    lastModified = transaction.lastModified
+                    )
 
             BudgetApi.transactions.updateTransaction(transaction._id, updatedTransaction)
                     .observeOn(AndroidSchedulers.mainThread())
