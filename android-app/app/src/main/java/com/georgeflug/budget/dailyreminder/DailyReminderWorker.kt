@@ -4,9 +4,8 @@ import android.content.Context
 import android.support.v4.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.georgeflug.budget.util.getNotificationManager
 import com.georgeflug.budget.R
-import java.time.LocalTime
+import com.georgeflug.budget.util.getNotificationManager
 
 class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
     : Worker(appContext, workerParams) {
@@ -25,7 +24,7 @@ class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
 
         applicationContext.getNotificationManager().notify(1, notification)
 
-        DailyReminderScheduler().scheduleReminder(LocalTime.now().plusSeconds(10))
+        DailyReminderScheduler().scheduleReminder(applicationContext)
         return Result.success()
     }
 

@@ -3,10 +3,9 @@ package com.georgeflug.budget
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.georgeflug.budget.dailyreminder.DailyReminderScheduler
 import com.georgeflug.budget.dailyreminder.DailyReminderNotificationChannelInitializer
+import com.georgeflug.budget.dailyreminder.DailyReminderScheduler
 import com.georgeflug.budget.service.TransactionService
-import java.time.LocalTime
 
 class BudgetApplication : Application() {
 
@@ -23,7 +22,7 @@ class BudgetApplication : Application() {
         Log.d("BudgetApplication", "Application.onCreate()")
         context = applicationContext
         TransactionService.downloadTransactions()
-        DailyReminderScheduler().scheduleReminder(LocalTime.now().plusSeconds(10))
+        DailyReminderScheduler().scheduleReminder(context)
         DailyReminderNotificationChannelInitializer().registerChannel(context)
     }
 }

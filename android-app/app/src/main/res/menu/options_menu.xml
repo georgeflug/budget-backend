@@ -12,4 +12,9 @@
         android:title="Clear local cache"
         />
 
+    <item
+        android:id="@+id/option_reminders"
+        android:title="Set Daily Reminder"
+        />
+
 </menu>

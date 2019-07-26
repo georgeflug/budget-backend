@@ -18,6 +18,7 @@ import com.georgeflug.budget.R
 import com.georgeflug.budget.service.PersistedTransactionService
 import com.georgeflug.budget.view.budget.BudgetsFragment
 import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
+import com.georgeflug.budget.view.reminder.ReminderDialog
 import com.georgeflug.budget.view.transaction.add.AddTransactionFragment
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -142,6 +143,10 @@ class MainActivity : AppCompatActivity() {
                 clearCache()
                 true
             }
+            R.id.option_reminders -> {
+                setupReminder()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -167,5 +172,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearCache() {
         PersistedTransactionService.clearCache()
+    }
+
+    private fun setupReminder() {
+        ReminderDialog(this).show()
     }
 }
