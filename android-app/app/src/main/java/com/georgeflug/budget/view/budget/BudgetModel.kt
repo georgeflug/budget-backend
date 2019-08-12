@@ -35,8 +35,8 @@ class BudgetModel {
     }
 
     private fun reset() {
+        rollupList.clear()
         BudgetTabModel().getBudgetMonths().forEach { monthAndName ->
-            rollupList.clear()
             val rollup = MonthRollup(monthAndName.month)
             rollupList.add(rollup)
             budgets[monthAndName.month] = rollup
