@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Budget
+import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.util.FragmentUtil
+import com.georgeflug.budget.view.transaction.details.ViewTransactionFragment
 import kotlinx.android.synthetic.main.fragment_select_budget.*
 
 class SelectBudgetFragment : Fragment() {
 
     var budget: Budget? = null
     var showAdvancedButton = false
+    var transaction: Transaction? = null
     private val enterDescriptionFragment = EnterDescriptionFragment()
     val isSuccess
         get() = enterDescriptionFragment.isSuccess
@@ -30,6 +33,11 @@ class SelectBudgetFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        if (isAdvancedButtonExit) {
+            isAdvancedButtonExit = false
+            FragmentUtil.popBackStack()
+        }
 
         nextButton.setOnClickListener {
             FragmentUtil.showAndAddToBackStack(enterDescriptionFragment)
@@ -56,7 +64,9 @@ class SelectBudgetFragment : Fragment() {
         advancedButton.visibility = if (showAdvancedButton) View.VISIBLE else View.GONE
         advancedButton.setOnClickListener {
             isAdvancedButtonExit = true
-            FragmentUtil.popBackStackTo(FragmentUtil.EditDetailsWorkflowStack)
+            transaction?.let {
+                FragmentUtil.showAndAddToBackStack(ViewTransactionFragment.getFragment(it))
+            }
         }
     }
 }

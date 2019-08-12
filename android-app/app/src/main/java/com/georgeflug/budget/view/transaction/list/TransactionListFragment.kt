@@ -80,7 +80,6 @@ class TransactionListFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun showViewTransactionFragment(transaction: Transaction) {
@@ -93,6 +92,7 @@ class TransactionListFragment : Fragment() {
         fragment.description = transaction.splits[0].description
         fragment.budget = transaction.splits[0].realBudget
         fragment.showAdvancedButton = true
+        fragment.transaction = transaction
         FragmentUtil.showAndAddToBackStack(fragment, FragmentUtil.EditDetailsWorkflowStack)
         editFragment = fragment
         transactionToEdit = transaction
@@ -104,12 +104,8 @@ class TransactionListFragment : Fragment() {
         editFragment = null
         transactionToEdit = null
 
-        if (fragment != null && transaction != null) {
-            if (fragment.isSuccess) {
-                saveUpdatedQuickEditTransaction(transaction, fragment)
-            } else if (fragment.isAdvancedButtonExit) {
-                showViewTransactionFragment(transaction)
-            }
+        if (fragment != null && transaction != null && fragment.isSuccess) {
+            saveUpdatedQuickEditTransaction(transaction, fragment)
         }
     }
 
