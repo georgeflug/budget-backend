@@ -1,6 +1,7 @@
 package com.georgeflug.budget.dailyreminder
 
 import android.content.Context
+import android.support.annotation.VisibleForTesting
 import android.util.Log
 import androidx.work.*
 import java.time.Duration
@@ -18,12 +19,10 @@ class DailyReminderScheduler {
     }
 
     fun scheduleReminder(timeOfDay: LocalTime) {
-        Log.d(TAG, "Scheduling next reminder at: $timeOfDay")
-        val timeBetween = Duration.between(LocalTime.now(), timeOfDay)
-        val timeUntilReminder = if (timeBetween.seconds > 0) timeBetween else Duration.ofDays(1).plus(timeBetween)
-
+        val day = if (Duration.between(LocalTime.now(), timeOfDay).seconds > 0) "today" else "tomorrow"
+        Log.d(TAG, "Scheduling next reminder at: $timeOfDay $day")
         val reminderRequest = OneTimeWorkRequestBuilder<DailyReminderWorker>()
-                .setInitialDelay(timeUntilReminder)
+                .setInitialDelay(getTimeUntilReminder(timeOfDay))
                 .build()
 
         WorkManager.getInstance().enqueueUniqueWork(
@@ -32,5 +31,13 @@ class DailyReminderScheduler {
 
     fun cancelReminder() {
         WorkManager.getInstance().cancelUniqueWork(WORK_NAME)
+    }
+
+    private fun getTimeUntilReminder(reminderTime: LocalTime) = getTimeUntilReminder(LocalTime.now(), reminderTime)
+
+    @VisibleForTesting
+    fun getTimeUntilReminder(currentTime: LocalTime, reminderTime: LocalTime): Duration {
+        val timeBetween = Duration.between(currentTime, reminderTime)
+        return if (timeBetween.seconds > 0) timeBetween else Duration.ofDays(1).plus(timeBetween)
     }
 }

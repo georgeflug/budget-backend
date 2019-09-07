@@ -2,6 +2,7 @@ package com.georgeflug.budget.dailyreminder
 
 import android.content.Context
 import android.support.v4.app.NotificationCompat
+import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.georgeflug.budget.R
@@ -14,7 +15,12 @@ import com.georgeflug.budget.util.getNotificationManager
 class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
     : Worker(appContext, workerParams) {
 
+    companion object {
+        val TAG = DailyReminderWorker::class.java.simpleName
+    }
+
     override fun doWork(): Result {
+        Log.d(TAG, "Running DailyReminderWorker");
         val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
         val latestTimestamp = PersistedTransactionService.getLatestTimestamp(persistedTransactions)
         BudgetApi.transactions.refreshTransactions().blockingSubscribe()
@@ -23,6 +29,7 @@ class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
         val initialUncategorizedCount = persistedTransactions.count { it.isUncategorized() }
         val newUncategorizedCount = newTransactions.count { it.isUncategorized() }
 
+        Log.d(TAG, "Daily Reminder Results: $newUncategorizedCount new/$initialUncategorizedCount total uncategorized transactions");
         if (newUncategorizedCount > 0) sendNotification(initialUncategorizedCount, newUncategorizedCount)
 
         DailyReminderScheduler().scheduleReminder(applicationContext)
