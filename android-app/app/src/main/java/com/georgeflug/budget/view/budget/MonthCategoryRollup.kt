@@ -4,7 +4,7 @@ import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.TransactionSplit
 import java.math.BigDecimal
 
-class MonthCategoryRollup(val budget: Budget, carryoverMonths: Int) {
+class MonthCategoryRollup(val budget: Budget, carryoverMonths: Long) {
     val title = budget.title
     val iconId = budget.iconId
     var total: BigDecimal = BigDecimal.ZERO
