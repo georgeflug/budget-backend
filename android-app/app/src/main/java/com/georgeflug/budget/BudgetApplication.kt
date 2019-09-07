@@ -22,7 +22,6 @@ class BudgetApplication : Application() {
         Log.d("BudgetApplication", "Application.onCreate()")
         context = applicationContext
         TransactionService.downloadTransactions()
-        DailyReminderScheduler().scheduleReminder(context)
         DailyReminderNotificationChannelInitializer().registerChannel(context)
     }
 }
