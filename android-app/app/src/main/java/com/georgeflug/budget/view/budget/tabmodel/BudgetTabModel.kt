@@ -1,4 +1,4 @@
-package com.georgeflug.budget.view.budget
+package com.georgeflug.budget.view.budget.tabmodel
 
 import com.georgeflug.budget.util.DateUtil
 import java.time.LocalDate

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.georgeflug.budget.R
+import com.georgeflug.budget.view.budget.tabmodel.BudgetTabModel
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
 import kotlinx.android.synthetic.main.fragment_budgets.*
 import java.time.LocalDate

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.georgeflug.budget.view.budget.rollupmodel.BudgetRollup
+import com.georgeflug.budget.view.budget.rollupmodel.MonthCategoryRollup
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
 import kotlinx.android.synthetic.main.fragment_budget_list.*
 import java.time.LocalDate
@@ -16,7 +18,7 @@ class BudgetListFragment : Fragment() {
             field = value
             rePopulateBudgets()
         }
-    private val budgets = BudgetModel()
+    private val budgets = BudgetRollup()
     lateinit var transactionsListFragment: TransactionListFragment
     private var isStopped = true
 

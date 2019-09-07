@@ -1,4 +1,4 @@
-package com.georgeflug.budget.view.budget
+package com.georgeflug.budget.view.budget.rollupmodel
 
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.TransactionSplit

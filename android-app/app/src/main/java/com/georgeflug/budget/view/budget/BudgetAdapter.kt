@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.georgeflug.budget.R
+import com.georgeflug.budget.view.budget.rollupmodel.MonthCategoryRollup
 import java.math.BigDecimal
 import java.text.NumberFormat
 

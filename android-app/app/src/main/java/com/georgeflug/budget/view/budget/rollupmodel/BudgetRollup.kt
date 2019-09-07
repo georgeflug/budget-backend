@@ -1,14 +1,15 @@
-package com.georgeflug.budget.view.budget
+package com.georgeflug.budget.view.budget.rollupmodel
 
 import android.annotation.SuppressLint
 import com.georgeflug.budget.BudgetApplication
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.util.AlertUtil
+import com.georgeflug.budget.view.budget.tabmodel.BudgetTabModel
 import io.reactivex.schedulers.Schedulers
 import java.time.LocalDate
 
-class BudgetModel {
+class BudgetRollup {
     private val budgets = HashMap<LocalDate, MonthRollup>()
     private val rollupList = ArrayList<MonthRollup>()
     private var listener: Runnable? = null
