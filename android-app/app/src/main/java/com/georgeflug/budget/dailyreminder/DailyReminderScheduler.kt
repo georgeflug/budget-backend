@@ -12,7 +12,6 @@ import java.time.LocalTime
 class DailyReminderScheduler {
     companion object {
         private const val WORK_NAME = "budgetReminderWork"
-        private val TAG = DailyReminderScheduler::class.java.simpleName
     }
 
     fun scheduleReminder(context: Context) {
@@ -22,7 +21,7 @@ class DailyReminderScheduler {
 
     fun scheduleReminder(timeOfDay: LocalTime) {
         val day = if (Duration.between(LocalTime.now(), timeOfDay).seconds > 0) "today" else "tomorrow"
-        Timber.d(TAG, "Scheduling next reminder at: $timeOfDay $day")
+        Timber.d("Scheduling next reminder at: $timeOfDay $day")
         val reminderRequest = OneTimeWorkRequestBuilder<DailyReminderWorker>()
                 .setInitialDelay(getTimeUntilReminder(timeOfDay))
                 .build()

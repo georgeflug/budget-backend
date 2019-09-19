@@ -31,6 +31,7 @@ class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
 
             DailyReminderScheduler().scheduleReminder(applicationContext)
         } catch (e: Exception) {
+            Timber.e(e, "Failed to run Daily Reminder")
             sendErrorNotification(e)
         }
         return Result.success()
