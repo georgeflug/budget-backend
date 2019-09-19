@@ -24,11 +24,11 @@ android {
         main {
             res.srcDirs = [
                     'src/main/res',
-                    'src/main/res/layouts/other',
-                    'src/main/res/layouts/budget-tab',
-                    'src/main/res/layouts/edit-transaction',
-                    'src/main/res/layouts/transaction-list',
-                    'src/main/res/layouts/view-transaction',
+                    'src/main/res-layout-other',
+                    'src/main/res-layout-budget-tab',
+                    'src/main/res-layout-edit-transaction',
+                    'src/main/res-layout-transaction-list',
+                    'src/main/res-layout-view-transaction',
             ]
         }
     }
