@@ -9,4 +9,11 @@ object PersistedLogService {
         FileService.appendToFile(FILENAME, logMessage)
     }
 
+    fun getLogs(): String {
+        return FileService.readFromFile(FILENAME) ?: "ERROR: Could not read logs"
+    }
+
+    fun clearLog() {
+        FileService.clearFile(FILENAME)
+    }
 }

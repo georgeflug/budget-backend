@@ -9,20 +9,21 @@ import android.util.Log.WARN
 import timber.log.Timber
 import java.io.PrintWriter
 import java.io.StringWriter
-import java.text.SimpleDateFormat
-import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class LogToFileTree : Timber.Tree() {
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+    private val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US)
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        val logMessage = "${getTimestamp()} ${getLogLevel(priority)} $tag: $message ${t?.let { getStackTrace(t) }}"
+        val logMessage = "${getTimestamp()} ${getLogLevel(priority)} ${tag
+                ?: ""}: $message ${t?.let { getStackTrace(t) }}\n\n"
         PersistedLogService.writeToLog(logMessage);
     }
 
     private fun getTimestamp(): String? {
-        return dateFormat.format(LocalDate.now())
+        return dateFormat.format(LocalDateTime.now())
     }
 
     private fun getLogLevel(priority: Int) = when (priority) {

@@ -24,8 +24,8 @@ class BudgetApplication : Application() {
         Timber.plant(DebugTree())
         Timber.plant(LogToFileTree())
 
-        Timber.d("onCreate()")
         context = applicationContext
+        Timber.d("onCreate()")
         TransactionService.downloadTransactions()
         DailyReminderNotificationChannelInitializer().registerChannel(context)
     }

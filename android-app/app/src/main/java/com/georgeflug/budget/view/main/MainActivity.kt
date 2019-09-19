@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.georgeflug.budget.R
+import com.georgeflug.budget.logging.LogActivity
 import com.georgeflug.budget.service.PersistedTransactionService
 import com.georgeflug.budget.view.budget.BudgetsFragment
 import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
@@ -58,8 +59,6 @@ class MainActivity : AppCompatActivity() {
             bottomNav.invalidate()
         }
     }
-
-    private val countModel = CountModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,6 +146,10 @@ class MainActivity : AppCompatActivity() {
                 setupReminder()
                 true
             }
+            R.id.option_view_logs -> {
+                viewLogs()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -176,5 +179,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupReminder() {
         ReminderDialog(this).show()
+    }
+
+    private fun viewLogs() {
+        startActivity(LogActivity.getIntent(this))
     }
 }

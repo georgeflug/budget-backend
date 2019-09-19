@@ -17,4 +17,9 @@
         android:title="Set Daily Reminder"
         />
 
+    <item
+        android:id="@+id/option_view_logs"
+        android:title="View Debug Logs"
+        />
+
 </menu>
