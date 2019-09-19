@@ -1,6 +1,8 @@
 package com.georgeflug.budget.service
 
+import android.content.Context.MODE_APPEND
 import android.content.Context.MODE_PRIVATE
+import android.util.Log
 import com.georgeflug.budget.BudgetApplication
 import timber.log.Timber
 import java.io.BufferedReader
@@ -19,6 +21,18 @@ object FileService {
             }
         } catch (e: IOException) {
             Timber.e("File write to '$fileName' failed: $e")
+        }
+    }
+
+    @SuppressWarnings("LogNotTimber")
+    fun appendToFile(fileName: String, data: String) {
+        try {
+            OutputStreamWriter(BudgetApplication.getAppContext().openFileOutput(fileName, MODE_APPEND)).use {
+                it.write(data)
+            }
+        } catch (e: IOException) {
+            // don't use Timber because Timber uses this method to write to file and we don't want recursive errors
+            Log.e("FileService", "File append to '$fileName' failed: $e")
         }
     }
 
