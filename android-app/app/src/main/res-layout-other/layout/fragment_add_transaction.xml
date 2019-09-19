@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="Amount"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <TextView
@@ -162,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:text="Budget"
                 app:layout_constraintTop_toBottomOf="@id/amountButton0"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <com.georgeflug.budget.view.budgetselector.BudgetSelector
@@ -176,6 +178,7 @@
                 android:layout_height="wrap_content"
                 android:text="Description"
                 app:layout_constraintTop_toBottomOf="@id/addTransactionBudgetSelector"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <EditText

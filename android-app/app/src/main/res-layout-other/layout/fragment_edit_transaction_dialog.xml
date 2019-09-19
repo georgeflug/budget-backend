@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="Amount"
                 app:layout_constraintTop_toBottomOf="@id/viewTransactionLabel"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <EditText
@@ -47,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="Description"
                 app:layout_constraintTop_toBottomOf="@id/amountText"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <EditText
@@ -61,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="Posted Description"
                 app:layout_constraintTop_toBottomOf="@id/descriptionText"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <TextView
@@ -76,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="Budget"
                 app:layout_constraintTop_toBottomOf="@id/postedDescriptionText"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <Spinner
@@ -91,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:text="Date"
                 app:layout_constraintTop_toBottomOf="@id/budgetText"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="16dp" />
 
             <EditText
