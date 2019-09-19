@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -22,6 +21,7 @@ import com.georgeflug.budget.view.reminder.ReminderDialog
 import com.georgeflug.budget.view.transaction.add.AddTransactionFragment
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         fun backStackSize() = backStack[currentTab]?.size ?: 0
 
         fun updateTransactionCount(count: Int) {
-            Log.d("MainActivity", "Setting Red Transaction Count to: $count");
+            Timber.d("Setting Red Transaction Count to: $count");
             val icon = bottomNav.menu.findItem(R.id.nav_transactions).icon as LayerDrawable
             Count.setCounting(icon, count)
             bottomNav.invalidate()

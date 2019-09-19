@@ -1,10 +1,10 @@
 package com.georgeflug.budget.service
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.georgeflug.budget.model.Transaction
+import timber.log.Timber
 
 object PersistedTransactionService {
     private const val FILENAME = "transactions.dat"
@@ -32,7 +32,7 @@ object PersistedTransactionService {
             try {
                 mapper.readValue(json, Array<Transaction>::class.java).toList()
             } catch (ex: Exception) {
-                Log.e("PersistedTransactionService", "Could not read transactions from disk", ex)
+                Timber.e(ex, "Could not read transactions from disk")
                 listOf<Transaction>()
             }
         }
@@ -66,7 +66,7 @@ object PersistedTransactionService {
     }
 
     private fun handleError(throwable: Throwable) {
-        Log.e("PersistedTransactionService", "Could not save transactions to disk", throwable)
+        Timber.e(throwable, "Could not save transactions to disk")
     }
 
 }

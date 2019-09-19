@@ -68,7 +68,7 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
 //                        transaction.amount = amount
 //                        transaction.description = description
 //                        transaction.budget = budget
-//                        Log.d("foo", "date changing from ${transaction.date} to $date")
+//                        Timber.d("foo", "date changing from ${transaction.date} to $date")
 //                        transaction.date = date
                         // TODO: emit the new transaction
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()

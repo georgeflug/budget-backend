@@ -1,8 +1,8 @@
 package com.georgeflug.budget.service
 
 import android.content.Context.MODE_PRIVATE
-import android.util.Log
 import com.georgeflug.budget.BudgetApplication
+import timber.log.Timber
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -18,7 +18,7 @@ object FileService {
                 it.write(data)
             }
         } catch (e: IOException) {
-            Log.e("FileService", "File write to '$fileName' failed: $e")
+            Timber.e("File write to '$fileName' failed: $e")
         }
     }
 
@@ -30,9 +30,9 @@ object FileService {
                         .collect(Collectors.joining("\n"))
             }
         } catch (e: FileNotFoundException) {
-            Log.e("FileService", "File '$fileName' not found: $e")
+            Timber.e("File '$fileName' not found: $e")
         } catch (e: IOException) {
-            Log.e("FileService", "Can not read file '$fileName': $e")
+            Timber.e("Can not read file '$fileName': $e")
         }
         return null
     }

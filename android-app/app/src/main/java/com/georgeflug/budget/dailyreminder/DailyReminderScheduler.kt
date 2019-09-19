@@ -2,8 +2,10 @@ package com.georgeflug.budget.dailyreminder
 
 import android.content.Context
 import android.support.annotation.VisibleForTesting
-import android.util.Log
-import androidx.work.*
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import timber.log.Timber
 import java.time.Duration
 import java.time.LocalTime
 
@@ -20,7 +22,7 @@ class DailyReminderScheduler {
 
     fun scheduleReminder(timeOfDay: LocalTime) {
         val day = if (Duration.between(LocalTime.now(), timeOfDay).seconds > 0) "today" else "tomorrow"
-        Log.d(TAG, "Scheduling next reminder at: $timeOfDay $day")
+        Timber.d(TAG, "Scheduling next reminder at: $timeOfDay $day")
         val reminderRequest = OneTimeWorkRequestBuilder<DailyReminderWorker>()
                 .setInitialDelay(getTimeUntilReminder(timeOfDay))
                 .build()
