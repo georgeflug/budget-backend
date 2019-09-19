@@ -20,6 +20,7 @@ class LogActivity() : AppCompatActivity() {
         logTextView.text = PersistedLogService.getLogs()
         clearLogButton.setOnClickListener {
             PersistedLogService.clearLog()
+            logTextView.text = ""
         }
         closeButton.setOnClickListener {
             finish()

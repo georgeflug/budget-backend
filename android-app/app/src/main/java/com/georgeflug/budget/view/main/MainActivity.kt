@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         fun backStackSize() = backStack[currentTab]?.size ?: 0
 
         fun updateTransactionCount(count: Int) {
-            Timber.d("Setting Red Transaction Count to: $count");
+            Timber.d("Setting Red Transaction Count to $count");
             val icon = bottomNav.menu.findItem(R.id.nav_transactions).icon as LayerDrawable
             Count.setCounting(icon, count)
             bottomNav.invalidate()
