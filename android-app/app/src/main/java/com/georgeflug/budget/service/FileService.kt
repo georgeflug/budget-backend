@@ -20,7 +20,7 @@ object FileService {
                 it.write(data)
             }
         } catch (e: IOException) {
-            Timber.e("File write to '$fileName' failed: $e")
+            Timber.e(e, "File write to '$fileName' failed")
         }
     }
 
@@ -32,7 +32,7 @@ object FileService {
             }
         } catch (e: IOException) {
             // don't use Timber because Timber uses this method to write to file and we don't want recursive errors
-            Log.e("FileService", "File append to '$fileName' failed: $e")
+            Log.e("FileService", "File append to '$fileName' failed", e)
         }
     }
 
@@ -44,9 +44,9 @@ object FileService {
                         .collect(Collectors.joining("\n"))
             }
         } catch (e: FileNotFoundException) {
-            Timber.e("File '$fileName' not found: $e")
+            Timber.e(e, "File '$fileName' not found")
         } catch (e: IOException) {
-            Timber.e("Can not read file '$fileName': $e")
+            Timber.e(e, "Can not read file '$fileName'")
         }
         return null
     }

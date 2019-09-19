@@ -18,7 +18,7 @@ class LogToFileTree : Timber.Tree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         val logMessage = "${getTimestamp()} ${getLogLevel(priority)} ${tag
-                ?: ""}: $message ${t?.let { getStackTrace(t) }}\n\n"
+                ?: ""}: $message ${t?.let { getStackTrace(t) } ?: ""}\n\n"
         PersistedLogService.writeToLog(logMessage);
     }
 
