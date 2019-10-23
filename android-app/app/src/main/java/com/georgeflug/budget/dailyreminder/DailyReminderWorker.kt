@@ -44,15 +44,17 @@ class DailyReminderWorker : BroadcastReceiver() {
                     "and $initialUncategorizedCount old one${if (initialUncategorizedCount == 1) "" else "s"}"
         }
 
-        // send notification
-        val notification = NotificationCompat.Builder(context, DailyReminderNotificationChannelInitializer.CHANNEL_ID)
-                .setContentTitle("New Transactions")
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setSmallIcon(R.drawable.ic_attach_money_black_24dp)
-                .build()
+        if (newTransactions > 0) {
+            // send notification
+            val notification = NotificationCompat.Builder(context, DailyReminderNotificationChannelInitializer.CHANNEL_ID)
+                    .setContentTitle("New Transactions")
+                    .setContentText(message)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setSmallIcon(R.drawable.ic_attach_money_black_24dp)
+                    .build()
 
-        context.getNotificationManager().notify(1, notification)
+            context.getNotificationManager().notify(1, notification)
+        }
     }
 
     private fun sendErrorNotification(context: Context, e: Exception) {
