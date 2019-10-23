@@ -45,9 +45,9 @@ class ReminderDialog(context: Context) : Dialog(context) {
 
     private fun setUpNextReminder() {
         if (reminderCheckBox.isChecked) {
-            DailyReminderScheduler().scheduleReminder(getSelectedTime())
+            DailyReminderScheduler().scheduleReminder(context, getSelectedTime())
         } else {
-            DailyReminderScheduler().cancelReminder()
+            DailyReminderScheduler().cancelReminder(context)
         }
     }
 

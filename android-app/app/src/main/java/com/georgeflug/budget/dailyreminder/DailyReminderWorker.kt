@@ -1,9 +1,9 @@
 package com.georgeflug.budget.dailyreminder
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.support.v4.app.NotificationCompat
-import androidx.work.Worker
-import androidx.work.WorkerParameters
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.Budget
@@ -12,10 +12,9 @@ import com.georgeflug.budget.service.PersistedTransactionService
 import com.georgeflug.budget.util.getNotificationManager
 import timber.log.Timber
 
-class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
-    : Worker(appContext, workerParams) {
+class DailyReminderWorker : BroadcastReceiver() {
 
-    override fun doWork(): Result {
+    override fun onReceive(context: Context, intent: Intent) {
         try {
             Timber.d("Running DailyReminderWorker");
             val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
@@ -27,17 +26,16 @@ class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
             val newUncategorizedCount = newTransactions.count { it.isUncategorized() }
 
             Timber.d("Daily Reminder Results: $newUncategorizedCount new/$initialUncategorizedCount total uncategorized transactions");
-            sendNotification(initialUncategorizedCount, newUncategorizedCount)
+            sendNotification(context, initialUncategorizedCount, newUncategorizedCount)
 
-            DailyReminderScheduler().scheduleReminder(applicationContext)
+            DailyReminderScheduler().scheduleReminder(context)
         } catch (e: Exception) {
             Timber.e(e, "Failed to run Daily Reminder")
-            sendErrorNotification(e)
+            sendErrorNotification(context, e)
         }
-        return Result.success()
     }
 
-    private fun sendNotification(initialUncategorizedCount: Int, newTransactions: Int) {
+    private fun sendNotification(context: Context, initialUncategorizedCount: Int, newTransactions: Int) {
         val message = if (newTransactions == 0) {
             "No new transactions to categorize " +
                     "and $initialUncategorizedCount old one${if (initialUncategorizedCount == 1) "" else "s"}"
@@ -47,28 +45,28 @@ class DailyReminderWorker(appContext: Context, workerParams: WorkerParameters)
         }
 
         // send notification
-        val notification = NotificationCompat.Builder(applicationContext, DailyReminderNotificationChannelInitializer.CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, DailyReminderNotificationChannelInitializer.CHANNEL_ID)
                 .setContentTitle("New Transactions")
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setSmallIcon(R.drawable.ic_attach_money_black_24dp)
                 .build()
 
-        applicationContext.getNotificationManager().notify(1, notification)
+        context.getNotificationManager().notify(1, notification)
     }
 
-    private fun sendErrorNotification(e: Exception) {
+    private fun sendErrorNotification(context: Context, e: Exception) {
         val message = "Could not retrieve today's transactions: ${e.message}"
 
         // send notification
-        val notification = NotificationCompat.Builder(applicationContext, DailyReminderNotificationChannelInitializer.CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, DailyReminderNotificationChannelInitializer.CHANNEL_ID)
                 .setContentTitle("New Transactions")
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setSmallIcon(R.drawable.ic_attach_money_black_24dp)
                 .build()
 
-        applicationContext.getNotificationManager().notify(1, notification)
+        context.getNotificationManager().notify(1, notification)
     }
 
     private fun Transaction.isUncategorized() = this.splits.any { split -> split.realBudget == Budget.UNKNOWN }
