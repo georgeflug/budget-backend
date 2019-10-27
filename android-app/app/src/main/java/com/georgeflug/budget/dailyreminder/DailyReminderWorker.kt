@@ -27,11 +27,15 @@ class DailyReminderWorker : BroadcastReceiver() {
 
             Timber.d("Daily Reminder Results: $newUncategorizedCount new/$initialUncategorizedCount total uncategorized transactions");
             sendNotification(context, initialUncategorizedCount, newUncategorizedCount)
-
-            DailyReminderScheduler().scheduleReminder(context)
         } catch (e: Exception) {
             Timber.e(e, "Failed to run Daily Reminder")
             sendErrorNotification(context, e)
+        } finally {
+            try {
+                DailyReminderScheduler().scheduleReminder(context)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to reschedule Daily Reminder")
+            }
         }
     }
 
