@@ -13,10 +13,12 @@ class CustomClient {
         val sslSocketFactory = getCustomSslSocketFactory(trustManager)
         val hostNameVerifier = CustomHostNameVerifier()
         val authInterceptor = AuthInterceptor()
+        val hostInterceptor = HostInterceptor()
 
         return OkHttpClient.Builder()
                 .hostnameVerifier(hostNameVerifier)
                 .addInterceptor(authInterceptor)
+                .addInterceptor(hostInterceptor)
                 .sslSocketFactory(sslSocketFactory, trustManager)
                 .readTimeout(Duration.ofSeconds(60))
                 .build()
