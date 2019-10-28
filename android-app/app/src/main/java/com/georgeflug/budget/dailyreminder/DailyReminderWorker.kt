@@ -17,6 +17,8 @@ class DailyReminderWorker : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         try {
             Timber.d("Running DailyReminderWorker");
+            checkServerStatus()
+
             val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
             val latestTimestamp = PersistedTransactionService.getLatestTimestamp(persistedTransactions)
             BudgetApi.transactions.refreshTransactions().blockingSubscribe()
@@ -36,6 +38,12 @@ class DailyReminderWorker : BroadcastReceiver() {
             } catch (e: Exception) {
                 Timber.e(e, "Failed to reschedule Daily Reminder")
             }
+        }
+    }
+
+    private fun checkServerStatus() {
+        BudgetApi.statusApi.getStatus().blockingSubscribe {
+            Timber.d("Got server status: ${it.status}")
         }
     }
 

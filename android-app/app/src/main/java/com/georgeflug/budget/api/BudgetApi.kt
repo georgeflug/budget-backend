@@ -23,4 +23,5 @@ object BudgetApi {
 
     val transactions: TransactionApi = retrofit.create(TransactionApi::class.java)
     val featureIdeas: FeatureApi = retrofit.create(FeatureApi::class.java)
+    val statusApi: StatusApi = retrofit.create(StatusApi::class.java)
 }
