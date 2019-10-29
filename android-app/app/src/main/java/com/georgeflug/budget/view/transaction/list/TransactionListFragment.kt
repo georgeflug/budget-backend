@@ -122,7 +122,7 @@ class TransactionListFragment : Fragment() {
                 postedDate = transaction.postedDate,
                 postedDescription = transaction.postedDescription,
                 splits = listOf(TransactionSplit(oldSplit.amount, fragment.budget!!.title, fragment.description)),
-                lastModified = transaction.lastModified
+                updatedAt = transaction.updatedAt
         )
         TransactionService.updateTransaction(updatedTransaction)
                 .observeOn(AndroidSchedulers.mainThread())

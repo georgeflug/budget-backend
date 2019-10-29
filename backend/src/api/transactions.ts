@@ -15,7 +15,7 @@ router.route('/transactions')
     });
   })
   .get(function (req, res, next) {
-    const query = req.query.startingAt ? { lastModified: { $gt: moment(req.query.startingAt) } } : {};
+    const query = req.query.startingAt ? { updatedAt: { $gt: moment(req.query.startingAt) } } : {};
     TransactionDbModel.find(query, function (err, transactions) {
       returnTheThing(res, err, transactions);
     });

@@ -38,7 +38,7 @@ object PersistedTransactionService {
         }
     }
 
-    fun getLatestTimestamp(transactions: List<Transaction>): String? = transactions.map { it.lastModified }.max()
+    fun getLatestTimestamp(transactions: List<Transaction>): String? = transactions.map { it.updatedAt }.max()
 
     fun clearCache() {
         FileService.clearFile(FILENAME)
