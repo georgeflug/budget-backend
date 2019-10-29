@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.wifi.WifiManager
 import android.os.Build
 import com.georgeflug.budget.BudgetApplication
+import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Response
 import timber.log.Timber
@@ -12,15 +13,19 @@ class HostInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestWithNewHost = chain.request()
                 .newBuilder()
-                .url(getNewUrl(chain.request().url().encodedPath()))
+                .url(getNewUrl(chain.request().url()))
                 .build()
 
         return chain.proceed(requestWithNewHost)
     }
 
-    private fun getNewUrl(path: String) = "https://${getHost()}:3000$path".also {
-        Timber.d("Requesting: $it")
-    }
+    private fun getNewUrl(url: HttpUrl) = url.newBuilder()
+            .host(getHost())
+            .port(3000)
+            .build()
+            .also {
+                Timber.d("Requesting: ${it}")
+            }
 
     private fun getHost() = when {
         isEmulator() -> "10.0.2.2"
