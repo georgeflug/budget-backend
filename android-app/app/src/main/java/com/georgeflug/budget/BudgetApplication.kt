@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import com.georgeflug.budget.dailyreminder.DailyReminderNotificationChannelInitializer
 import com.georgeflug.budget.logging.LogToFileTree
-import com.georgeflug.budget.service.TransactionService
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -26,7 +25,6 @@ class BudgetApplication : Application() {
 
         context = applicationContext
         Timber.d("onCreate()")
-        TransactionService.downloadTransactions()
         DailyReminderNotificationChannelInitializer().registerChannel(context)
     }
 }
