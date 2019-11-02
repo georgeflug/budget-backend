@@ -38,13 +38,13 @@ class DailyReminderWorker : BroadcastReceiver() {
             } catch (e: Exception) {
                 Timber.e(e, "Failed to reschedule Daily Reminder")
             }
+            Timber.d("Finishing DailyReminderWorker")
         }
     }
 
     private fun checkServerStatus() {
-        BudgetApi.statusApi.getStatus().blockingSubscribe {
-            Timber.d("Got server status: ${it.status}")
-        }
+        val status = BudgetApi.statusApi.getStatus().blockingFirst();
+        Timber.d("Got server status: ${status.status}")
     }
 
     private fun sendNotification(context: Context, initialUncategorizedCount: Int, newTransactions: Int) {
