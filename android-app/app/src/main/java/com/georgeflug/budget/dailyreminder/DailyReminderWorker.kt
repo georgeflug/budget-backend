@@ -21,7 +21,6 @@ class DailyReminderWorker : BroadcastReceiver() {
 
             val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
             val latestTimestamp = PersistedTransactionService.getLatestTimestamp(persistedTransactions)
-            BudgetApi.transactions.refreshTransactions().blockingSubscribe()
             val newTransactions = BudgetApi.transactions.listTransactions(latestTimestamp).blockingFirst()
 
             val initialUncategorizedCount = persistedTransactions.count { it.isUncategorized() }
