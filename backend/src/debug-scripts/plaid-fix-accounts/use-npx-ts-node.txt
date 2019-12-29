@@ -1,0 +1,4 @@
+To run these commands:
+
+npx ts-node 01-which-account-is-bad.ts
+etc...

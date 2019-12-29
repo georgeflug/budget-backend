@@ -4,8 +4,8 @@ const plaidClient = require('./client');
 const moment = require('moment');
 
 export async function downloadTransactions(): Promise<PlaidTransaction[]> {
-  const discoverTransactions = await getTransactions(process.env.DISCOVER_ACCESS_KEY, 10);
-  const fccuTransactions = await getTransactions(process.env.FCCU_ACCESS_KEY, 10);
+  const discoverTransactions = await getTransactions(process.env.DISCOVER_ACCESS_KEY, 30);
+  const fccuTransactions = await getTransactions(process.env.FCCU_ACCESS_KEY, 30);
   return discoverTransactions.transactions.concat(fccuTransactions.transactions);
 };
 

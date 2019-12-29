@@ -16,7 +16,7 @@
   var linkHandler = Plaid.create({
     env: 'development',
     clientName: 'Budget App',
-    key: 'TODO', // PLAID_PUBLIC_KEY
+    key: 'TODO', // PLAID_PUBLIC_KEY env var (in git-bash, echo $PLAID_PUBLIC_KEY)
     product: ['transactions'],
     token: 'TODO', // use 02-create-public-token-{account} to generate
     onSuccess: function (public_token, metadata) {
