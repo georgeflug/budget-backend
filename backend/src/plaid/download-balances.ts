@@ -5,7 +5,7 @@ export async function downloadBalances() {
   const discoverBalances = await getBalance(process.env.DISCOVER_ACCESS_KEY);
   const fccuBalances = await getBalance(process.env.FCCU_ACCESS_KEY);
   return discoverBalances.concat(fccuBalances);
-};
+}
 
 async function getBalance(accessKey) {
   const balances = await plaidClient.getBalance(accessKey);
