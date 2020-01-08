@@ -1,6 +1,3 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
 export function debug(section, logText, exception = undefined) {
   log('DEBUG', section, logText, exception);
 }
