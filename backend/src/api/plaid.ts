@@ -1,12 +1,12 @@
 // temporary code to have typescript recognize this file as a module
 export {};
 
-var express = require('express');
-var router = express.Router();
-const downloadAndSaveTransactions = require('./index');
+const express = require('express');
+const router = express.Router();
+const downloadAndSaveTransactions = require('../plaid');
 
 router.route('/plaid')
-  .get(async function (req, res, next) {
+  .get(async function (req, res) {
     res.send(await downloadAndSaveTransactions());
   });
 

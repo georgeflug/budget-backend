@@ -1,8 +1,8 @@
 // temporary code to have typescript recognize this file as a module
 export { };
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const fs = require('fs');
 const https = require('https');
 const morgan = require('morgan');
@@ -27,7 +27,7 @@ function initExpress() {
   app.use(require('./feature-idea'));
   app.use(require('./transactions'));
   app.use(require('./scrape-mfa'));
-  app.use(require('../plaid/rest'));
+  app.use(require('./plaid'));
   app.use(require('./refresh'));
   app.use(require('./balances'));
   app.use(rawPlaid);
