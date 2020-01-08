@@ -8,7 +8,5 @@ function createLogger(level) {
   }
 }
 
-module.exports = {
-  debug: createLogger('DEBUG'),
-  error: createLogger('ERROR')
-};
+export const debug = createLogger('DEBUG');
+export const error = createLogger('ERROR');
