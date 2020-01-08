@@ -8,10 +8,10 @@ import { adaptTransactions } from './adapt-transactions';
 import { saveTransactions } from './save-transactions';
 import { downloadBalances } from './download-balances';
 import { saveBalances } from './save-balances';
-const log = require('../log');
+import { debug } from '../log';
 
 async function saveLatestTransactionsToDb() {
-  log.debug('Transaction Download', 'start');
+  debug('Transaction Download', 'start');
   const startTime = Date.now();
 
   const plaidTransactions = await downloadTransactions();
@@ -30,7 +30,7 @@ async function saveLatestTransactionsToDb() {
     transactions: ((transactionDownloadedTime - startTime) / 1000) + ' seconds',
     balance: ((endTime - transactionDownloadedTime) / 1000) + ' seconds'
   };
-  log.debug('Transaction Download', `finished. ${JSON.stringify(results)}`);
+  debug('Transaction Download', `finished. ${JSON.stringify(results)}`);
   results.balances = balances; // don't log balances
   return results;
 };

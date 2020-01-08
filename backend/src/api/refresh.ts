@@ -4,13 +4,13 @@ export {};
 var express = require('express');
 var router = express.Router();
 const downloader = require('../plaid/index');
-const log = require('../log');
+import { error } from '../log';
 
 router.route('/refresh')
   .post(function (req, res, next) {
     downloader.saveLatestTransactionsToDb().then(val => res.json(val))
       .catch(ex => {
-        log.error("REFRESH", "Could not refresh transactions", ex);
+        error("REFRESH", "Could not refresh transactions", ex);
         res.json({
           "error": ex.stack || ex
         });

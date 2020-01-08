@@ -6,7 +6,7 @@ const app = express()
 const fs = require('fs');
 const https = require('https');
 const morgan = require('morgan');
-const log = require('../log');
+import { debug } from '../log';
 const compression = require('compression');
 import rawPlaid from './raw-plaid'
 
@@ -34,7 +34,7 @@ function initExpress() {
 
   https.createServer(serverOptions, app).listen(port);
 
-  log.debug('Startup', `Listening on localhost:${port}`);
+  debug('Startup', `Listening on localhost:${port}`);
 }
 
 module.exports = {

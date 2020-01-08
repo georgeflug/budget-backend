@@ -8,7 +8,7 @@ const protocol = 'mongodb';
 let hostName = 'mongo';
 const port = 27017;
 const dbName = 'budget';
-const log = require('../log');
+import { debug } from '../log';
 
 const connectionRetryDelay = 1000;
 let isConnected = false;
@@ -17,16 +17,16 @@ let promiseRes = () => { };
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
 
-var db = mongoose.connection;
+let db = mongoose.connection;
 
 db.once('open', function () {
-  log.debug('DB', 'Connected successfully to mongodb server');
+  debug('DB', 'Connected successfully to mongodb server');
   isConnected = true;
   promiseRes();
 });
 
 db.on('error', function () {
-  log.debug('DB', 'Mongodb server not ready. Retrying...');
+  debug('DB', 'Mongodb server not ready. Retrying...');
   setTimeout(() => mongoose.connect(getUrl()), connectionRetryDelay);
 });
 
@@ -34,7 +34,7 @@ function connectToDbWithRetry(optionalHostName) {
   if (isConnected) return Promise.resolve();
   hostName = optionalHostName || hostName;
 
-  log.debug('DB', 'Attempting to connect to mongodb');
+  debug('DB', 'Attempting to connect to mongodb');
 
   return new Promise((res, rej) => {
     promiseRes = res;
