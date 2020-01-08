@@ -1,7 +1,4 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
-const plaid = require('plaid');
+import * as plaid from 'plaid';
 
 export const plaidClient = new plaid.Client(
   process.env.PLAID_CLIENT_ID,
