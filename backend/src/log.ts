@@ -2,7 +2,7 @@
 export {};
 
 function createLogger(level) {
-  return function (section, logText, exception) {
+  return function (section, logText, exception = undefined) {
     console.log(`${new Date().toISOString()} ${level} ${section}: ${logText}`);
     if (exception) console.log(exception);
   }
@@ -11,4 +11,4 @@ function createLogger(level) {
 module.exports = {
   debug: createLogger('DEBUG'),
   error: createLogger('ERROR')
-}
+};
