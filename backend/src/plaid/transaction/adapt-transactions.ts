@@ -1,4 +1,4 @@
-import { PlaidTransaction } from "./plaid-types";
+import { PlaidTransaction } from "../plaid-types";
 
 const ACCOUNT_MAP = {
   'o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5': 'Discover',

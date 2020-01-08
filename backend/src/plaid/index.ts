@@ -1,13 +1,13 @@
 // temporary code to have typescript recognize this file as a module
 export { };
 
-import { downloadTransactions } from './download-transactions';
-import { saveRawTransactions } from './save-raw-transactions';
+import { downloadTransactions } from './transaction/download-transactions';
+import { saveRawTransactions } from './transaction/save-raw-transactions';
 
-import { adaptTransactions } from './adapt-transactions';
-import { saveTransactions } from './save-transactions';
-import { downloadBalances } from './download-balances';
-import { saveBalances } from './save-balances';
+import { adaptTransactions } from './transaction/adapt-transactions';
+import { saveTransactions } from './transaction/save-transactions';
+import { downloadBalances } from './balance/download-balances';
+import { saveBalances } from './balance/save-balances';
 import { debug } from '../log';
 
 async function saveLatestTransactionsToDb() {

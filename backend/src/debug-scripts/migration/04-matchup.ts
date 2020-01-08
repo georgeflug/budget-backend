@@ -131,7 +131,7 @@ const data = matches.map(row => Object.values(row).join('|'));
 // }
 
 require('../../db/db').initDb().then(async function () {
-  const saveTransactions = require('../../plaid/save-transactions');
+  const saveTransactions = require('../../plaid/transaction/save-transactions');
 
   console.log("Adapting transactions...");
   const adaptedTransactions = await adaptTransactions(plaidData);

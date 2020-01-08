@@ -1,4 +1,4 @@
-import { plaidClient } from './client';
+import { plaidClient } from '../client';
 const moment = require('moment');
 
 export async function downloadBalances() {

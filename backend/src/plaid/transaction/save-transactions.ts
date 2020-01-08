@@ -1,4 +1,4 @@
-import { TransactionDbModel } from '../db/transaction';
+import { TransactionDbModel } from '../../db/transaction';
 const moment = require('moment');
 
 export async function saveTransactions(transactions) {

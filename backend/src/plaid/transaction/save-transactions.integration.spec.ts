@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const db = require('../db/db');
+const db = require('../../db/db');
 import { saveTransactions } from './save-transactions';
-import TransactionModel from '../db/transaction';
+import TransactionModel from '../../db/transaction';
 const fail = require('assert').fail;
 
 var chai = require('chai');
