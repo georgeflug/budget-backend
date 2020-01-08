@@ -1,6 +1,6 @@
 import { PlaidTransactionResponse, PlaidTransaction } from "./plaid-types";
 
-const plaidClient = require('./client');
+import { plaidClient } from './client';
 const moment = require('moment');
 
 export async function downloadTransactions(): Promise<PlaidTransaction[]> {
