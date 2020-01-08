@@ -22,4 +22,4 @@ export function adaptTransactions(transactions: PlaidTransaction[]) {
       pending: transaction.pending
     };
   });
-};
+}
