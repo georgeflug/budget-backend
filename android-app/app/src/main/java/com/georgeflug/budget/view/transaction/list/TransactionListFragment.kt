@@ -31,6 +31,11 @@ class TransactionListFragment : Fragment() {
             model.filterMonth = value
             field = value
         }
+    var filterYear: Int? = null
+        set(value) {
+            model.filterYear = value
+            field = value
+        }
     var filterBudget: Budget? = null
         set(value) {
             model.filterBudget = value

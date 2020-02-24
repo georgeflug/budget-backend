@@ -11,6 +11,11 @@ class TransactionsDynamicallyFilterableModel : TransactionsModel {
             field = value
             onNewModel()
         }
+    var filterYear: Int? = null
+        set(value) {
+            field = value
+            onNewModel()
+        }
     var filterBudget: Budget? = null
         set(value) {
             field = value
@@ -40,7 +45,7 @@ class TransactionsDynamicallyFilterableModel : TransactionsModel {
     }
 
     private fun onNewModel() {
-        model = TransactionsFilteredModel(filterMonth, filterBudget)
+        model = TransactionsFilteredModel(filterMonth, filterYear, filterBudget)
         model.setOnChangeListener(::onChange)
         onChange()
     }

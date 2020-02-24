@@ -12,6 +12,7 @@ import java.time.LocalDate
 
 class TransactionsFilteredModel(
         val filterMonth: Int? = null,
+        val filterYear: Int? = null,
         val filterBudget: Budget? = null
 ) : TransactionsModel {
     override val items = ArrayList<SectionOrTransaction>()
@@ -84,11 +85,15 @@ class TransactionsFilteredModel(
     }
 
     private fun matchesFilter(transaction: Transaction): Boolean {
-        return matchesFilterMonth(transaction) && matchesFilterBudget(transaction)
+        return matchesFilterMonth(transaction) && matchesFilterYear(transaction) && matchesFilterBudget(transaction)
     }
 
     private fun matchesFilterMonth(transaction: Transaction): Boolean {
         return filterMonth == null || transaction.bestDate.monthValue == filterMonth
+    }
+
+    private fun matchesFilterYear(transaction: Transaction): Boolean {
+        return filterYear == null || transaction.bestDate.year == filterYear
     }
 
     private fun matchesFilterBudget(transaction: Transaction): Boolean {

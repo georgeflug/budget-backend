@@ -43,6 +43,7 @@ class BudgetsFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 budgetListFragment.month = tab.tag as LocalDate
                 transactionsListFragment.filterMonth = (tab.tag as LocalDate).monthValue
+                transactionsListFragment.filterYear = (tab.tag as LocalDate).year
                 selectedTab = tab.position
             }
         })
