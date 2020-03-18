@@ -1,8 +1,5 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+export const router = express.Router();
 const downloader = require('../plaid/index');
 import {error} from '../log';
 
@@ -16,5 +13,3 @@ router.route('/refresh')
             });
           });
     });
-
-module.exports = router;

@@ -1,13 +1,10 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
 const moment = require('moment');
 const downloader = require('./index');
 import {debug, error} from '../log';
 
 const TIME_OF_DAY_TO_RUN_IT = 18;
 
-function startScheduler(getCurrentMoment = moment, scheduleLater = setTimeout) {
+export function startScheduler(getCurrentMoment = moment, scheduleLater = setTimeout) {
   const today = getCurrentMoment();
   if (today.hour() < TIME_OF_DAY_TO_RUN_IT) {
     scheduleNextExecution(today);
@@ -32,7 +29,3 @@ function startScheduler(getCurrentMoment = moment, scheduleLater = setTimeout) {
     }, millisFromNow);
   }
 }
-
-module.exports = {
-  startScheduler: startScheduler
-};

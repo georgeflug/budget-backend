@@ -1,6 +1,3 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
 import {downloadTransactions} from './transaction/download-transactions';
 import {saveRawTransactions} from './transaction/save-raw-transactions';
 
@@ -10,7 +7,7 @@ import {downloadBalances} from './balance/download-balances';
 import {saveBalances} from './balance/save-balances';
 import {debug} from '../log';
 
-async function saveLatestTransactionsToDb() {
+export async function saveLatestTransactionsToDb() {
   debug('Transaction Download', 'start');
   const startTime = Date.now();
 
@@ -34,7 +31,3 @@ async function saveLatestTransactionsToDb() {
   results.balances = balances; // don't log balances
   return results;
 }
-
-module.exports = {
-  saveLatestTransactionsToDb: saveLatestTransactionsToDb
-};

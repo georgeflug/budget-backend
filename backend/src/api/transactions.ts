@@ -1,8 +1,5 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+export const router = express.Router();
 import {TransactionDbModel} from '../db/transaction';
 
 const moment = require('moment');
@@ -60,5 +57,3 @@ function returnTheThing(res, err, body) {
     res.json(body);
   }
 }
-
-module.exports = router;

@@ -24,7 +24,7 @@ describe('Plaid', () => {
 
   before(async function () {
     this.timeout(15000);
-    await db.initDb();
+    await db.connectToDbWithRetry();
   });
 
   afterEach(async () => {

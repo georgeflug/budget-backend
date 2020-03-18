@@ -1,10 +1,7 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
 import express from 'express';
 import {FeatureIdea, FeatureIdeaDbModel} from '../db/feature-idea';
 
-var router = express.Router();
+export const router = express.Router();
 
 router.route('/feature-ideas')
     .post(function (req, res, next) {
@@ -27,5 +24,3 @@ router.route('/feature-ideas')
         }
       });
     });
-
-module.exports = router;

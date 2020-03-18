@@ -1,12 +1,8 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
 import express from 'express';
 import moment from 'moment';
 import {RawPlaid, RawPlaidDbModel} from '../db/raw-plaid';
 
-const router = express.Router();
-export default router;
+export const router = express.Router();
 
 router.route('/raw-plaid')
     .get(function (req, res) {

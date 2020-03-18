@@ -1,6 +1,3 @@
-// temporary code to have typescript recognize this file as a module
-export {};
-
 // const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 
@@ -31,7 +28,7 @@ db.on('error', function () {
   setTimeout(() => mongoose.connect(getUrl()), connectionRetryDelay);
 });
 
-function connectToDbWithRetry(optionalHostName) {
+export function connectToDbWithRetry(optionalHostName) {
   if (isConnected) {
     return Promise.resolve();
   }
@@ -48,7 +45,3 @@ function connectToDbWithRetry(optionalHostName) {
 function getUrl() {
   return `${protocol}://${hostName}:${port}/${dbName}`; //'mongodb://mongo:27017/budget';
 }
-
-module.exports = {
-  initDb: connectToDbWithRetry
-};
