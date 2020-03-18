@@ -1,21 +1,28 @@
 import {PlaidTransactionResponse, PlaidTransaction} from "../plaid-types";
 
 import {plaidClient} from '../client';
+import {BankAccount, bankAccounts} from "../bankAccounts";
 
 const moment = require('moment');
 
 export async function downloadTransactions(): Promise<PlaidTransaction[]> {
-  const discoverTransactions = await getTransactions(process.env.DISCOVER_ACCESS_KEY, 30);
-  const fccuTransactions = await getTransactions(process.env.FCCU_ACCESS_KEY, 30);
-  return discoverTransactions.transactions.concat(fccuTransactions.transactions);
+  const downloadAllTransactions = bankAccounts.map(account => downloadTransactionsForAccount(account, 30));
+  const allAccounts = await Promise.all(downloadAllTransactions);
+  return allAccounts.flat();
 }
 
-function getTransactions(accessKey, numberOfDays): Promise<PlaidTransactionResponse> {
+export function downloadTransactionsForAccount(account: BankAccount, numberOfDays: number): Promise<PlaidTransaction[]> {
+  return getTransactions(account.accessKey, numberOfDays);
+}
+
+async function getTransactions(accessKey, numberOfDays): Promise<PlaidTransaction[]> {
   const startDate = moment().subtract(numberOfDays, 'days').format('YYYY-MM-DD');
   const endDate = moment().format('YYYY-MM-DD');
 
-  return plaidClient.getTransactions(accessKey, startDate, endDate, {
+  const transactionResult = await plaidClient.getTransactions(accessKey, startDate, endDate, {
     count: 250,
     offset: 0,
-  }) as any as Promise<PlaidTransactionResponse>;
+  }) as any as PlaidTransactionResponse;
+
+  return transactionResult.transactions;
 }

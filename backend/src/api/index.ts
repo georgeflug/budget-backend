@@ -31,6 +31,7 @@ function initExpress() {
   app.use(require('./plaid'));
   app.use(require('./refresh'));
   app.use(require('./balances'));
+  app.use(require('../check-accounts-controller'));
   app.use(rawPlaid);
 
   https.createServer(serverOptions, app).listen(port);
