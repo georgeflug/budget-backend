@@ -53,7 +53,7 @@ class BudgetAdapter(val context: Context) : BaseAdapter() {
 
     private fun sortBudgets(budgets: List<MonthCategoryRollup>): List<MonthCategoryRollup> {
         return budgets.sortedBy {
-            val prefix = if (it.perMonth == BigDecimal.ZERO) "1" else "0"
+            val prefix = if (it.hasAllocatedAmount) "0" else "1"
             prefix + it.title
         }
     }
@@ -67,7 +67,7 @@ class BudgetAdapter(val context: Context) : BaseAdapter() {
     }
 
     private fun getRemainingToSpendText(budget: MonthCategoryRollup): CharSequence {
-        if (budget.perMonth == BigDecimal.ZERO) {
+        if (!budget.hasAllocatedAmount) {
             return ""
         }
 
@@ -85,6 +85,6 @@ class BudgetAdapter(val context: Context) : BaseAdapter() {
 
     private fun getAllocatedText(budget: MonthCategoryRollup): String {
         val formattedAmount = currencyFormatter.format(budget.perMonth)
-        return if (budget.perMonth == BigDecimal.ZERO) "" else "($formattedAmount per month)"
+        return if (budget.hasAllocatedAmount) "($formattedAmount per month)" else ""
     }
 }
