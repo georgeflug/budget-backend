@@ -1,10 +1,11 @@
-import { TransactionDbModel } from '../../db/transaction';
+import {TransactionDbModel} from '../../db/transaction';
+
 const moment = require('moment');
 
 export async function saveTransactions(transactions) {
   const results = await Promise.all(transactions
-    .filter(t => !t.pending)
-    .map(saveTransaction)
+      .filter(t => !t.pending)
+      .map(saveTransaction)
   );
   const existingCount = results.reduce((total: any, current: any) => total + (current.type === 'updated' ? 1 : 0), 0) as number;
   const unchangedCount = results.reduce((total: any, current: any) => total + (current.type === 'unchanged' ? 1 : 0), 0) as number;
@@ -17,7 +18,7 @@ export async function saveTransactions(transactions) {
     unchangedRecords: unchangedCount,
     totalRecords: totalCount
   };
-};
+}
 
 async function saveTransaction(plaidTransaction) {
   let existingTransaction = await findExistingTransaction(plaidTransaction);
@@ -43,21 +44,21 @@ async function saveTransaction(plaidTransaction) {
 
 function isTransactionTheSame(plaidTransaction, existingTransaction) {
   return (
-    existingTransaction.postedDescription === plaidTransaction.postedDescription &&
-    existingTransaction.plaidId === plaidTransaction.plaidId &&
-    existingTransaction.account === plaidTransaction.account &&
-    existingTransaction.totalAmount === plaidTransaction.totalAmount &&
-    moment(existingTransaction.postedDate).isSame(plaidTransaction.postedDate)
+      existingTransaction.postedDescription === plaidTransaction.postedDescription &&
+      existingTransaction.plaidId === plaidTransaction.plaidId &&
+      existingTransaction.account === plaidTransaction.account &&
+      existingTransaction.totalAmount === plaidTransaction.totalAmount &&
+      moment(existingTransaction.postedDate).isSame(plaidTransaction.postedDate)
   );
 }
 
 async function findExistingTransaction(plaidTransaction) {
-  const existingTransaction = await TransactionDbModel.findOne({ plaidId: plaidTransaction.plaidId }).exec();
+  const existingTransaction = await TransactionDbModel.findOne({plaidId: plaidTransaction.plaidId}).exec();
   if (existingTransaction) {
     return existingTransaction;
   }
   if (plaidTransaction.pendingPlaidId) {
-    const pendingTransaction = await TransactionDbModel.findOne({ plaidId: plaidTransaction.pendingPlaidId }).exec();
+    const pendingTransaction = await TransactionDbModel.findOne({plaidId: plaidTransaction.pendingPlaidId}).exec();
     if (pendingTransaction) {
       return pendingTransaction;
     }
@@ -71,7 +72,7 @@ async function findExistingTransaction(plaidTransaction) {
   if (replacedTransaction) {
     return replacedTransaction;
   }
-  const similarTransaction = await TransactionDbModel.findOne({ account: null, totalAmount: plaidTransaction.totalAmount }).exec();
+  const similarTransaction = await TransactionDbModel.findOne({account: null, totalAmount: plaidTransaction.totalAmount}).exec();
   if (similarTransaction) {
     if (Math.abs(moment(similarTransaction.date).diff(moment(plaidTransaction.postedDate), 'days')) <= 10) {
       return similarTransaction;

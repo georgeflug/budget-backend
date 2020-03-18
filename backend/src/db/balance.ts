@@ -1,14 +1,13 @@
-// temporary code to have typescript recognize this file as a module
-export { };
-
 import mongoose from 'mongoose';
 
-export interface Balance extends mongoose.Document {
+export interface Balance {
   accountId: string,
-  balance: Number,
+  balance: number,
   date: Date,
   name: string
 }
+
+export type DbBalance = Balance & mongoose.Document
 
 const BalanceSchema = new mongoose.Schema({
   accountId: String,

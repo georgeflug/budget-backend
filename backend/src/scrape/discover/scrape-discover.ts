@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
-const process = require('process');
-var ofx = require('ofx');
+import * as process from 'process';
+
+// var ofx = require('ofx');
 const ofxParser = require('../ofx-parser');
 
 async function downloadTransactions() {
@@ -24,13 +25,13 @@ async function downloadTransactions() {
 
   const transactions = ofxParser.parseToJson(downloadedThing);
   console.dir(transactions);
-};
+}
 
 function download(page, url) {
   return page.evaluate((urlForPuppeteer) => {
     return fetch(urlForPuppeteer, {
-        method: 'GET',
-        credentials: 'include'
+      method: 'GET',
+      credentials: 'include'
     }).then(r => {
       return r.text();
     });

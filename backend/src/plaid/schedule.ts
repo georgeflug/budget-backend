@@ -1,9 +1,9 @@
 // temporary code to have typescript recognize this file as a module
-export { };
+export {};
 
 const moment = require('moment');
 const downloader = require('./index');
-import { debug, error } from '../log';
+import {debug, error} from '../log';
 
 const TIME_OF_DAY_TO_RUN_IT = 18;
 
@@ -35,4 +35,4 @@ function startScheduler(getCurrentMoment = moment, scheduleLater = setTimeout) {
 
 module.exports = {
   startScheduler: startScheduler
-}
+};

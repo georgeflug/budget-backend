@@ -1,18 +1,18 @@
 // temporary code to have typescript recognize this file as a module
-export { };
+export {};
 
 const plaid = require('plaid');
 const moment = require('moment');
 const fs = require('fs');
 
 const client = new plaid.Client(
-  process.env.PLAID_CLIENT_ID,
-  process.env.PLAID_SECRET,
-  process.env.PLAID_PUBLIC_KEY,
-  plaid.environments['development'],
-  {
-    version: '2018-05-22'
-  }
+    process.env.PLAID_CLIENT_ID,
+    process.env.PLAID_SECRET,
+    process.env.PLAID_PUBLIC_KEY,
+    plaid.environments['development'],
+    {
+      version: '2018-05-22'
+    }
 );
 
 async function downloadTransactions() {
@@ -25,7 +25,7 @@ async function downloadTransactions() {
   // await downloadTransactionsForMonth('2019', '02');
   // await downloadTransactionsForMonth('2019', '03');
   await downloadTransactionsForMonth('2019', '05');
-};
+}
 
 async function downloadTransactionsForMonth(year, month) {
   const discoverTransactions = await getTransactions(process.env.DISCOVER_ACCESS_KEY, year, month);
@@ -36,7 +36,7 @@ async function downloadTransactionsForMonth(year, month) {
   const all = discoverTransactions.transactions.concat(fccuTransactions.transactions);
 
   fs.writeFileSync(`./all-transactions-${year}-${month}.json`, JSON.stringify(all, null, 2));
-};
+}
 
 function getTransactions(accessKey, year, month) {
   const startDate = `${year}-${month}-01`;
@@ -49,6 +49,6 @@ function getTransactions(accessKey, year, month) {
 }
 
 downloadTransactions()
-  .catch((e) => {
-    console.log(e);
-  });
+    .catch((e) => {
+      console.log(e);
+    });

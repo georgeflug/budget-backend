@@ -1,12 +1,13 @@
 // temporary code to have typescript recognize this file as a module
-export { };
+export {};
 
 const express = require('express');
 const app = express();
 const fs = require('fs');
 const https = require('https');
 const morgan = require('morgan');
-import { debug } from '../log';
+import {debug} from '../log';
+
 const compression = require('compression');
 import rawPlaid from './raw-plaid'
 

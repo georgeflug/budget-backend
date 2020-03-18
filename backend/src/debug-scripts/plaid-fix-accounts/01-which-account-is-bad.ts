@@ -2,42 +2,42 @@ const plaid = require('plaid');
 const moment = require('moment');
 
 const client = new plaid.Client(
-  process.env.PLAID_CLIENT_ID,
-  process.env.PLAID_SECRET,
-  process.env.PLAID_PUBLIC_KEY,
-  plaid.environments['development'],
-  {
-    version: '2018-05-22'
-  }
+    process.env.PLAID_CLIENT_ID,
+    process.env.PLAID_SECRET,
+    process.env.PLAID_PUBLIC_KEY,
+    plaid.environments['development'],
+    {
+      version: '2018-05-22'
+    }
 );
 
 async function downloadTransactions() {
   await getTransactions(process.env.DISCOVER_ACCESS_KEY)
-    .then(data => {
-      console.log("Downloaded Discover data successfully: " + data.transactions.length);
-    })
-    .catch(err => {
-      if (err.error_code === 'ITEM_LOGIN_REQUIRED') {
-        console.log("Discover Account needs to relogin");
-      } else {
-        console.log("Unexpected error for Discover account:");
-        console.dir(err);
-      }
-    });
+      .then(data => {
+        console.log("Downloaded Discover data successfully: " + data.transactions.length);
+      })
+      .catch(err => {
+        if (err.error_code === 'ITEM_LOGIN_REQUIRED') {
+          console.log("Discover Account needs to relogin");
+        } else {
+          console.log("Unexpected error for Discover account:");
+          console.dir(err);
+        }
+      });
 
   await getTransactions(process.env.FCCU_ACCESS_KEY)
-    .then(data => {
-      console.log("Downloaded First Community data successfully: " + data.transactions.length);
-    })
-    .catch(err => {
-      if (err.error_code === 'ITEM_LOGIN_REQUIRED') {
-        console.log("First Community account needs to relogin");
-      } else {
-        console.log("Unexpected error for First Community account:");
-        console.dir(err);
-      }
-    });
-};
+      .then(data => {
+        console.log("Downloaded First Community data successfully: " + data.transactions.length);
+      })
+      .catch(err => {
+        if (err.error_code === 'ITEM_LOGIN_REQUIRED') {
+          console.log("First Community account needs to relogin");
+        } else {
+          console.log("Unexpected error for First Community account:");
+          console.dir(err);
+        }
+      });
+}
 
 function getTransactions(accessKey) {
   const startDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
@@ -50,6 +50,6 @@ function getTransactions(accessKey) {
 }
 
 downloadTransactions()
-  .catch((e) => {
-    console.log(e);
-  });
+    .catch((e) => {
+      console.log(e);
+    });

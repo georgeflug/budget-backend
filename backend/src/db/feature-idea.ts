@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 export interface FeatureIdea extends mongoose.Document {
   date: Date,
-  description: String
-};
+  description: string
+}
 
 var FeatureIdeaSchema = new mongoose.Schema({
   date: {

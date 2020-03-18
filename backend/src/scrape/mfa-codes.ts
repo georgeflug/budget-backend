@@ -1,4 +1,3 @@
-
 let fccuRes: any[] = [];
 let fccuTimeouts: any[] = [];
 
@@ -9,7 +8,7 @@ function saveFccu(token) {
   fccuTimeouts = [];
 }
 
-function getFccuToken(cb) {
+function getFccuToken() {
   return new Promise((res, rej) => {
     fccuRes.push(res);
     const timeout = setTimeout(() => {
@@ -26,4 +25,4 @@ function getFccuToken(cb) {
 module.exports = {
   saveFccu: saveFccu,
   getFccuToken: getFccuToken,
-}
+};

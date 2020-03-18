@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 const request = require('request-promise');
-const fs = require('fs');
 const fileDownloader = require('./file-downloader');
 
 const homedir = require('os').homedir();

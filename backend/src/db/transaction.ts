@@ -1,25 +1,22 @@
-// temporary code to have typescript recognize this file as a module
-export { };
-
 import mongoose from 'mongoose';
 
 export interface Transaction extends mongoose.Document {
-  plaidId: String,
+  plaidId: string,
   date: Date,
-  totalAmount: Number,
-  account: String,
+  totalAmount: number,
+  account: string,
   postedDate: Date,
-  postedDescription: String,
+  postedDescription: string,
   updatedAt: Date,
-  pending: Boolean,
+  pending: boolean,
   splits: TransactionSplit[], // splits will have 1 item for un-split transactions
-};
+}
 
 export interface TransactionSplit {
-  amount: Number,
-  budget: String,
-  description: String,
-};
+  amount: number,
+  budget: string,
+  description: string,
+}
 
 const SplitTransactionSchema = new mongoose.Schema({
   amount: Number,

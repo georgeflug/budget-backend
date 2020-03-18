@@ -1,6 +1,7 @@
-import { PlaidTransactionResponse, PlaidTransaction } from "../plaid-types";
+import {PlaidTransactionResponse, PlaidTransaction} from "../plaid-types";
 
-import { plaidClient } from '../client';
+import {plaidClient} from '../client';
+
 const moment = require('moment');
 
 export async function downloadTransactions(): Promise<PlaidTransaction[]> {
@@ -9,12 +10,12 @@ export async function downloadTransactions(): Promise<PlaidTransaction[]> {
   return discoverTransactions.transactions.concat(fccuTransactions.transactions);
 }
 
-function getTransactions(accessKey, numberOfDays): PlaidTransactionResponse {
+function getTransactions(accessKey, numberOfDays): Promise<PlaidTransactionResponse> {
   const startDate = moment().subtract(numberOfDays, 'days').format('YYYY-MM-DD');
   const endDate = moment().format('YYYY-MM-DD');
 
   return plaidClient.getTransactions(accessKey, startDate, endDate, {
     count: 250,
     offset: 0,
-  });
+  }) as any as Promise<PlaidTransactionResponse>;
 }

@@ -10,13 +10,13 @@ plaidData.forEach(data => {
 });
 
 const unfound = [];
-let largestDateGap = 0;
-let largestDateItem = {};
+// let largestDateGap = 0;
+// let largestDateItem = {};
 
-const originalSheetCount = sheetsData.length;
+// const originalSheetCount = sheetsData.length;
 // sheetsData = sheetsData.filter(row => row.amount !== -1);
 // const pendingTransactionCount = originalSheetCount - sheetsData.length;
-const originalPlaidCount = plaidData.length;
+// const originalPlaidCount = plaidData.length;
 const matches = [];
 
 sheetsData.forEach((row) => {
@@ -99,8 +99,8 @@ sheetsData.forEach((row) => {
 // const interestingOnes = unfound.filter(row => (row.budget && row.budget !== 'Gas') || row.description);
 // console.log(`Records to be manually fixed: ${interestingOnes.length}`);
 // console.log(Object.keys(interestingOnes[0]).join('|'))
-const header = Object.keys(matches[0]).join('|');
-const data = matches.map(row => Object.values(row).join('|'));
+// const header = Object.keys(matches[0]).join('|');
+// const data = matches.map(row => Object.values(row).join('|'));
 // interestingOnes.forEach(row => console.log(Object.values(row).join('|')));
 // console.log(`Unmatched: ${JSON.stringify(unfound[1], null, 2)}`);
 
@@ -203,4 +203,4 @@ function adaptTransactions(transactions) {
       }]
     };
   });
-};
+}

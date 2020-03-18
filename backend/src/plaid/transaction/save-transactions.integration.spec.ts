@@ -1,7 +1,8 @@
 const expect = require('chai').expect;
 const db = require('../../db/db');
-import { saveTransactions } from './save-transactions';
-import TransactionModel from '../../db/transaction';
+import {saveTransactions} from './save-transactions';
+import {TransactionDbModel} from '../../db/transaction';
+
 const fail = require('assert').fail;
 
 var chai = require('chai');
@@ -18,26 +19,26 @@ describe('Plaid', () => {
     postedDate: '2019-01-02',
     postedDescription: 'CHOCOLATE CHOCOLAT ST LOUIS',
     pending: false,
-    splits: [{ amount: 999888777666 }]
+    splits: [{amount: 999888777666}]
   };
 
   before(async function () {
     this.timeout(15000);
     await db.initDb();
-  })
+  });
 
   afterEach(async () => {
-    await TransactionModel.deleteMany({ plaidId: newTransaction.plaidId });
-    await TransactionModel.deleteMany({ totalAmount: newTransaction.totalAmount });
+    await TransactionDbModel.deleteMany({plaidId: newTransaction.plaidId});
+    await TransactionDbModel.deleteMany({totalAmount: newTransaction.totalAmount});
   });
 
   it('create transaction if it does not exist', async () => {
-    const quickTest = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const quickTest = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
     expect(quickTest).to.be.null;
 
     const metrics = await saveTransactions([newTransaction]);
 
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
 
     expect(actual).to.not.be.null;
     compareTransactions(actual, newTransaction);
@@ -54,7 +55,7 @@ describe('Plaid', () => {
       account: 'Discover2',
       postedDate: '2019-12-31',
       postedDescription: 'pending transaction',
-      splits: [{ amount: 1 }]
+      splits: [{amount: 1}]
     };
     const expectedTransaction = {
       plaidId: '111',
@@ -63,12 +64,12 @@ describe('Plaid', () => {
       account: newTransaction.account,
       postedDate: newTransaction.postedDate,
       postedDescription: newTransaction.postedDescription,
-      splits: [{ amount: newTransaction.totalAmount }]
+      splits: [{amount: newTransaction.totalAmount}]
     };
-    await (new TransactionModel(existingTransaction)).save()
+    await (new TransactionDbModel(existingTransaction)).save()
 
     const metrics = await saveTransactions([newTransaction]);
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
 
     compareTransactions(actual, expectedTransaction);
     expect(metrics.newRecords).to.equal(0, 'newRecords');
@@ -104,10 +105,10 @@ describe('Plaid', () => {
         }
       ]
     };
-    await (new TransactionModel(existingTransaction)).save()
+    await (new TransactionDbModel(existingTransaction)).save()
 
     const metrics = await saveTransactions([newTransaction]);
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
 
     compareTransactions(actual, expectedTransaction);
     expect(metrics.newRecords).to.equal(0, 'newRecords');
@@ -136,10 +137,10 @@ describe('Plaid', () => {
         existingTransaction.splits[0]
       ]
     };
-    await (new TransactionModel(existingTransaction)).save()
+    await (new TransactionDbModel(existingTransaction)).save()
 
     const metrics = await saveTransactions([newTransaction]);
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
 
     compareTransactions(actual, expectedTransaction);
     expect(metrics.newRecords).to.equal(0, 'newRecords');
@@ -172,11 +173,11 @@ describe('Plaid', () => {
         description: 'Richie spent ten dollars'
       }]
     };
-    await (new TransactionModel(existingTransactionWithNulls)).save()
-    await (new TransactionModel(existingTransactionWithBlanks)).save()
+    await (new TransactionDbModel(existingTransactionWithNulls)).save()
+    await (new TransactionDbModel(existingTransactionWithBlanks)).save()
 
     const metrics = await saveTransactions([newTransaction]);
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
 
     compareTransactions(actual, newTransaction);
     expect(metrics.newRecords).to.equal(1, 'newRecords');
@@ -193,9 +194,9 @@ describe('Plaid', () => {
       account: 'Discover2',
       postedDate: '2019-12-31',
       postedDescription: 'pending transaction',
-      splits: [{ amount: 1 }]
+      splits: [{amount: 1}]
     };
-    const newTransaction2 = Object.assign({ pendingPlaidId: '999' }, newTransaction);
+    const newTransaction2 = Object.assign({pendingPlaidId: '999'}, newTransaction);
     const expectedTransaction = {
       plaidId: '111',
       date: existingTransaction.date,
@@ -203,12 +204,12 @@ describe('Plaid', () => {
       account: newTransaction2.account,
       postedDate: newTransaction2.postedDate,
       postedDescription: newTransaction2.postedDescription + ' (pending transaction)',
-      splits: [{ amount: newTransaction2.totalAmount }]
+      splits: [{amount: newTransaction2.totalAmount}]
     };
-    await (new TransactionModel(existingTransaction)).save()
+    await (new TransactionDbModel(existingTransaction)).save()
 
     const metrics = await saveTransactions([newTransaction2]);
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction2.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction2.plaidId});
 
     compareTransactions(actual, expectedTransaction);
     expect(metrics.newRecords).to.equal(0, 'newRecords');
@@ -229,7 +230,7 @@ describe('Plaid', () => {
       postedDate: newTransaction.postedDate,
       postedDescription: 'pending transaction',
       pending: true,
-      splits: [{ amount: newTransaction.totalAmount }]
+      splits: [{amount: newTransaction.totalAmount}]
     };
     const expectedTransaction = {
       plaidId: newTransaction.plaidId,
@@ -239,12 +240,12 @@ describe('Plaid', () => {
       postedDate: newTransaction.postedDate,
       postedDescription: newTransaction.postedDescription + ' (pending transaction)',
       pending: false,
-      splits: [{ amount: newTransaction.totalAmount }]
+      splits: [{amount: newTransaction.totalAmount}]
     };
-    await (new TransactionModel(existingTransaction)).save()
+    await (new TransactionDbModel(existingTransaction)).save()
 
     const metrics = await saveTransactions([newTransaction]);
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
 
     compareTransactions(actual, expectedTransaction);
     expect(metrics.newRecords).to.equal(0, 'newRecords');
@@ -263,10 +264,10 @@ describe('Plaid', () => {
         description: 'Richie spent ten dollars'
       }]
     };
-    await (new TransactionModel(elevenDayOldTransaction)).save()
+    await (new TransactionDbModel(elevenDayOldTransaction)).save()
 
     const metrics = await saveTransactions([newTransaction]);
-    const actual = await TransactionModel.findOne({ plaidId: newTransaction.plaidId });
+    const actual = await TransactionDbModel.findOne({plaidId: newTransaction.plaidId});
 
     compareTransactions(actual, newTransaction);
     expect(metrics.newRecords).to.equal(1, 'newRecords');
@@ -278,28 +279,46 @@ describe('Plaid', () => {
     const differingData = areTransactionsEqual(actualTransaction, expectedTransaction);
     if (!!differingData) {
       const failureMessage = 'Expected transaction:\n' +
-        JSON.stringify(actualTransaction, null, 2) +
-        '\n\nto equal:\n\n' +
-        JSON.stringify(expectedTransaction, null, 2) +
-        `\n\nFirst difference noticed on key: ${differingData}`;
+          JSON.stringify(actualTransaction, null, 2) +
+          '\n\nto equal:\n\n' +
+          JSON.stringify(expectedTransaction, null, 2) +
+          `\n\nFirst difference noticed on key: ${differingData}`;
       fail(failureMessage);
     }
   }
 
   function areTransactionsEqual(t1, t2) {
-    if (t1.plaidId != t2.plaidId) return 'plaidId';
-    if (t1.totalAmount != t2.totalAmount) return 'totalAmount';
-    if (t1.account != t2.account) return 'account';
-    if (t1.postedDescription != t2.postedDescription) return 'postedDescription';
-    if (Date.parse(t1.postedDate) != Date.parse(t2.postedDate)) return 'postedDate';
+    if (t1.plaidId != t2.plaidId) {
+      return 'plaidId';
+    }
+    if (t1.totalAmount != t2.totalAmount) {
+      return 'totalAmount';
+    }
+    if (t1.account != t2.account) {
+      return 'account';
+    }
+    if (t1.postedDescription != t2.postedDescription) {
+      return 'postedDescription';
+    }
+    if (Date.parse(t1.postedDate) != Date.parse(t2.postedDate)) {
+      return 'postedDate';
+    }
 
     // maintain old values
     for (let i = 0; i < t1.splits.length; i++) {
-      if (t1.splits[i].amount != t2.splits[i].amount) return `splits[${i}].amount`;
-      if ((t1.splits[i].budget || '') != (t2.splits[i].budget || '')) return `splits[${i}].budget`;
-      if ((t1.splits[i].description || '') != (t2.splits[i].description || '')) return `splits[${i}].description`;
+      if (t1.splits[i].amount != t2.splits[i].amount) {
+        return `splits[${i}].amount`;
+      }
+      if ((t1.splits[i].budget || '') != (t2.splits[i].budget || '')) {
+        return `splits[${i}].budget`;
+      }
+      if ((t1.splits[i].description || '') != (t2.splits[i].description || '')) {
+        return `splits[${i}].description`;
+      }
     }
-    if (Date.parse(t1.date) != Date.parse(t2.date)) return `date`;
+    if (Date.parse(t1.date) != Date.parse(t2.date)) {
+      return `date`;
+    }
     return null;
   }
 });

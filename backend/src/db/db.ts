@@ -1,18 +1,19 @@
 // temporary code to have typescript recognize this file as a module
-export { };
+export {};
 
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 
 const protocol = 'mongodb';
 let hostName = 'mongo';
 const port = 27017;
 const dbName = 'budget';
-import { debug } from '../log';
+import {debug} from '../log';
 
 const connectionRetryDelay = 1000;
 let isConnected = false;
-let promiseRes = () => { };
+let promiseRes = () => {
+};
 
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
@@ -31,12 +32,14 @@ db.on('error', function () {
 });
 
 function connectToDbWithRetry(optionalHostName) {
-  if (isConnected) return Promise.resolve();
+  if (isConnected) {
+    return Promise.resolve();
+  }
   hostName = optionalHostName || hostName;
 
   debug('DB', 'Attempting to connect to mongodb');
 
-  return new Promise((res, rej) => {
+  return new Promise((res) => {
     promiseRes = res;
     mongoose.connect(getUrl());
   });

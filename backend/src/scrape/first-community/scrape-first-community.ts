@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
-const process = require('process');
+import * as process from 'process';
+
 var ofx = require('ofx');
 const fileDownloader = require('../file-downloader');
 const ofxParser = require('../ofx-parser');
@@ -21,10 +22,10 @@ async function downloadTransactions() {
   log("Opening a new tab");
   let page = await browser.newPage();
 
-  log("Navigating to first community"); 
+  log("Navigating to first community");
   await page.goto('https://www.firstcommunity.com/home.html');
-  
-  log("Login: Entering username"); 
+
+  log("Login: Entering username");
   await page.type('#username', process.env.BUDGET_FCCU_USERNAME);
   log("Login: Entering password");
   await page.type('#password', process.env.BUDGET_FCCU_PASSWORD);
@@ -39,7 +40,7 @@ async function downloadTransactions() {
 
   try {
     log("MFA: Checking if multi-factor authentication was triggered");
-    await page.waitForSelector('.mfa-destination-button-container .btn', { timeout: 5000 });
+    await page.waitForSelector('.mfa-destination-button-container .btn', {timeout: 5000});
 
     log("MFA: Multi-factor authentication was triggered. Clicking the SMS button");
     await page.click('.mfa-destination-button-container .btn');
@@ -50,7 +51,7 @@ async function downloadTransactions() {
 
     try {
       log('MFA: Checking for code input field');
-      await page.waitForSelector('#mfaCodeInputField', { timeout: 1000 });
+      await page.waitForSelector('#mfaCodeInputField', {timeout: 1000});
       log('MFA: Found the code input field');
     } catch (e) {
       log('MFA: Failed to find the code input field. Maybe we took too long. Restarting from the beginning');
@@ -60,7 +61,7 @@ async function downloadTransactions() {
 
     log('MFA: Typing in the code');
     await page.type('#mfaCodeInputField', mfaCode);
-    
+
     log('MFA: Clicking the submit button for the code');
     await page.click('.mfa-button-container .btn');
   } catch (e) {
@@ -88,10 +89,10 @@ async function downloadTransactions() {
   log("Opening a new tab");
   page = await browser.newPage();
 
-  log("Navigating to first community"); 
+  log("Navigating to first community");
   await page.goto('https://www.firstcommunity.com/home.html');
-  
-  log("Login: Entering username"); 
+
+  log("Login: Entering username");
   await page.type('#username', process.env.BUDGET_FCCU_USERNAME);
   log("Login: Entering password");
   await page.type('#password', process.env.BUDGET_FCCU_PASSWORD);
@@ -106,7 +107,7 @@ async function downloadTransactions() {
 
   try {
     log("MFA: Checking if multi-factor authentication was triggered");
-    await page.waitForSelector('.mfa-destination-button-container .btn', { timeout: 5000 });
+    await page.waitForSelector('.mfa-destination-button-container .btn', {timeout: 5000});
 
     log("MFA: Multi-factor authentication was triggered. Clicking the SMS button");
   } catch (e) {
@@ -153,7 +154,7 @@ async function downloadTransactions() {
 
   // const transactions = parseOfx(downloadedThing);
   // console.dir(transactions);
-};
+}
 
 function log(msg) {
   console.log(`${new Date()}: Scrape First Community: ${msg}`);
@@ -162,8 +163,8 @@ function log(msg) {
 function download(page, url) {
   return page.evaluate((urlForPuppeteer) => {
     return fetch(urlForPuppeteer, {
-        method: 'GET',
-        credentials: 'include'
+      method: 'GET',
+      credentials: 'include'
     }).then(r => {
       return r.text();
     });

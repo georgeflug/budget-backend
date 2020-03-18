@@ -17,8 +17,8 @@ function watchForFileAndDownloadIt(resolve, reject) {
       watcher.close();
       setTimeout(() => {
         downloadFile(fileName)
-          .then(file => resolve(file))
-          .catch(e => reject(e));
+            .then(file => resolve(file))
+            .catch(e => reject(e));
       }, 1000);
     }
   });
@@ -30,7 +30,7 @@ function isTemporaryChromeFile(fileName) {
 }
 
 async function downloadFile(fileName) {
-  const path = downloadsFolder + '/' + fileName; 
+  const path = downloadsFolder + '/' + fileName;
   const rawFile = await fsp.readFile(path, 'utf8');
   await fsp.unlink(path);
   return rawFile.toString('utf8');

@@ -1,5 +1,6 @@
-const downloadTransactions = require('../plaid/transaction/download-transactions');
-const adaptTransactions = require('../plaid/transaction/adapt-transactions');
+import {downloadTransactions} from '../plaid/transaction/download-transactions';
+import {adaptTransactions} from '../plaid/transaction/adapt-transactions';
+
 const saveTransactions = require('../plaid/transaction/save-transactions');
 
 async function doThings() {

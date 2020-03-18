@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "compile": "tsc",
     "start": "docker-compose up --build",
     "startBackground": "docker-compose up --build --detach",
     "startTest": "npm run test",

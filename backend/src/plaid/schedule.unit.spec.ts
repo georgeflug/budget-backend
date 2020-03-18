@@ -1,5 +1,5 @@
 // temporary code to have typescript recognize this file as a module
-export { };
+export {};
 
 const expect = require('chai').expect;
 const downloader = require('./index');
@@ -14,7 +14,7 @@ describe('Schedule', () => {
   const MILLIS_PER_HOUR = 1000 * 60 * 60;
 
   const originalDownloadMethod = downloader.saveLatestTransactionsToDb;
-  const originalSetTimeout = setTimeout;
+  // const originalSetTimeout = setTimeout;
 
   let setTimeoutFunctions: any[] = [];
   let setTimeoutMillis: any[] = [];
@@ -34,7 +34,7 @@ describe('Schedule', () => {
     downloader.saveLatestTransactionsToDb = originalDownloadMethod;
     setTimeoutFunctions = [];
     setTimeoutMillis = [];
-  })
+  });
 
   it('sets the initial run at 6:00 pm today when started before 6:00 pm', async () => {
     const todayBefore6 = moment().hour(17).minute(0).second(0).millisecond(0);

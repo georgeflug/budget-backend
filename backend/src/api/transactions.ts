@@ -1,48 +1,49 @@
 // temporary code to have typescript recognize this file as a module
-export { };
+export {};
 
 var express = require('express');
 var router = express.Router();
-import { Transaction, TransactionDbModel } from '../db/transaction';
+import {TransactionDbModel} from '../db/transaction';
+
 const moment = require('moment');
 
 router.route('/transactions')
-  .post(function (req, res, next) {
-    var transaction = new TransactionDbModel(req.body);
-    verifySplits(transaction);
-    transaction.save(function (err) {
-      returnTheThing(res, err, transaction);
+    .post(function (req, res) {
+      var transaction = new TransactionDbModel(req.body);
+      verifySplits(transaction);
+      transaction.save(function (err) {
+        returnTheThing(res, err, transaction);
+      });
+    })
+    .get(function (req, res) {
+      const query = req.query.startingAt ? {updatedAt: {$gt: moment(req.query.startingAt).toDate()}} : {};
+      TransactionDbModel.find(query, function (err, transactions) {
+        returnTheThing(res, err, transactions);
+      });
     });
-  })
-  .get(function (req, res, next) {
-    const query = req.query.startingAt ? { updatedAt: { $gt: moment(req.query.startingAt).toDate() } } : {};
-    TransactionDbModel.find(query, function (err, transactions) {
-      returnTheThing(res, err, transactions);
-    });
-  });
 
 router.route('/transactions/:id')
-  .get(function (req, res, next) {
-    TransactionDbModel.findById(req.params.id, function (err, transaction) {
-      returnTheThing(res, err, transaction);
+    .get(function (req, res) {
+      TransactionDbModel.findById(req.params.id, function (err, transaction) {
+        returnTheThing(res, err, transaction);
+      });
+    })
+    .put(function (req, res) {
+      var transaction = new TransactionDbModel(req.body);
+      verifySplits(transaction);
+      TransactionDbModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, dbTransaction) {
+        returnTheThing(res, err, dbTransaction);
+      });
+    })
+    .delete(function (req, res) {
+      TransactionDbModel.remove({_id: req.params.id}, function (err) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.status(204).send('');
+        }
+      });
     });
-  })
-  .put(function (req, res, next) {
-    var transaction = new TransactionDbModel(req.body);
-    verifySplits(transaction);
-    TransactionDbModel.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, transaction) {
-      returnTheThing(res, err, transaction);
-    });
-  })
-  .delete(function (req, res, next) {
-    TransactionDbModel.remove({ _id: req.params.id }, function (err) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.status(204).send('');
-      }
-    });
-  });
 
 function verifySplits(transaction) {
   var totalSplits = transaction.splits.reduce((total, currentSplit) => total + currentSplit.amount, 0);

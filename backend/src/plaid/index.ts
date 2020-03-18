@@ -1,14 +1,14 @@
 // temporary code to have typescript recognize this file as a module
-export { };
+export {};
 
-import { downloadTransactions } from './transaction/download-transactions';
-import { saveRawTransactions } from './transaction/save-raw-transactions';
+import {downloadTransactions} from './transaction/download-transactions';
+import {saveRawTransactions} from './transaction/save-raw-transactions';
 
-import { adaptTransactions } from './transaction/adapt-transactions';
-import { saveTransactions } from './transaction/save-transactions';
-import { downloadBalances } from './balance/download-balances';
-import { saveBalances } from './balance/save-balances';
-import { debug } from '../log';
+import {adaptTransactions} from './transaction/adapt-transactions';
+import {saveTransactions} from './transaction/save-transactions';
+import {downloadBalances} from './balance/download-balances';
+import {saveBalances} from './balance/save-balances';
+import {debug} from '../log';
 
 async function saveLatestTransactionsToDb() {
   debug('Transaction Download', 'start');
@@ -17,7 +17,7 @@ async function saveLatestTransactionsToDb() {
   const plaidTransactions = await downloadTransactions();
   await saveRawTransactions(plaidTransactions);
 
-  const transactions = await adaptTransactions(plaidTransactions);
+  const transactions = adaptTransactions(plaidTransactions);
   const results: any = await saveTransactions(transactions);
 
   const transactionDownloadedTime = Date.now();
@@ -33,9 +33,8 @@ async function saveLatestTransactionsToDb() {
   debug('Transaction Download', `finished. ${JSON.stringify(results)}`);
   results.balances = balances; // don't log balances
   return results;
-};
+}
 
 module.exports = {
   saveLatestTransactionsToDb: saveLatestTransactionsToDb
-}
-
+};
