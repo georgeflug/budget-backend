@@ -4,12 +4,11 @@ const downloader = require('../plaid/index');
 import {error} from '../log';
 
 router.route('/refresh')
-    .post(function (req, res) {
-      downloader.saveLatestTransactionsToDb().then(val => res.json(val))
-          .catch(ex => {
-            error("REFRESH", "Could not refresh transactions", ex);
-            res.json({
-              "error": ex.stack || ex
-            });
-          });
+    .post(async function (req, res) {
+      try {
+        res.json(await downloader.saveLatestTransactionsToDb());
+      } catch (e) {
+        error("REFRESH", "Could not refresh transactions", e);
+        throw e;
+      }
     });
