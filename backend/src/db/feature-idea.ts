@@ -5,6 +5,8 @@ export interface FeatureIdea extends mongoose.Document {
   description: string
 }
 
+export type DbFeatureIdea = FeatureIdea & mongoose.Document;
+
 var FeatureIdeaSchema = new mongoose.Schema({
   date: {
     type: Date,
@@ -13,4 +15,4 @@ var FeatureIdeaSchema = new mongoose.Schema({
   description: String,
 });
 
-export const FeatureIdeaDbModel = mongoose.model('FeatureIdea', FeatureIdeaSchema);
+export const FeatureIdeaDbModel = mongoose.model<DbFeatureIdea>('FeatureIdea', FeatureIdeaSchema);

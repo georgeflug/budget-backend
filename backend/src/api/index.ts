@@ -21,7 +21,7 @@ export function initExpress() {
 
   require('./status').init(app);
   app.use(require('./auth'));
-  app.use(require('./feature-idea').router);
+  app.use(require('./feature-idea/feature-idea-controller').router);
   app.use(require('./transactions').router);
   app.use(require('./scrape-mfa').router);
   app.use(require('./plaid').router);
