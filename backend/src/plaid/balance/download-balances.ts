@@ -1,12 +1,13 @@
 import {plaidClient} from '../client';
 import {Balance} from "../../db/balance";
+import {bankAccounts} from "../bankAccounts";
 
 const moment = require('moment');
 
 export async function downloadBalances(): Promise<Balance[]> {
-  const discoverBalances = await getBalance(process.env.DISCOVER_ACCESS_KEY);
-  const fccuBalances = await getBalance(process.env.FCCU_ACCESS_KEY);
-  return discoverBalances.concat(fccuBalances);
+  const downloadAllBalances = bankAccounts.map(account => getBalance(account.accessKey));
+  const allBalances = await Promise.all(downloadAllBalances);
+  return allBalances.flat();
 }
 
 async function getBalance(accessKey): Promise<Balance[]> {
