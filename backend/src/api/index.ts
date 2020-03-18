@@ -26,7 +26,7 @@ export function initExpress() {
   app.use(require('./scrape-mfa').router);
   app.use(require('./plaid').router);
   app.use(require('./refresh').router);
-  app.use(require('./balances').router);
+  app.use(require('./balance/balance-controller').router);
   app.use(require('../check-accounts-controller').router);
   app.use(require('./raw-plaid').router);
 
