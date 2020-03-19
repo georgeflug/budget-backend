@@ -57,7 +57,6 @@ class BudgetSelector : FlexboxLayout {
         val paddingPixelsYTwoLines = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, context.resources.displayMetrics).toInt()
 
         Budget.values()
-                .filter { budget -> !budget.isAutomatic }
                 .sortedBy { budget -> budget.title }
                 .forEach { budget ->
                     val icon = ContextCompat.getDrawable(context, budget.iconId)
