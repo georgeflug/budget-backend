@@ -12,7 +12,7 @@ class MonthRollup(private val month: LocalDate) {
     private val budgetMap = HashMap<Budget, MonthCategoryRollup>()
     val budgets
         get() = budgetMap.values
-    private val monthCount = Period.between(DateUtil.firstDay, month).toTotalMonths() + 1
+    private val monthCount = (Period.between(DateUtil.firstDay, month).toTotalMonths() + 1).toInt()
 
     init {
         Budget.values().forEach {
