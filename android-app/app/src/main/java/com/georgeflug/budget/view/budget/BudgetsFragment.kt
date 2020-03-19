@@ -3,13 +3,13 @@ package com.georgeflug.budget.view.budget
 import android.app.Fragment
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.TabLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.georgeflug.budget.R
 import com.georgeflug.budget.view.budget.tabmodel.BudgetTabModel
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_budgets.*
 import java.time.LocalDate
 

@@ -3,7 +3,6 @@ package com.georgeflug.budget.view.transaction.edit
 import android.app.DatePickerDialog
 import android.app.Fragment
 import android.os.Bundle
-import android.support.annotation.IdRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.IdRes
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction

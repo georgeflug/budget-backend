@@ -3,7 +3,7 @@ package com.georgeflug.budget.dailyreminder
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import com.georgeflug.budget.R
 import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.Budget

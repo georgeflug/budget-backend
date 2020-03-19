@@ -3,7 +3,7 @@ package com.georgeflug.budget.logging
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.georgeflug.budget.R
 import kotlinx.android.synthetic.main.dialog_logs.*
 

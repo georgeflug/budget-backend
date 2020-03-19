@@ -1,6 +1,6 @@
 package com.georgeflug.budget.model
 
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import com.georgeflug.budget.R
 
 enum class Budget(

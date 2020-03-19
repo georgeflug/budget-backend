@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    >
+    android:padding="16dp">
 
     <CheckBox
         android:id="@+id/reminderCheckBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enable daily reminder"
-        />
+        android:text="Enable daily reminder" />
 
     <TimePicker
         android:id="@+id/reminderTimePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        />
+        android:layout_marginTop="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        >
+        android:layout_marginTop="8dp">
 
         <Button
             android:id="@+id/reminderCancelButton"
@@ -38,14 +33,12 @@
             android:text="Cancel"
             app:layout_constraintEnd_toStartOf="@id/suggestFeatureSubmitButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/featureDescription"
-            />
+            app:layout_constraintTop_toBottomOf="@id/featureDescription" />
 
-        <android.support.v4.widget.Space
+        <androidx.legacy.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="0.25"
-            />
+            android:layout_weight="0.25" />
 
         <Button
             android:id="@+id/reminderSubmitButton"
@@ -56,8 +49,7 @@
             android:text="Save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/suggestFeatureCancelButton"
-            app:layout_constraintTop_toTopOf="@id/suggestFeatureCancelButton"
-            />
+            app:layout_constraintTop_toTopOf="@id/suggestFeatureCancelButton" />
 
     </LinearLayout>
 

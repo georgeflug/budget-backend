@@ -5,14 +5,12 @@ import android.app.Fragment
 import android.app.FragmentManager
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
-import android.support.design.internal.BottomNavigationMenuView
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import com.georgeflug.budget.R
 import com.georgeflug.budget.logging.LogActivity
 import com.georgeflug.budget.service.PersistedTransactionService
@@ -22,6 +20,8 @@ import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
 import com.georgeflug.budget.view.reminder.ReminderDialog
 import com.georgeflug.budget.view.transaction.add.AddTransactionFragment
 import com.georgeflug.budget.view.transaction.list.TransactionListFragment
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeRedTransactionBadge() {
         val menuView = bottomNav.getChildAt(0) as BottomNavigationMenuView
-        val iconView = menuView.getChildAt(1).findViewById<View>(android.support.design.R.id.icon)
+        val iconView = menuView.getChildAt(1).findViewById<View>(com.google.android.material.R.id.icon)
         val layoutParams = iconView.layoutParams
         val displayMetrics = resources.displayMetrics
         layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48f, displayMetrics).toInt()

@@ -5,7 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import timber.log.Timber
 import java.time.Duration
 import java.time.LocalTime

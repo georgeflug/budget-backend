@@ -1,13 +1,13 @@
 package com.georgeflug.budget.view.budgetselector
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.CheckBox
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Budget
 import com.google.android.flexbox.FlexWrap
