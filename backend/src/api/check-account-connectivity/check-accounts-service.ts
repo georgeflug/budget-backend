@@ -11,8 +11,8 @@ async function checkAccount(account: BankAccount): Promise<CheckAccountResult> {
   const status = await getAccountStatus(account);
   return {
     accountName: account.name,
-    linkToken: account.name === 'Discover' ? (await getLinkToken(account)) : '',
-    status: account.name === 'Discover' ? CheckAccountStatus.NeedsLogin : status
+    linkToken: status == CheckAccountStatus.NeedsLogin ? (await getLinkToken(account)) : '',
+    status
   };
 }
 
