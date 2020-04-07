@@ -5,6 +5,7 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.georgeflug.budget.R
+import com.georgeflug.budget.plaidlink.AccountChecker
 import kotlinx.android.synthetic.main.activity_splash.*
 
 /**
@@ -53,6 +54,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mVisible = true
+        AccountChecker().checkAccounts(this)
 
         // Set up the user interaction to manually show or hide the system UI.
 //        fullscreen_content.setOnClickListener { toggle() }

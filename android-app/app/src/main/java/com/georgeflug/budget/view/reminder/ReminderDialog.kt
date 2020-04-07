@@ -17,7 +17,7 @@ class ReminderDialog(context: Context) : Dialog(context) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_reminder)
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
 
         reminderCheckBox.setOnCheckedChangeListener { _, isChecked -> reminderTimePicker.isEnabled = isChecked }
         reminderCancelButton.setOnClickListener { dismiss() }

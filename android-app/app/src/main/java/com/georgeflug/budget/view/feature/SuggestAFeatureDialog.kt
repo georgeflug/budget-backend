@@ -22,7 +22,7 @@ class SuggestAFeatureDialog(context: Context) : Dialog(context) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_suggest_feature)
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
 
         suggestFeatureCancelButton.setOnClickListener {
             dismiss()

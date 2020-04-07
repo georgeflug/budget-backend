@@ -18,7 +18,7 @@ class EnterDescriptionFragment : Fragment() {
     var description: String = ""
     var isSuccess = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_enter_description, container, false)
     }
 
@@ -46,7 +46,7 @@ class EnterDescriptionFragment : Fragment() {
 
     private fun hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+        imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
     }
 
 }

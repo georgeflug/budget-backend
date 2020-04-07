@@ -37,6 +37,10 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <meta-data
+            android:name="com.plaid.link.public_key"
+            android:value="706d520929cb400a9d273d98946d23" />
     </application>
 
 </manifest>

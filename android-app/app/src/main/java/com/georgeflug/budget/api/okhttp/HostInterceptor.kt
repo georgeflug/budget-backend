@@ -13,7 +13,7 @@ class HostInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestWithNewHost = chain.request()
                 .newBuilder()
-                .url(getNewUrl(chain.request().url()))
+                .url(getNewUrl(chain.request().url))
                 .build()
 
         return chain.proceed(requestWithNewHost)

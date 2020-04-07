@@ -14,7 +14,7 @@ object BudgetApi {
     private val objectMapper = ObjectMapper().registerKotlinModule()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
-    private val retrofit = Retrofit.Builder()
+    val retrofit = Retrofit.Builder()
             .client(CustomClient().createClient())
             .baseUrl("https://thisWillBeReplacedByHostInterceptor")
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))

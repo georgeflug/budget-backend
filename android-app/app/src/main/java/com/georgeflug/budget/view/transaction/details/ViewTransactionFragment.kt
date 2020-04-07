@@ -29,7 +29,7 @@ class ViewTransactionFragment : Fragment() {
 
         val bundle = this.arguments
         if (bundle != null) {
-            transaction = bundle.getParcelable(TRANSACTION_BUNDLE_KEY)
+            transaction = bundle.getParcelable(TRANSACTION_BUNDLE_KEY)!!
         }
     }
 
