@@ -1,9 +1,7 @@
-import {CheckAccountResult, CheckAccountStatus} from "./check-account-result";
-import {
-  downloadTransactionsForAccount
-} from "../../plaid/transaction/download-transactions";
-import {getLinkToken} from "../../plaid/link-tokens";
-import {BankAccount, bankAccounts} from "../../plaid/bankAccounts";
+import { CheckAccountResult, CheckAccountStatus } from "./check-account-result";
+import { downloadTransactionsForAccount } from "../../plaid/transaction/download-transactions";
+import { getLinkToken } from "../../plaid/link-tokens";
+import { BankAccount, bankAccounts } from "../../plaid/bankAccounts";
 
 export function checkAccounts(): Promise<CheckAccountResult[]> {
   return Promise.all(bankAccounts.map(account => checkAccount(account)));
@@ -14,7 +12,7 @@ async function checkAccount(account: BankAccount): Promise<CheckAccountResult> {
   return {
     accountName: account.name,
     linkToken: account.name === 'Discover' ? (await getLinkToken(account)) : '',
-    status
+    status: account.name === 'Discover' ? CheckAccountStatus.NeedsLogin : status
   };
 }
 
