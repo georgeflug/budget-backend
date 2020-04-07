@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.georgeflug.budget.R
 import com.georgeflug.budget.logging.LogActivity
 import com.georgeflug.budget.service.PersistedTransactionService
-import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.view.budget.BudgetsFragment
 import com.georgeflug.budget.view.feature.SuggestAFeatureDialog
 import com.georgeflug.budget.view.reminder.ReminderDialog
@@ -64,7 +63,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        TransactionService.downloadTransactions()
 
         MainActivity.fragmentManager = fragmentManager
 
