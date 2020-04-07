@@ -6,8 +6,8 @@
   "scripts": {
     "compile": "tsc",
     "start": "docker-compose up --build",
-    "restartServer": "docker-compose down && docker-compose up --build --detach",
-    "startBackground": "docker-compose up --build --detach",
+    "serverRestart": "docker-compose down && docker-compose up --build --detach",
+    "serverLogs": "docker logs -f budget-backend",
     "startTest": "npm run test",
     "startIntegration": "docker-compose --file docker-compose-integration.yml up --build",
     "startDebug": "docker-compose --file docker-compose-integration.yml up --build",
