@@ -1,7 +1,7 @@
 export enum CheckAccountStatus {
-  Connected,
-  NeedsLogin,
-  UnknownError
+  Connected = "Connected",
+  NeedsLogin = "NeedsLogin",
+  UnknownError = "UnknownError"
 }
 
 export interface CheckAccountResult {
