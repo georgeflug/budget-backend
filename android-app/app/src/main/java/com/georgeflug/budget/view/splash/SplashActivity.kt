@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.georgeflug.budget.R
+import com.georgeflug.budget.notification.NotificationService
 import com.georgeflug.budget.plaidlink.AccountChecker
 import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.view.main.MainActivity
@@ -59,6 +60,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mVisible = true
+        NotificationService().registerApp(this)
         AccountChecker().checkAccounts(this)
         TransactionService.downloadTransactions()
         var subscription: Disposable? = null

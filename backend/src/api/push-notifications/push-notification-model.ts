@@ -10,6 +10,6 @@ export type PushNotificationTestModel = {
 }
 
 export enum Owner {
-  Richie,
-  Stef
+  Richie = 'Richie',
+  Stef = 'Stef'
 }
