@@ -5,6 +5,7 @@ export type PushNotificationRegistrationModel = {
 
 export type PushNotificationTestModel = {
   registrationToken: string
+  title: string
   message: string
 }
 

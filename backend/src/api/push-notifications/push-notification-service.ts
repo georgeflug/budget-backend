@@ -5,5 +5,5 @@ export async function registerNotification(body: PushNotificationRegistrationMod
 }
 
 export async function testNotification(body: PushNotificationTestModel) {
-  await sendNotification(body.registrationToken, body.message);
+  await sendNotification(body.registrationToken, body.title, body.message);
 }
