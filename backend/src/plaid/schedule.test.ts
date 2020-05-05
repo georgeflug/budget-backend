@@ -1,14 +1,9 @@
 // temporary code to have typescript recognize this file as a module
 export {};
 
-const expect = require('chai').expect;
 const downloader = require('./index');
 const scheduler = require('./schedule');
 const moment = require('moment');
-
-var chai = require('chai');
-var chaiSubset = require('chai-subset');
-chai.use(chaiSubset);
 
 describe('Schedule', () => {
   const MILLIS_PER_HOUR = 1000 * 60 * 60;
@@ -41,8 +36,8 @@ describe('Schedule', () => {
 
     scheduler.startScheduler(() => todayBefore6.clone(), scheduleLater);
 
-    expect(setTimeoutMillis.length).to.equal(1);
-    expect(setTimeoutMillis[0]).to.equal(MILLIS_PER_HOUR);
+    expect(setTimeoutMillis.length).toEqual(1);
+    expect(setTimeoutMillis[0]).toEqual(MILLIS_PER_HOUR);
   });
 
   it('sets the initial run at 6:00 pm tomorrow when started after 6:00 pm', async () => {
@@ -50,18 +45,18 @@ describe('Schedule', () => {
 
     scheduler.startScheduler(() => todayAfter6.clone(), scheduleLater);
 
-    expect(setTimeoutMillis.length).to.equal(1);
-    expect(setTimeoutMillis[0]).to.equal(MILLIS_PER_HOUR * 23);
+    expect(setTimeoutMillis.length).toEqual(1);
+    expect(setTimeoutMillis[0]).toEqual(MILLIS_PER_HOUR * 23);
   });
 
   it('downloads the transactions when the scheduler runs', async () => {
     const todayBefore6 = moment().hour(17).minute(0).second(0).millisecond(0);
 
     scheduler.startScheduler(() => todayBefore6.clone(), scheduleLater);
-    expect(downloadTransactionCount).to.equal(0);
+    expect(downloadTransactionCount).toEqual(0);
 
     setTimeoutFunctions[0]();
-    expect(downloadTransactionCount).to.equal(1);
+    expect(downloadTransactionCount).toEqual(1);
   });
 
   it('sets the second run at 6:00 pm tomorrow', async () => {
@@ -70,8 +65,8 @@ describe('Schedule', () => {
     scheduler.startScheduler(() => todayBefore6.clone(), scheduleLater);
     await setTimeoutFunctions[0]();
 
-    expect(setTimeoutMillis.length).to.equal(2);
-    expect(setTimeoutMillis[1]).to.equal(MILLIS_PER_HOUR * 25);
+    expect(setTimeoutMillis.length).toEqual(2);
+    expect(setTimeoutMillis[1]).toEqual(MILLIS_PER_HOUR * 25);
   });
 
 });

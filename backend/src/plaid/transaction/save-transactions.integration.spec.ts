@@ -4,14 +4,7 @@ import { Transaction, TransactionSplit } from "../../transaction/transaction-mod
 import { parseISO } from "date-fns";
 import { clearTransactions } from "../../transaction/transaction-test-util";
 
-const expect = require("chai").expect;
 const db = require("../../db/mongo");
-
-const fail = require("assert").fail;
-
-var chai = require("chai");
-var chaiSubset = require("chai-subset");
-chai.use(chaiSubset);
 
 describe("Plaid", () => {
 
@@ -26,7 +19,7 @@ describe("Plaid", () => {
     splits: [createValidSplit({ amount: 999888777666 })]
   });
 
-  before(async function() {
+  beforeAll(async function() {
     this.timeout(15000);
     await db.connectToDbWithRetry();
   });
@@ -37,17 +30,17 @@ describe("Plaid", () => {
 
   it("create transaction if it does not exist", async () => {
     const quickTest = await repository.findTransactionByPlaidId(newTransaction.plaidId);
-    expect(quickTest).to.be.null;
+    expect(quickTest).toBeNull();
 
     const metrics = await saveTransactions([newTransaction]);
 
     const actual = await repository.findTransactionByPlaidId(newTransaction.plaidId);
 
-    expect(actual).to.not.be.null;
+    expect(actual).not.toBeNull();
     compareTransactions(actual, newTransaction);
-    expect(metrics.newRecords).to.equal(1, "newRecords");
-    expect(metrics.updatedRecords).to.equal(0, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(1);
+    expect(metrics.updatedRecords).toEqual(0);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
   it("edit existing transaction if new one has the same plaidId", async () => {
@@ -75,9 +68,9 @@ describe("Plaid", () => {
     const actual = await repository.findTransactionByPlaidId(newTransaction.plaidId);
 
     compareTransactions(actual, expectedTransaction);
-    expect(metrics.newRecords).to.equal(0, "newRecords");
-    expect(metrics.updatedRecords).to.equal(1, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(0);
+    expect(metrics.updatedRecords).toEqual(1);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
   it("edit existing transaction does not clobber user-entered data (budget and description) even if amount changed", async () => {
@@ -114,9 +107,9 @@ describe("Plaid", () => {
     const actual = await repository.findTransactionByPlaidId(newTransaction.plaidId);
 
     compareTransactions(actual, expectedTransaction);
-    expect(metrics.newRecords).to.equal(0, "newRecords");
-    expect(metrics.updatedRecords).to.equal(1, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(0);
+    expect(metrics.updatedRecords).toEqual(1);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
   it("edit existing transaction if new one matches the amount on a manually entered one that has not been matched yet", async () => {
@@ -146,9 +139,9 @@ describe("Plaid", () => {
     const actual = await repository.findTransactionByPlaidId(newTransaction.plaidId);
 
     compareTransactions(actual, expectedTransaction);
-    expect(metrics.newRecords).to.equal(0, "newRecords");
-    expect(metrics.updatedRecords).to.equal(1, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(0);
+    expect(metrics.updatedRecords).toEqual(1);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
 
@@ -183,9 +176,9 @@ describe("Plaid", () => {
     const actual = await repository.findTransactionByPlaidId(newTransaction.plaidId);
 
     compareTransactions(actual, newTransaction);
-    expect(metrics.newRecords).to.equal(1, "newRecords");
-    expect(metrics.updatedRecords).to.equal(0, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(1);
+    expect(metrics.updatedRecords).toEqual(0);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
 
@@ -215,9 +208,9 @@ describe("Plaid", () => {
     const actual = await repository.findTransactionByPlaidId(newTransaction2.plaidId);
 
     compareTransactions(actual, expectedTransaction);
-    expect(metrics.newRecords).to.equal(0, "newRecords");
-    expect(metrics.updatedRecords).to.equal(1, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(0);
+    expect(metrics.updatedRecords).toEqual(1);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
 
@@ -251,9 +244,9 @@ describe("Plaid", () => {
     const actual = await repository.findTransactionByPlaidId(newTransaction.plaidId);
 
     compareTransactions(actual, expectedTransaction);
-    expect(metrics.newRecords).to.equal(0, "newRecords");
-    expect(metrics.updatedRecords).to.equal(1, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(0);
+    expect(metrics.updatedRecords).toEqual(1);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
 
@@ -273,9 +266,9 @@ describe("Plaid", () => {
     const actual = await repository.findTransactionByPlaidId(newTransaction.plaidId);
 
     compareTransactions(actual, newTransaction);
-    expect(metrics.newRecords).to.equal(1, "newRecords");
-    expect(metrics.updatedRecords).to.equal(0, "updatedRecords");
-    expect(metrics.totalRecords).to.equal(1, "totalRecords");
+    expect(metrics.newRecords).toEqual(1);
+    expect(metrics.updatedRecords).toEqual(0);
+    expect(metrics.totalRecords).toEqual(1);
   });
 
   function compareTransactions(actualTransaction, expectedTransaction) {
