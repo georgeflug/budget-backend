@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
-
-export interface FeatureIdea extends mongoose.Document {
-  date: Date,
-  description: string
-}
+import { FeatureIdea } from "./feature-idea-model";
 
 export type DbFeatureIdea = FeatureIdea & mongoose.Document;
 
