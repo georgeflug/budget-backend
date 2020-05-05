@@ -130,7 +130,7 @@ sheetsData.forEach((row) => {
 //   proc.stdin.write(data); proc.stdin.end();
 // }
 
-require('../../db/db').connectToDbWithRetry().then(async function () {
+require('../../db/mongo').connectToDbWithRetry().then(async function () {
   const saveTransactions = require('../../plaid/transaction/save-transactions');
 
   console.log("Adapting transactions...");

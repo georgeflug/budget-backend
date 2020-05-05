@@ -5,7 +5,7 @@ const saveTransactions = require('../plaid/transaction/save-transactions');
 
 async function doThings() {
   console.log('Connecting to DB (start docker-compose first)');
-  require('../db/db').connectToDbWithRetry('localhost');
+  require('../db/mongo').connectToDbWithRetry('localhost');
   console.log("Downloading");
   const plaidTransactions = await downloadTransactions();
   console.log("Adapting");

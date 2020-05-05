@@ -5,7 +5,7 @@ import { parseISO } from "date-fns";
 import { clearTransactions } from "../../transaction/transaction-test-util";
 
 const expect = require("chai").expect;
-const db = require("../../db/db");
+const db = require("../../db/mongo");
 
 const fail = require("assert").fail;
 
