@@ -1,11 +1,5 @@
 import mongoose from 'mongoose';
-
-export interface Balance {
-  accountId: string,
-  balance: number,
-  date: Date,
-  name: string
-}
+import { Balance } from "./balance-model";
 
 export type DbBalance = Balance & mongoose.Document
 

@@ -1,5 +1,5 @@
 import {plaidClient} from '../client';
-import {Balance} from "../../db/balance";
+import {Balance} from "../../balance/balance-model";
 import {bankAccounts} from "../bankAccounts";
 
 const moment = require('moment');
