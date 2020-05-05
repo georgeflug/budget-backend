@@ -1,14 +1,15 @@
-import {TransactionDbModel} from '../../db/transaction';
+import * as repository from "../../transaction/transaction-repository";
+import { Transaction } from "../../transaction/transaction-model";
 
-const moment = require('moment');
+const moment = require("moment");
 
 export async function saveTransactions(transactions) {
   const results = await Promise.all(transactions
-      .filter(t => !t.pending)
-      .map(saveTransaction)
+    .filter(t => !t.pending)
+    .map(saveTransaction)
   );
-  const existingCount = results.reduce((total: any, current: any) => total + (current.type === 'updated' ? 1 : 0), 0) as number;
-  const unchangedCount = results.reduce((total: any, current: any) => total + (current.type === 'unchanged' ? 1 : 0), 0) as number;
+  const existingCount = results.reduce((total: any, current: any) => total + (current.type === "updated" ? 1 : 0), 0) as number;
+  const unchangedCount = results.reduce((total: any, current: any) => total + (current.type === "unchanged" ? 1 : 0), 0) as number;
   const totalCount = transactions.length;
   const newRecords = totalCount - existingCount - unchangedCount;
 
@@ -25,64 +26,49 @@ async function saveTransaction(plaidTransaction) {
   if (existingTransaction) {
     if (isTransactionTheSame(plaidTransaction, existingTransaction)) {
       return {
-        type: 'unchanged',
+        type: "unchanged",
         transaction: existingTransaction
       };
     } else {
       return {
-        type: 'updated',
+        type: "updated",
         transaction: await updateExistingTransaction(plaidTransaction, existingTransaction)
       };
     }
   } else {
     return {
-      type: 'new',
-      transaction: await saveNewTransaction(plaidTransaction)
+      type: "new",
+      transaction: await repository.saveTransaction(plaidTransaction)
     };
   }
 }
 
 function isTransactionTheSame(plaidTransaction, existingTransaction) {
   return (
-      existingTransaction.postedDescription === plaidTransaction.postedDescription &&
-      existingTransaction.plaidId === plaidTransaction.plaidId &&
-      existingTransaction.account === plaidTransaction.account &&
-      existingTransaction.totalAmount === plaidTransaction.totalAmount &&
-      moment(existingTransaction.postedDate).isSame(plaidTransaction.postedDate)
+    existingTransaction.postedDescription === plaidTransaction.postedDescription &&
+    existingTransaction.plaidId === plaidTransaction.plaidId &&
+    existingTransaction.account === plaidTransaction.account &&
+    existingTransaction.totalAmount === plaidTransaction.totalAmount &&
+    moment(existingTransaction.postedDate).isSame(plaidTransaction.postedDate)
   );
 }
 
-async function findExistingTransaction(plaidTransaction) {
-  const existingTransaction = await TransactionDbModel.findOne({plaidId: plaidTransaction.plaidId}).exec();
+async function findExistingTransaction(plaidTransaction): Promise<Transaction | null> {
+  const existingTransaction = await repository.findTransactionByPlaidId(plaidTransaction.plaidId);
   if (existingTransaction) {
     return existingTransaction;
   }
   if (plaidTransaction.pendingPlaidId) {
-    const pendingTransaction = await TransactionDbModel.findOne({plaidId: plaidTransaction.pendingPlaidId}).exec();
+    const pendingTransaction = await repository.findTransactionByPlaidId(plaidTransaction.pendingPlaidId);
     if (pendingTransaction) {
       return pendingTransaction;
     }
   }
-  const replacedTransaction = await TransactionDbModel.findOne({
-    pending: true,
-    totalAmount: plaidTransaction.totalAmount,
-    postedDate: plaidTransaction.postedDate,
-    account: plaidTransaction.account
-  }).exec();
+  const replacedTransaction = await repository.findPendingTransaction(plaidTransaction.account, plaidTransaction.postedDate, plaidTransaction.totalAmount);
   if (replacedTransaction) {
     return replacedTransaction;
   }
-  const similarTransaction = await TransactionDbModel.findOne({account: null, totalAmount: plaidTransaction.totalAmount}).exec();
-  if (similarTransaction) {
-    if (Math.abs(moment(similarTransaction.date).diff(moment(plaidTransaction.postedDate), 'days')) <= 10) {
-      return similarTransaction;
-    }
-  }
   return null;
-}
-
-async function saveNewTransaction(plaidTransaction) {
-  return await (new TransactionDbModel(plaidTransaction)).save();
 }
 
 async function updateExistingTransaction(plaidTransaction, existingTransaction) {
@@ -102,7 +88,7 @@ async function updateTopLevelData(existingTransaction, plaidTransaction) {
   existingTransaction.totalAmount = plaidTransaction.totalAmount;
   existingTransaction.pending = plaidTransaction.pending;
   // save fields
-  return await existingTransaction.save();
+  return await repository.updateTransaction(existingTransaction);
 }
 
 async function updateSplits(existingTransaction, plaidTransaction) {
@@ -117,7 +103,7 @@ async function removeUncategorizedSplits(existingTransaction) {
       i--;
     }
   }
-  return await existingTransaction.save();
+  return await repository.updateTransaction(existingTransaction);
 }
 
 async function addSplitToEnsureTotalSum(existingTransaction, newTotal) {
@@ -127,5 +113,5 @@ async function addSplitToEnsureTotalSum(existingTransaction, newTotal) {
       amount: newTotal - splitTotal
     });
   }
-  return await existingTransaction.save();
+  return await repository.updateTransaction(existingTransaction);
 }

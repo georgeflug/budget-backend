@@ -1,22 +1,5 @@
 import mongoose from 'mongoose';
-
-export interface Transaction extends mongoose.Document {
-  plaidId: string,
-  date: Date,
-  totalAmount: number,
-  account: string,
-  postedDate: Date,
-  postedDescription: string,
-  updatedAt: Date,
-  pending: boolean,
-  splits: TransactionSplit[], // splits will have 1 item for un-split transactions
-}
-
-export interface TransactionSplit {
-  amount: number,
-  budget: string,
-  description: string,
-}
+import { Transaction } from "./transaction-model";
 
 const SplitTransactionSchema = new mongoose.Schema({
   amount: Number,
@@ -46,8 +29,10 @@ const TransactionSchema = new mongoose.Schema({
 });
 
 TransactionSchema.pre('save', function (next) {
-  (<Transaction>this).updatedAt = new Date();
+  (<DbTransaction>this).updatedAt = new Date();
   next();
 });
 
-export const TransactionDbModel = mongoose.model<Transaction>('Transaction', TransactionSchema);
+export type DbTransaction = Transaction & mongoose.Document;
+
+export const TransactionDbModel = mongoose.model<DbTransaction>('Transaction', TransactionSchema);
