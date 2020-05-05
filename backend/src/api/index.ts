@@ -27,7 +27,7 @@ export function initExpress() {
   app.use(require('./refresh').router);
   app.use(require('../balance/balance-controller').router);
   app.use(require('./check-account-connectivity/check-accounts-controller').router);
-  app.use(require('./raw-plaid').router);
+  app.use(require('../raw-plaid/raw-plaid-controller').router);
 
   https.createServer(serverOptions, app).listen(port);
 

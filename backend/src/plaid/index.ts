@@ -1,18 +1,18 @@
-import {downloadTransactions} from './transaction/download-transactions';
-import {saveRawTransactions} from './transaction/save-raw-transactions';
+import { downloadTransactions } from "./transaction/download-transactions";
 
-import {adaptTransactions} from './transaction/adapt-transactions';
-import {saveTransactions} from './transaction/save-transactions';
-import {downloadBalances} from './balance/download-balances';
-import {saveBalances} from './balance/save-balances';
-import {debug} from '../log';
+import { adaptTransactions } from "./transaction/adapt-transactions";
+import { saveTransactions } from "./transaction/save-transactions";
+import { downloadBalances } from "./balance/download-balances";
+import { saveBalances } from "./balance/save-balances";
+import { debug } from "../log";
+import { saveRawPlaid } from "../raw-plaid/raw-plaid-repository";
 
 export async function saveLatestTransactionsToDb() {
   debug('Transaction Download', 'start');
   const startTime = Date.now();
 
   const plaidTransactions = await downloadTransactions();
-  await saveRawTransactions(plaidTransactions);
+  await saveRawPlaid(plaidTransactions);
 
   const transactions = adaptTransactions(plaidTransactions);
   const results: any = await saveTransactions(transactions);
