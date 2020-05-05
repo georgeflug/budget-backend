@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { RawPlaid } from "./raw-plaid-model";
 
+export type DbRawPlaid = RawPlaid & mongoose.Document;
+
 const rawPlaidSchema = new mongoose.Schema({
   date: {
     type: Date,
@@ -9,4 +11,4 @@ const rawPlaidSchema = new mongoose.Schema({
   data: mongoose.Schema.Types.Mixed
 });
 
-export const RawPlaidDbModel = mongoose.model<RawPlaid>("RawPlaid", rawPlaidSchema);
+export const RawPlaidDbModel = mongoose.model<DbRawPlaid>("RawPlaid", rawPlaidSchema);
