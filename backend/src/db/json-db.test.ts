@@ -106,7 +106,7 @@ describe("JSON Database", () => {
 
     const promise = db.getRecord(1);
 
-    await expect(promise).rejects.toEqual(new Error("Record 1 does not exist"));
+    await expect(promise).rejects.toEqual(new Error("Record 1 does not exist."));
   });
 
   it("should throw an error when trying to modify a non-existent record", async () => {
@@ -114,7 +114,7 @@ describe("JSON Database", () => {
 
     const promise = db.updateRecord(1, 1, "doesNotMatter");
 
-    await expect(promise).rejects.toEqual(new Error("Record 1 does not exist"));
+    await expect(promise).rejects.toEqual(new Error("Record 1 does not exist."));
   });
 
   it("should modify an existing record's data", async () => {
@@ -159,7 +159,7 @@ describe("JSON Database", () => {
     await db.updateRecord(createdRecord.recordId, 1, "updated-data");
     const promise = db.updateRecord(createdRecord.recordId, 1, "updated-data");
 
-    await expect(promise).rejects.toEqual(new Error("Record 1 Version 1 has already been updated"));
+    await expect(promise).rejects.toEqual(new Error("Record 1 Version 1 has already been updated."));
   });
 
   it("should update a record twice", async () => {
@@ -172,6 +172,27 @@ describe("JSON Database", () => {
     expect(updatedRecord2.data).toEqual("updated-data2");
     expect(updatedRecord1.version).toEqual(2);
     expect(updatedRecord2.version).toEqual(3);
+  });
+
+  it("should retrieve an old version of a record", async () => {
+    const createdRecord = await db.createRecord("test-data");
+    await db.updateRecord(createdRecord.recordId, 1, "updated-data");
+
+    const v1 = await db.getArchivedRecord(createdRecord.recordId, 1);
+    const v2 = await db.getArchivedRecord(createdRecord.recordId, 2);
+
+    expect(v1.data).toEqual("test-data");
+    expect(v2.data).toEqual("updated-data");
+  });
+
+  it("should not list a record twice when record has multiple versions", async () => {
+    const createdRecord = await db.createRecord("test-data");
+    await db.updateRecord(createdRecord.recordId, 1, "updated-data");
+
+    const records = await db.listRecords();
+
+    expect(records.length).toEqual(1);
+    expect(records[0].data).toEqual('updated-data');
   });
 
 });
