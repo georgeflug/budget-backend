@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as Path from "path";
 import { DateUtil } from "../util/date-util";
 
-jest.mock('../util/date-util');
+jest.mock("../util/date-util");
 const mockedDateUtil = DateUtil as jest.Mocked<typeof DateUtil>;
 
 const dbPath = "tmp";
@@ -65,7 +65,7 @@ describe("JSON Database", () => {
 
     const record = await db.getRecord(1);
 
-    expect(record.data).toEqual('test-data');
+    expect(record.data).toEqual("test-data");
   });
 
   it("should return the record after creating it", async () => {
@@ -73,7 +73,7 @@ describe("JSON Database", () => {
 
     const record = await db.createRecord("test-data");
 
-    expect(record.data).toEqual('test-data');
+    expect(record.data).toEqual("test-data");
     expect(record.recordId).toEqual(1);
   });
 
@@ -91,12 +91,87 @@ describe("JSON Database", () => {
     expect(retrievedRecord.modifiedAt).toEqual(mockedDate);
   });
 
-  it("should return a version of the data after creating it", async () => {
+  it("should return the version of the data after creating it", async () => {
     // no arrange
 
-    const record = await db.createRecord("test-data");
+    const createdRecord = await db.createRecord("test-data");
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
 
-    expect(record.version).toEqual(1);
+    expect(createdRecord.version).toEqual(1);
+    expect(retrievedRecord.version).toEqual(1);
+  });
+
+  it("should throw an error when trying to retrieve a non-existent record", async () => {
+    // no arrange
+
+    const promise = db.getRecord(1);
+
+    await expect(promise).rejects.toEqual(new Error("Record 1 does not exist"));
+  });
+
+  it("should throw an error when trying to modify a non-existent record", async () => {
+    // no arrange
+
+    const promise = db.updateRecord(1, 1, "doesNotMatter");
+
+    await expect(promise).rejects.toEqual(new Error("Record 1 does not exist"));
+  });
+
+  it("should modify an existing record's data", async () => {
+    const createdRecord = await db.createRecord("test-data");
+
+    const updatedRecord = await db.updateRecord(createdRecord.recordId, 1, "updated-data");
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
+
+    expect(updatedRecord.data).toEqual("updated-data");
+    expect(retrievedRecord.data).toEqual("updated-data");
+  });
+
+  it("should update a record's modifiedAt field, but not createdAt, when updating a record", async () => {
+    const mockedDate = new Date(123456);
+    mockedDateUtil.now.mockReturnValueOnce(mockedDate);
+    const createdRecord = await db.createRecord("test-data");
+    const mockedDate2 = new Date(789012);
+    mockedDateUtil.now.mockReturnValueOnce(mockedDate2);
+
+    const updatedRecord = await db.updateRecord(createdRecord.recordId, 1, "updated-data");
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
+
+    expect(updatedRecord.modifiedAt).toEqual(mockedDate2);
+    expect(retrievedRecord.modifiedAt).toEqual(mockedDate2);
+    expect(updatedRecord.createdAt).toEqual(mockedDate);
+    expect(retrievedRecord.createdAt).toEqual(mockedDate);
+  });
+
+  it("should update a record's version when updating a record", async () => {
+    const createdRecord = await db.createRecord("test-data");
+
+    const updatedRecord = await db.updateRecord(createdRecord.recordId, 1, "updated-data");
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
+
+    expect(updatedRecord.version).toEqual(2);
+    expect(retrievedRecord.version).toEqual(2);
+  });
+
+  it("should throw an error when trying to update the wrong version of a record", async () => {
+    const createdRecord = await db.createRecord("test-data");
+
+    await db.updateRecord(createdRecord.recordId, 1, "updated-data");
+    const promise = db.updateRecord(createdRecord.recordId, 1, "updated-data");
+
+    await expect(promise).rejects.toEqual(new Error("Record 1 Version 1 has already been updated"));
+  });
+
+  it("should update a record twice", async () => {
+    const createdRecord = await db.createRecord("test-data");
+
+    const updatedRecord1 = await db.updateRecord(createdRecord.recordId, 1, "updated-data1");
+    const updatedRecord2 = await db.updateRecord(createdRecord.recordId, 2, "updated-data2");
+
+    expect(updatedRecord1.data).toEqual("updated-data1");
+    expect(updatedRecord2.data).toEqual("updated-data2");
+    expect(updatedRecord1.version).toEqual(2);
+    expect(updatedRecord2.version).toEqual(3);
   });
 
 });

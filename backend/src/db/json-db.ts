@@ -8,7 +8,6 @@ export type DbRecord<T> = {
   version: number,
   createdAt: Date,
   modifiedAt: Date,
-  modifiedBy: string,
   data: T
 }
 
@@ -39,23 +38,44 @@ export class JsonDatabase<T> {
       version: 1,
       createdAt: now,
       modifiedAt: now,
-      modifiedBy: "",
       data: data,
     };
     await fs.writeFile(this.getPath(recordId), JSON.stringify(newRecord));
     return newRecord;
   }
 
-  async updateRecord(dbRecord: DbRecord<T>): Promise<DbRecord<T>> {
-    return {} as any;
+  async updateRecord(recordId: number, recordVersion: number, data: T): Promise<DbRecord<T>> {
+    const existingRecord = await this.getRecord(recordId);
+    if (existingRecord.version !== recordVersion) {
+      throw new Error(`Record ${recordId} Version ${recordVersion} has already been updated`);
+    }
+    const now = DateUtil.now();
+    const newRecord: DbRecord<T> = {
+      recordId: recordId,
+      version: existingRecord.version + 1,
+      createdAt: existingRecord.createdAt,
+      modifiedAt: now,
+      data: data,
+    };
+    await fs.writeFile(this.getPath(recordId), JSON.stringify(newRecord));
+    return newRecord;
   }
 
   async getRecord(recordId: number): Promise<DbRecord<T>> {
-    const rawData = await fs.readFile(this.getPath(recordId));
-    const record = JSON.parse(rawData.toString()) as DbRecord<T>;
+    const rawData = await this.readRecordFile(recordId);
+    const record = JSON.parse(rawData) as DbRecord<T>;
     record.createdAt = parseISO(record.createdAt as any);
     record.modifiedAt = parseISO(record.modifiedAt as any);
     return record;
+  }
+
+  private async readRecordFile(recordId: number): Promise<string> {
+    try {
+      const data = await fs.readFile(this.getPath(recordId));
+      return data.toString();
+    } catch (e) {
+      throw new Error(`Record ${recordId} does not exist`);
+    }
   }
 
   private async getNextRecord(): Promise<number> {
