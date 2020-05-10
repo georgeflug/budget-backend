@@ -93,8 +93,7 @@ export class JsonDatabase<T> {
     if (filesForRecord.length === 0) {
       throw new Error(`Record ${recordId} does not exist.`);
     }
-    const versionStrings = fileNames.map(name => name.split('.')[1]);
-    const versions = versionStrings.map(version => parseInt(version));
+    const versions = fileNames.map(name => JsonFileName.getVersion(name));
     return Math.max(...versions);
   }
 
