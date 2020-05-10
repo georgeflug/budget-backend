@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, promises as fs } from "fs";
 import { DateUtil } from "../util/date-util";
 import { parseISO } from "date-fns";
 import { JsonFileName } from "./json-filename";
+import { JsonCursor } from "./json-cursor";
 
 export type DbRecord<T> = {
   recordId: number,
@@ -13,7 +14,7 @@ export type DbRecord<T> = {
 }
 
 export class JsonDatabase<T> {
-  nextRecord: number = 1;
+  private cursor = new JsonCursor(this.path);
 
   constructor(private path: string) {
     if (!existsSync(this.path)) {
@@ -30,8 +31,7 @@ export class JsonDatabase<T> {
   }
 
   async createRecord(data: T): Promise<DbRecord<T>> {
-    const recordId = await this.getNextRecord();
-    this.nextRecord = recordId + 1;
+    const recordId = await this.cursor.nextRecord();
     const now = DateUtil.now();
     const newRecord: DbRecord<T> = {
       recordId: recordId,
@@ -93,19 +93,6 @@ export class JsonDatabase<T> {
     } catch (e) {
       throw new Error(`Record ${recordId} Version ${version} does not exist.`);
     }
-  }
-
-  private async getNextRecord(): Promise<number> {
-    if (!existsSync(this.getPath(this.nextRecord, 1))) {
-      return this.nextRecord;
-    }
-    return await this.recalculateNextRecord();
-  }
-
-  private async recalculateNextRecord(): Promise<number> {
-    const fileNames = await fs.readdir(this.path);
-    const ids = fileNames.map(name => JsonFileName.getRecordId(name));
-    return Math.max(...ids) + 1;
   }
 
   private getPath(recordId: number, version: number) {
