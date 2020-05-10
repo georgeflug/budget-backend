@@ -32,7 +32,7 @@ export class JsonDatabase<T> {
 
   async createRecord(data: T): Promise<DbRecord<T>> {
     const recordId = await this.cursor.nextRecord();
-    const newRecord = this.createRecordInMemory(recordId, data);
+    const newRecord = this.buildNewRecord(recordId, data);
     await this.writeRecord(newRecord);
     return newRecord;
   }
@@ -42,15 +42,7 @@ export class JsonDatabase<T> {
     if (existingRecord.version !== recordVersion) {
       throw new Error(`Record ${recordId} Version ${recordVersion} has already been updated.`);
     }
-    const now = DateUtil.now();
-    const newVersion = existingRecord.version + 1;
-    const newRecord: DbRecord<T> = {
-      recordId: recordId,
-      version: newVersion,
-      createdAt: existingRecord.createdAt,
-      modifiedAt: now,
-      data: data,
-    };
+    const newRecord = this.buildUpdatedRecord(existingRecord, data);
     await this.writeRecord(newRecord);
     return newRecord;
   }
@@ -68,13 +60,23 @@ export class JsonDatabase<T> {
     return record;
   }
 
-  private createRecordInMemory(recordId: number, data: T): DbRecord<T> {
+  private buildNewRecord(recordId: number, data: T): DbRecord<T> {
     const now = DateUtil.now();
     return {
       recordId: recordId,
       version: 1,
       createdAt: now,
       modifiedAt: now,
+      data: data
+    };
+  }
+
+  private buildUpdatedRecord(existingRecord: DbRecord<T>, data: T): DbRecord<T> {
+    return {
+      recordId: existingRecord.recordId,
+      version: existingRecord.version + 1,
+      createdAt: existingRecord.createdAt,
+      modifiedAt: DateUtil.now(),
       data: data
     };
   }
