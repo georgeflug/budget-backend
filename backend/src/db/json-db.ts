@@ -2,6 +2,7 @@ import { resolve } from "path";
 import { existsSync, mkdirSync, promises as fs } from "fs";
 import { DateUtil } from "../util/date-util";
 import { parseISO } from "date-fns";
+import { JsonFileName } from "./json-filename";
 
 export type DbRecord<T> = {
   recordId: number,
@@ -10,9 +11,6 @@ export type DbRecord<T> = {
   modifiedAt: Date,
   data: T
 }
-
-const FILENAME_LENGTH = 6;
-const VERSION_LENGTH = 2;
 
 export class JsonDatabase<T> {
   nextRecord: number = 1;
@@ -26,7 +24,7 @@ export class JsonDatabase<T> {
   async listRecords(): Promise<DbRecord<T>[]> {
     const fileNames = await fs.readdir(this.path);
     const deduplicatedFileNames = fileNames.filter(name => name.endsWith('01.json'));
-    const recordIds = deduplicatedFileNames.map(fileName => this.getRecordIdFromFilename(fileName));
+    const recordIds = deduplicatedFileNames.map(fileName => JsonFileName.getRecordId(fileName));
     const records = recordIds.map(recordId => this.getRecord(recordId));
     return Promise.all(records);
   }
@@ -79,8 +77,7 @@ export class JsonDatabase<T> {
 
   private async getLatestVersion(recordId: number): Promise<number> {
     const fileNames = await fs.readdir(this.path);
-    const recordPart = (recordId + '').padStart(FILENAME_LENGTH, '0');
-    const filesForRecord = fileNames.filter(name => name.startsWith(recordPart));
+    const filesForRecord = fileNames.filter(name => JsonFileName.getRecordId(name) === recordId);
     if (filesForRecord.length === 0) {
       throw new Error(`Record ${recordId} does not exist.`);
     }
@@ -107,18 +104,13 @@ export class JsonDatabase<T> {
 
   private async recalculateNextRecord(): Promise<number> {
     const fileNames = await fs.readdir(this.path);
-    const ids = fileNames.map(name => this.getRecordIdFromFilename(name));
+    const ids = fileNames.map(name => JsonFileName.getRecordId(name));
     return Math.max(...ids) + 1;
   }
 
-  private getRecordIdFromFilename(filename: string): number {
-    return parseInt(filename.substring(0, FILENAME_LENGTH));
-  }
-
   private getPath(recordId: number, version: number) {
-    const recordPart = (recordId + '').padStart(FILENAME_LENGTH, '0');
-    const versionPart = (version + '').padStart(VERSION_LENGTH, '0');
-    return resolve(this.path, `${recordPart}.${versionPart}.json`);
+    const fileName = JsonFileName.getFileName(recordId, version);
+    return resolve(this.path, fileName);
   }
 }
 
