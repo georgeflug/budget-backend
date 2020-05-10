@@ -24,7 +24,7 @@ export class JsonDatabase<T> {
 
   async listRecords(): Promise<DbRecord<T>[]> {
     const fileNames = await fs.readdir(this.path);
-    const deduplicatedFileNames = fileNames.filter(name => name.endsWith('01.json'));
+    const deduplicatedFileNames = fileNames.filter(name => JsonFileName.getVersion(name) === 1);
     const recordIds = deduplicatedFileNames.map(fileName => JsonFileName.getRecordId(fileName));
     const records = recordIds.map(recordId => this.getRecord(recordId));
     return Promise.all(records);
