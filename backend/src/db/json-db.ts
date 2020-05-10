@@ -32,15 +32,8 @@ export class JsonDatabase<T> {
 
   async createRecord(data: T): Promise<DbRecord<T>> {
     const recordId = await this.cursor.nextRecord();
-    const now = DateUtil.now();
-    const newRecord: DbRecord<T> = {
-      recordId: recordId,
-      version: 1,
-      createdAt: now,
-      modifiedAt: now,
-      data: data,
-    };
-    await fs.writeFile(this.getPath(recordId, 1), JSON.stringify(newRecord));
+    const newRecord = this.createRecordInMemory(recordId, data);
+    await this.writeRecord(newRecord);
     return newRecord;
   }
 
@@ -58,7 +51,7 @@ export class JsonDatabase<T> {
       modifiedAt: now,
       data: data,
     };
-    await fs.writeFile(this.getPath(recordId, newVersion), JSON.stringify(newRecord));
+    await this.writeRecord(newRecord);
     return newRecord;
   }
 
@@ -73,6 +66,23 @@ export class JsonDatabase<T> {
     record.createdAt = parseISO(record.createdAt as any);
     record.modifiedAt = parseISO(record.modifiedAt as any);
     return record;
+  }
+
+  private createRecordInMemory(recordId: number, data: T): DbRecord<T> {
+    const now = DateUtil.now();
+    return {
+      recordId: recordId,
+      version: 1,
+      createdAt: now,
+      modifiedAt: now,
+      data: data
+    };
+  }
+
+  private async writeRecord(record: DbRecord<T>) {
+    const path = this.getPath(record.recordId, record.version);
+    const contents = JSON.stringify(record);
+    await fs.writeFile(path, contents);
   }
 
   private async getLatestVersion(recordId: number): Promise<number> {
