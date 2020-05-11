@@ -1,10 +1,11 @@
 import { resolve } from "path";
-import { mkdirSync, promises as fs } from "fs";
+import { promises as fs } from "fs";
 import { DateUtil } from "../util/date-util";
 import { parseISO } from "date-fns";
 import { JsonFileName } from "./json-filename";
 import { JsonCursor } from "./json-cursor";
 import { FileLister } from "./file-lister";
+import { mkDirIfNotExists } from "../util/fs-util";
 
 export type DbRecord<T> = {
   recordId: number,
@@ -19,10 +20,7 @@ export class JsonDatabase<T> {
   private fileLister: FileLister;
 
   constructor(private path: string) {
-    try {
-      mkdirSync(path);
-    } catch (e) { // ignore
-    }
+    mkDirIfNotExists(this.path);
     this.fileLister = new FileLister(this.path);
   }
 

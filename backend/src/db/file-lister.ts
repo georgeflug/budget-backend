@@ -1,5 +1,6 @@
-import { constants, promises as fs, watch } from "fs";
+import { promises as fs, watch } from "fs";
 import { resolve } from "path";
+import { exists } from "../util/fs-util";
 
 export class FileLister {
   private files: string[] = [];
@@ -23,7 +24,7 @@ export class FileLister {
   }
 
   private async onFileChanged(_, fileName: string) {
-    if (await this.fileExists(fileName)) {
+    if (await exists(resolve(this.path, fileName))) {
       this.addToCache(fileName);
     } else {
       this.removeFromCache(fileName);
@@ -40,15 +41,6 @@ export class FileLister {
     const location = this.files.indexOf(fileName);
     if (location !== -1) {
       this.files.splice(location, 1);
-    }
-  }
-
-  private async fileExists(fileName: string): Promise<boolean> {
-    try {
-      await fs.access(resolve(this.path, fileName), constants.F_OK);
-      return true;
-    } catch (e) {
-      return false;
     }
   }
 

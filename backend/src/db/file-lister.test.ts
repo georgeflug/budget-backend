@@ -1,8 +1,8 @@
 import * as fs from "fs";
-import * as Path from "path";
-import { FileLister } from "./file-lister";
 import { mkdirSync } from "fs";
 import { resolve } from "path";
+import { FileLister } from "./file-lister";
+import { rmRf } from "../util/fs-util";
 
 const testPath = "tmp";
 
@@ -10,14 +10,14 @@ describe('File Lister', () => {
   let fileLister: FileLister;
 
   beforeEach(async () => {
-    deleteFolder();
+    rmRf(testPath);
     mkdirSync(testPath);
     fileLister = createFileLister();
   });
 
   afterEach(async () => {
     await fileLister.shutdown();
-    deleteFolder();
+    rmRf(testPath);
   });
 
   it('should list nothing when no files exist', async () => {
@@ -66,13 +66,4 @@ function createFileLister(): FileLister {
 
 async function createFile(fileName: string) {
   fs.writeFileSync(resolve(testPath, fileName), "contentsDoNotMatter");
-}
-
-function deleteFolder() {
-  if (fs.existsSync(testPath)) {
-    fs.readdirSync(testPath).forEach(file => {
-      fs.unlinkSync(Path.join(testPath, file));
-    });
-    fs.rmdirSync(testPath);
-  }
 }

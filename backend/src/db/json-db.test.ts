@@ -1,7 +1,6 @@
 import { JsonDatabase } from "./json-db";
-import * as fs from "fs";
-import * as Path from "path";
 import { DateUtil } from "../util/date-util";
+import { rmRf } from "../util/fs-util";
 
 jest.mock("../util/date-util");
 const mockedDateUtil = DateUtil as jest.Mocked<typeof DateUtil>;
@@ -12,13 +11,13 @@ describe("JSON Database", () => {
   let db: JsonDatabase<string>;
 
   beforeEach(async () => {
-    deleteDb();
+    rmRf(dbPath);
     db = createDb();
   });
 
   afterEach(async () => {
     await db.shutdown();
-    deleteDb();
+    rmRf(dbPath);
   });
 
   it("should list nothing on an empty database", async () => {
@@ -195,7 +194,7 @@ describe("JSON Database", () => {
 
     const promise = db.getArchivedRecord(createdRecord.recordId, 2);
 
-    expect(promise).rejects.toEqual(new Error('Record 1 Version 2 does not exist.'));
+    await expect(promise).rejects.toEqual(new Error('Record 1 Version 2 does not exist.'));
   });
 
   it("should not list a record twice when record has multiple versions", async () => {
@@ -212,13 +211,4 @@ describe("JSON Database", () => {
 
 function createDb(): JsonDatabase<string> {
   return new JsonDatabase<string>(dbPath);
-}
-
-function deleteDb() {
-  if (fs.existsSync(dbPath)) {
-    fs.readdirSync(dbPath).forEach(file => {
-      fs.unlinkSync(Path.join(dbPath, file));
-    });
-    fs.rmdirSync(dbPath);
-  }
 }
