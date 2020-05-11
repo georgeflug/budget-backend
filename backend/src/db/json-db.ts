@@ -1,9 +1,10 @@
 import { resolve } from "path";
-import { existsSync, mkdirSync, promises as fs } from "fs";
+import { mkdirSync, promises as fs } from "fs";
 import { DateUtil } from "../util/date-util";
 import { parseISO } from "date-fns";
 import { JsonFileName } from "./json-filename";
 import { JsonCursor } from "./json-cursor";
+import { FileLister } from "./file-lister";
 
 export type DbRecord<T> = {
   recordId: number,
@@ -15,15 +16,22 @@ export type DbRecord<T> = {
 
 export class JsonDatabase<T> {
   private cursor = new JsonCursor(this.path);
+  private fileLister: FileLister;
 
   constructor(private path: string) {
-    if (!existsSync(this.path)) {
+    try {
       mkdirSync(path);
+    } catch (e) { // ignore
     }
+    this.fileLister = new FileLister(this.path);
+  }
+
+  async shutdown() {
+    await this.fileLister.shutdown();
   }
 
   async listRecords(): Promise<DbRecord<T>[]> {
-    const fileNames = await fs.readdir(this.path);
+    const fileNames = await this.fileLister.listFiles();
     const deduplicatedFileNames = fileNames.filter(name => JsonFileName.getVersion(name) === 1);
     const recordIds = deduplicatedFileNames.map(fileName => JsonFileName.getRecordId(fileName));
     const records = recordIds.map(recordId => this.getRecord(recordId));
@@ -88,7 +96,7 @@ export class JsonDatabase<T> {
   }
 
   private async getLatestVersion(recordId: number): Promise<number> {
-    const fileNames = await fs.readdir(this.path);
+    const fileNames = await this.fileLister.listFiles();
     const dbRows = fileNames.map(name => JsonFileName.parse(name))
       .filter(row => row.recordId === recordId);
     if (dbRows.length === 0) {

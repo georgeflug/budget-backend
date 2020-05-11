@@ -17,6 +17,7 @@ describe("JSON Database", () => {
   });
 
   afterEach(async () => {
+    await db.shutdown();
     deleteDb();
   });
 
@@ -51,13 +52,17 @@ describe("JSON Database", () => {
   it("should list 2 entries after 2 entries are created in separate instances", async () => {
     await db.createRecord("test-data1");
     const db2 = createDb();
-    await db2.createRecord("test-data2");
+    try {
+      await db2.createRecord("test-data2");
 
-    const records = await db.listRecords();
+      const records = await db.listRecords();
 
-    expect(records.length).toEqual(2);
-    expect(records[0].data).toEqual("test-data1");
-    expect(records[1].data).toEqual("test-data2");
+      expect(records.length).toEqual(2);
+      expect(records[0].data).toEqual("test-data1");
+      expect(records[1].data).toEqual("test-data2");
+    } finally {
+      await db2.shutdown();
+    }
   });
 
   it("should get record by id after creating it", async () => {
