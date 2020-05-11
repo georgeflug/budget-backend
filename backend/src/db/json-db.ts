@@ -53,7 +53,7 @@ export class JsonDatabase<T> {
   }
 
   async getArchivedRecord(recordId: number, version: number): Promise<DbRecord<T>> {
-    const rawData = await this.readRecordFile(recordId, version);
+    const rawData = await this.readFile(recordId, version);
     const record = JSON.parse(rawData) as DbRecord<T>;
     record.createdAt = parseISO(record.createdAt as any);
     record.modifiedAt = parseISO(record.modifiedAt as any);
@@ -89,15 +89,16 @@ export class JsonDatabase<T> {
 
   private async getLatestVersion(recordId: number): Promise<number> {
     const fileNames = await fs.readdir(this.path);
-    const filesForRecord = fileNames.filter(name => JsonFileName.getRecordId(name) === recordId);
-    if (filesForRecord.length === 0) {
+    const dbRows = fileNames.map(name => JsonFileName.parse(name))
+      .filter(row => row.recordId === recordId);
+    if (dbRows.length === 0) {
       throw new Error(`Record ${recordId} does not exist.`);
     }
-    const versions = fileNames.map(name => JsonFileName.getVersion(name));
+    const versions = dbRows.map(row => row.version);
     return Math.max(...versions);
   }
 
-  private async readRecordFile(recordId: number, version: number): Promise<string> {
+  private async readFile(recordId: number, version: number): Promise<string> {
     try {
       const data = await fs.readFile(this.getPath(recordId, version));
       return data.toString();
