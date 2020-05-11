@@ -185,6 +185,14 @@ describe("JSON Database", () => {
     expect(v2.data).toEqual("updated-data");
   });
 
+  it("should throw an error when retrieving a nonexistent version of an existing record", async () => {
+    const createdRecord = await db.createRecord("test-data");
+
+    const promise = db.getArchivedRecord(createdRecord.recordId, 2);
+
+    expect(promise).rejects.toEqual(new Error('Record 1 Version 2 does not exist.'));
+  });
+
   it("should not list a record twice when record has multiple versions", async () => {
     const createdRecord = await db.createRecord("test-data");
     await db.updateRecord(createdRecord.recordId, 1, "updated-data");
