@@ -4,7 +4,7 @@ import * as Path from "path";
 
 export function mkDirIfNotExists(path: string) {
   try {
-    fs.mkdirSync(path);
+    fs.mkdirSync(path, { recursive: true });
   } catch (e) { // ignore
   }
 }
@@ -12,7 +12,12 @@ export function mkDirIfNotExists(path: string) {
 export function rmRf(path: string) {
   if (fs.existsSync(path)) {
     fs.readdirSync(path).forEach(file => {
-      fs.unlinkSync(Path.join(path, file));
+      const fullFile = Path.join(path, file);
+      if (fs.statSync(fullFile).isDirectory()) {
+        rmRf(fullFile);
+      } else {
+        fs.unlinkSync(Path.join(path, file));
+      }
     });
     fs.rmdirSync(path);
   }

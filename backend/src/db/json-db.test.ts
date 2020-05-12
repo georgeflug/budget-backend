@@ -207,6 +207,39 @@ describe("JSON Database", () => {
     expect(records[0].data).toEqual('updated-data');
   });
 
+  it("should list 1 entry after entry is created in a database with a nested folder", async () => {
+    const nestedDb = new JsonDatabase<string>('tmp1/tmp3');
+    try {
+      await nestedDb.createRecord("test-data");
+
+      const records = await nestedDb.listRecords();
+
+      expect(records.length).toEqual(1);
+      expect(records[0].data).toEqual("test-data");
+    } finally {
+      await nestedDb.shutdown();
+      rmRf('tmp1');
+    }
+  });
+
+  it("should save/retrieve a custom data type", async () => {
+    type NewType = {
+      a: string
+    }
+    const newDb = new JsonDatabase<NewType>('tmp1');
+    try {
+      await newDb.createRecord({ a: "test-data" });
+
+      const records = await newDb.listRecords();
+
+      expect(records.length).toEqual(1);
+      expect(records[0].data).toEqual({ a: "test-data" });
+    } finally {
+      await newDb.shutdown();
+      rmRf('tmp1');
+    }
+  });
+
 });
 
 function createDb(): JsonDatabase<string> {
