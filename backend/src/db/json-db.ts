@@ -32,9 +32,9 @@ export class JsonDatabase<T> {
 
   async listRecords(): Promise<DbRecord<T>[]> {
     const fileNames = await this.fileLister.listFiles();
-    const deduplicatedFileNames = fileNames.filter(name => JsonFileName.getVersion(name) === 1);
-    const recordIds = deduplicatedFileNames.map(fileName => JsonFileName.getRecordId(fileName));
-    const records = recordIds.map(recordId => this.getRecord(recordId));
+    const dbRows = fileNames.map(name => JsonFileName.parse(name))
+      .filter(row => row.version === 1);
+    const records = dbRows.map(row => this.getRecord(row.recordId));
     return Promise.all(records);
   }
 
