@@ -1,0 +1,40 @@
+Roll-My-Own-Db
+
+Todo:
+	Write up final db design.
+	Create migration script.
+	Migrate code to use Json Db.
+
+Requirements:
+	Save new records
+	Update existing records
+	Search by modifiedDate
+	Optimistic Concurrency
+	Loose data structure
+	Do not accidentally lose data! Never update a file. Only create new files.
+		00_0001.v01.json
+		00_0001.v02.json
+		00_0002.v01.json
+		00_0003.v01.json
+
+Solution:
+	JSON files
+	Load all files at startup and index by ID / Date / Hash
+	One file per record. Filenames are sequential.
+	Optimistic concurrency - use file hash
+	When rewriting a file, copy the old file with a new name. So all files are versioned.
+		Therefore, we never delete data and I can recover data if there was a bug that deletes data.
+	Folder structure:
+		Each folder represents a table.
+		Each file in the folder has a sequential id that is meaningless.
+		Each file contains the JSON of the data without any metadata
+	Current "tables":
+		Raw-plaid - no updates, query by date
+		Balance - no updates, query by date
+		Feature-Idea - no updates, query by all
+		Transaction - updates, query by date and id
+			Needs to support knowing when a transaction was deleted ... eventually
+
+Strategy:
+	Move all Mongo code into a DB layer.
+	Rewrite DB layer with tests to use json files
