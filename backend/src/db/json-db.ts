@@ -6,6 +6,7 @@ import { JsonFileName } from "./json-filename";
 import { JsonCursor } from "./json-cursor";
 import { FileLister } from "./file-lister";
 import { mkDirIfNotExists } from "../util/fs-util";
+import { FileCache } from "./file-cache";
 
 export type DbRecord<T> = {
   recordId: number,
@@ -18,6 +19,7 @@ export type DbRecord<T> = {
 export class JsonDatabase<T> {
   private cursor = new JsonCursor(this.path);
   private fileLister: FileLister;
+  private fileCache = new FileCache();
 
   constructor(private path: string) {
     mkDirIfNotExists(this.path);
@@ -106,8 +108,7 @@ export class JsonDatabase<T> {
 
   private async readFile(recordId: number, version: number): Promise<string> {
     try {
-      const data = await fs.readFile(this.getPath(recordId, version));
-      return data.toString();
+      return await this.fileCache.readFile(this.getPath(recordId, version));
     } catch (e) {
       throw new Error(`Record ${recordId} Version ${version} does not exist.`);
     }
