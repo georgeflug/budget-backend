@@ -73,5 +73,7 @@ import { RawPlaidV2 } from "../raw-plaid/raw-plaid-model";
     await rawPlaidDb.createRecord(rawPlaidV2);
   }
 
+  console.log('done!');
+  process.exit(0);
 })();
 
