@@ -11,7 +11,7 @@ import { BalanceV2 } from "../balance/balance-model";
 import { RawPlaidDbModel } from "../raw-plaid/raw-plaid-db-model";
 import { RawPlaidV2 } from "../raw-plaid/raw-plaid-model";
 import * as glob from "glob";
-import { utimesSync } from "fs";
+import { readFileSync, utimesSync } from "fs";
 
 (async () => {
 
@@ -83,7 +83,7 @@ import { utimesSync } from "fs";
 
   const jsonFiles = glob.sync("data/**/*.json");
   jsonFiles.forEach(file => {
-    const data = JSON.parse(file);
+    const data = JSON.parse(readFileSync(file).toString());
     utimesSync(file, data.createdAt, data.modifiedAt);
   });
   console.log("done!");
