@@ -283,7 +283,7 @@ describe("JSON Database", () => {
     mockedDateUtil.now.mockReturnValueOnce(mockedModifiedDate);
 
     const updatedRecord = await db.updateRecord(createdRecord.recordId, createdRecord.version, <{ data: string} & Partial<DbRecord>>{
-      data: "test-data",
+      data: "test-data2",
       recordId: 999,
       version: 999,
       modifiedAt: new Date(1),
@@ -299,6 +299,16 @@ describe("JSON Database", () => {
     expect(retrievedRecord.version).toEqual(2);
     expect(retrievedRecord.createdAt).toEqual(mockedCreationDate);
     expect(retrievedRecord.modifiedAt).toEqual(mockedModifiedDate);
+  });
+
+  it("should not update a record when updating a record with identical data", async () => {
+    const createdRecord = await db.createRecord({ data: "test-data" });
+
+    const updatedRecord = await db.updateRecord(createdRecord.recordId, 1, { data: "test-data"});
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
+
+    expect(updatedRecord.version).toEqual(1);
+    expect(retrievedRecord.version).toEqual(1);
   });
 
 });

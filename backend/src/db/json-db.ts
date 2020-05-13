@@ -7,6 +7,7 @@ import { JsonCursor } from "./json-cursor";
 import { FileLister } from "./file-lister";
 import { mkDirIfNotExists } from "../util/fs-util";
 import { FileCache } from "./file-cache";
+import { deepCompare, orderedStringify } from "../util/json-util";
 
 export type DbRecord = {
   recordId: number,
@@ -52,6 +53,9 @@ export class JsonDatabase<T> {
       throw new Error(`Record ${recordId} Version ${recordVersion} has already been updated.`);
     }
     const newRecord = this.buildUpdatedRecord(existingRecord, data);
+    if (this.recordContentsAreTheSame(existingRecord, newRecord)) {
+      return existingRecord;
+    }
     await this.writeRecord(newRecord);
     return newRecord;
   }
@@ -92,20 +96,8 @@ export class JsonDatabase<T> {
 
   private async writeRecord(record: DbRecord) {
     const path = this.getPath(record.recordId, record.version);
-    const recordWithSortedKeys = this.sortKeysOnRecord(record);
-    const contents = JSON.stringify(recordWithSortedKeys, null, 2);
+    const contents = orderedStringify(record, dbRecordKeys);
     await fs.writeFile(path, contents);
-  }
-
-  private sortKeysOnRecord(record: DbRecord): DbRecord {
-    // ts-ignore: Spread overwrites defined properties intentionally because we want to force the property order
-    return {// @ts-ignore
-      recordId: record.recordId, // @ts-ignore
-      version: record.version, // @ts-ignore
-      createdAt: record.createdAt, // @ts-ignore
-      modifiedAt: record.modifiedAt,
-      ...record,
-    };
   }
 
   private async getLatestVersion(recordId: number): Promise<number> {
@@ -130,6 +122,16 @@ export class JsonDatabase<T> {
   private getPath(recordId: number, version: number) {
     const fileName = JsonFileName.getFileName(recordId, version);
     return resolve(this.path, fileName);
+  }
+
+  private recordContentsAreTheSame(existingRecord: DbRecord, newRecord: DbRecord) {
+    const existingCopy = { ... existingRecord };
+    delete existingCopy.version;
+    delete existingCopy.modifiedAt;
+    const newCopy = { ... newRecord };
+    delete newCopy.version;
+    delete newCopy.modifiedAt;
+    return deepCompare(existingCopy, newCopy);
   }
 }
 
