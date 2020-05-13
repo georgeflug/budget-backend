@@ -1,12 +1,7 @@
 import { DbRecord } from "../db/json-db";
 
-export interface FeatureIdea {
-  date: Date,
+export type UnsavedFeatureIdea = {
   description: string
 }
 
-export type UnsavedFeatureIdeaV2 = {
-  description: string
-}
-
-export type FeatureIdeaV2 = DbRecord & UnsavedFeatureIdeaV2
+export type FeatureIdea = DbRecord & UnsavedFeatureIdea
