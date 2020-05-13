@@ -70,21 +70,21 @@ export class JsonDatabase<T> {
   private buildNewRecord(recordId: number, data: T): DbRecord & T {
     const now = DateUtil.now();
     return {
-      recordId: recordId,
-      version: 1,
       createdAt: now,
       modifiedAt: now,
       ...data,
+      recordId: recordId,
+      version: 1,
     };
   }
 
   private buildUpdatedRecord(existingRecord: DbRecord, data: T): DbRecord & T {
     return {
+      ...data,
       recordId: existingRecord.recordId,
       version: existingRecord.version + 1,
       createdAt: existingRecord.createdAt,
       modifiedAt: DateUtil.now(),
-      ...data
     };
   }
 

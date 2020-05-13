@@ -1,4 +1,4 @@
-import { JsonDatabase } from "./json-db";
+import { DbRecord, JsonDatabase } from "./json-db";
 import { DateUtil } from "../util/date-util";
 import { rmRf } from "../util/fs-util";
 
@@ -238,6 +238,65 @@ describe("JSON Database", () => {
       await newDb.shutdown();
       rmRf('tmp1');
     }
+  });
+
+  it("should maintain original createdAt/modifiedAt if provided during creation time (mainly for data migration purposes)", async () => {
+    const createdAt = new Date(12345);
+    const updatedAt = new Date(45678);
+
+    const createdRecord = await db.createRecord(<{ data: string} & Partial<DbRecord>>{
+      data: "test-data",
+      createdAt: createdAt,
+      modifiedAt: updatedAt,
+    });
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
+
+    expect(createdRecord.createdAt).toEqual(createdAt);
+    expect(createdRecord.modifiedAt).toEqual(updatedAt);
+    expect(retrievedRecord.createdAt).toEqual(createdAt);
+    expect(retrievedRecord.modifiedAt).toEqual(updatedAt);
+  });
+
+  it("should not overwrite db-maintained fields during creation time", async () => {
+    // no setup
+
+    const createdRecord = await db.createRecord(<{ data: string} & Partial<DbRecord>>{
+      data: "test-data",
+      recordId: 999,
+      version: 999.
+    });
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
+
+    expect(createdRecord.recordId).toEqual(1);
+    expect(createdRecord.version).toEqual(1);
+    expect(retrievedRecord.recordId).toEqual(1);
+    expect(retrievedRecord.version).toEqual(1);
+  });
+
+  it("should not overwrite db-maintained fields during update time", async () => {
+    const mockedCreationDate = new Date(123456);
+    mockedDateUtil.now.mockReturnValueOnce(mockedCreationDate);
+    const createdRecord = await db.createRecord({ data: 'test-data' });
+    const mockedModifiedDate = new Date(789012);
+    mockedDateUtil.now.mockReturnValueOnce(mockedModifiedDate);
+
+    const updatedRecord = await db.updateRecord(createdRecord.recordId, createdRecord.version, <{ data: string} & Partial<DbRecord>>{
+      data: "test-data",
+      recordId: 999,
+      version: 999,
+      modifiedAt: new Date(1),
+      createdAt: new Date(1)
+    });
+    const retrievedRecord = await db.getRecord(createdRecord.recordId);
+
+    expect(updatedRecord.recordId).toEqual(1);
+    expect(updatedRecord.version).toEqual(2);
+    expect(updatedRecord.createdAt).toEqual(mockedCreationDate);
+    expect(updatedRecord.modifiedAt).toEqual(mockedModifiedDate);
+    expect(retrievedRecord.recordId).toEqual(1);
+    expect(retrievedRecord.version).toEqual(2);
+    expect(retrievedRecord.createdAt).toEqual(mockedCreationDate);
+    expect(retrievedRecord.modifiedAt).toEqual(mockedModifiedDate);
   });
 
 });
