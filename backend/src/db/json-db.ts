@@ -15,6 +15,8 @@ export type DbRecord = {
   modifiedAt: Date
 }
 
+const dbRecordKeys: Array<keyof DbRecord> = ["recordId", "version", "createdAt", "modifiedAt"];
+
 export class JsonDatabase<T> {
   private cursor = new JsonCursor(this.path);
   private fileLister: FileLister;
@@ -90,8 +92,15 @@ export class JsonDatabase<T> {
 
   private async writeRecord(record: DbRecord) {
     const path = this.getPath(record.recordId, record.version);
-    const contents = JSON.stringify(record, null, 2);
+    const contents = JSON.stringify(record, this.getKeySortOrder(record), 2);
     await fs.writeFile(path, contents);
+  }
+
+  private getKeySortOrder(record: DbRecord): string[] {
+    const dataKeys = Object.keys(record)
+      .filter(key => !dbRecordKeys.includes(<any>key))
+      .sort();
+    return [...dbRecordKeys, ...dataKeys];
   }
 
   private async getLatestVersion(recordId: number): Promise<number> {
