@@ -222,18 +222,20 @@ describe("JSON Database", () => {
     }
   });
 
-  it("should save/retrieve a custom data type", async () => {
+  it("should save/retrieve a nested data type", async () => {
     type NewType = {
-      a: string
+      a: {
+        b: string
+      }
     }
     const newDb = new JsonDatabase<NewType>('tmp1');
     try {
-      await newDb.createRecord({ a: "test-data" });
+      await newDb.createRecord({ a: { b: "test-data" } });
 
       const records = await newDb.listRecords();
 
       expect(records.length).toEqual(1);
-      expect(records[0].a).toEqual("test-data");
+      expect(records[0].a.b).toEqual("test-data");
     } finally {
       await newDb.shutdown();
       rmRf('tmp1');

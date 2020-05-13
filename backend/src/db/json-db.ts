@@ -92,15 +92,19 @@ export class JsonDatabase<T> {
 
   private async writeRecord(record: DbRecord) {
     const path = this.getPath(record.recordId, record.version);
-    const contents = JSON.stringify(record, this.getKeySortOrder(record), 2);
+    const recordWithSortedKeys = this.sortKeysOnRecord(record);
+    const contents = JSON.stringify(recordWithSortedKeys, null, 2);
     await fs.writeFile(path, contents);
   }
 
-  private getKeySortOrder(record: DbRecord): string[] {
-    const dataKeys = Object.keys(record)
-      .filter(key => !dbRecordKeys.includes(<any>key))
-      .sort();
-    return [...dbRecordKeys, ...dataKeys];
+  private sortKeysOnRecord(record: DbRecord): DbRecord {
+    return {
+      recordId: record.recordId,
+      version: record.version,
+      createdAt: record.createdAt,
+      modifiedAt: record.modifiedAt,
+      ...record,
+    };
   }
 
   private async getLatestVersion(recordId: number): Promise<number> {
