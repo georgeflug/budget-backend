@@ -1,10 +1,19 @@
-import { listBalances, listBalancesAfter } from "./balance-repository";
-import { Balance } from "./balance-model";
+import { Balance, UnsavedBalance } from "./balance-model";
+import { JsonDatabase } from "../db/json-db";
+import { SmartDate } from "../util/smart-date";
 
-export async function getBalances(startingAt: string): Promise<Balance[]> {
+const db = new JsonDatabase<UnsavedBalance>('data/balances');
+
+export async function getBalances(startingAt?: Date): Promise<Balance[]> {
+  const balances = await db.listRecords();
   if (startingAt) {
-    return await listBalances();
+    const smartStartingAt = SmartDate.of(startingAt);
+    return balances.filter(balance => smartStartingAt.isSameOrBefore(balance.modifiedAt));
   } else {
-    return await listBalancesAfter(startingAt);
+    return balances;
   }
+}
+
+export async function saveBalance(balance: UnsavedBalance): Promise<Balance> {
+  return db.createRecord(balance);
 }

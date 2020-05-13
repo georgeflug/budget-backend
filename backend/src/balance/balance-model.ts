@@ -1,14 +1,9 @@
 import { DbRecord } from "../db/json-db";
 
-export interface Balance {
-  accountId: string,
-  balance: number,
-  date: Date,
-  name: string
-}
-
-export type BalanceV2 = DbRecord & {
+export type UnsavedBalance = {
   accountId: string,
   amount: number,
   name: string
 }
+
+export type Balance = DbRecord & UnsavedBalance
