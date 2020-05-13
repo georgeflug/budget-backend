@@ -98,10 +98,11 @@ export class JsonDatabase<T> {
   }
 
   private sortKeysOnRecord(record: DbRecord): DbRecord {
-    return {
-      recordId: record.recordId,
-      version: record.version,
-      createdAt: record.createdAt,
+    // ts-ignore: Spread overwrites defined properties intentionally because we want to force the property order
+    return {// @ts-ignore
+      recordId: record.recordId, // @ts-ignore
+      version: record.version, // @ts-ignore
+      createdAt: record.createdAt, // @ts-ignore
       modifiedAt: record.modifiedAt,
       ...record,
     };
