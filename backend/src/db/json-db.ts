@@ -90,7 +90,7 @@ export class JsonDatabase<T> {
 
   private async writeRecord(record: DbRecord) {
     const path = this.getPath(record.recordId, record.version);
-    const contents = JSON.stringify(record);
+    const contents = JSON.stringify(record, null, 2);
     await fs.writeFile(path, contents);
   }
 
