@@ -5,6 +5,8 @@ export interface FeatureIdea {
   description: string
 }
 
-export type FeatureIdeaV2 = DbRecord & {
+export type UnsavedFeatureIdeaV2 = {
   description: string
 }
+
+export type FeatureIdeaV2 = DbRecord & UnsavedFeatureIdeaV2

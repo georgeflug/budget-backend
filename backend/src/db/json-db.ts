@@ -32,7 +32,7 @@ export class JsonDatabase<T> {
     await this.fileLister.shutdown();
   }
 
-  async listRecords(): Promise<DbRecord[] & T[]> {
+  async listRecords(): Promise<(DbRecord & T)[]> {
     const fileNames = await this.fileLister.listFiles();
     const dbRows = fileNames.map(name => JsonFileName.parse(name))
       .filter(row => row.version === 1);

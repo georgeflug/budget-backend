@@ -1,15 +1,13 @@
-import { FeatureIdea } from "./feature-idea-model";
+import { FeatureIdeaV2, UnsavedFeatureIdeaV2 } from "./feature-idea-model";
 import * as repository from "./feature-idea-repository";
 
-export async function saveFeatureIdea(idea: any): Promise<FeatureIdea> {
-  const featureIdea: FeatureIdea = {
-    date: new Date(),
+export async function saveFeatureIdea(idea: any): Promise<FeatureIdeaV2> {
+  const featureIdea: UnsavedFeatureIdeaV2 = {
     description: idea.description
   };
-  await repository.saveFeatureIdea(featureIdea);
-  return featureIdea;
+  return await repository.saveFeatureIdea(featureIdea);
 }
 
-export async function listFeatureIdeas(): Promise<FeatureIdea[]> {
+export async function listFeatureIdeas(): Promise<FeatureIdeaV2[]> {
   return await repository.listFeatureIdeas();
 }

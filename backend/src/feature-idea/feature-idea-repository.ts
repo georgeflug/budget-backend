@@ -1,11 +1,12 @@
-import { FeatureIdea } from "./feature-idea-model";
-import { FeatureIdeaDbModel } from "./feature-idea-db-model";
+import { FeatureIdeaV2, UnsavedFeatureIdeaV2 } from "./feature-idea-model";
+import { JsonDatabase } from "../db/json-db";
 
-export async function listFeatureIdeas(): Promise<FeatureIdea[]> {
-  return await FeatureIdeaDbModel.find({}).exec();
+const db = new JsonDatabase<UnsavedFeatureIdeaV2>("data/feature-idea");
+
+export async function listFeatureIdeas(): Promise<FeatureIdeaV2[]> {
+  return await db.listRecords();
 }
 
-export async function saveFeatureIdea(featureIdea: FeatureIdea) {
-  const featureIdeaDbModel = new FeatureIdeaDbModel(featureIdea);
-  await featureIdeaDbModel.save();
+export async function saveFeatureIdea(featureIdea: UnsavedFeatureIdeaV2): Promise<FeatureIdeaV2> {
+  return await db.createRecord(featureIdea);
 }
