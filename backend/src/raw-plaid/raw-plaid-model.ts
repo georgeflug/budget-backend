@@ -1,11 +1,8 @@
 import { PlaidTransaction } from "../plaid/plaid-types";
 import { DbRecord } from "../db/json-db";
 
-export interface RawPlaid {
-  date: Date,
+export type UnsavedRawPlaid = {
   data: PlaidTransaction[]
 }
 
-export type RawPlaidV2 = DbRecord & {
-  data: PlaidTransaction[]
-}
+export type RawPlaid = DbRecord & UnsavedRawPlaid

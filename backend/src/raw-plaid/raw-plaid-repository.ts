@@ -1,21 +1,19 @@
 import { PlaidTransaction } from "../plaid/plaid-types";
-import { RawPlaid } from "./raw-plaid-model";
-import moment from "moment";
-import { RawPlaidDbModel } from "./raw-plaid-db-model";
+import { RawPlaid, UnsavedRawPlaid } from "./raw-plaid-model";
+import { JsonDatabase } from "../db/json-db";
+import { SmartDate } from "../util/smart-date";
 
-export async function saveRawPlaid(transactions: PlaidTransaction[]) {
-  const rawPlaid = new RawPlaidDbModel({
-    data: transactions
-  });
-  await rawPlaid.save();
+const db = new JsonDatabase<UnsavedRawPlaid>('data/raw-plaid');
+
+export async function saveRawPlaid(transactions: PlaidTransaction[]): Promise<RawPlaid> {
+  return await db.createRecord({ data: transactions });
 }
 
-export async function findRawPlaidBetween(startDate: moment.Moment, endDate: moment.Moment): Promise<RawPlaid[]> {
-  const query = {
-    date: {
-      $gte: startDate,
-      $lte: endDate
-    }
-  };
-  return RawPlaidDbModel.find(query).exec();
+export async function findRawPlaidBetween(startDate: Date, endDate: Date): Promise<RawPlaid[]> {
+  const startingAt = SmartDate.of(startDate);
+  const endingAt = SmartDate.of(endDate);
+  const results = await db.listRecords();
+  return results
+    .filter(record => startingAt.isSameOrBefore(record.modifiedAt))
+    .filter(record => endingAt.isSameOrAfter(record.modifiedAt));
 }
