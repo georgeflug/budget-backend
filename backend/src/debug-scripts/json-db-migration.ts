@@ -11,7 +11,7 @@ import { RawPlaidV2 } from "../raw-plaid/raw-plaid-model";
 
 (async () => {
 
-  await connectToDbWithRetry(null);
+  await connectToDbWithRetry('localhost');
 
   const transactions = await listTransactions();
   const jsonTransactionDb = new JsonDatabase<TransactionV2>('data/transactions');
