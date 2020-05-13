@@ -8,12 +8,11 @@ import { FileLister } from "./file-lister";
 import { mkDirIfNotExists } from "../util/fs-util";
 import { FileCache } from "./file-cache";
 
-export type DbRecord<T> = {
+export type DbRecord = {
   recordId: number,
   version: number,
   createdAt: Date,
-  modifiedAt: Date,
-  data: T
+  modifiedAt: Date
 }
 
 export class JsonDatabase<T> {
@@ -30,7 +29,7 @@ export class JsonDatabase<T> {
     await this.fileLister.shutdown();
   }
 
-  async listRecords(): Promise<DbRecord<T>[]> {
+  async listRecords(): Promise<DbRecord[] & T[]> {
     const fileNames = await this.fileLister.listFiles();
     const dbRows = fileNames.map(name => JsonFileName.parse(name))
       .filter(row => row.version === 1);
@@ -38,14 +37,14 @@ export class JsonDatabase<T> {
     return Promise.all(records);
   }
 
-  async createRecord(data: T): Promise<DbRecord<T>> {
+  async createRecord(data: T): Promise<DbRecord & T> {
     const recordId = await this.cursor.nextRecord();
     const newRecord = this.buildNewRecord(recordId, data);
     await this.writeRecord(newRecord);
     return newRecord;
   }
 
-  async updateRecord(recordId: number, recordVersion: number, data: T): Promise<DbRecord<T>> {
+  async updateRecord(recordId: number, recordVersion: number, data: T): Promise<DbRecord & T> {
     const existingRecord = await this.getRecord(recordId);
     if (existingRecord.version !== recordVersion) {
       throw new Error(`Record ${recordId} Version ${recordVersion} has already been updated.`);
@@ -55,41 +54,41 @@ export class JsonDatabase<T> {
     return newRecord;
   }
 
-  async getRecord(recordId: number): Promise<DbRecord<T>> {
+  async getRecord(recordId: number): Promise<DbRecord & T> {
     const version = await this.getLatestVersion(recordId);
     return await this.getArchivedRecord(recordId, version);
   }
 
-  async getArchivedRecord(recordId: number, version: number): Promise<DbRecord<T>> {
+  async getArchivedRecord(recordId: number, version: number): Promise<DbRecord & T> {
     const rawData = await this.readFile(recordId, version);
-    const record = JSON.parse(rawData) as DbRecord<T>;
+    const record = JSON.parse(rawData) as (DbRecord & T);
     record.createdAt = parseISO(record.createdAt as any);
     record.modifiedAt = parseISO(record.modifiedAt as any);
     return record;
   }
 
-  private buildNewRecord(recordId: number, data: T): DbRecord<T> {
+  private buildNewRecord(recordId: number, data: T): DbRecord & T {
     const now = DateUtil.now();
     return {
       recordId: recordId,
       version: 1,
       createdAt: now,
       modifiedAt: now,
-      data: data
+      ...data,
     };
   }
 
-  private buildUpdatedRecord(existingRecord: DbRecord<T>, data: T): DbRecord<T> {
+  private buildUpdatedRecord(existingRecord: DbRecord, data: T): DbRecord & T {
     return {
       recordId: existingRecord.recordId,
       version: existingRecord.version + 1,
       createdAt: existingRecord.createdAt,
       modifiedAt: DateUtil.now(),
-      data: data
+      ...data
     };
   }
 
-  private async writeRecord(record: DbRecord<T>) {
+  private async writeRecord(record: DbRecord) {
     const path = this.getPath(record.recordId, record.version);
     const contents = JSON.stringify(record);
     await fs.writeFile(path, contents);
