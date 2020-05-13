@@ -1,3 +1,5 @@
+// Before running this, run the following commands:
+// npm i glob
 import { connectToDbWithRetry } from "../db/mongo";
 import { listTransactions } from "../transaction/transaction-service";
 import { JsonDatabase } from "../db/json-db";
@@ -8,6 +10,8 @@ import { listBalances } from "../balance/balance-repository";
 import { BalanceV2 } from "../balance/balance-model";
 import { RawPlaidDbModel } from "../raw-plaid/raw-plaid-db-model";
 import { RawPlaidV2 } from "../raw-plaid/raw-plaid-model";
+import * as glob from "glob";
+import { utimesSync } from "fs";
 
 (async () => {
 
@@ -25,7 +29,7 @@ import { RawPlaidV2 } from "../raw-plaid/raw-plaid-model";
       splits: transaction.splits.map(split => ({
         amount: split.amount,
         budget: split.budget,
-        description: split.description,
+        description: split.description
       })),
       totalAmount: transaction.totalAmount,
       createdAt: transaction.date,
@@ -77,7 +81,13 @@ import { RawPlaidV2 } from "../raw-plaid/raw-plaid-model";
     await rawPlaidDb.createRecord(rawPlaidV2);
   }
 
+  const jsonFiles = glob.sync("data/**/*.json");
+  jsonFiles.forEach(file => {
+    const data = JSON.parse(file);
+    utimesSync(file, data.createdAt, data.modifiedAt);
+  });
   console.log("done!");
   process.exit(0);
+
 })();
 
