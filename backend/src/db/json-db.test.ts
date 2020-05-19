@@ -5,7 +5,7 @@ import { rmRf } from "../util/fs-util";
 jest.mock("../util/date-util");
 const mockedDateUtil = DateUtil as jest.Mocked<typeof DateUtil>;
 
-const dbPath = "tmp";
+const dbPath = "tmp/db-tests";
 
 describe("JSON Database", () => {
   let db: JsonDatabase<{ data: string }>;
@@ -208,7 +208,7 @@ describe("JSON Database", () => {
   });
 
   it("should list 1 entry after entry is created in a database with a nested folder", async () => {
-    const nestedDb = new JsonDatabase<{ data: string }>('tmp1/tmp3');
+    const nestedDb = new JsonDatabase<{ data: string }>('tmp/tmp2/tmp3');
     try {
       await nestedDb.createRecord({ data: "test-data" });
 
@@ -218,7 +218,7 @@ describe("JSON Database", () => {
       expect(records[0].data).toEqual("test-data");
     } finally {
       await nestedDb.shutdown();
-      rmRf('tmp1');
+      rmRf('tmp/tmp2');
     }
   });
 
@@ -228,7 +228,7 @@ describe("JSON Database", () => {
         b: string
       }
     }
-    const newDb = new JsonDatabase<NewType>('tmp1');
+    const newDb = new JsonDatabase<NewType>('tmp/tmp1');
     try {
       await newDb.createRecord({ a: { b: "test-data" } });
 
@@ -238,7 +238,7 @@ describe("JSON Database", () => {
       expect(records[0].a.b).toEqual("test-data");
     } finally {
       await newDb.shutdown();
-      rmRf('tmp1');
+      rmRf('tmp/tmp1');
     }
   });
 

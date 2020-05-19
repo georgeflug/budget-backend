@@ -3,7 +3,7 @@ import { rmRf } from "../util/fs-util";
 import { FileCache } from "./file-cache";
 import { resolve } from "path";
 
-const testPath = 'tmp';
+const testPath = 'tmp/file-cache-tests';
 
 describe("File Cache", () => {
   let fileCache: FileCache;

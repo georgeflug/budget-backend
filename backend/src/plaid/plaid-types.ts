@@ -1,7 +1,7 @@
 export interface PlaidTransaction {
   account_id: string,               // "DoQmRxwVbDTw4X5wbBNyTEZ7kDN9ZRfZE880w"
   account_owner: string,            // null
-  amount: Number,                   // 5.36
+  amount: number,                   // 5.36
   category: string[],               // [ "Travel", "Airports" ]
   category_id: string,              // "22002000"
   date: string,                     // "2019-05-20"
@@ -9,7 +9,7 @@ export interface PlaidTransaction {
   location: PlaidLocation,
   name: string,                     // "RICHMOND AIRPORT RICHMOND / VAUS : POS Transaction"
   payment_meta: PlaidPaymentMeta,
-  pending: Boolean,                 // false
+  pending: boolean,                 // false
   pending_transaction_id: string,   // "LB9B98bpEQUvY7pQQgYmT3nXwL4xPXh0XJnqX"
   transaction_id: string,           // "0eEgOn4mPNfLBDQL6d8LTYvaoJjwj6tr3Av6P",
   transaction_type: string,         // "place"
@@ -19,8 +19,8 @@ export interface PlaidTransaction {
 export interface PlaidLocation {
   address: string,        // "3100  Kensington Ave"
   city: string,           // "Richmond"
-  lat: Number,            // 37.559933
-  lon: Number,            // -77.476295
+  lat: number,            // 37.559933
+  lon: number,            // -77.476295
   state: string,          // "VA"
   store_number: string,   // "26407"
   zip: string             // "23188"
@@ -49,9 +49,9 @@ export interface PlaidAccount {
 }
 
 export interface PlaidBalance {
-  available: Number,                // 100
-  current: Number,                  // 110
-  limit: Number,                    // null
+  available: number,                // 100
+  current: number,                  // 110
+  limit: number,                    // null
   iso_currency_code: string         // "USD"
   unofficial_currency_code: string  // null
 }
@@ -60,6 +60,6 @@ export interface PlaidTransactionResponse {
   accounts: PlaidAccount[],
   transactions: PlaidTransaction[],
   item: {},
-  total_transactions: Number,
+  total_transactions: number,
   request_id: string  // "45QSn"
 }

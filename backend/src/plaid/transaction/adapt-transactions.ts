@@ -1,4 +1,6 @@
 import {PlaidTransaction} from "../plaid-types";
+import { UnsavedTransactionV2 } from "../../transaction/transaction-model";
+import { parseISO } from "date-fns";
 
 const ACCOUNT_MAP = {
   'o3d3dPnELRtY7gEPPaBVsbZkDqJeQLCB680A5': 'Discover',
@@ -6,19 +8,19 @@ const ACCOUNT_MAP = {
   '1EzgJnaKqxFD8R9D5pdXug0qLPKx0XHmJXXEY': 'Savings'
 };
 
-export function adaptTransactions(transactions: PlaidTransaction[]) {
+export function adaptTransactions(transactions: PlaidTransaction[]): UnsavedTransactionV2[] {
   return transactions.map(transaction => {
     return {
-      date: transaction.date,
       totalAmount: transaction.amount,
       account: ACCOUNT_MAP[transaction.account_id],
-      postedDate: transaction.date,
+      postedDate: parseISO(transaction.date),
       postedDescription: transaction.name,
       plaidId: transaction.transaction_id,
       splits: [{
-        amount: transaction.amount
+        amount: transaction.amount,
+        budget: '',
+        description: '',
       }],
-      pendingPlaidId: transaction.pending_transaction_id,
       pending: transaction.pending
     };
   });

@@ -1,37 +1,59 @@
-const express = require("express");
-export const router = express.Router();
-import { Transaction } from "./transaction-model";
-import * as repository from "./transaction-repository";
+import { SmartDate } from "../util/smart-date";
+import { TransactionSplit, TransactionV2, UnsavedTransactionV2 } from "./transaction-model";
+import { TransactionRepository } from "./transaction-repository";
 
-export async function createTransaction(transaction: Transaction) {
-  verifySplits(transaction);
-  await repository.saveTransaction(transaction);
+export class TransactionService {
+  private repository: TransactionRepository;
+
+  constructor(repository?: TransactionRepository) {
+    this.repository = repository || new TransactionRepository();
+  }
+
+  async createTransaction(transaction: UnsavedTransactionV2): Promise<TransactionV2> {
+    verifySplits(transaction.totalAmount, transaction.splits);
+    return await this.repository.saveTransaction(transaction);
+  }
+
+  async listTransactions(): Promise<TransactionV2[]> {
+    return await this.repository.listTransactions();
+  }
+
+  async listTransactionsAfter(startingAt: Date): Promise<TransactionV2[]> {
+    const results = await this.listTransactions();
+    const smartStartingAt = SmartDate.of(startingAt);
+    return results.filter(record => smartStartingAt.isSameOrAfter(record.modifiedAt));
+  }
+
+  async findTransactionById(id: number): Promise<TransactionV2> {
+    return await this.repository.findTransactionById(id);
+  }
+
+  async findTransactionByPlaidId(plaidId: string): Promise<TransactionV2> {
+    const results = await this.listTransactions();
+    const transaction = results.find(t => t.plaidId === plaidId);
+    if (!transaction) {
+      throw new Error(`Could not find transaction by Plaid ID: ${plaidId}`);
+    }
+    return transaction;
+  }
+
+  async updateTransactionSplits(id: number, version: number, splits: TransactionSplit[]): Promise<TransactionV2> {
+    const existingTransaction = await this.findTransactionById(id);
+    const newTransaction = {
+      ...existingTransaction,
+      splits: splits,
+    };
+    return await this.updateTransaction(id, version, newTransaction);
+  }
+
+  async updateTransaction(id: number, version: number, transaction: UnsavedTransactionV2): Promise<TransactionV2> {
+    verifySplits(transaction.totalAmount, transaction.splits);
+    return await this.repository.updateTransactionById(id, version, transaction);
+  }
 }
 
-export async function listTransactions(): Promise<Transaction[]> {
-  return await repository.listTransactions();
-}
-
-export async function listTransactionsAfter(startingAt: string): Promise<Transaction[]> {
-  return await repository.listTransactionsAfter(startingAt);
-}
-
-export async function findTransactionById(id: string): Promise<Transaction | null> {
-  return await repository.findTransactionById(id);
-}
-
-export async function updateTransaction(id: string, transaction: Transaction) {
-  verifySplits(transaction);
-  return await repository.updateTransactionById(id, transaction);
-}
-
-export async function deleteTransaction(id: string) {
-  await repository.deleteTransactionById(id);
-}
-
-function verifySplits(transaction: Transaction) {
-  var totalSplits = transaction.splits.reduce((total, currentSplit) => total + currentSplit.amount, 0);
-  var totalAmount = transaction.totalAmount;
+function verifySplits(totalAmount: number, splits: TransactionSplit[]) {
+  const totalSplits = splits.reduce((total, currentSplit) => total + currentSplit.amount, 0);
   if (Math.abs(totalAmount - totalSplits) > 0.0001) {
     throw `Total Amount ${totalAmount} does not match sum of split amounts ${totalSplits}`;
   }

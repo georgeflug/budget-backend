@@ -4,7 +4,7 @@ import { resolve } from "path";
 import { FileLister } from "./file-lister";
 import { rmRf } from "../util/fs-util";
 
-const testPath = "tmp";
+const testPath = "tmp/file-lister-test";
 
 describe('File Lister', () => {
   let fileLister: FileLister;

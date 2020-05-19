@@ -1,11 +1,13 @@
 import { downloadTransactions } from "./transaction/download-transactions";
 
 import { adaptTransactions } from "./transaction/adapt-transactions";
-import { saveTransactions } from "./transaction/save-transactions";
+import { TransactionSaver } from "./transaction/save-transactions";
 import { downloadBalances } from "./balance/download-balances";
 import { saveBalances } from "./balance/save-balances";
 import { debug } from "../log";
 import { saveRawPlaid } from "../raw-plaid/raw-plaid-repository";
+
+const transactionSaver = new TransactionSaver();
 
 export async function saveLatestTransactionsToDb() {
   debug('Transaction Download', 'start');
@@ -15,7 +17,7 @@ export async function saveLatestTransactionsToDb() {
   await saveRawPlaid(plaidTransactions);
 
   const transactions = adaptTransactions(plaidTransactions);
-  const results: any = await saveTransactions(transactions);
+  const results: any = await transactionSaver.saveTransactions(transactions);
 
   const transactionDownloadedTime = Date.now();
   const balances = await downloadBalances();

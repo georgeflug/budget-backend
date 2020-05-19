@@ -3,3 +3,5 @@ mongo-data/
 src/migration/*.json
 out/
 firebase-key.json
+data/
+tmp/

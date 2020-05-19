@@ -1,49 +1,75 @@
-import * as repository from "../../transaction/transaction-repository";
-import { Transaction } from "../../transaction/transaction-model";
+import { TransactionSplit, TransactionV2, UnsavedTransactionV2 } from "../../transaction/transaction-model";
+import { TransactionService } from "../../transaction/transaction-service";
 
 const moment = require("moment");
 
-export async function saveTransactions(transactions) {
-  const results = await Promise.all(transactions
-    .filter(t => !t.pending)
-    .map(saveTransaction)
-  );
-  const existingCount = results.reduce((total: any, current: any) => total + (current.type === "updated" ? 1 : 0), 0) as number;
-  const unchangedCount = results.reduce((total: any, current: any) => total + (current.type === "unchanged" ? 1 : 0), 0) as number;
-  const totalCount = transactions.length;
-  const newRecords = totalCount - existingCount - unchangedCount;
+export class TransactionSaver {
+  private service: TransactionService;
 
-  return {
-    newRecords: newRecords,
-    updatedRecords: existingCount,
-    unchangedRecords: unchangedCount,
-    totalRecords: totalCount
-  };
-}
+  constructor(service?: TransactionService) {
+    this.service = service || new TransactionService();
+  }
 
-async function saveTransaction(plaidTransaction) {
-  let existingTransaction = await findExistingTransaction(plaidTransaction);
-  if (existingTransaction) {
-    if (isTransactionTheSame(plaidTransaction, existingTransaction)) {
-      return {
-        type: "unchanged",
-        transaction: existingTransaction
-      };
-    } else {
-      return {
-        type: "updated",
-        transaction: await updateExistingTransaction(plaidTransaction, existingTransaction)
-      };
-    }
-  } else {
+  async saveTransactions(transactions: UnsavedTransactionV2[]) {
+    const results = await Promise.all(transactions
+      .filter(t => !t.pending)
+      .map(t => this.saveTransaction(t))
+    );
+    const existingCount = results.filter(item => item.type === "updated").length;
+    const unchangedCount = results.filter(item => item.type === "unchanged").length;
+    const totalCount = transactions.length;
+    const newRecords = totalCount - existingCount - unchangedCount;
+
     return {
-      type: "new",
-      transaction: await repository.saveTransaction(plaidTransaction)
+      newRecords: newRecords,
+      updatedRecords: existingCount,
+      unchangedRecords: unchangedCount,
+      totalRecords: totalCount
     };
   }
+
+  private async saveTransaction(transaction: UnsavedTransactionV2) {
+    let existingTransaction = await this.getExistingTransaction(transaction.plaidId);
+    if (existingTransaction) {
+      if (isTransactionTheSame(transaction, existingTransaction)) {
+        return {
+          type: "unchanged",
+          transaction: existingTransaction
+        };
+      } else {
+        return {
+          type: "updated",
+          transaction: await this.updateExistingTransaction(transaction, existingTransaction)
+        };
+      }
+    } else {
+      return {
+        type: "new",
+        transaction: await this.service.createTransaction(transaction)
+      };
+    }
+  }
+
+  private async getExistingTransaction(plaidId: string): Promise<TransactionV2 | undefined> {
+    try {
+      return await this.service.findTransactionByPlaidId(plaidId);
+    } catch (e) {
+      return undefined;
+    }
+  }
+
+  private async updateExistingTransaction(plaidTransaction: UnsavedTransactionV2, existingTransaction: TransactionV2) {
+    const updatedTransaction = {
+      ...existingTransaction,
+      ...plaidTransaction,
+      splits: getUpdatedSplits(existingTransaction.splits, plaidTransaction.totalAmount)
+    };
+    return await this.service.updateTransaction(existingTransaction.recordId, existingTransaction.version, updatedTransaction);
+  }
+
 }
 
-function isTransactionTheSame(plaidTransaction, existingTransaction) {
+function isTransactionTheSame(plaidTransaction: UnsavedTransactionV2, existingTransaction: TransactionV2) {
   return (
     existingTransaction.postedDescription === plaidTransaction.postedDescription &&
     existingTransaction.plaidId === plaidTransaction.plaidId &&
@@ -53,65 +79,18 @@ function isTransactionTheSame(plaidTransaction, existingTransaction) {
   );
 }
 
-async function findExistingTransaction(plaidTransaction): Promise<Transaction | null> {
-  const existingTransaction = await repository.findTransactionByPlaidId(plaidTransaction.plaidId);
-  if (existingTransaction) {
-    return existingTransaction;
+function getUpdatedSplits(splits: TransactionSplit[], totalAmount: number): TransactionSplit[] {
+  const budgetedSplits = splits.filter(split => !!split.budget);
+  const splitTotal = budgetedSplits.reduce((accumulated, split) => accumulated + split.amount, 0);
+  if (splitTotal !== totalAmount) {
+    return [
+      ...budgetedSplits,
+      {
+        amount: totalAmount - splitTotal,
+        budget: '',
+        description: '',
+      }
+    ];
   }
-  if (plaidTransaction.pendingPlaidId) {
-    const pendingTransaction = await repository.findTransactionByPlaidId(plaidTransaction.pendingPlaidId);
-    if (pendingTransaction) {
-      return pendingTransaction;
-    }
-  }
-  const replacedTransaction = await repository.findPendingTransaction(plaidTransaction.account, plaidTransaction.postedDate, plaidTransaction.totalAmount);
-  if (replacedTransaction) {
-    return replacedTransaction;
-  }
-  return null;
-}
-
-async function updateExistingTransaction(plaidTransaction, existingTransaction) {
-  await updateTopLevelData(existingTransaction, plaidTransaction);
-  return await updateSplits(existingTransaction, plaidTransaction);
-}
-
-async function updateTopLevelData(existingTransaction, plaidTransaction) {
-  existingTransaction.postedDate = plaidTransaction.postedDate;
-  if (existingTransaction.postedDescription && existingTransaction.plaidId != plaidTransaction.plaidId) {
-    existingTransaction.postedDescription = plaidTransaction.postedDescription + ` (${existingTransaction.postedDescription})`;
-  } else {
-    existingTransaction.postedDescription = plaidTransaction.postedDescription;
-  }
-  existingTransaction.account = plaidTransaction.account;
-  existingTransaction.plaidId = plaidTransaction.plaidId;
-  existingTransaction.totalAmount = plaidTransaction.totalAmount;
-  existingTransaction.pending = plaidTransaction.pending;
-  // save fields
-  return await repository.updateTransaction(existingTransaction);
-}
-
-async function updateSplits(existingTransaction, plaidTransaction) {
-  await removeUncategorizedSplits(existingTransaction);
-  return await addSplitToEnsureTotalSum(existingTransaction, plaidTransaction.totalAmount);
-}
-
-async function removeUncategorizedSplits(existingTransaction) {
-  for (let i = 0; i < existingTransaction.splits.length; i++) {
-    if (!existingTransaction.splits[i].budget) {
-      existingTransaction.splits[i].remove();
-      i--;
-    }
-  }
-  return await repository.updateTransaction(existingTransaction);
-}
-
-async function addSplitToEnsureTotalSum(existingTransaction, newTotal) {
-  const splitTotal = existingTransaction.splits.reduce((accumulated, split) => accumulated + split.amount, 0);
-  if (splitTotal !== newTotal) {
-    existingTransaction.splits.push({
-      amount: newTotal - splitTotal
-    });
-  }
-  return await repository.updateTransaction(existingTransaction);
+  return budgetedSplits;
 }
