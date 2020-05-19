@@ -1,12 +1,13 @@
 import { TransactionV2, UnsavedTransactionV2 } from "./transaction-model";
 import { JsonDatabase } from "../db/json-db";
 import { parseISO } from "date-fns";
+import { config } from "../util/config";
 
 export class TransactionRepository {
   private db: JsonDatabase<UnsavedTransactionV2>;
 
   constructor(jsonDb?: JsonDatabase<UnsavedTransactionV2>) {
-    this.db = jsonDb || new JsonDatabase<UnsavedTransactionV2>('data/transactions');
+    this.db = jsonDb || new JsonDatabase<UnsavedTransactionV2>(`${config.dataFolder}/transactions`);
   }
 
   async saveTransaction(transaction: UnsavedTransactionV2) {

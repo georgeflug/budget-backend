@@ -1,8 +1,9 @@
 import { Balance, UnsavedBalance } from "./balance-model";
 import { JsonDatabase } from "../db/json-db";
 import { SmartDate } from "../util/smart-date";
+import { config } from "../util/config";
 
-const db = new JsonDatabase<UnsavedBalance>('data/balances');
+const db = new JsonDatabase<UnsavedBalance>(`${config.dataFolder}/balances`);
 
 export async function getBalances(startingAt?: Date): Promise<Balance[]> {
   const balances = await db.listRecords();

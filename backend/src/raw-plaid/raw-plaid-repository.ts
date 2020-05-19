@@ -2,8 +2,9 @@ import { PlaidTransaction } from "../plaid/plaid-types";
 import { RawPlaid, UnsavedRawPlaid } from "./raw-plaid-model";
 import { JsonDatabase } from "../db/json-db";
 import { SmartDate } from "../util/smart-date";
+import { config } from "../util/config";
 
-const db = new JsonDatabase<UnsavedRawPlaid>('data/raw-plaid');
+const db = new JsonDatabase<UnsavedRawPlaid>(`${config.dataFolder}/raw-plaid`);
 
 export async function saveRawPlaid(transactions: PlaidTransaction[]): Promise<RawPlaid> {
   return await db.createRecord({ data: transactions });

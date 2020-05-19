@@ -1,7 +1,8 @@
 import { FeatureIdea, UnsavedFeatureIdea } from "./feature-idea-model";
 import { JsonDatabase } from "../db/json-db";
+import { config } from "../util/config";
 
-const db = new JsonDatabase<UnsavedFeatureIdea>("data/feature-idea");
+const db = new JsonDatabase<UnsavedFeatureIdea>(`${config.dataFolder}/feature-idea`);
 
 export async function listFeatureIdeas(): Promise<FeatureIdea[]> {
   return await db.listRecords();

@@ -10,4 +10,6 @@ export const config = {
   secretUsername: process.env.SECRET_USERNAME as string,
   secretPassword: process.env.SECRET_PASSWORD as string,
   budgetCertPassword: process.env.BUDGET_CERT_PASSWORD as string,
+
+  dataFolder: process.env.DATA_FOLDER as string || 'tmp',
 };

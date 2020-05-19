@@ -5,13 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "compile": "tsc",
-    "start": "docker-compose up --build",
-    "serverRestart": "docker-compose down && docker-compose up --build --detach",
-    "serverLogs": "docker logs -f budget-backend",
-    "startTest": "npm run test",
-    "startIntegration": "docker-compose --file docker-compose-integration.yml up --build",
-    "startDebug": "docker-compose --file docker-compose-integration.yml up --build",
     "runInDocker": "ts-node index",
+    "serverLogs": "docker logs -f budget-backend",
+    "serverRestart": "docker-compose down && docker-compose up --build --detach",
+    "start": "docker-compose up --build",
     "test": "jest src.+test\\.ts"
   },
   "author": "Richard White",
