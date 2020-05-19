@@ -1,3 +1,5 @@
+import { config } from "../util/config";
+
 export interface BankAccount {
   name: string,
   accessKey: string,
@@ -5,12 +7,12 @@ export interface BankAccount {
 
 export const discoverAccount: BankAccount = {
   name: "Discover",
-  accessKey: process.env.DISCOVER_ACCESS_KEY!
+  accessKey: config.discoverAccessKey
 };
 
 export const firstCommunityAccount: BankAccount = {
   name: "First Community Credit Union",
-  accessKey: process.env.FCCU_ACCESS_KEY!
+  accessKey: config.fccuAccessKey
 };
 
 export const bankAccounts: BankAccount[] = [

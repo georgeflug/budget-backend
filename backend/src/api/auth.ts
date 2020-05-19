@@ -1,13 +1,12 @@
 // temporary code to have typescript recognize this file as a module
+import { config } from "../util/config";
+
 export {};
 
 import basicAuth from 'express-basic-auth'
-// const basicAuth = require('express-basic-auth')
-
-const username: any = process.env.SECRET_USERNAME;
 
 module.exports = basicAuth({
-  users: {[username]: process.env.SECRET_PASSWORD as string},
+  users: {[config.secretUsername]: config.secretPassword},
   unauthorizedResponse: function getUnauthorizedResponse() {
     return {
       message: "Unauthorized"

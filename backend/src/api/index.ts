@@ -1,3 +1,5 @@
+import { config } from "../util/config";
+
 const express = require('express');
 const app = express();
 const fs = require('fs');
@@ -10,7 +12,7 @@ const compression = require('compression');
 const port = 3000;
 const serverOptions = {
   key: fs.readFileSync("./certs/budget-backend-private.key"),
-  passphrase: process.env.BUDGET_CERT_PASSWORD,
+  passphrase: config.budgetCertPassword,
   cert: fs.readFileSync("./certs/budget-backend-public.crt")
 };
 

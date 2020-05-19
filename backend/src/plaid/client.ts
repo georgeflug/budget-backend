@@ -1,11 +1,12 @@
-import * as plaid from 'plaid';
+import * as plaid from "plaid";
+import { config } from "../util/config";
 
 export const plaidClient = new plaid.Client(
-    process.env.PLAID_CLIENT_ID as string,
-    process.env.PLAID_SECRET as string,
-    process.env.PLAID_PUBLIC_KEY as string,
-    plaid.environments['development'],
-    {
-      version: '2018-05-22'
-    }
+  config.plaidClientId,
+  config.plaidSecret,
+  config.plaidPublicKey,
+  plaid.environments[config.plaidEnv],
+  {
+    version: "2018-05-22"
+  }
 );
