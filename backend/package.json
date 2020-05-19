@@ -12,8 +12,7 @@
     "startIntegration": "docker-compose --file docker-compose-integration.yml up --build",
     "startDebug": "docker-compose --file docker-compose-integration.yml up --build",
     "runInDocker": "ts-node index",
-    "test": "jest src.+test\\.ts",
-    "testIntegration": "jest src.+integration\\.spec\\.ts"
+    "test": "jest src.+test\\.ts"
   },
   "author": "Richard White",
   "license": "ISC",
