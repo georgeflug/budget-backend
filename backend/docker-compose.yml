@@ -1,12 +1,22 @@
 version: "2"
 services:
   budget-backend:
-    extends:
-      file: docker-compose-base.yml
-      service: budget-backend
-    links:
-      - mongo
-  mongo:
-    extends:
-      file: docker-compose-base.yml
-      service: mongo
+    container_name: budget-backend
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    environment:
+      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
+      PLAID_SECRET: ${PLAID_SECRET}
+      PLAID_PUBLIC_KEY: ${PLAID_PUBLIC_KEY}
+      PLAID_ENV: development
+      DISCOVER_ACCESS_KEY: ${DISCOVER_ACCESS_KEY}
+      FCCU_ACCESS_KEY: ${FCCU_ACCESS_KEY}
+      SECRET_USERNAME: ${SECRET_USERNAME}
+      SECRET_PASSWORD: ${SECRET_PASSWORD}
+      BUDGET_CERT_PASSWORD: ${BUDGET_CERT_PASSWORD}
+      DATA_FOLDER: /data
+    volumes:
+      - ../data:/data
