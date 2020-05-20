@@ -17,4 +17,4 @@ RUN npm install --production
 COPY . .
 
 EXPOSE 8080
-CMD [ "npm", "run", "runInDocker" ]
+CMD [ "npm", "start" ]

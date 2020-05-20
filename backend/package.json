@@ -5,10 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "compile": "tsc",
-    "runInDocker": "ts-node index",
+    "startInDocker": "docker-compose up --build",
     "serverLogs": "docker logs -f budget-backend",
     "serverRestart": "docker-compose down && docker-compose up --build --detach",
-    "start": "docker-compose up --build",
+    "start": "ts-node index",
     "test": "jest src.+test\\.ts"
   },
   "author": "Richard White",
