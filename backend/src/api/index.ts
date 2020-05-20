@@ -25,7 +25,6 @@ export function initExpress() {
   app.use(require('./auth'));
   app.use(require('../feature-idea/feature-idea-controller').router);
   app.use(require('../transaction/transaction-controller').router);
-  app.use(require('./plaid').router);
   app.use(require('./refresh').router);
   app.use(require('../balance/balance-controller').router);
   app.use(require('./check-account-connectivity/check-accounts-controller').router);
