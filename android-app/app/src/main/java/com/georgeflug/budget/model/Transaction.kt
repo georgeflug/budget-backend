@@ -9,18 +9,17 @@ import java.math.BigDecimal
 
 @Parcelize
 data class Transaction(
-        val _id: String,
-        val plaidId: String?,
-        val date: String,
+        val id: Int,
+        val createdAt: String,
         val totalAmount: BigDecimal,
         val account: String?,
-        val postedDate: String?,
-        val postedDescription: String?,
+        val postedDate: String,
+        val postedDescription: String,
         val splits: List<TransactionSplit>,
         val updatedAt: String = "2018-09-01T12:00:00.000Z"
 ) : Parcelable {
 
     @IgnoredOnParcel
     @JsonIgnore
-    val bestDate = DateUtil.parseDate(if (date.isBlank()) postedDate!! else date)
+    val bestDate = DateUtil.parseDate(if (createdAt.isBlank()) postedDate else createdAt)
 }

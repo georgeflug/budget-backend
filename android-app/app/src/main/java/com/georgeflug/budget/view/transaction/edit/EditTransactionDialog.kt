@@ -47,10 +47,9 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
             val date = dateText.text.toString()
 
             val updatedTransaction = Transaction(
-                    _id = transaction._id,
-                    plaidId = transaction.plaidId,
-                    date = transaction.date,
+                    id = transaction.id,
                     totalAmount = amount,
+                    createdAt = transaction.createdAt,
                     account = transaction.account,
                     postedDate = transaction.postedDate,
                     postedDescription = transaction.postedDescription,
@@ -60,7 +59,7 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
                     updatedAt = transaction.updatedAt
             )
 
-            BudgetApi.transactions.updateTransaction(transaction._id, updatedTransaction)
+            BudgetApi.transactions.updateTransaction(transaction.id, updatedTransaction)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext { progressDialog.dismiss() }
                     .subscribe({
@@ -69,7 +68,7 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
 //                        transaction.description = description
 //                        transaction.budget = budget
 //                        Timber.d("foo", "date changing from ${transaction.date} to $date")
-//                        transaction.date = date
+//                        transaction.ate = date
                         // TODO: emit the new transaction
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         dismiss()

@@ -67,7 +67,7 @@ class TransactionsFilteredModel(
                 .filter { it.transaction != null }
                 .map { it.transaction!! }
                 .toMutableList()
-        val existingIndex = newTransactions.indexOfFirst { it._id == transaction._id }
+        val existingIndex = newTransactions.indexOfFirst { it.id == transaction.id }
         if (existingIndex < 0) {
             newTransactions.add(transaction)
         } else {

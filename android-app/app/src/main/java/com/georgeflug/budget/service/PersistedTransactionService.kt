@@ -51,7 +51,7 @@ object PersistedTransactionService {
     }
 
     private fun saveTransaction(transaction: Transaction) {
-        val existingLocation = transactions.indexOfFirst { it._id == transaction._id }
+        val existingLocation = transactions.indexOfFirst { it.id == transaction.id }
         if (existingLocation != -1) {
             transactions[existingLocation] = transaction
         } else {

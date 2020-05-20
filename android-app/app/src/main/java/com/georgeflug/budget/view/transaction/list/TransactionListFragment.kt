@@ -119,15 +119,14 @@ class TransactionListFragment : Fragment() {
         val oldSplit = transaction.splits[0]
         val progressDialog = AlertUtil.showProgress(context, "Update Transaction", "Saving...")
         val updatedTransaction = Transaction(
-                _id = transaction._id,
-                plaidId = transaction.plaidId,
-                date = transaction.date,
+                id = transaction.id,
                 totalAmount = transaction.totalAmount,
                 account = transaction.account,
                 postedDate = transaction.postedDate,
                 postedDescription = transaction.postedDescription,
                 splits = listOf(TransactionSplit(oldSplit.amount, fragment.budget!!.title, fragment.description)),
-                updatedAt = transaction.updatedAt
+                updatedAt = transaction.updatedAt,
+                createdAt = transaction.createdAt
         )
         TransactionService.updateTransaction(updatedTransaction)
                 .observeOn(AndroidSchedulers.mainThread())

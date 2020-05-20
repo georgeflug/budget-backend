@@ -47,7 +47,7 @@ class ViewTransactionFragment : Fragment() {
         super.onStart()
 
         listener = TransactionService.listenForNewTransactions()
-                .filter { it._id == transaction._id }
+                .filter { it.id == transaction.id }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     transaction = it

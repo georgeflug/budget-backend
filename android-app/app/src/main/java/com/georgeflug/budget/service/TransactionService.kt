@@ -35,9 +35,9 @@ object TransactionService {
 
         return BudgetApi.transactions.listTransactions(latestTimestamp)
                 .map { transactions ->
-                    val newIds = transactions.map { it._id }
+                    val newIds = transactions.map { it.id }
                     val keepTransactions = persistedTransactions
-                            .filter { !newIds.contains(it._id) }
+                            .filter { !newIds.contains(it.id) }
 
                     transactions
                             .union(keepTransactions)
@@ -60,7 +60,7 @@ object TransactionService {
     }
 
     fun updateTransaction(transaction: Transaction): Observable<Transaction> {
-        return BudgetApi.transactions.updateTransaction(transaction._id, transaction)
+        return BudgetApi.transactions.updateTransaction(transaction.id, transaction)
                 .doOnNext { transaction -> updates.onNext(transaction) }
     }
 
@@ -77,15 +77,14 @@ object TransactionService {
 
     private fun copyTransactionWithSortedSplits(transaction: Transaction): Transaction {
         return Transaction(
-                _id = transaction._id,
-                plaidId = transaction.plaidId,
-                date = transaction.date,
+                id = transaction.id,
                 totalAmount = transaction.totalAmount,
                 account = transaction.account,
                 postedDate = transaction.postedDate,
                 postedDescription = transaction.postedDescription,
                 splits = transaction.splits.sortedBy { it.amount }.asReversed(),
-                updatedAt = transaction.updatedAt
+                updatedAt = transaction.updatedAt,
+                createdAt = transaction.createdAt
         )
     }
 }

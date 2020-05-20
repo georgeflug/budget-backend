@@ -12,9 +12,6 @@ import com.georgeflug.budget.model.FeatureIdea
 import com.georgeflug.budget.util.AlertUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.dialog_suggest_feature.*
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class SuggestAFeatureDialog(context: Context) : Dialog(context) {
 
@@ -28,9 +25,8 @@ class SuggestAFeatureDialog(context: Context) : Dialog(context) {
             dismiss()
         }
         suggestFeatureSubmitButton.setOnClickListener {
-            val date = SimpleDateFormat("MM-dd-yyyy", Locale.US).format(Date())
             val description = featureDescription.text.toString()
-            val newIdea = FeatureIdea(date = date, description = description)
+            val newIdea = FeatureIdea(description = description)
             BudgetApi.featureIdeas.createFeatureIdea(newIdea)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({

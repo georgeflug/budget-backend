@@ -20,13 +20,13 @@ interface TransactionApi {
     fun createTransaction(@Body transaction: NewTransaction): Observable<Transaction>
 
     @GET("transactions/{id}")
-    fun getTransaction(@Path("id") id: String): Observable<Transaction>
+    fun getTransaction(@Path("id") id: Int): Observable<Transaction>
 
     @PUT("transactions/{id}")
-    fun updateTransaction(@Path("id") id: String, @Body transaction: Transaction): Observable<Transaction>
+    fun updateTransaction(@Path("id") id: Int, @Body transaction: Transaction): Observable<Transaction>
 
     @DELETE("transactions/{id}")
-    fun deleteTransactions(@Path("id") id: String): Observable<List<Transaction>>
+    fun deleteTransactions(@Path("id") id: Int): Observable<List<Transaction>>
 
     @POST("refresh")
     fun refreshTransactions(): Observable<RefreshResult>

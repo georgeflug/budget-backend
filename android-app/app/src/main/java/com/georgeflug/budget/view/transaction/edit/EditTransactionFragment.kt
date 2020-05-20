@@ -71,15 +71,14 @@ class EditTransactionFragment : Fragment() {
             val progressDialog = AlertUtil.showProgress(context, "Update Transaction", "Saving...")
             val theDate = selectedDate
             val updatedTransaction = Transaction(
-                    _id = transaction._id,
-                    plaidId = transaction.plaidId,
-                    date = if (theDate != null) DateUtil.dateToString(theDate) else transaction.date,
+                    id = transaction.id,
                     totalAmount = transaction.totalAmount,
                     account = transaction.account,
                     postedDate = transaction.postedDate,
                     postedDescription = transaction.postedDescription,
                     splits = splits,
-                    updatedAt = transaction.updatedAt
+                    updatedAt = transaction.updatedAt,
+                    createdAt = transaction.createdAt
             )
             TransactionService.updateTransaction(updatedTransaction)
                     .observeOn(AndroidSchedulers.mainThread())

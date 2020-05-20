@@ -34,7 +34,7 @@ class CountModel {
     }
 
     private fun countTransaction(transaction: Transaction) {
-        val existingIndex = savedTransactions.indexOfFirst { it._id == transaction._id }
+        val existingIndex = savedTransactions.indexOfFirst { it.id == transaction.id }
 
         val oldUncategorized = isUncategorized(savedTransactions[existingIndex])
         val newUncategorized = isUncategorized(transaction)
