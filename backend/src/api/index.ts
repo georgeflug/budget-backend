@@ -33,7 +33,7 @@ export function initExpress() {
   app.use(function (err: Error, req, res, _next) {
     error('GLOBAL ERROR', 'Uncaught Exception', err);
     res.status(500).send({
-      message: err.message
+      message: err.message || err
     })
   });
 
