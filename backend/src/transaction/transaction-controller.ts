@@ -14,10 +14,10 @@ router.route("/transactions")
 
 router.route("/transactions/:id")
   .get(async function(req, res) {
-    const result = await service.findTransactionById(req.params.id);
+    const result = await service.findTransactionById(parseInt(req.params.id));
     res.json(result);
   })
   .put(async function(req, res) {
-    const result = await service.updateTransactionSplits(req.params.id, req.body.version, req.body.splits);
+    const result = await service.updateTransactionSplits(parseInt(req.params.id), parseInt(req.body.version), req.body.splits);
     res.json(result);
   });
