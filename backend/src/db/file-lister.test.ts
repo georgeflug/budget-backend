@@ -58,6 +58,21 @@ describe('File Lister', () => {
     expect(files).toEqual([]);
   });
 
+  it('should list existing file and new file when new file appears before list is queried for the first time', async () => {
+    await createFile('test-file-1.json');
+    const newFileLister = createFileLister();
+    try {
+      await createFile('test-file-2.json');
+      await new Promise(res => setTimeout(res, 500));
+
+      const files = await newFileLister.listFiles();
+
+      expect(files).toEqual(['test-file-1.json', 'test-file-2.json']);
+    } finally {
+      await newFileLister.shutdown();
+    }
+  });
+
 });
 
 function createFileLister(): FileLister {

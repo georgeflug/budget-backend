@@ -3,6 +3,7 @@ import { resolve } from "path";
 import { exists } from "../util/fs-util";
 
 export class FileLister {
+  private hasCachedFileList = false;
   private files: string[] = [];
   private watcher = watch(this.path, { persistent: false }, (eventType, fileName) => this.onFileChanged(eventType, fileName));
 
@@ -10,8 +11,9 @@ export class FileLister {
   }
 
   async listFiles(): Promise<string[]> {
-    if (this.files.length === 0) {
+    if (!this.hasCachedFileList) {
       this.files = await fs.readdir(this.path);
+      this.hasCachedFileList = true;
     }
     return this.files;
   }
