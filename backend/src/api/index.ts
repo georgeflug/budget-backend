@@ -30,7 +30,7 @@ export function initExpress() {
   app.use(require('../balance/balance-controller').router);
   app.use(require('./check-account-connectivity/check-accounts-controller').router);
   app.use(require('../raw-plaid/raw-plaid-controller').router);
-  app.use(function (err: Error, req, res) {
+  app.use(function (err: Error, req, res, _next) {
     error('GLOBAL ERROR', 'Uncaught Exception', err);
     res.status(500).send({
       message: err.message
