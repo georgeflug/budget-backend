@@ -1,10 +1,5 @@
 Roll-My-Own-Db
 
-Todo:
-	Write up final db design.
-	Create migration script.
-	Migrate code to use Json Db.
-
 Requirements:
 	Save new records
 	Update existing records
@@ -17,7 +12,23 @@ Requirements:
 		00_0002.v01.json
 		00_0003.v01.json
 
-Solution:
+New Solution:
+	JSON files
+	File format is ${recordId}.${version}.json
+	Never overwrite/move files. Only create new files.
+	Cache file listing and file contents. We can do this because files are immutable.
+	One file per record version. Record ID's are sequential.
+	Optimistic concurrency - only allow updating the current file version.
+	When updating a record, create a new file with an incremented version.
+	Folder structure:
+		Each folder represents a table.
+		Each file contains the JSON of the data including standard metadata:
+			Record ID
+			Version
+			Created At
+			Modified At
+
+Old Solution:
 	JSON files
 	Load all files at startup and index by ID / Date / Hash
 	One file per record. Filenames are sequential.

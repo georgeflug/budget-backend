@@ -1,6 +1,3 @@
-WIP: I am converting Transactions to use Json Db.
-Todo: Move TransactionSaver metrics to own method somehow.
-
 # Budget Backend
 
 This app is the backend for the Budget Android application.
