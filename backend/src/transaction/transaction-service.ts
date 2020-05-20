@@ -55,6 +55,6 @@ export class TransactionService {
 function verifySplits(totalAmount: number, splits: TransactionSplit[]) {
   const totalSplits = splits.reduce((total, currentSplit) => total + currentSplit.amount, 0);
   if (Math.abs(totalAmount - totalSplits) > 0.0001) {
-    throw `Total Amount ${totalAmount} does not match sum of split amounts ${totalSplits}`;
+    throw new Error(`Total Amount ${totalAmount} does not match sum of split amounts ${totalSplits}`);
   }
 }
