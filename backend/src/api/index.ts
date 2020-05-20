@@ -1,11 +1,12 @@
 import { config } from "../util/config";
 
 const express = require('express');
+require('express-async-errors');
 const app = express();
 const fs = require('fs');
 const https = require('https');
 const morgan = require('morgan');
-import {debug} from '../log';
+import { debug, error } from "../log";
 
 const compression = require('compression');
 
@@ -29,6 +30,12 @@ export function initExpress() {
   app.use(require('../balance/balance-controller').router);
   app.use(require('./check-account-connectivity/check-accounts-controller').router);
   app.use(require('../raw-plaid/raw-plaid-controller').router);
+  app.use(function (err: Error, req, res) {
+    error('GLOBAL ERROR', 'Uncaught Exception', err);
+    res.status(500).send({
+      message: err.message
+    })
+  });
 
   https.createServer(serverOptions, app).listen(port);
 
