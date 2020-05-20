@@ -6,6 +6,7 @@ import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.NewTransaction
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
+import com.georgeflug.budget.model.TransactionUpdateRequest
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.Completable
@@ -60,8 +61,9 @@ object TransactionService {
     }
 
     fun updateTransaction(transaction: Transaction): Observable<Transaction> {
-        return BudgetApi.transactions.updateTransaction(transaction.id, transaction)
-                .doOnNext { transaction -> updates.onNext(transaction) }
+        val updateRequest = TransactionUpdateRequest(transaction.version, transaction.splits)
+        return BudgetApi.transactions.updateTransaction(transaction.id, updateRequest)
+                .doOnNext { updatedTransaction -> updates.onNext(updatedTransaction) }
     }
 
     fun refresh(): Completable {
@@ -78,6 +80,7 @@ object TransactionService {
     private fun copyTransactionWithSortedSplits(transaction: Transaction): Transaction {
         return Transaction(
                 id = transaction.id,
+                version = transaction.version,
                 totalAmount = transaction.totalAmount,
                 account = transaction.account,
                 postedDate = transaction.postedDate,

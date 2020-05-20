@@ -3,6 +3,7 @@ package com.georgeflug.budget.api
 import com.georgeflug.budget.model.NewTransaction
 import com.georgeflug.budget.model.RefreshResult
 import com.georgeflug.budget.model.Transaction
+import com.georgeflug.budget.model.TransactionUpdateRequest
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -23,7 +24,7 @@ interface TransactionApi {
     fun getTransaction(@Path("id") id: Int): Observable<Transaction>
 
     @PUT("transactions/{id}")
-    fun updateTransaction(@Path("id") id: Int, @Body transaction: Transaction): Observable<Transaction>
+    fun updateTransaction(@Path("id") id: Int, @Body transaction: TransactionUpdateRequest): Observable<Transaction>
 
     @DELETE("transactions/{id}")
     fun deleteTransactions(@Path("id") id: Int): Observable<List<Transaction>>

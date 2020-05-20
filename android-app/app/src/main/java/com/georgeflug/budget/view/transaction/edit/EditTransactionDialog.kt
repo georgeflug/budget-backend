@@ -12,6 +12,7 @@ import com.georgeflug.budget.api.BudgetApi
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
+import com.georgeflug.budget.model.TransactionUpdateRequest
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -44,22 +45,12 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
             val amount = BigDecimal(amountText.text.toString())
             val description = descriptionText.text.toString()
             val budget = (budgetText.selectedItem as HashMap<String, String>)["title"]!!
-            val date = dateText.text.toString()
 
-            val updatedTransaction = Transaction(
-                    id = transaction.id,
-                    totalAmount = amount,
-                    createdAt = transaction.createdAt,
-                    account = transaction.account,
-                    postedDate = transaction.postedDate,
-                    postedDescription = transaction.postedDescription,
-                    splits = listOf(
-                            TransactionSplit(amount = amount, budget = budget, description = description)
-                    ),
-                    updatedAt = transaction.updatedAt
+            val splits = listOf(
+                    TransactionSplit(amount = amount, budget = budget, description = description)
             )
-
-            BudgetApi.transactions.updateTransaction(transaction.id, updatedTransaction)
+            val updateRequest = TransactionUpdateRequest(transaction.version, splits)
+            BudgetApi.transactions.updateTransaction(transaction.id, updateRequest)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext { progressDialog.dismiss() }
                     .subscribe({

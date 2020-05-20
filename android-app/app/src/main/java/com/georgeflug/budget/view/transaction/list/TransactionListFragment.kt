@@ -120,6 +120,7 @@ class TransactionListFragment : Fragment() {
         val progressDialog = AlertUtil.showProgress(context, "Update Transaction", "Saving...")
         val updatedTransaction = Transaction(
                 id = transaction.id,
+                version = transaction.version,
                 totalAmount = transaction.totalAmount,
                 account = transaction.account,
                 postedDate = transaction.postedDate,

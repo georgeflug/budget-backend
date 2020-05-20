@@ -72,6 +72,7 @@ class EditTransactionFragment : Fragment() {
             val theDate = selectedDate
             val updatedTransaction = Transaction(
                     id = transaction.id,
+                    version = transaction.version,
                     totalAmount = transaction.totalAmount,
                     account = transaction.account,
                     postedDate = transaction.postedDate,

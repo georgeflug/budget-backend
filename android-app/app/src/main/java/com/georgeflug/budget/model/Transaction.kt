@@ -10,6 +10,7 @@ import java.math.BigDecimal
 @Parcelize
 data class Transaction(
         val id: Int,
+        val version: Int,
         val createdAt: String,
         val totalAmount: BigDecimal,
         val account: String?,
