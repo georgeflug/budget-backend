@@ -4,9 +4,9 @@ import { listFeatureIdeas, saveFeatureIdea } from "./feature-idea-service";
 export const router = express.Router();
 
 router.route("/feature-ideas")
-  .post(function(req, res) {
-    res.json(saveFeatureIdea(req.body));
+  .post(async function(req, res) {
+    res.json(await saveFeatureIdea(req.body));
   })
-  .get(function(req, res) {
-    res.json(listFeatureIdeas());
+  .get(async function(req, res) {
+    res.json(await listFeatureIdeas());
   });
