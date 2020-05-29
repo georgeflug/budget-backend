@@ -6,12 +6,7 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.georgeflug.budget.R
-import com.georgeflug.budget.notification.NotificationService
-import com.georgeflug.budget.plaidlink.AccountChecker
-import com.georgeflug.budget.service.TransactionService
 import com.georgeflug.budget.view.main.MainActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_splash.*
 
 /**
@@ -19,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_splash.*
  * status bar and navigation/system bar) with user interaction.
  */
 class SplashActivity : AppCompatActivity() {
+    private lateinit var presenter: SplashContract.Presenter
+
     private val mHideHandler = Handler()
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
@@ -60,16 +57,13 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mVisible = true
-        NotificationService().registerApp(this)
-        AccountChecker().checkAccounts(this)
-        TransactionService.downloadTransactions()
-        var subscription: Disposable? = null
-        subscription = TransactionService.getInitialTransactions()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    showMainActivity()
-                    subscription!!.dispose()
-                }
+
+        presenter = SplashPresenter(object : SplashContract.View {
+            override fun showMainAppPage() {
+                showMainActivity()
+            }
+        })
+        presenter.load(this)
 
         // Set up the user interaction to manually show or hide the system UI.
 //        fullscreen_content.setOnClickListener { toggle() }

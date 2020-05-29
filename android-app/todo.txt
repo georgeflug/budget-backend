@@ -1,3 +1,5 @@
+App should check for necessary permissions and warn the user at startup.
+
 Don't get entire list of transactions when you update a transaction.
 Don't get entire list of transactions in order to calculate budget.
 Update the budgets tab when an item is added or updated.
