@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import androidx.annotation.VisibleForTesting
-import timber.log.Timber
 import java.time.Duration
 import java.time.LocalTime
 
@@ -21,10 +20,10 @@ class DailyReminderScheduler {
     }
 
     fun scheduleReminder(context: Context, timeOfDay: LocalTime) {
-        val day = if (isNextAlarmToday(timeOfDay)) "today" else "tomorrow"
-        val millisUntilReminder = getTimeUntilReminder(timeOfDay).toMillis()
-        Timber.d("Scheduling next reminder at $timeOfDay $day ($millisUntilReminder millis from now)")
-        getAlarmManager(context).set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + millisUntilReminder, getAlarmIntent(context))
+//        val day = if (isNextAlarmToday(timeOfDay)) "today" else "tomorrow"
+//        val millisUntilReminder = getTimeUntilReminder(timeOfDay).toMillis()
+//        Timber.d("Scheduling next reminder at $timeOfDay $day ($millisUntilReminder millis from now)")
+//        getAlarmManager(context).set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + millisUntilReminder, getAlarmIntent(context))
     }
 
     fun cancelReminder(context: Context) {
