@@ -64,7 +64,7 @@ class AddTransactionFragment : Fragment() {
 
                 TransactionService.addTransaction(amount, budget, description)
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnNext { progressDialog.dismiss(); }
+                        .doAfterSuccess { progressDialog.dismiss(); }
                         .subscribe({
                             Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                             amountEntered = ""

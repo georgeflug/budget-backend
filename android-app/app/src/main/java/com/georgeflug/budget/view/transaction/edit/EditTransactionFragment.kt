@@ -83,7 +83,7 @@ class EditTransactionFragment : Fragment() {
             )
             TransactionService.updateTransaction(updatedTransaction)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext { progressDialog.dismiss(); }
+                    .doAfterSuccess { progressDialog.dismiss(); }
                     .subscribe({
                         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                         FragmentUtil.popBackStack()

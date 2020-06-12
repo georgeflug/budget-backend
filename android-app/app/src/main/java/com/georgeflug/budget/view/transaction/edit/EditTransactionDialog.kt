@@ -52,7 +52,7 @@ class EditTransactionDialog(context: Context, private val transaction: Transacti
             val updateRequest = TransactionUpdateRequest(transaction.version, splits)
             BudgetApi.transactions.updateTransaction(transaction.id, updateRequest)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext { progressDialog.dismiss() }
+                    .doAfterSuccess { progressDialog.dismiss() }
                     .subscribe({
                         // write updates back into transaction object
 //                        transaction.amount = amount

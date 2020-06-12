@@ -11,6 +11,7 @@ import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
@@ -29,7 +30,7 @@ object TransactionService {
                 .subscribe({ }, ::handleError)
     }
 
-    private fun downloadTransactionsObservable(): Observable<List<Transaction>> {
+    fun downloadTransactionsObservable(): Single<List<Transaction>> {
         val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
         val latestTimestamp = PersistedTransactionService.getLatestTimestamp(persistedTransactions)
         initial.onNext(persistedTransactions)
@@ -46,31 +47,30 @@ object TransactionService {
                             .asReversed()
                             .map { copyTransactionWithSortedSplits(it) }
                 }
-                .doOnNext { transactions -> initial.onNext(transactions) }
+                .doOnSuccess { transactions -> initial.onNext(transactions) }
     }
 
     fun getInitialTransactions(): Observable<List<Transaction>> = initial
     fun listenForNewTransactions() = obs
 
-    fun addTransaction(amount: BigDecimal, budget: String, description: String): Observable<Transaction> {
+    fun addTransaction(amount: BigDecimal, budget: String, description: String): Single<Transaction> {
         val date = DateUtil.getToday()
         val newSplit = TransactionSplit(amount = amount, budget = budget, description = description)
         val newTransaction = NewTransaction(date = date, totalAmount = amount, splits = listOf(newSplit))
         return BudgetApi.transactions.createTransaction(newTransaction)
-                .doOnNext { transaction -> updates.onNext(transaction) }
+                .doOnSuccess { transaction -> updates.onNext(transaction) }
     }
 
-    fun updateTransaction(transaction: Transaction): Observable<Transaction> {
+    fun updateTransaction(transaction: Transaction): Single<Transaction> {
         val updateRequest = TransactionUpdateRequest(transaction.version, transaction.splits)
         return BudgetApi.transactions.updateTransaction(transaction.id, updateRequest)
-                .doOnNext { updatedTransaction -> updates.onNext(updatedTransaction) }
+                .doOnSuccess { updatedTransaction -> updates.onNext(updatedTransaction) }
     }
 
     fun refresh(): Completable {
         return BudgetApi.transactions.refreshTransactions()
-                .flatMap { downloadTransactionsObservable() } // emits twice
-                .skip(1)
-                .ignoreElements()
+                .flatMap { downloadTransactionsObservable() } // emits twice??? TODO
+                .ignoreElement()
     }
 
     private fun handleError(throwable: Throwable) {

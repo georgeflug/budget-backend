@@ -5,6 +5,7 @@ import com.georgeflug.budget.api.BudgetApi
 import com.plaid.link.Plaid
 import com.plaid.linkbase.models.configuration.LinkConfiguration
 import com.plaid.linkbase.models.configuration.PlaidProduct
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class AccountChecker {
@@ -12,12 +13,13 @@ class AccountChecker {
         val checkAccountApi: CheckAccountApi = BudgetApi.retrofit.create(CheckAccountApi::class.java)
     }
 
-    fun checkAccounts(activity: Activity) {
-        checkAccountApi.checkAccountConnectivity()
+    fun checkAccounts(activity: Activity): Completable {
+        return checkAccountApi.checkAccountConnectivity()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .doOnSuccess {
                     it.forEach { handleCheckAccountResult(activity, it) }
                 }
+                .ignoreElement()
     }
 
     private fun handleCheckAccountResult(activity: Activity, checkAccountResult: CheckAccountResult) {
