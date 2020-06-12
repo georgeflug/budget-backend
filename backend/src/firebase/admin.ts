@@ -2,7 +2,7 @@ import * as firebase from "firebase-admin";
 import { admin } from "firebase-admin/lib/messaging";
 import MessagingPayload = admin.messaging.MessagingPayload;
 
-const firebaseKey = require("./firebase-key.json");
+const firebaseKey = require("../../firebase-key.json");
 
 firebase.initializeApp({
   credential: firebase.credential.cert(firebaseKey),
