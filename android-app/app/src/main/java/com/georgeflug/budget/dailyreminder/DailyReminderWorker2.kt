@@ -12,11 +12,11 @@ import com.georgeflug.budget.service.PersistedTransactionService
 import com.georgeflug.budget.util.getNotificationManager
 import timber.log.Timber
 
-class DailyReminderWorker : BroadcastReceiver() {
+class DailyReminderWorker2 : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         try {
-            Timber.d("Running DailyReminderWorker");
+            Timber.d("Running DailyReminderWorker2");
             checkServerStatus()
 
             val persistedTransactions = PersistedTransactionService.getPersistedTransactions()
@@ -37,7 +37,7 @@ class DailyReminderWorker : BroadcastReceiver() {
             } catch (e: Exception) {
                 Timber.e(e, "Failed to reschedule Daily Reminder")
             }
-            Timber.d("Finishing DailyReminderWorker")
+            Timber.d("Finishing DailyReminderWorker2")
         }
     }
 

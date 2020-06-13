@@ -32,7 +32,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".logging.LogActivity" />
 
-        <!--<receiver android:name=".dailyreminder.DailyReminderWorker" />-->
+        <!--<receiver android:name=".dailyreminder.DailyReminderWorker2" />-->
         <!--<receiver android:name=".dailyreminder.BootReceiver">-->
         <!--<intent-filter>-->
         <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->

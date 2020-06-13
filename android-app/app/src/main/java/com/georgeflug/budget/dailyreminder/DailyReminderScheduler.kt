@@ -46,7 +46,7 @@ class DailyReminderScheduler {
             context.getSystemService(ALARM_SERVICE) as AlarmManager
 
     private fun getAlarmIntent(context: Context): PendingIntent? {
-        val intent = Intent(context, DailyReminderWorker::class.java)
+        val intent = Intent(context, DailyReminderWorker2::class.java)
         val alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
         return alarmIntent
     }
