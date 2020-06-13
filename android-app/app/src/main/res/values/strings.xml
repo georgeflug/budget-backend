@@ -1,31 +1,33 @@
 <resources>
-  <string name="app_name">Budget</string>
-  <string-array name="budgets">
-    <item>Richie</item>
-    <item>Stef</item>
-    <item>Ben</item>
-    <item>Big Necessities</item>
-    <item>Charity</item>
-    <item>Clothes - Stef</item>
-    <item>Clothes - Richie</item>
-    <item>Entertainment</item>
-    <item>Groceries</item>
-    <item>Mortgage</item>
-    <item>Optional Important</item>
-    <item>Gifts</item>
-    <item>Christmas</item>
-    <item>Richie - Projects</item>
-    <item>Student Loan</item>
-    <item>Subscriptions</item>
-    <item>Home Supplies</item>
-    <item>Travel</item>
-    <item>Utilities</item>
-  </string-array>
+    <string name="app_name">Budget</string>
+    <string-array name="budgets">
+        <item>Richie</item>
+        <item>Stef</item>
+        <item>Ben</item>
+        <item>Big Necessities</item>
+        <item>Charity</item>
+        <item>Clothes - Stef</item>
+        <item>Clothes - Richie</item>
+        <item>Entertainment</item>
+        <item>Groceries</item>
+        <item>Mortgage</item>
+        <item>Optional Important</item>
+        <item>Gifts</item>
+        <item>Christmas</item>
+        <item>Richie - Projects</item>
+        <item>Student Loan</item>
+        <item>Subscriptions</item>
+        <item>Home Supplies</item>
+        <item>Travel</item>
+        <item>Utilities</item>
+    </string-array>
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-  <string name="title_activity_splash">SplashActivity</string>
-  <string name="dummy_button">Dummy Button</string>
-  <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="viewLogButtonText">View Logs</string>
+    <string name="welcomeText">Welcome</string>
 </resources>

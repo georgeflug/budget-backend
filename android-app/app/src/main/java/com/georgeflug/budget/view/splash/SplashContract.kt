@@ -6,6 +6,7 @@ interface SplashContract {
     interface View {
         fun showMainAppPage()
         fun displayStatus(status: String)
+        fun displayLogButton();
     }
 
     interface Presenter {

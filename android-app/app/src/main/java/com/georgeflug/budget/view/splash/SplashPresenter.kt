@@ -31,6 +31,7 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
                         }, {
                             Timber.e(it, "Failed to initialize app");
                             view.displayStatus("Failed to initialize app: " + it.message)
+                            view.displayLogButton()
                         })
         )
     }
