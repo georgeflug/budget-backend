@@ -21,7 +21,7 @@
             android:name=".view.splash.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:noHistory="true"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
