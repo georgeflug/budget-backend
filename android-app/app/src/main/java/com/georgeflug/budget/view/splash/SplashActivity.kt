@@ -7,10 +7,6 @@ import com.georgeflug.budget.R
 import com.georgeflug.budget.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 class SplashActivity : AppCompatActivity() {
     private lateinit var presenter: SplashContract.Presenter
 

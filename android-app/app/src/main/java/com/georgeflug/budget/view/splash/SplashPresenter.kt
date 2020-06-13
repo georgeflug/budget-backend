@@ -7,6 +7,7 @@ import com.georgeflug.budget.service.TransactionService
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
 
 
 class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter {
@@ -24,7 +25,12 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
                         loadTransactions()
                 )
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { view.showMainAppPage() }
+                        .subscribe({
+                            view.showMainAppPage()
+                        }, {
+                            Timber.e(it, "Failed to initialize app");
+                            view.displayStatus("Failed to initialize app: " + it.message)
+                        })
         )
     }
 
