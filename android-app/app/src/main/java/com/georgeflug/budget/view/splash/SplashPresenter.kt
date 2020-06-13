@@ -18,6 +18,7 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
     private var downloadTransactionState: Boolean = false
 
     override fun load(activity: Activity) {
+        updateStatus()
         compositeDisposable.add(
                 Completable.mergeArrayDelayError(
                         registerNotifications(activity),
