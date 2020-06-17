@@ -17,7 +17,7 @@ export class TransactionSaver {
     );
     const existingCount = results.filter(item => item.type === "updated").length;
     const unchangedCount = results.filter(item => item.type === "unchanged").length;
-    const totalCount = transactions.length;
+    const totalCount = results.length;
     const newRecords = totalCount - existingCount - unchangedCount;
 
     return {

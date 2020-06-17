@@ -119,6 +119,14 @@ describe("Plaid", () => {
     expect(metrics.totalRecords).toEqual(1);
   });
 
+  it("should exclude pending transactions from metrics", async () => {
+    const transaction = createValidTransaction({ pending: true });
+
+    const metrics = await saver.saveTransactions([transaction]);
+
+    expect(metrics.totalRecords).toEqual(0);
+  });
+
   function compareTransactions(actualTransaction: TransactionV2, expectedTransaction: UnsavedTransactionV2) {
     expect(actualTransaction.plaidId).toEqual(expectedTransaction.plaidId);
     expect(actualTransaction.totalAmount).toEqual(expectedTransaction.totalAmount);
