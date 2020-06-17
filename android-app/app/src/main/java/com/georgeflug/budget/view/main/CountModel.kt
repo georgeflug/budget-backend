@@ -3,7 +3,7 @@ package com.georgeflug.budget.view.main
 import android.annotation.SuppressLint
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
-import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.service.OldTransactionService
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class CountModel {
@@ -16,10 +16,10 @@ class CountModel {
 
     @SuppressLint("CheckResult")
     private fun listenForTransactions() {
-        TransactionService.getInitialTransactions()
+        OldTransactionService.getInitialTransactions()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ countInitialTransactions(it) }, ::handleError)
-        TransactionService.listenForNewTransactions()
+        OldTransactionService.listenForNewTransactions()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ countTransaction(it) }, ::handleError)
     }

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.georgeflug.budget.BudgetApplication
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
-import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.service.OldTransactionService
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,11 +35,11 @@ class TransactionsFilteredModel(
 
     @SuppressLint("CheckResult")
     private fun listenForTransactions() {
-        TransactionService.getInitialTransactions()
+        OldTransactionService.getInitialTransactions()
                 .doOnNext(::saveInitialTransactions)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ onChange() }, ::handleError)
-        TransactionService.listenForNewTransactions()
+        OldTransactionService.listenForNewTransactions()
                 .doOnNext(::saveTransaction)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ onChange() }, ::handleError)

@@ -11,7 +11,7 @@ import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Budget
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
-import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.service.OldTransactionService
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.FragmentUtil
 import com.georgeflug.budget.view.transaction.details.ViewTransactionFragment
@@ -55,7 +55,7 @@ class TransactionListFragment : Fragment() {
 
     private fun refreshNow() {
         pullToRefresh.isRefreshing = true
-        disposable = TransactionService.refresh()
+        disposable = OldTransactionService.refresh()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     pullToRefresh.isRefreshing = false
@@ -129,7 +129,7 @@ class TransactionListFragment : Fragment() {
                 updatedAt = transaction.updatedAt,
                 createdAt = transaction.createdAt
         )
-        TransactionService.updateTransaction(updatedTransaction)
+        OldTransactionService.updateTransaction(updatedTransaction)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterSuccess { progressDialog.dismiss(); }
                 .subscribe({

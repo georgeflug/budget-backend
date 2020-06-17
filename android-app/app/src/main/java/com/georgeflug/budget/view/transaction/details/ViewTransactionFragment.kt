@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Transaction
 import com.georgeflug.budget.model.TransactionSplit
-import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.service.OldTransactionService
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.util.DateUtil
 import com.georgeflug.budget.util.FragmentUtil
@@ -46,7 +46,7 @@ class ViewTransactionFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        listener = TransactionService.listenForNewTransactions()
+        listener = OldTransactionService.listenForNewTransactions()
                 .filter { it.id == transaction.id }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

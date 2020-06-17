@@ -17,7 +17,7 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import java.math.BigDecimal
 
-object TransactionService {
+object OldTransactionService {
     private val initial = ReplaySubject.create<List<Transaction>>()
 
     private val updates = PublishSubject.create<Transaction>()

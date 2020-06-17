@@ -3,7 +3,7 @@ package com.georgeflug.budget.view.budget.rollupmodel
 import android.annotation.SuppressLint
 import com.georgeflug.budget.BudgetApplication
 import com.georgeflug.budget.model.Transaction
-import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.service.OldTransactionService
 import com.georgeflug.budget.util.AlertUtil
 import com.georgeflug.budget.view.budget.tabmodel.BudgetTabModel
 import io.reactivex.schedulers.Schedulers
@@ -20,14 +20,14 @@ class BudgetRollup {
 
     @SuppressLint("CheckResult")
     private fun listenForTransactions() {
-        TransactionService.getInitialTransactions()
+        OldTransactionService.getInitialTransactions()
                 .observeOn(Schedulers.computation())
                 .subscribe({ transactions ->
                     reset()
                     transactions.forEach(::processTransaction)
                     onChange()
                 }, ::handleError)
-        TransactionService.listenForNewTransactions()
+        OldTransactionService.listenForNewTransactions()
                 .observeOn(Schedulers.computation())
                 .subscribe({
                     processTransaction(it)

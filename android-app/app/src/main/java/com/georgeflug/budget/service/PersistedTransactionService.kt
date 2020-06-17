@@ -18,9 +18,9 @@ object PersistedTransactionService {
 
     @SuppressLint("CheckResult")
     private fun listenForTransactions() {
-        TransactionService.getInitialTransactions()
+        OldTransactionService.getInitialTransactions()
                 .subscribe(::saveInitialTransactions, ::handleError)
-        TransactionService.listenForNewTransactions()
+        OldTransactionService.listenForNewTransactions()
                 .subscribe(::saveTransaction, ::handleError)
     }
 

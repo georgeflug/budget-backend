@@ -3,7 +3,7 @@ package com.georgeflug.budget.view.splash
 import android.app.Activity
 import com.georgeflug.budget.notification.NotificationService
 import com.georgeflug.budget.plaidlink.AccountChecker
-import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.transactions.TransactionService
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -59,14 +59,13 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
     }
 
     private fun loadTransactions(): Completable {
-        return TransactionService.downloadTransactionsObservable()
+        return TransactionService.INSTANCE.initialize()
                 .doOnError {
                     Timber.e(it, "Failed to load transactions")
                     downloadTransactionState = "Failed!"
-                }.doOnSuccess { downloadTransactionState = "Done!" }
+                }.doOnComplete { downloadTransactionState = "Done!" }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { updateStatus() }
-                .ignoreElement()
     }
 
     override fun unload() {

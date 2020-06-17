@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.georgeflug.budget.R
 import com.georgeflug.budget.model.Budget
-import com.georgeflug.budget.service.TransactionService
+import com.georgeflug.budget.service.OldTransactionService
 import com.georgeflug.budget.util.AlertUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_transaction.*
@@ -62,7 +62,7 @@ class AddTransactionFragment : Fragment() {
                 val budget = addTransactionBudgetSelector.selectedBudget?.title
                         ?: Budget.UNKNOWN.title
 
-                TransactionService.addTransaction(amount, budget, description)
+                OldTransactionService.addTransaction(amount, budget, description)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doAfterSuccess { progressDialog.dismiss(); }
                         .subscribe({
