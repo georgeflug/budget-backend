@@ -1,34 +1,39 @@
-import { existsSync, promises as fs } from "fs";
-import { JsonFileName } from "./json-filename";
+import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 
+const CURSOR_FILENAME = 'nextRecord.txt';
+
 export class JsonCursor {
-  cachedNextRecord: number = 1;
+  cursorFileName: string;
 
   constructor(private path: string) {
+    this.cursorFileName = resolve(path, CURSOR_FILENAME);
+    this.createCursorFileIfNotExists();
   }
 
   async nextRecord(): Promise<number> {
-    const nextRecord = await this.getNextRecord();
-    this.cachedNextRecord = nextRecord + 1;
+    // intentionally use synchronous methods to prevent same record number being used more than once
+    console.log('read');
+    let rawData;
+    try {
+      rawData = readFileSync(this.cursorFileName);
+    } catch (e) {
+      console.log(e);
+    }
+    console.log('done read');
+    const nextRecord = parseInt(rawData.toString());
+    const newData = (nextRecord + 1).toString();
+    writeFileSync(this.cursorFileName, newData);
     return nextRecord;
   }
 
-  private async getNextRecord(): Promise<number> {
-    if (!existsSync(this.getPath(this.cachedNextRecord, 1))) {
-      return this.cachedNextRecord;
+  private createCursorFileIfNotExists() {
+    try {
+      writeFileSync(this.cursorFileName, '1', { flag: 'wx' });
+    } catch (e) {
+      if (e.code !== 'EEXIST') { // expected error due to 'wx' flag
+        throw e;
+      }
     }
-    return await this.recalculateNextRecord();
-  }
-
-  private async recalculateNextRecord(): Promise<number> {
-    const fileNames = await fs.readdir(this.path);
-    const ids = fileNames.map(name => JsonFileName.getRecordId(name));
-    return Math.max(...ids) + 1;
-  }
-
-  private getPath(recordId: number, version: number) {
-    const fileName = JsonFileName.getFileName(recordId, version);
-    return resolve(this.path, fileName);
   }
 }

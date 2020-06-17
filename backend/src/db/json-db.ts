@@ -19,13 +19,14 @@ export type DbRecord = {
 const dbRecordKeys: Array<keyof DbRecord> = ["recordId", "version", "createdAt", "modifiedAt"];
 
 export class JsonDatabase<T> {
-  private cursor = new JsonCursor(this.path);
+  private cursor: JsonCursor;
   private fileLister: FileLister;
   private fileCache = new FileCache();
 
   constructor(private path: string) {
     mkDirIfNotExists(this.path);
     this.fileLister = new FileLister(this.path);
+    this.cursor = new JsonCursor(this.path);
   }
 
   async shutdown() {
@@ -97,7 +98,7 @@ export class JsonDatabase<T> {
   private async writeRecord(record: DbRecord) {
     const path = this.getPath(record.recordId, record.version);
     const contents = orderedStringify(record, dbRecordKeys);
-    await fs.writeFile(path, contents);
+    await fs.writeFile(path, contents, { flag: 'wx' });
   }
 
   private async getLatestVersion(recordId: number): Promise<number> {
@@ -125,10 +126,10 @@ export class JsonDatabase<T> {
   }
 
   private recordContentsAreTheSame(existingRecord: DbRecord, newRecord: DbRecord) {
-    const existingCopy = { ... existingRecord };
+    const existingCopy = { ...existingRecord };
     delete existingCopy.version;
     delete existingCopy.modifiedAt;
-    const newCopy = { ... newRecord };
+    const newCopy = { ...newRecord };
     delete newCopy.version;
     delete newCopy.modifiedAt;
     return deepCompare(existingCopy, newCopy);

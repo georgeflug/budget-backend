@@ -311,6 +311,18 @@ describe("JSON Database", () => {
     expect(retrievedRecord.version).toEqual(1);
   });
 
+  it("should prevent asynchronous record creations from clobbering each other", async () => {
+    const promise1 = db.createRecord({ data: "test-data1" });
+    const promise2 = db.createRecord({ data: "test-data2" });
+    await Promise.all([promise1, promise2]);
+
+    const records = await db.listRecords();
+
+    expect(records.length).toEqual(2);
+    expect(records[0].data).toEqual("test-data1");
+    expect(records[1].data).toEqual("test-data2");
+  });
+
 });
 
 function createDb(): JsonDatabase<{ data: string }> {
