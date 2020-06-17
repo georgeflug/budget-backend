@@ -7,16 +7,14 @@ import com.georgeflug.budget.model.BackendStatus
 import com.georgeflug.budget.model.NotificationRegistrationInfo
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
-import io.reactivex.Completable
 import io.reactivex.Single
 import timber.log.Timber
 
 
 class NotificationService {
-    fun registerApp(context: Context): Completable {
+    fun registerApp(context: Context): Single<BackendStatus> {
         return getFirebaseToken()
                 .flatMap { token -> registerAppNow(context, token) }
-                .ignoreElement()
     }
 
     private fun getFirebaseToken(): Single<String> {

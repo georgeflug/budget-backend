@@ -13,9 +13,9 @@ import timber.log.Timber
 class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter {
     private val compositeDisposable = CompositeDisposable()
 
-    private var notificationState: Boolean = false
-    private var accountCheckerState: Boolean = false
-    private var downloadTransactionState: Boolean = false
+    private var notificationState: String = ""
+    private var accountCheckerState: String = ""
+    private var downloadTransactionState: String = ""
 
     override fun load(activity: Activity) {
         updateStatus()
@@ -30,7 +30,6 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
                             view.showMainAppPage()
                         }, {
                             Timber.e(it, "Failed to initialize app");
-                            view.displayStatus("Failed to initialize app: " + it.message)
                             view.displayLogButton()
                         })
         )
@@ -38,30 +37,36 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
 
     private fun registerNotifications(activity: Activity): Completable {
         return NotificationService().registerApp(activity)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete {
-                    notificationState = true
-                    updateStatus()
+                .doOnError {
+                    Timber.e(it, "Failed to register notifications")
+                    notificationState = "Failed!"
                 }
+                .doOnSuccess { notificationState = "Done!" }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { updateStatus() }
+                .ignoreElement()
     }
 
     private fun verifyAccountConnectivity(activity: Activity): Completable {
         return AccountChecker().checkAccounts(activity)
+                .doOnError {
+                    Timber.e(it, "Failed to check account connectivity")
+                    accountCheckerState = "Failed!"
+                }.doOnSuccess { accountCheckerState = "Done!" }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete {
-                    accountCheckerState = true
-                    updateStatus()
-                }
+                .doFinally { updateStatus() }
+                .ignoreElement()
     }
 
     private fun loadTransactions(): Completable {
         return TransactionService.downloadTransactionsObservable()
-                .ignoreElement()
+                .doOnError {
+                    Timber.e(it, "Failed to load transactions")
+                    downloadTransactionState = "Failed!"
+                }.doOnSuccess { downloadTransactionState = "Done!" }
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete {
-                    downloadTransactionState = true
-                    updateStatus()
-                }
+                .doFinally { updateStatus() }
+                .ignoreElement()
     }
 
     override fun unload() {
@@ -70,9 +75,9 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
 
     private fun updateStatus() {
         val status: String = """
-            Registering for notifications...${if (notificationState) "Done!" else ""}
-            Checking account connectivity...${if (accountCheckerState) "Done!" else ""}
-            Loading transactions...${if (downloadTransactionState) "Done!" else ""}
+            Registering for notifications...$notificationState
+            Checking account connectivity...$accountCheckerState
+            Loading transactions...$downloadTransactionState
         """.trimIndent()
         view.displayStatus(status)
     }
