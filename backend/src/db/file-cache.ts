@@ -14,10 +14,14 @@ export class FileCache {
       }
       return cached;
     }
+    let data: string | null = null;
     this.cache[path] = PENDING;
-    const buffer = await readFile(path);
-    const data = buffer.toString();
-    this.cache[path] = data;
+    try {
+      const buffer = await readFile(path);
+      data = buffer.toString();
+    } finally {
+      this.cache[path] = data;
+    }
     return data;
   }
 }
