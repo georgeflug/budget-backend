@@ -13,14 +13,12 @@ export class JsonCursor {
 
   async nextRecord(): Promise<number> {
     // intentionally use synchronous methods to prevent same record number being used more than once
-    console.log('read');
     let rawData;
     try {
       rawData = readFileSync(this.cursorFileName);
     } catch (e) {
       console.log(e);
     }
-    console.log('done read');
     const nextRecord = parseInt(rawData.toString());
     const newData = (nextRecord + 1).toString();
     writeFileSync(this.cursorFileName, newData);
