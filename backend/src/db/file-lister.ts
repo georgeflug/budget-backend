@@ -26,10 +26,12 @@ export class FileLister {
   }
 
   private async onFileChanged(_, fileName: string) {
-    if (await exists(resolve(this.path, fileName))) {
-      this.addToCache(fileName);
-    } else {
-      this.removeFromCache(fileName);
+    if (fileName) {
+      if (await exists(resolve(this.path, fileName))) {
+        this.addToCache(fileName);
+      } else {
+        this.removeFromCache(fileName);
+      }
     }
   }
 
