@@ -1,5 +1,4 @@
-import { mkdirSync, promises as fs } from "fs";
-import { rmRf } from "../util/fs-util";
+import { mkdirSync, remove, writeFile } from "fs-extra";
 import { FileCache } from "./file-cache";
 import { resolve } from "path";
 
@@ -9,18 +8,18 @@ describe("File Cache", () => {
   let fileCache: FileCache;
 
   beforeEach(async () => {
-    rmRf(testPath);
+    await remove(testPath);
     mkdirSync(testPath);
     fileCache = new FileCache();
   });
 
   afterEach(async () => {
-    rmRf(testPath);
+    await remove(testPath);
   });
 
   it('should get file contents', async () => {
     const path = resolve(testPath, "test-file.txt");
-    await fs.writeFile(path, 'test-data');
+    await writeFile(path, 'test-data');
 
     const result = await fileCache.readFile(path);
 
@@ -29,9 +28,9 @@ describe("File Cache", () => {
 
   it('should cache file contents', async () => {
     const path = resolve(testPath, "test-file.txt");
-    await fs.writeFile(path, 'test-data');
+    await writeFile(path, 'test-data');
     await fileCache.readFile(path);
-    rmRf(testPath);
+    await remove(testPath);
 
     const cachedResult = await fileCache.readFile(path);
 
@@ -53,7 +52,7 @@ describe("File Cache", () => {
     } catch (e) {
       // ignore
     }
-    await fs.writeFile(path, 'test-data');
+    await writeFile(path, 'test-data');
 
     const result = await fileCache.readFile(path);
 

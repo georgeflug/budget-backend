@@ -1,8 +1,6 @@
-import * as fs from "fs";
-import { mkdirSync } from "fs";
 import { resolve } from "path";
 import { FileLister } from "./file-lister";
-import { rmRf } from "../util/fs-util";
+import { ensureDir, remove, writeFile } from "fs-extra";
 
 const testPath = "tmp/file-lister-test";
 
@@ -10,14 +8,14 @@ describe('File Lister', () => {
   let fileLister: FileLister;
 
   beforeEach(async () => {
-    rmRf(testPath);
-    mkdirSync(testPath);
+    await remove(testPath);
+    await ensureDir(testPath);
     fileLister = createFileLister();
   });
 
   afterEach(async () => {
     await fileLister.shutdown();
-    rmRf(testPath);
+    await remove(testPath);
   });
 
   it('should list nothing when no files exist', async () => {
@@ -50,7 +48,7 @@ describe('File Lister', () => {
   it('should remove file that was deleted after cache was initialized', async () => {
     await createFile('test-file.json');
     await fileLister.listFiles();
-    fs.unlinkSync(resolve(testPath, 'test-file.json'));
+    await remove(resolve(testPath, 'test-file.json'));
     await new Promise(res => setTimeout(res, 500));
 
     const files = await fileLister.listFiles();
@@ -80,5 +78,5 @@ function createFileLister(): FileLister {
 }
 
 async function createFile(fileName: string) {
-  fs.writeFileSync(resolve(testPath, fileName), "contentsDoNotMatter");
+  await writeFile(resolve(testPath, fileName), "contentsDoNotMatter");
 }

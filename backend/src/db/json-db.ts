@@ -1,11 +1,10 @@
 import { resolve } from "path";
-import { promises as fs } from "fs";
+import { ensureDirSync, writeFile } from "fs-extra";
 import { DateUtil } from "../util/date-util";
 import { parseISO } from "date-fns";
 import { JsonFileName } from "./json-filename";
 import { JsonCursor } from "./json-cursor";
 import { FileLister } from "./file-lister";
-import { mkDirIfNotExists } from "../util/fs-util";
 import { FileCache } from "./file-cache";
 import { deepCompare, orderedStringify } from "../util/json-util";
 
@@ -24,7 +23,7 @@ export class JsonDatabase<T> {
   private fileCache = new FileCache();
 
   constructor(private path: string) {
-    mkDirIfNotExists(this.path);
+    ensureDirSync(this.path);
     this.fileLister = new FileLister(this.path);
     this.cursor = new JsonCursor(this.path);
   }
@@ -98,7 +97,7 @@ export class JsonDatabase<T> {
   private async writeRecord(record: DbRecord) {
     const path = this.getPath(record.recordId, record.version);
     const contents = orderedStringify(record, dbRecordKeys);
-    await fs.writeFile(path, contents, { flag: 'wx' });
+    await writeFile(path, contents, { flag: 'wx' });
   }
 
   private async getLatestVersion(recordId: number): Promise<number> {

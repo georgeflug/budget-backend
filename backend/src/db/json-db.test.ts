@@ -1,6 +1,6 @@
 import { DbRecord, JsonDatabase } from "./json-db";
 import { DateUtil } from "../util/date-util";
-import { rmRf } from "../util/fs-util";
+import { remove } from "fs-extra";
 
 jest.mock("../util/date-util");
 const mockedDateUtil = DateUtil as jest.Mocked<typeof DateUtil>;
@@ -11,13 +11,13 @@ describe("JSON Database", () => {
   let db: JsonDatabase<{ data: string }>;
 
   beforeEach(async () => {
-    rmRf(dbPath);
+    await remove(dbPath);
     db = createDb();
   });
 
   afterEach(async () => {
     await db.shutdown();
-    rmRf(dbPath);
+    await remove(dbPath);
   });
 
   it("should list nothing on an empty database", async () => {
@@ -218,7 +218,7 @@ describe("JSON Database", () => {
       expect(records[0].data).toEqual("test-data");
     } finally {
       await nestedDb.shutdown();
-      rmRf('tmp/tmp2');
+      await remove('tmp/tmp2');
     }
   });
 
@@ -238,7 +238,7 @@ describe("JSON Database", () => {
       expect(records[0].a.b).toEqual("test-data");
     } finally {
       await newDb.shutdown();
-      rmRf('tmp/tmp1');
+      await remove('tmp/tmp1');
     }
   });
 

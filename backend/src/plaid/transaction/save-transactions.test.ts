@@ -1,7 +1,7 @@
 import { TransactionRepository } from "../../transaction/transaction-repository";
 import { TransactionSplit, TransactionV2, UnsavedTransactionV2 } from "../../transaction/transaction-model";
 import { parseISO } from "date-fns";
-import { rmRf } from "../../util/fs-util";
+import { remove } from "fs-extra";
 import { TransactionService } from "../../transaction/transaction-service";
 import { TransactionSaver } from "./save-transactions";
 import { JsonDatabase } from "../../db/json-db";
@@ -25,7 +25,7 @@ describe("Plaid", () => {
   });
 
   beforeEach(async function() {
-    rmRf(DB_PATH);
+    await remove(DB_PATH);
     db = new JsonDatabase<UnsavedTransactionV2>(DB_PATH);
     repository = new TransactionRepository(db);
     service = new TransactionService(repository);
@@ -34,7 +34,7 @@ describe("Plaid", () => {
 
   afterEach(async () => {
     await db.shutdown();
-    rmRf(DB_PATH);
+    await remove(DB_PATH);
   });
 
   it("create transaction if it does not exist", async () => {

@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs-extra";
 import { resolve } from "path";
 
 const CURSOR_FILENAME = 'nextRecord.txt';
@@ -27,7 +27,7 @@ export class JsonCursor {
     return nextRecord;
   }
 
-  private createCursorFileIfNotExists() {
+  private async createCursorFileIfNotExists() {
     try {
       writeFileSync(this.cursorFileName, '1', { flag: 'wx' });
     } catch (e) {

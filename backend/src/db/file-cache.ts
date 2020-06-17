@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { readFile } from "fs-extra";
 
 const PENDING = 'PENDING';
 
@@ -15,7 +15,7 @@ export class FileCache {
       return cached;
     }
     this.cache[path] = PENDING;
-    const buffer = await fs.readFile(path);
+    const buffer = await readFile(path);
     const data = buffer.toString();
     this.cache[path] = data;
     return data;

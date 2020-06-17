@@ -1,6 +1,5 @@
-import { promises as fs, watch } from "fs";
+import { pathExists, readdir, watch } from "fs-extra";
 import { resolve } from "path";
-import { exists } from "../util/fs-util";
 
 export class FileLister {
   private hasCachedFileList = false;
@@ -12,7 +11,7 @@ export class FileLister {
 
   async listFiles(): Promise<string[]> {
     if (!this.hasCachedFileList) {
-      this.files = await fs.readdir(this.path);
+      this.files = await readdir(this.path);
       this.hasCachedFileList = true;
     }
     return this.files;
@@ -27,7 +26,7 @@ export class FileLister {
 
   private async onFileChanged(_, fileName: string) {
     if (fileName) {
-      if (await exists(resolve(this.path, fileName))) {
+      if (await pathExists(resolve(this.path, fileName))) {
         this.addToCache(fileName);
       } else {
         this.removeFromCache(fileName);
