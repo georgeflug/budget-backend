@@ -7,6 +7,7 @@ const fs = require('fs');
 const https = require('https');
 const morgan = require('morgan');
 import { debug, error } from "../log";
+import * as http from "http";
 
 const compression = require('compression');
 
@@ -38,7 +39,8 @@ export function initExpress() {
     })
   });
 
-  https.createServer(serverOptions, app).listen(port);
+  // https.createServer(serverOptions, app).listen(port);
+  http.createServer(app).listen(port);
 
   debug('Startup', `Listening on localhost:${port}`);
 }
