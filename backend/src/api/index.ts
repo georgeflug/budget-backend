@@ -6,6 +6,7 @@ const app = express();
 const fs = require('fs');
 const https = require('https');
 const morgan = require('morgan');
+var cors = require('cors')
 import { debug, error } from "../log";
 import * as http from "http";
 
@@ -22,6 +23,7 @@ export function initExpress() {
   app.use(express.json());
   app.use(morgan(':date[iso] ACCESS ":method :url HTTP/:http-version" Remote:":remote-addr - :remote-user" Response: ":status - :response-time ms" Referrer:":referrer" User-agent:":user-agent"'));
   app.use(compression());
+  app.use(cors());
 
   require('./status').init(app);
   app.use(require('./auth'));
