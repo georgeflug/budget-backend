@@ -1,28 +1,37 @@
-import {PlaidTransactionResponse, PlaidTransaction} from "../plaid-types";
+import {PlaidTransaction, PlaidTransactionResponse} from "../plaid-types";
 
 import {plaidClient} from '../client';
 import {BankAccount, bankAccounts} from "../bankAccounts";
+import {TransactionService} from "../../transaction/transaction-service";
+import _ from "lodash";
 
 const moment = require('moment');
 
 export async function downloadTransactions(): Promise<PlaidTransaction[]> {
-  const downloadAllTransactions = bankAccounts.map(account => downloadTransactionsForAccount(account, 30));
+  const transactionService = new TransactionService();
+  const transactions = await transactionService.listTransactions();
+  const mostRecentPostedDate = _.chain(transactions)
+    .map(transaction => transaction.postedDate)
+    .max()
+    .value() || new Date();
+
+  const downloadAllTransactions = bankAccounts.map(account => downloadTransactionsForAccount(account, mostRecentPostedDate));
   const allAccounts = await Promise.all(downloadAllTransactions);
   return allAccounts.flat();
 }
 
-export function downloadTransactionsForAccount(account: BankAccount, numberOfDays: number): Promise<PlaidTransaction[]> {
-  return getTransactions(account.accessKey, numberOfDays);
-}
-
-async function getTransactions(accessKey, numberOfDays): Promise<PlaidTransaction[]> {
-  const startDate = moment().subtract(numberOfDays, 'days').format('YYYY-MM-DD');
+export async function downloadTransactionsForAccount(account: BankAccount, mostRecentPostedDate: Date): Promise<PlaidTransaction[]> {
+  const startDate = moment(mostRecentPostedDate).subtract(15, 'days').format('YYYY-MM-DD');
   const endDate = moment().format('YYYY-MM-DD');
 
-  const transactionResult = await plaidClient.getTransactions(accessKey, startDate, endDate, {
+  const transactionResult = await plaidClient.getTransactions(account.accessKey, startDate, endDate, {
     count: 250,
     offset: 0,
   }) as any as PlaidTransactionResponse;
+
+  if (transactionResult.transactions.length === 250) {
+    throw new Error('Too many records retrieved from Plaid. Manual intervention required');
+  }
 
   return transactionResult.transactions;
 }

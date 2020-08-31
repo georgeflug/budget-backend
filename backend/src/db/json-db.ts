@@ -34,8 +34,6 @@ export class JsonDatabase<T> {
 
   async listRecords(): Promise<(DbRecord & T)[]> {
     const recordIds = await this.recordLister.listLatestRecords();
-    // const dbRows = fileNames.map(name => JsonFileName.parse(name))
-    //   .filter(row => row.version === 1);
     const records = recordIds.map(id => this.getArchivedRecord(id.recordId, id.version));
     return Promise.all(records);
   }
