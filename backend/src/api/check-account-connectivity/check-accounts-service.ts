@@ -18,7 +18,7 @@ async function checkAccount(account: BankAccount): Promise<CheckAccountResult> {
 
 async function getAccountStatus(account: BankAccount): Promise<CheckAccountStatus> {
   try {
-    await downloadTransactionsForAccount(account, 1);
+    await downloadTransactionsForAccount(account, new Date());
     return CheckAccountStatus.Connected;
   } catch (e) {
     if (e.error_code === 'ITEM_LOGIN_REQUIRED') {
