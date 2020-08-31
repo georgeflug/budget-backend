@@ -21,7 +21,7 @@ export class TransactionService {
   async listTransactionsAfter(startingAt: Date): Promise<TransactionV2[]> {
     const results = await this.listTransactions();
     const smartStartingAt = SmartDate.of(startingAt);
-    return results.filter(record => smartStartingAt.isSameOrAfter(record.modifiedAt));
+    return results.filter(record => smartStartingAt.isSameOrBefore(record.modifiedAt));
   }
 
   async findTransactionById(id: number): Promise<TransactionV2> {
