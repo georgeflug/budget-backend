@@ -2,13 +2,13 @@ import {PlaidTransaction, PlaidTransactionResponse} from "../plaid-types";
 
 import {plaidClient} from '../client';
 import {BankAccount, bankAccounts} from "../bankAccounts";
-import {TransactionService} from "../../transaction/transaction-service";
 import _ from "lodash";
+import {getTransactionService} from "../../transaction/transaction-service-instance";
 
 const moment = require('moment');
 
 export async function downloadTransactions(): Promise<PlaidTransaction[]> {
-  const transactionService = new TransactionService();
+  const transactionService = getTransactionService();
   const transactions = await transactionService.listTransactions();
   const mostRecentPostedDate = _.chain(transactions)
     .map(transaction => transaction.postedDate)

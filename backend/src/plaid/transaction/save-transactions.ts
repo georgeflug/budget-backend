@@ -1,5 +1,6 @@
-import { TransactionSplit, TransactionV2, UnsavedTransactionV2 } from "../../transaction/transaction-model";
-import { TransactionService } from "../../transaction/transaction-service";
+import {TransactionSplit, TransactionV2, UnsavedTransactionV2} from "../../transaction/transaction-model";
+import {TransactionService} from "../../transaction/transaction-service";
+import {getTransactionService} from "../../transaction/transaction-service-instance";
 
 const moment = require("moment");
 
@@ -7,7 +8,7 @@ export class TransactionSaver {
   private service: TransactionService;
 
   constructor(service?: TransactionService) {
-    this.service = service || new TransactionService();
+    this.service = service || getTransactionService();
   }
 
   async saveTransactions(transactions: UnsavedTransactionV2[]) {
