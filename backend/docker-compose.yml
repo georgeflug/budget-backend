@@ -20,3 +20,4 @@ services:
       DATA_FOLDER: /data
     volumes:
       - ../data:/data
+      - ../../budget-web/build:/usr/budget-web/build
