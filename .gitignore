@@ -1,7 +1,6 @@
 .DS_Store/
 .idea/
 node_modules/
-mongo-data/
 src/migration/*.json
 out/
 firebase-key.json
