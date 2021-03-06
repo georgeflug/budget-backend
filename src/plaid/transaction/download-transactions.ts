@@ -1,6 +1,6 @@
 import {PlaidTransaction, PlaidTransactionResponse} from "../plaid-types";
 
-import {plaidClient} from '../client';
+import {getPlaidClient} from '../client';
 import {BankAccount, bankAccounts} from "../bankAccounts";
 import _ from "lodash";
 import {getTransactionService} from "../../transaction/transaction-service-instance";
@@ -24,7 +24,7 @@ export async function downloadTransactionsForAccount(account: BankAccount, mostR
   const startDate = moment(mostRecentPostedDate).subtract(15, 'days').format('YYYY-MM-DD');
   const endDate = moment().format('YYYY-MM-DD');
 
-  const transactionResult = await plaidClient.getTransactions(account.accessKey, startDate, endDate, {
+  const transactionResult = await getPlaidClient().getTransactions(account.accessKey, startDate, endDate, {
     count: 250,
     offset: 0,
   }) as any as PlaidTransactionResponse;

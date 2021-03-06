@@ -1,4 +1,4 @@
-import { plaidClient } from "../client";
+import { getPlaidClient } from "../client";
 import { UnsavedBalance } from "../../balance/balance-model";
 import { bankAccounts } from "../bankAccounts";
 
@@ -9,7 +9,7 @@ export async function downloadBalances(): Promise<UnsavedBalance[]> {
 }
 
 async function getBalance(accessKey): Promise<UnsavedBalance[]> {
-  const balances = await plaidClient.getBalance(accessKey);
+  const balances = await getPlaidClient().getBalance(accessKey);
   const accounts = balances.accounts;
   return accounts.map(account => {
     return {
