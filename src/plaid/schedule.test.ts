@@ -4,8 +4,6 @@ import moment from 'moment'
 
 jest.mock('./index')
 
-const flushPromises = async () => new Promise(setImmediate)
-
 describe('Schedule', () => {
   const MILLIS_PER_HOUR = 1000 * 60 * 60
 
@@ -38,7 +36,7 @@ describe('Schedule', () => {
     scheduler.startScheduler(() => todayBefore6.clone())
     expect(saveLatestTransactionsToDb).not.toHaveBeenCalled()
 
-    jest.runAllTimers()
+    await jest.advanceTimersByTime(MILLIS_PER_HOUR)
     expect(saveLatestTransactionsToDb).toHaveBeenCalled()
   })
 
@@ -46,8 +44,7 @@ describe('Schedule', () => {
     const todayBefore6 = moment().hour(17).minute(0).second(0).millisecond(0)
 
     scheduler.startScheduler(() => todayBefore6.clone())
-    jest.runAllTimers()
-    await flushPromises()
+    await jest.advanceTimersByTime(MILLIS_PER_HOUR)
 
     expect(setTimeout).toHaveBeenCalledTimes(2)
     expect(setTimeout).toHaveBeenLastCalledWith(expect.anything(), MILLIS_PER_HOUR * 25)

@@ -18,6 +18,7 @@ export function startScheduler(getCurrentMoment: any = moment) {
     const millisFromNow = scheduledTime.diff(getCurrentMoment())
 
     setTimeout(async function () {
+      scheduleNextExecution(day.add(1, 'days'))
       debug('SCHEDULER', 'Beginning scheduled download')
       try {
         await saveLatestTransactionsToDb()
@@ -25,7 +26,6 @@ export function startScheduler(getCurrentMoment: any = moment) {
       } catch (ex) {
         error('SCHEDULER', 'Failed to download transactions', ex)
       }
-      scheduleNextExecution(day.add(1, 'days'))
     }, millisFromNow)
   }
 }
