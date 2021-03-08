@@ -6,3 +6,4 @@ out/
 data/
 tmp/
 keys.txt
+build/
