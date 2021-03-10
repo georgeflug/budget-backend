@@ -1,6 +1,6 @@
 # Budget Backend
 
-This app is the backend for the Budget Android application.
+This app is the backend for a custom budget application.
 
 ## Getting Started
 
