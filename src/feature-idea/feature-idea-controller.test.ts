@@ -3,7 +3,7 @@ import express from 'express';
 
 const app = express();
 app.use(express.json());
-app.use(require('./feature-idea-controller').router);
+app.use(require('./feature-idea-controller').featureIdeaRoute.router);
 
 describe('Feature Idea Controller', () => {
 

@@ -1,5 +1,6 @@
 import {debug, error} from "../log";
 import * as http from "http";
+import {routes} from "./routes";
 
 const express = require('express');
 require('express-async-errors');
@@ -25,14 +26,8 @@ export function initExpress() {
   app.use(cors());
   app.use(express.static('../../budget-web/build'));
 
-  require('./status').init(app);
-  // app.use(require('./auth'));
-  app.use(require('../feature-idea/feature-idea-controller').router);
-  app.use(require('../transaction/transaction-controller').router);
-  app.use(require('./refresh').router);
-  app.use(require('../balance/balance-controller').router);
-  app.use(require('./check-account-connectivity/check-accounts-controller').router);
-  app.use(require('../raw-plaid/raw-plaid-controller').router);
+  routes.forEach(route => app.use(route.basePath, route.router))
+
   app.use(function (err: Error, req, res, _next) {
     error('GLOBAL ERROR', 'Uncaught Exception', err);
     res.status(500).send({

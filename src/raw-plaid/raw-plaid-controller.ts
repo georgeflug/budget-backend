@@ -1,10 +1,11 @@
 import express from "express";
 import moment from "moment";
 import { findRawPlaidBetween } from "./raw-plaid-repository";
+import {Route} from "../api/route";
 
-export const router = express.Router();
+const router = express.Router();
 
-router.route("/raw-plaid")
+router.route("/")
   .get(async function(req, res) {
     if (!req.query.date) {
       failNoDate(res);
@@ -21,4 +22,9 @@ function failNoDate(res: express.Response) {
   res.json({
     error: "date is required"
   });
+}
+
+export const rawPlaidRoute: Route = {
+  router,
+  basePath: '/raw-plaid',
 }
