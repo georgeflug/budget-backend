@@ -17,13 +17,8 @@ How to run the backend on the server:
 - Start docker: `sudo service docker start`
 - Start the service: `npm run serverRestart`
 
-## Tests
-
-### Unit Tests
-Unit tests are denoted with the extension `.unit.spec.js`. They can be run with `npm test`
-
-### Integration Tests
-Integration tests are run against a real database. They are denoted with the extension `.integration.spec.js`. They can be run by uncommenting the relevant lines in docker-compose.yml and then running `npm start`.
+### Run Tests
+`npm run test`
 
 ## Plaid Link
 
