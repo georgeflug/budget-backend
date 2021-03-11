@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "compile": "tsc",
+    "lint": "eslint . --ext .ts",
     "serverLogs": "docker logs -f budget-backend",
     "serverRestart": "docker-compose down && docker-compose up --build --detach",
     "start": "ts-node index",
@@ -35,6 +36,9 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.1",
     "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.21.0",
     "jest": "^26.0.1",
     "jest-junit": "^12.0.0",
     "supertest": "^4.0.2",
