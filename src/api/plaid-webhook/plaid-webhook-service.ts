@@ -1,5 +1,5 @@
-import { PlaidTransactionWebhookCode, PlaidWebhookBody, PlaidWebhookType } from "./plaid-webhook-model";
-import { saveLatestTransactionsToDb } from "../../plaid";
+import { PlaidTransactionWebhookCode, PlaidWebhookBody, PlaidWebhookType } from './plaid-webhook-model'
+import { saveLatestTransactionsToDb } from '../../plaid'
 
 export async function processIncomingWebhook(body: PlaidWebhookBody): Promise<void> {
   if (body.webhook_type === PlaidWebhookType.Transaction) {

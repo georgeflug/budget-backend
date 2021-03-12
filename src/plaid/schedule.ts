@@ -1,4 +1,4 @@
-import moment, {Moment} from 'moment'
+import moment, { Moment } from 'moment'
 import { saveLatestTransactionsToDb } from './index'
 import { debug, error } from '../log'
 

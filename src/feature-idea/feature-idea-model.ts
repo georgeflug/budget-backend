@@ -1,4 +1,4 @@
-import { DbRecord } from "../db/json-db";
+import { DbRecord } from '../db/json-db'
 
 export type UnsavedFeatureIdea = {
   description: string

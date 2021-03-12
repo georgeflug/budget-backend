@@ -1,8 +1,8 @@
-import { DbRecord } from "../db/json-db";
+import { DbRecord } from '../db/json-db'
 
 export type UnsavedBalance = {
-  accountId: string,
-  amount: number,
+  accountId: string
+  amount: number
   name: string
 }
 

@@ -49,5 +49,4 @@ describe('Schedule', () => {
     expect(setTimeout).toHaveBeenCalledTimes(2)
     expect(setTimeout).toHaveBeenLastCalledWith(expect.anything(), MILLIS_PER_HOUR * 25)
   })
-
 })

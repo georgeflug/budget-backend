@@ -1,5 +1,5 @@
-import * as plaid from "plaid";
-import { config } from "../util/config";
+import * as plaid from 'plaid'
+import { config } from '../util/config'
 
 let plaidClient: plaid.Client
 
@@ -11,9 +11,9 @@ export function getPlaidClient(): plaid.Client {
       config.plaidPublicKey,
       plaid.environments[config.plaidEnv],
       {
-        version: "2018-05-22"
-      }
-    );
+        version: '2018-05-22',
+      },
+    )
   }
   return plaidClient
 }

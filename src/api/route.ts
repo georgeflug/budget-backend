@@ -1,6 +1,6 @@
-import express from "express";
+import express from 'express'
 
 export type Route = {
-  router: express.Router,
-  basePath: string,
+  router: express.Router
+  basePath: string
 }
