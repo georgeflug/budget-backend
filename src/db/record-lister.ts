@@ -21,7 +21,7 @@ export class RecordLister {
     return Object.values(map);
   }
 
-  async shutdown() {
+  async shutdown(): Promise<void> {
     await this.fileLister.shutdown();
   }
 }

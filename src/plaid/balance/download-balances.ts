@@ -14,8 +14,8 @@ async function getBalance(accessKey): Promise<UnsavedBalance[]> {
   return accounts.map(account => {
     return {
       accountId: account.account_id,
-      amount: account.balances.current!,
-      name: account.name!
+      amount: account.balances.current || 0,
+      name: account.name || 'unknown'
     };
   });
 }

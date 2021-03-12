@@ -1,12 +1,12 @@
-export function debug(section, logText, exception = undefined) {
+export function debug(section: string, logText: string, exception = undefined): void {
   log('DEBUG', section, logText, exception);
 }
 
-export function error(section, logText, exception: (Error | string | undefined) = undefined) {
+export function error(section: string, logText: string, exception: (Error | string | undefined) = undefined): void {
   log('ERROR', section, logText, exception);
 }
 
-function log(level, section, logText, exception: (Error | string | undefined) = undefined) {
+function log(level: string, section: string, logText: string, exception: (Error | string | undefined) = undefined): void {
   console.log(`${new Date().toISOString()} ${level} ${section}: ${logText}`);
   if (exception) {
     console.log(indent((exception as Error).stack || exception.toString()));

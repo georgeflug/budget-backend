@@ -1,7 +1,7 @@
 import {checkAccounts} from "./check-accounts-service";
 import {Route} from "../route";
+import express from "express";
 
-const express = require('express');
 const router = express.Router();
 
 router.route('/')

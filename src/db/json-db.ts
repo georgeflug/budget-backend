@@ -28,7 +28,7 @@ export class JsonDatabase<T> {
     this.cursor = new JsonCursor(this.path);
   }
 
-  async shutdown() {
+  async shutdown(): Promise<void> {
     await this.recordLister.shutdown();
   }
 
@@ -66,8 +66,8 @@ export class JsonDatabase<T> {
   async getArchivedRecord(recordId: number, version: number): Promise<DbRecord & T> {
     const rawData = await this.readFile(recordId, version);
     const record = JSON.parse(rawData) as (DbRecord & T);
-    record.createdAt = parseISO(record.createdAt as any);
-    record.modifiedAt = parseISO(record.modifiedAt as any);
+    record.createdAt = parseISO(record.createdAt as unknown as string);
+    record.modifiedAt = parseISO(record.modifiedAt as unknown as string);
     return record;
   }
 

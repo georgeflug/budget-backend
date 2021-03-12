@@ -10,7 +10,7 @@ export class TransactionRepository {
     this.db = jsonDb || new JsonDatabase<UnsavedTransactionV2>(`${config.dataFolder}/transactions`);
   }
 
-  async saveTransaction(transaction: UnsavedTransactionV2) {
+  async saveTransaction(transaction: UnsavedTransactionV2): Promise<TransactionV2> {
     const result = await this.db.createRecord(transaction);
     return adaptTransactionFromDb(result);
   }
@@ -25,14 +25,14 @@ export class TransactionRepository {
     return adaptTransactionFromDb(result);
   }
 
-  async updateTransactionById(id: number, version: number, transaction: UnsavedTransactionV2) {
-    let result = await this.db.updateRecord(id, version, transaction);
+  async updateTransactionById(id: number, version: number, transaction: UnsavedTransactionV2): Promise<TransactionV2> {
+    const result = await this.db.updateRecord(id, version, transaction);
     return adaptTransactionFromDb(result);
   }
 
 }
 
 function adaptTransactionFromDb(transaction: TransactionV2): TransactionV2 {
-  transaction.postedDate = parseISO(<any>transaction.postedDate);
+  transaction.postedDate = parseISO(transaction.postedDate as unknown as string);
   return transaction;
 }

@@ -1,8 +1,14 @@
 import {TransactionSplit, TransactionV2, UnsavedTransactionV2} from "../../transaction/transaction-model";
 import {TransactionService} from "../../transaction/transaction-service";
 import {getTransactionService} from "../../transaction/transaction-service-instance";
+import moment from "moment";
 
-const moment = require("moment");
+export type SaverResult = {
+  newRecords: number
+  updatedRecords: number
+  unchangedRecords: number
+  totalRecords: number
+}
 
 export class TransactionSaver {
   private service: TransactionService;
@@ -11,7 +17,7 @@ export class TransactionSaver {
     this.service = service || getTransactionService();
   }
 
-  async saveTransactions(transactions: UnsavedTransactionV2[]) {
+  async saveTransactions(transactions: UnsavedTransactionV2[]): Promise<SaverResult> {
     const results = await Promise.all(transactions
       .filter(t => !t.pending)
       .map(t => this.saveTransaction(t))
@@ -30,7 +36,7 @@ export class TransactionSaver {
   }
 
   private async saveTransaction(transaction: UnsavedTransactionV2) {
-    let existingTransaction = await this.getExistingTransaction(transaction.plaidId);
+    const existingTransaction = await this.getExistingTransaction(transaction.plaidId);
     if (existingTransaction) {
       if (isTransactionTheSame(transaction, existingTransaction)) {
         return {

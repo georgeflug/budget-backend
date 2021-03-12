@@ -1,8 +1,8 @@
 import {parseISO} from "date-fns";
 import {getTransactionService} from "./transaction-service-instance";
 import {Route} from "../api/route";
+import express from "express";
 
-const express = require("express");
 const router = express.Router();
 
 const service = getTransactionService();

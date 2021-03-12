@@ -17,7 +17,7 @@ export class FileLister {
     return this.files;
   }
 
-  async shutdown() {
+  async shutdown(): Promise<void> {
     return new Promise(cb => {
       this.watcher.on('close', () => cb());
       this.watcher.close();

@@ -1,10 +1,10 @@
-const plaid = require('plaid');
-const moment = require('moment');
+import * as plaid from 'plaid'
+import moment = require("moment");
 
 const client = new plaid.Client(
-    process.env.PLAID_CLIENT_ID,
-    process.env.PLAID_SECRET,
-    process.env.PLAID_PUBLIC_KEY,
+    process.env.PLAID_CLIENT_ID as string,
+    process.env.PLAID_SECRET as string,
+    process.env.PLAID_PUBLIC_KEY as string,
     plaid.environments['development'],
     {
       version: '2018-05-22'
@@ -12,7 +12,7 @@ const client = new plaid.Client(
 );
 
 async function downloadTransactions() {
-  await getTransactions(process.env.DISCOVER_ACCESS_KEY)
+  await getTransactions(process.env.DISCOVER_ACCESS_KEY as string)
       .then(data => {
         console.log("Downloaded Discover data successfully: " + data.transactions.length);
       })
@@ -25,7 +25,7 @@ async function downloadTransactions() {
         }
       });
 
-  await getTransactions(process.env.FCCU_ACCESS_KEY)
+  await getTransactions(process.env.FCCU_ACCESS_KEY as string)
       .then(data => {
         console.log("Downloaded First Community data successfully: " + data.transactions.length);
       })

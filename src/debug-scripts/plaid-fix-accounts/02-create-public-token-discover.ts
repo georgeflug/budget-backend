@@ -1,9 +1,9 @@
-const plaid = require('plaid');
+import * as plaid from 'plaid'
 
 const client = new plaid.Client(
-    process.env.PLAID_CLIENT_ID,
-    process.env.PLAID_SECRET,
-    process.env.PLAID_PUBLIC_KEY,
+    process.env.PLAID_CLIENT_ID as string,
+    process.env.PLAID_SECRET as string,
+    process.env.PLAID_PUBLIC_KEY as string,
     plaid.environments['development'],
     {
       version: '2018-05-22'
@@ -11,7 +11,7 @@ const client = new plaid.Client(
 );
 
 // Create a public_token for use with Plaid Link's update mode
-client.createPublicToken(process.env.DISCOVER_ACCESS_KEY, (err, result) => {
+client.createPublicToken(process.env.DISCOVER_ACCESS_KEY as string, (err, result) => {
   // Handle err
   // Use the generated public_token to initialize Plaid Link
   // in update mode for a user's Item so that they can provide

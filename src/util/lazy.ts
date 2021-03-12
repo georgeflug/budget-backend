@@ -1,4 +1,4 @@
-export function lazy<T>(supplier: () => T) {
+export function lazy<T>(supplier: () => T): () => T {
   let value: T | null = null;
   return (): T => {
     if (!value) {

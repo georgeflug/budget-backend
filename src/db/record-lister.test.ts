@@ -9,7 +9,7 @@ describe('Record Lister', () => {
 
   beforeEach(async () => {
     listFiles = jest.fn();
-    fileLister = <any>{listFiles};
+    fileLister = { listFiles } as Partial<FileLister> as FileLister;
     recordLister = new RecordLister('doesNotMatter', fileLister);
   });
 

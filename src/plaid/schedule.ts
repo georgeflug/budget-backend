@@ -1,10 +1,10 @@
-import moment from 'moment'
+import moment, {Moment} from 'moment'
 import { saveLatestTransactionsToDb } from './index'
 import { debug, error } from '../log'
 
 const TIME_OF_DAY_TO_RUN_IT = 18
 
-export function startScheduler(getCurrentMoment: any = moment) {
+export function startScheduler(getCurrentMoment: () => Moment = moment): void {
   const today = getCurrentMoment()
   if (today.hour() < TIME_OF_DAY_TO_RUN_IT) {
     scheduleNextExecution(today)

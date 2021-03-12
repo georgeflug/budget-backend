@@ -23,7 +23,7 @@ export class JsonFileName {
     };
   }
 
-  static getFileName(recordId: number, version: number) {
+  static getFileName(recordId: number, version: number): string {
     const recordPart = zeroFill(recordId, FILENAME_LENGTH);
     const versionPart = zeroFill(version, VERSION_LENGTH);
     return `${recordPart}.${versionPart}.json`;

@@ -1,5 +1,5 @@
 export class DateUtil {
-  static now() {
+  static now(): Date {
     return new Date();
   }
 }

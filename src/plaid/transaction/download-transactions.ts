@@ -4,8 +4,7 @@ import {getPlaidClient} from '../client';
 import {BankAccount, bankAccounts} from "../bankAccounts";
 import _ from "lodash";
 import {getTransactionService} from "../../transaction/transaction-service-instance";
-
-const moment = require('moment');
+import moment from "moment";
 
 export async function downloadTransactions(): Promise<PlaidTransaction[]> {
   const transactionService = getTransactionService();
@@ -27,7 +26,7 @@ export async function downloadTransactionsForAccount(account: BankAccount, mostR
   const transactionResult = await getPlaidClient().getTransactions(account.accessKey, startDate, endDate, {
     count: 250,
     offset: 0,
-  }) as any as PlaidTransactionResponse;
+  }) as unknown as PlaidTransactionResponse;
 
   if (transactionResult.transactions.length === 250) {
     throw new Error('Too many records retrieved from Plaid. Manual intervention required');

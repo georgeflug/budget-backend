@@ -1,14 +1,13 @@
 import {debug, error} from "../log";
 import * as http from "http";
 import {routes} from "./routes";
+import express from "express";
+import 'express-async-errors'
 
-const express = require('express');
-require('express-async-errors');
 const app = express();
-const morgan = require('morgan');
-const cors = require('cors');
-
-const compression = require('compression');
+import * as morgan from 'morgan'
+import * as cors  from 'cors'
+import * as compression from 'compression'
 
 const port = 3000;
 // const https = require('https');
@@ -19,7 +18,7 @@ const port = 3000;
 //   cert: fs.readFileSync("./certs/budget-backend-public.crt")
 // };
 
-export function initExpress() {
+export function initExpress(): void {
   app.use(express.json());
   app.use(morgan(':date[iso] ACCESS ":method :url HTTP/:http-version" Remote:":remote-addr - :remote-user" Response: ":status - :response-time ms" Referrer:":referrer" User-agent:":user-agent"'));
   app.use(compression());

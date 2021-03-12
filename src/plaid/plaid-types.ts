@@ -59,7 +59,7 @@ export interface PlaidBalance {
 export interface PlaidTransactionResponse {
   accounts: PlaidAccount[],
   transactions: PlaidTransaction[],
-  item: {},
+  item: Record<string, unknown>,
   total_transactions: number,
   request_id: string  // "45QSn"
 }
