@@ -1,17 +1,14 @@
-import express from 'express'
 import { getBalances } from './balance-service'
 import { parseISO } from 'date-fns'
-import { Route } from '../api/route'
+import { Request, ServerRoute } from '@hapi/hapi'
 
-const router = express.Router()
-
-router.route('/').get(async function (req, res) {
-  const startDate = req.query.startingAt ? parseISO(req.query.startingAt) : undefined
-  const balances = await getBalances(startDate)
-  res.json(balances)
-})
-
-export const balanceRoute: Route = {
-  router,
-  basePath: '/balances',
-}
+export const balanceRoutes: ServerRoute[] = [
+  {
+    method: 'GET',
+    path: '/balances',
+    handler: async (request: Request): Promise<unknown> => {
+      const startDate = request.query.startingAt ? parseISO(request.query.startingAt) : undefined
+      return await getBalances(startDate)
+    },
+  },
+]

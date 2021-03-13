@@ -1,10 +1,4 @@
 // import request from 'supertest'
-import express from 'express'
-import { featureIdeaRoute } from './feature-idea-controller'
-
-const app = express()
-app.use(express.json())
-app.use(featureIdeaRoute.router)
 
 describe('Feature Idea Controller', () => {
   it('should save a feature idea', async () => {

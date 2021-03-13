@@ -1,35 +1,34 @@
 import { parseISO } from 'date-fns'
 import { getTransactionService } from './transaction-service-instance'
-import { Route } from '../api/route'
-import express from 'express'
-
-const router = express.Router()
+import { Request, ServerRoute } from '@hapi/hapi'
+import { TransactionSplit } from './transaction-model'
 
 const service = getTransactionService()
 
-router.route('/').get(async function (req, res) {
-  const results = await (req.query.startingAt
-    ? service.listTransactionsAfter(parseISO(req.query.startingAt))
-    : service.listTransactions())
-  res.json(results)
-})
-
-router
-  .route('/:id')
-  .get(async function (req, res) {
-    const result = await service.findTransactionById(parseInt(req.params.id))
-    res.json(result)
-  })
-  .put(async function (req, res) {
-    const result = await service.updateTransactionSplits(
-      parseInt(req.params.id),
-      parseInt(req.body.version),
-      req.body.splits,
-    )
-    res.json(result)
-  })
-
-export const transactionRoute: Route = {
-  router,
-  basePath: '/transactions',
-}
+export const transactionRoutes: ServerRoute[] = [
+  {
+    method: 'GET',
+    path: '/transactions',
+    handler: async request =>
+      await (request.query.startingAt
+        ? service.listTransactionsAfter(parseISO(request.query.startingAt))
+        : service.listTransactions()),
+  },
+  {
+    method: 'GET',
+    path: '/transactions/{id}',
+    handler: async request => await service.findTransactionById(parseInt(request.params.id)),
+  },
+  {
+    method: 'PUT',
+    path: '/transactions/{id}',
+    handler: async (request: Request): Promise<unknown> => {
+      const payload = request.payload as { version: string; splits: TransactionSplit[] }
+      return await service.updateTransactionSplits(
+        parseInt(request.params.id),
+        parseInt(payload.version),
+        payload.splits,
+      )
+    },
+  },
+]

@@ -1,20 +1,18 @@
-import { Route } from '../route'
 import { error } from '../../log'
-import express from 'express'
 import { saveLatestTransactionsToDb } from '../../plaid'
+import { ServerRoute } from '@hapi/hapi'
 
-const router = express.Router()
-
-router.route('/').post(async function (req, res) {
-  try {
-    res.json(await saveLatestTransactionsToDb())
-  } catch (e) {
-    error('REFRESH', 'Could not refresh transactions', e)
-    throw e
-  }
-})
-
-export const refreshRoute: Route = {
-  router,
-  basePath: '/refresh',
-}
+export const refreshRoutes: ServerRoute[] = [
+  {
+    method: 'POST',
+    path: '/refresh',
+    handler: async (): Promise<unknown> => {
+      try {
+        return await saveLatestTransactionsToDb()
+      } catch (e) {
+        error('REFRESH', 'Could not refresh transactions', e)
+        throw e
+      }
+    },
+  },
+]

@@ -1,19 +1,20 @@
-import { Route } from './route'
-
-import { featureIdeaRoute } from '../feature-idea/feature-idea-controller'
-import { statusRoute } from './status/status-controller'
-import { transactionRoute } from '../transaction/transaction-controller'
-import { refreshRoute } from './refresh/refresh-controller'
-import { balanceRoute } from '../balance/balance-controller'
-import { checkAccountConnectivityRoute } from './check-account-connectivity/check-accounts-controller'
-import { rawPlaidRoute } from '../raw-plaid/raw-plaid-controller'
+import { featureIdeaRoutes } from '../feature-idea/feature-idea-controller'
+import { ServerRoute } from '@hapi/hapi'
+import { statusRoutes } from './status/status-controller'
+import { transactionRoutes } from '../transaction/transaction-controller'
+import { refreshRoutes } from './refresh/refresh-controller'
+import { balanceRoutes } from '../balance/balance-controller'
+import { checkAccountConnectivityRoutes } from './check-account-connectivity/check-accounts-controller'
+import { rawPlaidRoutes } from '../raw-plaid/raw-plaid-controller'
+import { staticFileRoutes } from './static-files'
 
 export const routes = [
-  featureIdeaRoute,
-  statusRoute,
-  transactionRoute,
-  refreshRoute,
-  balanceRoute,
-  checkAccountConnectivityRoute,
-  rawPlaidRoute,
-] as Route[]
+  featureIdeaRoutes,
+  statusRoutes,
+  transactionRoutes,
+  refreshRoutes,
+  balanceRoutes,
+  checkAccountConnectivityRoutes,
+  rawPlaidRoutes,
+  staticFileRoutes,
+].flat() as ServerRoute[]

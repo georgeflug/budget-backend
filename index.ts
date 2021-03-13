@@ -1,5 +1,5 @@
-import { initExpress } from './src/api'
+import { initServer } from './src/api'
 import { startScheduler } from './src/plaid/schedule'
 
-initExpress()
+initServer()
 startScheduler()
