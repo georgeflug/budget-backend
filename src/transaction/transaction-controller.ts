@@ -1,7 +1,8 @@
 import { parseISO } from 'date-fns'
 import { getTransactionService } from './transaction-service-instance'
 import { Request, ServerRoute } from '@hapi/hapi'
-import { TransactionSplit } from './transaction-model'
+import { TransactionSplit, transactionSplitSchema, transactionV2Schema } from './transaction-model'
+import Joi from 'joi'
 
 const service = getTransactionService()
 
@@ -13,11 +14,31 @@ export const transactionRoutes: ServerRoute[] = [
       await (request.query.startingAt
         ? service.listTransactionsAfter(parseISO(request.query.startingAt))
         : service.listTransactions()),
+    options: {
+      validate: {
+        query: Joi.object({
+          startingAt: Joi.date().required(),
+        }),
+      },
+      response: {
+        schema: Joi.array().items(transactionV2Schema),
+      },
+    },
   },
   {
     method: 'GET',
     path: '/transactions/{id}',
     handler: async request => await service.findTransactionById(parseInt(request.params.id)),
+    options: {
+      validate: {
+        params: Joi.object({
+          id: Joi.string().required(),
+        }),
+      },
+      response: {
+        schema: transactionV2Schema,
+      },
+    },
   },
   {
     method: 'PUT',
@@ -29,6 +50,17 @@ export const transactionRoutes: ServerRoute[] = [
         parseInt(payload.version),
         payload.splits,
       )
+    },
+    options: {
+      validate: {
+        payload: Joi.object({
+          version: Joi.string().required(),
+          splits: Joi.array().items(transactionSplitSchema).min(1),
+        }),
+      },
+      response: {
+        schema: transactionV2Schema,
+      },
     },
   },
 ]

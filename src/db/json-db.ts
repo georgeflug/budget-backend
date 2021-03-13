@@ -7,6 +7,7 @@ import { JsonCursor } from './json-cursor'
 import { FileCache } from './file-cache'
 import { deepCompare, orderedStringify } from '../util/json-util'
 import { RecordLister } from './record-lister'
+import Joi from 'joi'
 
 export type DbRecord = {
   recordId: number
@@ -14,6 +15,13 @@ export type DbRecord = {
   createdAt: Date
   modifiedAt: Date
 }
+
+export const dbRecordSchema = Joi.object({
+  recordId: Joi.number(),
+  version: Joi.number(),
+  createdAt: Joi.date(),
+  modifiedAt: Joi.date(),
+})
 
 const dbRecordKeys: Array<keyof DbRecord> = ['recordId', 'version', 'createdAt', 'modifiedAt']
 

@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 export enum CheckAccountStatus {
   Connected = 'Connected',
   NeedsLogin = 'NeedsLogin',
@@ -9,3 +11,9 @@ export interface CheckAccountResult {
   status: CheckAccountStatus
   linkToken: string
 }
+
+export const checkAccountResultSchema = Joi.object({
+  accountName: Joi.string(),
+  status: Joi.string(),
+  linkToken: Joi.string(),
+})

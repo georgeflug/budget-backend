@@ -1,4 +1,5 @@
-import { DbRecord } from '../db/json-db'
+import { DbRecord, dbRecordSchema } from '../db/json-db'
+import Joi from 'joi'
 
 export type UnsavedTransactionV2 = {
   plaidId: string
@@ -17,3 +18,19 @@ export interface TransactionSplit {
   budget: string
   description: string
 }
+
+export const transactionSplitSchema = Joi.object({
+  amount: Joi.number(),
+  budget: Joi.string(),
+  description: Joi.string(),
+})
+
+export const transactionV2Schema = dbRecordSchema.keys({
+  plaidId: Joi.string(),
+  totalAmount: Joi.number(),
+  account: Joi.string(),
+  postedDate: Joi.date(),
+  postedDescription: Joi.string(),
+  pending: Joi.boolean(),
+  splits: Joi.array().items(transactionSplitSchema).min(1),
+})
