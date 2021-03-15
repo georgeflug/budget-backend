@@ -7,6 +7,8 @@ export type UnsavedFeatureIdea = {
 
 export type FeatureIdea = DbRecord & UnsavedFeatureIdea
 
-export const featureIdeaSchema = dbRecordSchema.keys({
-  description: Joi.string(),
-})
+export const featureIdeaSchema = dbRecordSchema
+  .keys({
+    description: Joi.string(),
+  })
+  .label('Feature Idea')

@@ -1,5 +1,6 @@
 import * as Path from 'path'
-import { ServerRoute } from '@hapi/hapi'
+import { ServerRegisterPluginObject, ServerRoute } from '@hapi/hapi'
+import inert from '@hapi/inert'
 
 export const staticFileRoutes: ServerRoute[] = [
   {
@@ -11,5 +12,11 @@ export const staticFileRoutes: ServerRoute[] = [
         redirectToSlash: true,
       },
     },
+  },
+]
+
+export const staticFilePlugins: ServerRegisterPluginObject<any>[] = [
+  {
+    plugin: inert,
   },
 ]

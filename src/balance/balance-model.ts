@@ -9,8 +9,10 @@ export type UnsavedBalance = {
 
 export type Balance = DbRecord & UnsavedBalance
 
-export const balanceSchema = dbRecordSchema.keys({
-  accountId: Joi.string(),
-  amount: Joi.number(),
-  name: Joi.string(),
-})
+export const balanceSchema = dbRecordSchema
+  .keys({
+    accountId: Joi.string(),
+    amount: Joi.number(),
+    name: Joi.string(),
+  })
+  .label('Balance')

@@ -20,6 +20,9 @@ How to run the backend on the server:
 ### Run Tests
 `npm run test`
 
+### Swagger Documentation
+View the documentation at `localhost:3000/documentation`
+
 ## Plaid Link
 
 ### New Linked Account

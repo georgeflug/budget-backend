@@ -13,13 +13,14 @@ export const balanceRoutes: ServerRoute[] = [
       return await getBalances(startDate)
     },
     options: {
+      tags: ['api'],
       validate: {
         query: Joi.object({
           startingAt: Joi.date().required(),
         }),
       },
       response: {
-        schema: Joi.array().items(balanceSchema),
+        schema: Joi.array().items(balanceSchema).label('Balance List'),
       },
     },
   },

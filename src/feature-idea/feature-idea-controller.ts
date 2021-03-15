@@ -1,7 +1,7 @@
 import { listFeatureIdeas, saveFeatureIdea } from './feature-idea-service'
-import { ServerRoute } from '@hapi/hapi'
 import Joi from 'joi'
 import { featureIdeaSchema } from './feature-idea-model'
+import { ServerRoute } from '@hapi/hapi'
 
 export const featureIdeaRoutes: ServerRoute[] = [
   {
@@ -9,8 +9,9 @@ export const featureIdeaRoutes: ServerRoute[] = [
     path: '/feature-ideas',
     handler: async () => await listFeatureIdeas(),
     options: {
+      tags: ['api'],
       response: {
-        schema: Joi.array().items(featureIdeaSchema),
+        schema: Joi.array().items(featureIdeaSchema).label('Feature Idea List'),
       },
     },
   },
@@ -19,10 +20,11 @@ export const featureIdeaRoutes: ServerRoute[] = [
     path: '/feature-ideas',
     handler: async request => await saveFeatureIdea(request.payload as { description: string }),
     options: {
+      tags: ['api'],
       validate: {
         payload: Joi.object({
           description: Joi.string().required(),
-        }),
+        }).label('Feature Item Creation'),
       },
       response: {
         schema: featureIdeaSchema,

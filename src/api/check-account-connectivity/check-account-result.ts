@@ -16,4 +16,4 @@ export const checkAccountResultSchema = Joi.object({
   accountName: Joi.string(),
   status: Joi.string(),
   linkToken: Joi.string(),
-})
+}).label('Check Account Result')

@@ -14,5 +14,8 @@ export const refreshRoutes: ServerRoute[] = [
         throw e
       }
     },
+    options: {
+      tags: ['api'],
+    },
   },
 ]

@@ -1,7 +1,7 @@
 import { checkAccounts } from './check-accounts-service'
-import { ServerRoute } from '@hapi/hapi'
 import Joi from 'joi'
 import { checkAccountResultSchema } from './check-account-result'
+import { ServerRoute } from '@hapi/hapi'
 
 export const checkAccountConnectivityRoutes: ServerRoute[] = [
   {
@@ -9,8 +9,9 @@ export const checkAccountConnectivityRoutes: ServerRoute[] = [
     path: '/check-account-connectivity',
     handler: async () => await checkAccounts(),
     options: {
+      tags: ['api'],
       response: {
-        schema: Joi.array().items(checkAccountResultSchema),
+        schema: Joi.array().items(checkAccountResultSchema).label('Check Account Connectivity List'),
       },
     },
   },

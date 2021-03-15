@@ -15,13 +15,14 @@ export const rawPlaidRoutes: ServerRoute[] = [
       )
     },
     options: {
+      tags: ['api'],
       validate: {
         query: Joi.object({
           date: Joi.date().required(),
         }),
       },
       response: {
-        schema: Joi.array().items(rawPlaidSchema),
+        schema: Joi.array().items(rawPlaidSchema).label('Raw-Plaid List'),
       },
     },
   },

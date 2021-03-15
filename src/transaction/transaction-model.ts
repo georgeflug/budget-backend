@@ -23,14 +23,21 @@ export const transactionSplitSchema = Joi.object({
   amount: Joi.number(),
   budget: Joi.string(),
   description: Joi.string(),
-})
+}).label('Transaction-Split')
 
-export const transactionV2Schema = dbRecordSchema.keys({
-  plaidId: Joi.string(),
-  totalAmount: Joi.number(),
-  account: Joi.string(),
-  postedDate: Joi.date(),
-  postedDescription: Joi.string(),
-  pending: Joi.boolean(),
-  splits: Joi.array().items(transactionSplitSchema).min(1),
-})
+export const transactionSplitListSchema = Joi.array()
+  .items(transactionSplitSchema)
+  .min(1)
+  .label('Transaction-Split List')
+
+export const transactionV2Schema = dbRecordSchema
+  .keys({
+    plaidId: Joi.string(),
+    totalAmount: Joi.number(),
+    account: Joi.string(),
+    postedDate: Joi.date(),
+    postedDescription: Joi.string(),
+    pending: Joi.boolean(),
+    splits: transactionSplitListSchema,
+  })
+  .label('Transaction')

@@ -8,6 +8,8 @@ export type UnsavedRawPlaid = {
 
 export type RawPlaid = DbRecord & UnsavedRawPlaid
 
-export const rawPlaidSchema = dbRecordSchema.keys({
-  data: Joi.array().items(Joi.object()),
-})
+export const rawPlaidSchema = dbRecordSchema
+  .keys({
+    data: Joi.array().items(Joi.object().label('Raw-Plaid Internal Data')).label('Raw-Plaid Internal Data List'),
+  })
+  .label('Raw-Plaid')
