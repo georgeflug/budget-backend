@@ -2,11 +2,10 @@ version: "2"
 services:
   budget-backend:
     container_name: budget-backend
-    restart: always
+    restart: unless-stopped
     build: .
     ports:
       - "3000:3000"
-      - "9229:9229"
     environment:
       PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
       PLAID_SECRET: ${PLAID_SECRET}
@@ -21,3 +20,11 @@ services:
     volumes:
       - ../data:/data
       - ../../budget-web/build:/usr/budget-web/build
+    labels:
+      - "traefik.http.routers.budget.rule=Host(`budget.homelab.local`)"
+      - "traefik.http.services.budget.loadbalancer.server.port=3000"
+
+networks:
+  default:
+    external:
+      name: homelab-net
