@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 export const config = {
   plaidClientId: process.env.PLAID_CLIENT_ID as string,
   plaidSecret: process.env.PLAID_SECRET as string,
@@ -12,4 +16,6 @@ export const config = {
   budgetCertPassword: process.env.BUDGET_CERT_PASSWORD as string,
 
   dataFolder: (process.env.DATA_FOLDER as string) || 'tmp',
+
+  port: parseInt(process.env.PORT || '3000'),
 }

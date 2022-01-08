@@ -32,6 +32,8 @@ export class TransactionRepository {
 }
 
 function adaptTransactionFromDb(transaction: TransactionV2): TransactionV2 {
-  transaction.postedDate = parseISO((transaction.postedDate as unknown) as string)
+  if (!(transaction.postedDate instanceof Date)) {
+    transaction.postedDate = parseISO((transaction.postedDate as unknown) as string)
+  }
   return transaction
 }

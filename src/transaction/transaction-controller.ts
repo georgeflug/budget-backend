@@ -18,7 +18,7 @@ export const transactionRoutes: ServerRoute[] = [
       tags: ['api'],
       validate: {
         query: Joi.object({
-          startingAt: Joi.date().required(),
+          startingAt: Joi.date(),
         }),
       },
       response: {
@@ -57,9 +57,11 @@ export const transactionRoutes: ServerRoute[] = [
       tags: ['api'],
       validate: {
         payload: Joi.object({
-          version: Joi.string().required(),
+          version: Joi.number().required(),
           splits: transactionSplitListSchema,
-        }).label('Transaction Update'),
+        })
+          .label('Transaction Update')
+          .unknown(true),
       },
       response: {
         schema: transactionV2Schema,

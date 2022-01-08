@@ -5,10 +5,10 @@ import inert from '@hapi/inert'
 export const staticFileRoutes: ServerRoute[] = [
   {
     method: 'GET',
-    path: '/{param*}',
+    path: '/budget-web/{param*}',
     handler: {
       directory: {
-        path: Path.join(__dirname, '../../../budget-web/dist'),
+        path: Path.join(__dirname, '../../../budget-web/build'),
         redirectToSlash: true,
       },
     },

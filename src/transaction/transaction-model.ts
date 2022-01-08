@@ -21,8 +21,8 @@ export interface TransactionSplit {
 
 export const transactionSplitSchema = Joi.object({
   amount: Joi.number(),
-  budget: Joi.string(),
-  description: Joi.string(),
+  budget: Joi.string().empty(''),
+  description: Joi.string().empty(''),
 }).label('Transaction-Split')
 
 export const transactionSplitListSchema = Joi.array()
